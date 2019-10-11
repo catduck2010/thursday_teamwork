@@ -125,8 +125,8 @@ public class DateChooserJButton extends JButton {
 
     private class DateChooser extends JPanel implements ActionListener, ChangeListener {
 
-        int startYear = 2000; //�
-        int lastYear = Calendar.getInstance().get(Calendar.YEAR) + 50; //��
+        int startYear = Calendar.getInstance().get(Calendar.YEAR); //�
+        int lastYear = Calendar.getInstance().get(Calendar.YEAR) + 1; //��
         int width = 230; //������
         int height = 230; //����        
         Color backGroundColor = Color.gray; //
