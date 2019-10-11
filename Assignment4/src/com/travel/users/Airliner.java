@@ -29,5 +29,9 @@ public class Airliner extends User {
     public void setProviderName(String providerName) {
         this.providerName = providerName;
     }
+
+    public FlightDirectory getFlightDirectory() {
+        return flightDirectory;
+    }
     
 }

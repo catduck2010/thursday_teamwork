@@ -19,4 +19,10 @@ public class FlightDirectory {
         this.flightDir = new ArrayList<>();
     }
 
+    public ArrayList<Flight> getFlightDir() {
+        return flightDir;
+    }
+    
+    
+
 }
