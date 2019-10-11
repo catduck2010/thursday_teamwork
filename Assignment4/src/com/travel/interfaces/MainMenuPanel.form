@@ -16,7 +16,7 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jSplitPane1" alignment="1" pref="562" max="32767" attributes="0"/>
+          <Component id="jSplitPane1" alignment="1" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -28,6 +28,9 @@
   <SubComponents>
     <Container class="javax.swing.JSplitPane" name="jSplitPane1">
       <Properties>
+        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+          <Border info="null"/>
+        </Property>
         <Property name="orientation" type="int" value="0"/>
       </Properties>
 
@@ -58,7 +61,7 @@
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jButton5" min="-2" pref="178" max="-2" attributes="0"/>
-                              <EmptySpace pref="190" max="32767" attributes="0"/>
+                              <EmptySpace pref="194" max="32767" attributes="0"/>
                               <Component id="btnManageFlight" min="-2" pref="178" max="-2" attributes="0"/>
                           </Group>
                       </Group>
