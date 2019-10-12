@@ -22,6 +22,9 @@ public class SearchFlightPanel extends javax.swing.JPanel {
         initComponents();
         this.bottomPanel=p;
         btnDateChooser.setBorder(btnSearch.getBorder());
+        int[][] seats=new int[25][6];
+        seats[6][5]=1;
+        btnSeatChooser.setSeatTable(seats);
     }
 
     /**
@@ -44,6 +47,7 @@ public class SearchFlightPanel extends javax.swing.JPanel {
         jTextField2 = new javax.swing.JTextField();
         btnSearch = new javax.swing.JButton();
         btnGoBack = new javax.swing.JButton();
+        btnSeatChooser = new com.travel.util.SeatChooserJButton();
 
         jLabel1.setText("Search Flights");
 
@@ -74,6 +78,9 @@ public class SearchFlightPanel extends javax.swing.JPanel {
                 .addComponent(btnGoBack, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnSeatChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
@@ -117,7 +124,9 @@ public class SearchFlightPanel extends javax.swing.JPanel {
                     .addComponent(jLabel5)
                     .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
-                .addContainerGap(69, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnSeatChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(47, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -133,6 +142,7 @@ public class SearchFlightPanel extends javax.swing.JPanel {
     private com.travel.util.DateChooserJButton btnDateChooser;
     private javax.swing.JButton btnGoBack;
     private javax.swing.JButton btnSearch;
+    private com.travel.util.SeatChooserJButton btnSeatChooser;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
