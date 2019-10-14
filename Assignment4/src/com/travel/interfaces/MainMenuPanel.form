@@ -52,17 +52,17 @@
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="1" max="-2" attributes="0">
                                   <Component id="jLabel1" max="32767" attributes="0"/>
-                                  <Component id="jButton1" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="jButton2" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="jButton3" alignment="0" pref="180" max="32767" attributes="0"/>
+                                  <Component id="btnAdmins" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="btnAirliner" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="btnCustomers" alignment="0" pref="180" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace max="32767" attributes="0"/>
                               <Component id="btnBookFlight" min="-2" pref="178" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="jButton5" min="-2" pref="178" max="-2" attributes="0"/>
+                              <Component id="btnFlights" min="-2" pref="178" max="-2" attributes="0"/>
                               <EmptySpace pref="194" max="32767" attributes="0"/>
-                              <Component id="btnManageFlight" min="-2" pref="178" max="-2" attributes="0"/>
+                              <Component id="btnMyFlight" min="-2" pref="178" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -75,18 +75,18 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnAdmins" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jButton2" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnAirliner" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jButton3" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnCustomers" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="btnBookFlight" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jButton5" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="btnManageFlight" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnFlights" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnMyFlight" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="0" pref="8" max="32767" attributes="0"/>
                   </Group>
@@ -99,17 +99,17 @@
                 <Property name="text" type="java.lang.String" value="*Username*"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton1">
+            <Component class="javax.swing.JButton" name="btnAdmins">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Manage Admins"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton2">
+            <Component class="javax.swing.JButton" name="btnAirliner">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Manage Airliners"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton3">
+            <Component class="javax.swing.JButton" name="btnCustomers">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Manage Customers"/>
               </Properties>
@@ -122,12 +122,12 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBookFlightActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton5">
+            <Component class="javax.swing.JButton" name="btnFlights">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Manage Flights"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="btnManageFlight">
+            <Component class="javax.swing.JButton" name="btnMyFlight">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Manage My Flights"/>
               </Properties>

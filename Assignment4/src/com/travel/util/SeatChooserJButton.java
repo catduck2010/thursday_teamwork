@@ -4,6 +4,7 @@ package com.travel.util;
  * <code>SeatChooserJButton from DateChooserJButton</code>
  *
  * @author Lihang Zhou
+ * based on DateChooserJButton.java
  */
 import java.awt.Color;
 import java.awt.Font;

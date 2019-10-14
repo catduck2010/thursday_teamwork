@@ -61,7 +61,7 @@ public class MainFrame extends javax.swing.JFrame {
         loggedIn = b;
     }
 
-    public void clearCardLayout() {
+    public void clearRightPanel() {
         CardLayout layout = (CardLayout) this.rightPanel.getLayout();
         for (int i = rightPanel.getComponentCount() - 1; i > 0; i--) {
             rightPanel.remove(i);
@@ -182,7 +182,7 @@ public class MainFrame extends javax.swing.JFrame {
         } else {
             if (JOptionPane.showConfirmDialog(this, "Are you sure to log out?", "WARNING",
                     JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-                clearCardLayout();
+                clearRightPanel();
                 loggedIn = false;
                 setLoggedIn(loggedIn);
             }
