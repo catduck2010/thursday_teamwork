@@ -14,8 +14,7 @@ import java.util.Date;
  */
 public class Flight {
 
-    private int seats;
-    private String planeModel;
+    private String modelNum;
     private Date takeOffTime;
     private Date landTime;
     private String departure;
@@ -36,6 +35,8 @@ public class Flight {
 
     private CustomerList onBoard;
 
+    private String flightNum;
+    
     public Flight() {
         generateSeatTable();
         travelers=new ArrayList<>();
@@ -44,6 +45,66 @@ public class Flight {
     public ArrayList<Traveler> getTravelers(){
         return travelers;
     }
+
+    public String getModelNum() {
+        return modelNum;
+    }
+
+    public void setModelNum(String modelNum) {
+        this.modelNum = modelNum;
+    }
+
+
+    public Date getTakeOffTime() {
+        return takeOffTime;
+    }
+
+    public void setTakeOffTime(Date takeOffTime) {
+        this.takeOffTime = takeOffTime;
+    }
+
+    public Date getLandTime() {
+        return landTime;
+    }
+
+    public void setLandTime(Date landTime) {
+        this.landTime = landTime;
+    }
+
+    public String getDeparture() {
+        return departure;
+    }
+
+    public void setDeparture(String departure) {
+        this.departure = departure;
+    }
+
+    public String getArrival() {
+        return arrival;
+    }
+
+    public void setArrival(String arrival) {
+        this.arrival = arrival;
+    }
+
+    public double getTicketPrice() {
+        return ticketPrice;
+    }
+
+    public void setTicketPrice(double ticketPrice) {
+        this.ticketPrice = ticketPrice;
+    }
+
+    public String getFlightNum() {
+        return flightNum;
+    }
+
+    public void setFlightNum(String flightNum) {
+        this.flightNum = flightNum;
+    }
+    private CustomerList onBoard;
+
+    
 
     public void generateSeatTable() {
         seatTable = new int[25][6];
