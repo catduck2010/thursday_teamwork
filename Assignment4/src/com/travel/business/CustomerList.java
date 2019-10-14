@@ -13,7 +13,7 @@ import java.util.ArrayList;
  * @author lihang
  */
 public class CustomerList {
-
+    
     private final ArrayList<Customer> customerList;
 
     public CustomerList() {
