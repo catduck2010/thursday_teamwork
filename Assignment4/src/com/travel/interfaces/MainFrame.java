@@ -5,14 +5,12 @@
  */
 package com.travel.interfaces;
 
-import com.travel.users.Admin;
 import com.travel.business.AdminList;
 import com.travel.business.AirlinerList;
 import com.travel.business.Business;
 import com.travel.business.CustomerList;
 import com.travel.users.User;
 import java.awt.CardLayout;
-import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -35,10 +33,11 @@ public class MainFrame extends javax.swing.JFrame {
 
     public MainFrame() {
         initComponents();
-        this.business=Business.getInstance();
-        this.admins=business.getAdmins();
-        this.airliners=business.getAirliners();
-        this.customers=business.getCustomers();
+        this.business = Business.getInstance();
+        this.admins = business.getAdmins();
+        this.airliners = business.getAirliners();
+        this.customers = business.getCustomers();
+        business.setMainFrame(this);
     }
 
     public JPanel getRightPanel() {

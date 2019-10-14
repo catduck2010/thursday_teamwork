@@ -5,6 +5,7 @@
  */
 package com.travel.business;
 
+import com.travel.interfaces.MainFrame;
 import com.travel.users.Admin;
 import java.util.Date;
 
@@ -18,6 +19,7 @@ public class Business {
     private final AdminList admins = new AdminList();
     private final AirlinerList airliners = new AirlinerList();
     private final CustomerList customers = new CustomerList();
+    private MainFrame mFrame;
 
     public Business() {
         this.admins.addAdmin(new Admin("Administrator", "admin",
@@ -36,6 +38,14 @@ public class Business {
     public AdminList getAdmins() {
         return admins;
     }
+    
+    public MainFrame getMainFrame(){
+        return mFrame;
+    }
+    
+    public void setMainFrame(MainFrame mf){
+        mFrame=mf;
+    }
 
     public AirlinerList getAirliners() {
         return airliners;
@@ -52,7 +62,7 @@ public class Business {
     public Date getToday(){
         Date today=new Date();
         
-        
+        return today;
     }
 
 }

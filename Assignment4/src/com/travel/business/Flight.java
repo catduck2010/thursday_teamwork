@@ -22,6 +22,7 @@ public class Flight {
     private String arrival;
     private double ticketPrice;
     private int[][] seatTable;
+    private Object[][] travelerTable;
     private String flightNum;
     private final ArrayList<Traveler> travelers;
 
@@ -46,6 +47,7 @@ public class Flight {
 
     public void generateSeatTable() {
         seatTable = new int[25][6];
+        travelerTable = new Object[25][6];
     }
 
     public int[][] getSeatTable() {
@@ -170,6 +172,10 @@ public class Flight {
 
     public void setOnBoard(CustomerList onBoard) {
         this.onBoard = onBoard;
+    }
+    
+    public void getTravelerSeat(){
+        
     }
     
 }
