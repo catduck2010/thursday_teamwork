@@ -5,6 +5,8 @@
  */
 package com.travel.interfaces;
 
+import com.travel.users.Airliner;
+import com.travel.users.Customer;
 import com.travel.users.User;
 import java.awt.CardLayout;
 
@@ -23,7 +25,7 @@ public class MainMenuPanel extends javax.swing.JPanel {
     public MainMenuPanel(User u) {
         initComponents();
         this.user=u;
-        this.jLabel1.setText(u.getUsername());
+        //this.lblUsername.setText(u.getUsername());
         detectUserType();
     }
     
@@ -32,6 +34,7 @@ public class MainMenuPanel extends javax.swing.JPanel {
         
         switch(type){
             case User.ADMINISTRATOR:
+                lblUsername.setText(user.getUsername());
                 btnAdmins.setEnabled(true);
                 btnAirliner.setEnabled(true);
                 btnCustomers.setEnabled(true);
@@ -40,6 +43,7 @@ public class MainMenuPanel extends javax.swing.JPanel {
                 btnMyFlight.setEnabled(false);
                 break;
             case User.AIRLINER:
+                lblUsername.setText(((Airliner)user).getProviderName());
                 btnAdmins.setEnabled(false);
                 btnAirliner.setEnabled(false);
                 btnCustomers.setEnabled(false);
@@ -48,6 +52,7 @@ public class MainMenuPanel extends javax.swing.JPanel {
                 btnMyFlight.setEnabled(false);
                 break;
             case User.CUSTOMER:
+                lblUsername.setText(((Customer)user).getFullName());
                 btnAdmins.setEnabled(false);
                 btnAirliner.setEnabled(false);
                 btnCustomers.setEnabled(false);
@@ -72,7 +77,7 @@ public class MainMenuPanel extends javax.swing.JPanel {
 
         jSplitPane1 = new javax.swing.JSplitPane();
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        lblUsername = new javax.swing.JLabel();
         btnAdmins = new javax.swing.JButton();
         btnAirliner = new javax.swing.JButton();
         btnCustomers = new javax.swing.JButton();
@@ -85,7 +90,8 @@ public class MainMenuPanel extends javax.swing.JPanel {
         jSplitPane1.setBorder(null);
         jSplitPane1.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
 
-        jLabel1.setText("*Username*");
+        lblUsername.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblUsername.setText("*Username*");
 
         btnAdmins.setText("Manage Admins");
 
@@ -113,7 +119,7 @@ public class MainMenuPanel extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblUsername, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnAdmins, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnAirliner, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnCustomers, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE))
@@ -129,7 +135,7 @@ public class MainMenuPanel extends javax.swing.JPanel {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addComponent(lblUsername)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnAdmins)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -184,9 +190,9 @@ public class MainMenuPanel extends javax.swing.JPanel {
     private javax.swing.JButton btnCustomers;
     private javax.swing.JButton btnFlights;
     private javax.swing.JButton btnMyFlight;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSplitPane jSplitPane1;
+    private javax.swing.JLabel lblUsername;
     // End of variables declaration//GEN-END:variables
 }

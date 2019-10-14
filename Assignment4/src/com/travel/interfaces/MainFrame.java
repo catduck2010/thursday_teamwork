@@ -37,6 +37,7 @@ public class MainFrame extends javax.swing.JFrame {
         this.rightPanel.setLayout(new CardLayout());
         this.admins.addAdmin(new Admin("Administrator", "admin",
                 this.airliners, this.customers));
+        this.customers.addCustomer("Lwh", "lwh", "Lynn", "Appleseed");
     }
 
     public JPanel getRightPanel() {

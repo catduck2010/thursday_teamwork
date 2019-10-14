@@ -11,5 +11,14 @@ package com.travel.business;
  */
 public class Aircraft {
     String modelNum;
+    
     //String 
+
+    public String getModelNum() {
+        return modelNum;
+    }
+
+    public void setModelNum(String modelNum) {
+        this.modelNum = modelNum;
+    }
 }

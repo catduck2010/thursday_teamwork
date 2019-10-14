@@ -64,4 +64,9 @@ public abstract class User {
     public boolean isAirliner() {
         return userType == User.AIRLINER;
     }
+    
+    @Override
+    public String toString(){
+        return this.username;
+    }
 }

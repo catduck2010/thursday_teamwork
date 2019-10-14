@@ -57,7 +57,7 @@ public class DateChooserJButton extends JButton {
             this.preLabel = preLabel;
         }
         setDate(date);
-        setBorder(null);
+        //setBorder(null);
         setCursor(new Cursor(Cursor.HAND_CURSOR));
         super.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
