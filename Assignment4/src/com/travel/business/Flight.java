@@ -5,6 +5,7 @@
  */
 package com.travel.business;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -21,11 +22,26 @@ public class Flight {
     private String arrival;
     private double ticketPrice;
     private int[][] seatTable;
+    private String flightNum;
+    private final ArrayList<Traveler> travelers;
+
+    public String getFlightNum() {
+        return flightNum;
+    }
+
+    public void setFlightNum(String flightNum) {
+        this.flightNum = flightNum;
+    }
 
     private CustomerList onBoard;
 
     public Flight() {
         generateSeatTable();
+        travelers=new ArrayList<>();
+    }
+    
+    public ArrayList<Traveler> getTravelers(){
+        return travelers;
     }
 
     public void generateSeatTable() {
@@ -94,4 +110,66 @@ public class Flight {
         return column;
 
     }
+    
+    @Override
+    public String toString(){
+        return flightNum;
+    }
+
+    public String getPlaneModel() {
+        return planeModel;
+    }
+
+    public void setPlaneModel(String planeModel) {
+        this.planeModel = planeModel;
+    }
+
+    public Date getTakeOffTime() {
+        return takeOffTime;
+    }
+
+    public void setTakeOffTime(Date takeOffTime) {
+        this.takeOffTime = takeOffTime;
+    }
+
+    public Date getLandTime() {
+        return landTime;
+    }
+
+    public void setLandTime(Date landTime) {
+        this.landTime = landTime;
+    }
+
+    public String getDeparture() {
+        return departure;
+    }
+
+    public void setDeparture(String departure) {
+        this.departure = departure;
+    }
+
+    public String getArrival() {
+        return arrival;
+    }
+
+    public void setArrival(String arrival) {
+        this.arrival = arrival;
+    }
+
+    public double getTicketPrice() {
+        return ticketPrice;
+    }
+
+    public void setTicketPrice(double ticketPrice) {
+        this.ticketPrice = ticketPrice;
+    }
+
+    public CustomerList getOnBoard() {
+        return onBoard;
+    }
+
+    public void setOnBoard(CustomerList onBoard) {
+        this.onBoard = onBoard;
+    }
+    
 }

@@ -5,18 +5,22 @@
  */
 package com.travel.business;
 
+import com.travel.users.User;
+
 /**
  *
  * @author lihang
  */
-public class Aircraft {
-    String modelNum;
+public class Traveler {
+    String firstName;
+    String lastName;
+    String ID;
+    User orderPlacedBy;
+    String seat;
     
-    public String getModelNum() {
-        return modelNum;
+    @Override
+    public String toString(){
+        return firstName+" "+lastName;
     }
-
-    public void setModelNum(String modelNum) {
-        this.modelNum = modelNum;
-    }
+    
 }

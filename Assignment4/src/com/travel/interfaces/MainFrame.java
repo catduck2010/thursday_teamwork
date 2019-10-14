@@ -8,6 +8,7 @@ package com.travel.interfaces;
 import com.travel.users.Admin;
 import com.travel.business.AdminList;
 import com.travel.business.AirlinerList;
+import com.travel.business.Business;
 import com.travel.business.CustomerList;
 import com.travel.users.User;
 import java.awt.CardLayout;
@@ -25,19 +26,19 @@ public class MainFrame extends javax.swing.JFrame {
     /**
      * Creates new form MainFrame
      */
-    private final AdminList admins = new AdminList();
-    private final AirlinerList airliners = new AirlinerList();
-    private final CustomerList customers = new CustomerList();
-
+    private final AdminList admins;
+    private final AirlinerList airliners;
+    private final CustomerList customers;
+    private final Business business;
     private User loggedUser = null;
     private boolean loggedIn = false;
 
     public MainFrame() {
         initComponents();
-        this.rightPanel.setLayout(new CardLayout());
-        this.admins.addAdmin(new Admin("Administrator", "admin",
-                this.airliners, this.customers));
-        this.customers.addCustomer("Lwh", "lwh", "Lynn", "Appleseed");
+        this.business=Business.getInstance();
+        this.admins=business.getAdmins();
+        this.airliners=business.getAirliners();
+        this.customers=business.getCustomers();
     }
 
     public JPanel getRightPanel() {
@@ -130,25 +131,11 @@ public class MainFrame extends javax.swing.JFrame {
 
         jSplitPane1.setLeftComponent(jPanel1);
 
+        rightPanel.setLayout(new java.awt.CardLayout());
+
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Please Login or Sign Up to Continue");
-
-        javax.swing.GroupLayout rightPanelLayout = new javax.swing.GroupLayout(rightPanel);
-        rightPanel.setLayout(rightPanelLayout);
-        rightPanelLayout.setHorizontalGroup(
-            rightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(rightPanelLayout.createSequentialGroup()
-                .addContainerGap(223, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addContainerGap(222, Short.MAX_VALUE))
-        );
-        rightPanelLayout.setVerticalGroup(
-            rightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(rightPanelLayout.createSequentialGroup()
-                .addContainerGap(242, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addContainerGap(242, Short.MAX_VALUE))
-        );
+        rightPanel.add(jLabel1, "card2");
 
         jSplitPane1.setRightComponent(rightPanel);
 
@@ -156,7 +143,7 @@ public class MainFrame extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSplitPane1)
+            .addComponent(jSplitPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 831, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

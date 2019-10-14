@@ -34,4 +34,8 @@ public class Airliner extends User {
         return flightDirectory;
     }
     
+    @Override
+    public String toString(){
+        return providerName;
+    }
 }

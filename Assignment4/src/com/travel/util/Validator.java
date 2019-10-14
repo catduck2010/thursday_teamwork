@@ -5,6 +5,8 @@
  */
 package com.travel.util;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -18,6 +20,18 @@ public class Validator {
         //Latitude, Longitude
         String regex = "^[-+]?([1-8]?\\d(\\.\\d+)?|90(\\.0+)?),\\s*[-+]?(180(\\.0+)?|((1[0-7]\\d)|([1-9]?\\d))(\\.\\d+)?)$";
         return Match(regex, str);
+    }
+
+    public static boolean isSameDate(Date d1, Date d2) {
+        if (null == d1 || null == d2) {
+            return false;
+        }
+        //return getOnlyDate(d1).equals(getOnlyDate(d2));
+        Calendar cal1 = Calendar.getInstance();
+        cal1.setTime(d1);
+        Calendar cal2 = Calendar.getInstance();
+        cal2.setTime(d2);
+        return cal1.get(0) == cal2.get(0) && cal1.get(1) == cal2.get(1) && cal1.get(6) == cal2.get(6);
     }
 
     public static boolean IsBetweenNums(String str) {
@@ -39,8 +53,8 @@ public class Validator {
     public static boolean IsNotEmpty(String str) {
         return !(str == null || str.length() <= 0);
     }
-    
-    public static boolean IsEmpty(String str){
+
+    public static boolean IsEmpty(String str) {
         return !IsNotEmpty(str);
     }
 

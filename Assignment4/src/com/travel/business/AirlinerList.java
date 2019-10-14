@@ -28,6 +28,12 @@ public class AirlinerList {
         return airlinerList;
     }
     
+    public void addAirliner(String uname,String pw,String provider){
+        Airliner a=new Airliner(uname, pw);
+        a.setProviderName(provider);
+        airlinerList.add(a);
+    }
+    
     
 
 }

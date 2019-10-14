@@ -5,9 +5,15 @@
  */
 package com.travel.interfaces;
 
+import com.travel.business.Business;
+import com.travel.business.Flight;
+import com.travel.users.Airliner;
 import java.awt.CardLayout;
 import java.awt.Panel;
+import java.util.Date;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -19,9 +25,30 @@ public class FlightsPanel extends javax.swing.JPanel {
      * Creates new form FlightsPanel
      */
     private final JPanel bottomPanel;
-    public FlightsPanel(JPanel b) {
+    private final Business business;
+
+    public FlightsPanel(JPanel b, String from, String to, Date depart) {
         initComponents();
-        bottomPanel=b;
+        bottomPanel = b;
+        business = Business.getInstance();
+    }
+
+    public void loadFlights() {
+        DefaultTableModel dtm = (DefaultTableModel) tblFlights.getModel();
+
+        dtm.setRowCount(0);
+
+        for (Airliner air : business.getAirliners().getAirlinerList()) {
+            for (Flight f : air.getFlightDirectory().getFlightDir()) {
+                Object[] row = new Object[5];
+                row[0] = air;
+                row[1] = f;
+                row[2] = f.getDeparture();
+                row[3] = f.getArrival();
+                row[4] = f.getTakeOffTime();
+            }
+        }
+
     }
 
     /**
@@ -35,9 +62,9 @@ public class FlightsPanel extends javax.swing.JPanel {
 
         btnGoBack = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblFlights = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btnContinue = new javax.swing.JButton();
 
         btnGoBack.setText("←");
         btnGoBack.addActionListener(new java.awt.event.ActionListener() {
@@ -46,30 +73,35 @@ public class FlightsPanel extends javax.swing.JPanel {
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblFlights.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Airliner", "From", "To", "Date & Time"
+                "Airliner", "Flight #", "From", "To", "Date & Time"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblFlights);
 
         jLabel1.setText("Choose your flight");
 
-        jButton1.setText("Continue >>");
+        btnContinue.setText("Continue >>");
+        btnContinue.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnContinueActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -80,12 +112,12 @@ public class FlightsPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 542, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 506, Short.MAX_VALUE)
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1))))
+                        .addComponent(btnContinue))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -94,32 +126,43 @@ public class FlightsPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnGoBack)
                     .addComponent(jLabel1)
-                    .addComponent(jButton1))
+                    .addComponent(btnContinue))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 343, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 285, Short.MAX_VALUE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGoBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGoBackActionPerformed
         // TODO add your handling code here:
-        CardLayout layout=(CardLayout) bottomPanel.getLayout();
+        CardLayout layout = (CardLayout) bottomPanel.getLayout();
         this.bottomPanel.remove(this);
         layout.previous(this.bottomPanel);
     }//GEN-LAST:event_btnGoBackActionPerformed
 
+    private void btnContinueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContinueActionPerformed
+        // TODO add your handling code here:
+        int selected = -1;
+        selected = tblFlights.getSelectedRow();
+        if (selected != -1) {
+            Flight f=(Flight)tblFlights.getValueAt(selected, 1);
+            CardLayout layout = (CardLayout) bottomPanel.getLayout();
+            AddViewEditPersonOnBoardPanel panel = new AddViewEditPersonOnBoardPanel(bottomPanel, f);
+            bottomPanel.add(panel);
+            layout.next(bottomPanel);
+        } else {
+            JOptionPane.showMessageDialog(this, "Please select a flight!", "WARNING", JOptionPane.WARNING_MESSAGE);
+        }
+
+    }//GEN-LAST:event_btnContinueActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnContinue;
     private javax.swing.JButton btnGoBack;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tblFlights;
     // End of variables declaration//GEN-END:variables
 
-    private class bottomPanel {
-
-        public bottomPanel() {
-        }
-    }
 }
