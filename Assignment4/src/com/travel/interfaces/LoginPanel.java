@@ -158,7 +158,7 @@ public class LoginPanel extends javax.swing.JPanel {
     private void grantAccess(User u) {
         mFrame.setLoggedIn(true);
         CardLayout layout = (CardLayout) this.rightPanel.getLayout();
-        MainMenuPanel panel = new MainMenuPanel();
+        MainMenuPanel panel = new MainMenuPanel(u);
         this.rightPanel.add("MainMenuPanel", panel);
         layout.next(rightPanel);
     }

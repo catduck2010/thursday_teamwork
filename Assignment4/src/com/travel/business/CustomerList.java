@@ -23,10 +23,16 @@ public class CustomerList {
     public ArrayList<Customer> getCustomerList() {
         return customerList;
     }
-    
-    
 
     public boolean isEmpty() {
         return customerList.isEmpty();
+    }
+
+    public void addCustomer(String username, String pswd, 
+            String fName, String lName) {
+        Customer c = new Customer(username, pswd);
+        c.setFirstName(fName);
+        c.setLastName(lName);
+        customerList.add(c);
     }
 }

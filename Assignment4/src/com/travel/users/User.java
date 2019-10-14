@@ -11,9 +11,9 @@ package com.travel.users;
  */
 public abstract class User {
 
-    public static int ADMINISTRATOR = 0;
-    public static int AIRLINER = 1;
-    public static int CUSTOMER = 2;
+    public final static int ADMINISTRATOR = 0;
+    public final static int AIRLINER = 1;
+    public final static int CUSTOMER = 2;
 
     private String username;
     private String passwd;
@@ -48,9 +48,25 @@ public abstract class User {
     public boolean verify(String txtuser, String txtPswd) {
         return this.username.equals(txtuser) && this.passwd.equals(txtPswd);
     }
-    
-    public boolean verify(String pswd){
+
+    public boolean verify(String pswd) {
         return this.passwd.equals(pswd);
     }
+
+    public boolean isCustomer() {
+        return userType == User.CUSTOMER;
+    }
+
+    public boolean isAdmin() {
+        return userType == User.ADMINISTRATOR;
+    }
+
+    public boolean isAirliner() {
+        return userType == User.AIRLINER;
+    }
     
+    @Override
+    public String toString(){
+        return this.username;
+    }
 }

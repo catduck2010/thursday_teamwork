@@ -5,6 +5,9 @@
  */
 package com.travel.interfaces;
 
+import com.travel.users.Airliner;
+import com.travel.users.Customer;
+import com.travel.users.User;
 import java.awt.CardLayout;
 
 /**
@@ -16,8 +19,51 @@ public class MainMenuPanel extends javax.swing.JPanel {
     /**
      * Creates new form MainMenuPanel
      */
-    public MainMenuPanel() {
+    private final User user;
+    
+    
+    public MainMenuPanel(User u) {
         initComponents();
+        this.user=u;
+        //this.lblUsername.setText(u.getUsername());
+        detectUserType();
+    }
+    
+    private void detectUserType(){
+        int type=user.getUserType();
+        
+        switch(type){
+            case User.ADMINISTRATOR:
+                lblUsername.setText(user.getUsername());
+                btnAdmins.setEnabled(true);
+                btnAirliner.setEnabled(true);
+                btnCustomers.setEnabled(true);
+                btnFlights.setEnabled(true);
+                btnBookFlight.setEnabled(false);
+                btnMyFlight.setEnabled(false);
+                break;
+            case User.AIRLINER:
+                lblUsername.setText(((Airliner)user).getProviderName());
+                btnAdmins.setEnabled(false);
+                btnAirliner.setEnabled(false);
+                btnCustomers.setEnabled(false);
+                btnFlights.setEnabled(true);
+                btnBookFlight.setEnabled(false);
+                btnMyFlight.setEnabled(false);
+                break;
+            case User.CUSTOMER:
+                lblUsername.setText(((Customer)user).getFullName());
+                btnAdmins.setEnabled(false);
+                btnAirliner.setEnabled(false);
+                btnCustomers.setEnabled(false);
+                btnFlights.setEnabled(false);
+                btnBookFlight.setEnabled(true);
+                btnMyFlight.setEnabled(true);
+                break;
+            default:
+                break;
+                        
+        }
     }
 
     /**
@@ -31,26 +77,27 @@ public class MainMenuPanel extends javax.swing.JPanel {
 
         jSplitPane1 = new javax.swing.JSplitPane();
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        lblUsername = new javax.swing.JLabel();
+        btnAdmins = new javax.swing.JButton();
+        btnAirliner = new javax.swing.JButton();
+        btnCustomers = new javax.swing.JButton();
         btnBookFlight = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        btnManageFlight = new javax.swing.JButton();
+        btnFlights = new javax.swing.JButton();
+        btnMyFlight = new javax.swing.JButton();
         bottomPanel = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
 
         jSplitPane1.setBorder(null);
         jSplitPane1.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
 
-        jLabel1.setText("*Username*");
+        lblUsername.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblUsername.setText("*Username*");
 
-        jButton1.setText("Manage Admins");
+        btnAdmins.setText("Manage Admins");
 
-        jButton2.setText("Manage Airliners");
+        btnAirliner.setText("Manage Airliners");
 
-        jButton3.setText("Manage Customers");
+        btnCustomers.setText("Manage Customers");
 
         btnBookFlight.setText("Book A Flight");
         btnBookFlight.addActionListener(new java.awt.event.ActionListener() {
@@ -59,9 +106,9 @@ public class MainMenuPanel extends javax.swing.JPanel {
             }
         });
 
-        jButton5.setText("Manage Flights");
+        btnFlights.setText("Manage Flights");
 
-        btnManageFlight.setText("Manage My Flights");
+        btnMyFlight.setText("Manage My Flights");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -72,35 +119,35 @@ public class MainMenuPanel extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE))
+                            .addComponent(lblUsername, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnAdmins, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnAirliner, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnCustomers, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnBookFlight, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnFlights, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 194, Short.MAX_VALUE)
-                        .addComponent(btnManageFlight, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnMyFlight, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addComponent(lblUsername)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
+                .addComponent(btnAdmins)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2)
+                .addComponent(btnAirliner)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton3)
+                    .addComponent(btnCustomers)
                     .addComponent(btnBookFlight))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton5)
-                    .addComponent(btnManageFlight))
+                    .addComponent(btnFlights)
+                    .addComponent(btnMyFlight))
                 .addGap(0, 8, Short.MAX_VALUE))
         );
 
@@ -137,15 +184,15 @@ public class MainMenuPanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel bottomPanel;
+    private javax.swing.JButton btnAdmins;
+    private javax.swing.JButton btnAirliner;
     private javax.swing.JButton btnBookFlight;
-    private javax.swing.JButton btnManageFlight;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton btnCustomers;
+    private javax.swing.JButton btnFlights;
+    private javax.swing.JButton btnMyFlight;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSplitPane jSplitPane1;
+    private javax.swing.JLabel lblUsername;
     // End of variables declaration//GEN-END:variables
 }
