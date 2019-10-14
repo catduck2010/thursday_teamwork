@@ -9,6 +9,8 @@ import com.travel.users.Airliner;
 import com.travel.users.Customer;
 import com.travel.users.User;
 import java.awt.CardLayout;
+import javax.swing.ImageIcon;
+import javax.swing.JPanel;
 
 /**
  *
@@ -20,9 +22,10 @@ public class MainMenuPanel extends javax.swing.JPanel {
      * Creates new form MainMenuPanel
      */
     private final User user;
+    private JPanel rightPanel;
     
     
-    public MainMenuPanel(User u) {
+    public MainMenuPanel(JPanel rightPanel, User u) {
         initComponents();
         this.user=u;
         //this.lblUsername.setText(u.getUsername());
@@ -34,6 +37,7 @@ public class MainMenuPanel extends javax.swing.JPanel {
         
         switch(type){
             case User.ADMINISTRATOR:
+               
                 lblUsername.setText(user.getUsername());
                 btnAdmins.setEnabled(true);
                 btnAirliner.setEnabled(true);
@@ -64,6 +68,8 @@ public class MainMenuPanel extends javax.swing.JPanel {
                 break;
                         
         }
+  
+        
     }
 
     /**
@@ -181,7 +187,7 @@ public class MainMenuPanel extends javax.swing.JPanel {
         layout.next(this.bottomPanel);
     }//GEN-LAST:event_btnBookFlightActionPerformed
 
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel bottomPanel;
     private javax.swing.JButton btnAdmins;

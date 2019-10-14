@@ -15,12 +15,16 @@ public class Flight {
 
     private int seats;
     private String planeModel;
+    private String airliner;
+    private String flightNo;
+    private String flightDate;
     private Date takeOffTime;
     private Date landTime;
     private String departure;
     private String arrival;
     private double ticketPrice;
     private int[][] seatTable;
+    
 
     private CustomerList onBoard;
 
@@ -93,5 +97,14 @@ public class Flight {
         }
         return column;
 
+    }
+    
+    public Flight(String airliner, String flight, String from, String to, String date) {
+        this.airliner = airliner;
+        this.flightNo = flight;
+        this.departure = from;
+        this.arrival = to;
+        this.flightDate = date;
+           
     }
 }

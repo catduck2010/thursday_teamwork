@@ -9,6 +9,7 @@ import com.travel.users.Admin;
 import com.travel.business.AdminList;
 import com.travel.business.AirlinerList;
 import com.travel.business.CustomerList;
+import com.travel.business.UserList;
 import com.travel.users.User;
 import java.awt.CardLayout;
 import java.util.ArrayList;
@@ -32,12 +33,14 @@ public class MainFrame extends javax.swing.JFrame {
     private User loggedUser = null;
     private boolean loggedIn = false;
 
+
     public MainFrame() {
         initComponents();
         this.rightPanel.setLayout(new CardLayout());
         this.admins.addAdmin(new Admin("Administrator", "admin",
                 this.airliners, this.customers));
         this.customers.addCustomer("Lwh", "lwh", "Lynn", "Appleseed");
+
     }
 
     public JPanel getRightPanel() {
@@ -97,6 +100,11 @@ public class MainFrame extends javax.swing.JFrame {
         });
 
         btnRegister.setText("Sign Up");
+        btnRegister.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegisterActionPerformed(evt);
+            }
+        });
 
         btnExit.setText("Exit");
         btnExit.addActionListener(new java.awt.event.ActionListener() {
@@ -190,6 +198,15 @@ public class MainFrame extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_btnLoginActionPerformed
+
+    private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
+        // TODO add your handling code here:
+       
+        UserCreatePanel panel = new UserCreatePanel(rightPanel,airliners, customers);
+        rightPanel.add("UserCreatePanel",panel);
+        CardLayout layout = (CardLayout) rightPanel.getLayout();
+        layout.next(rightPanel);
+    }//GEN-LAST:event_btnRegisterActionPerformed
 
     /**
      * @param args the command line arguments

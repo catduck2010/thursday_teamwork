@@ -7,6 +7,7 @@ package com.travel.users;
 
 import com.travel.business.AirlinerList;
 import com.travel.business.CustomerList;
+import com.travel.business.AdminList;
 
 /**
  *
@@ -16,6 +17,7 @@ public class Admin extends User {
 
     private final CustomerList customers;
     private final AirlinerList airliners;
+
 
     public Admin(String uname, String pw) {
         super(uname, pw, User.ADMINISTRATOR);
@@ -30,5 +32,14 @@ public class Admin extends User {
         this.airliners = al;
     }
 
+    public CustomerList getCustomers() {
+        return customers;
+    }
+
+    public AirlinerList getAirliners() {
+        return airliners;
+    }
+
+    
 
 }
