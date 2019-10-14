@@ -75,10 +75,7 @@ public class FlightsPanel extends javax.swing.JPanel {
 
         tblFlights.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "Airliner", "Flight #", "From", "To", "Date & Time"

@@ -21,9 +21,9 @@ public class SearchFlightPanel extends javax.swing.JPanel {
 
     public SearchFlightPanel(JPanel p) {
         initComponents();
-        this.bottomPanel=p;
+        this.bottomPanel = p;
         //btnSeatChooser.setBorder(btnSearch.getBorder());
-        
+
     }
 
     /**
