@@ -38,7 +38,7 @@ public class MainMenuPanel extends javax.swing.JPanel {
                 btnAdmins.setEnabled(true);
                 btnAirliner.setEnabled(true);
                 btnCustomers.setEnabled(true);
-                btnFlights.setEnabled(true);
+                btnAircrafts.setEnabled(true);
                 btnBookFlight.setEnabled(false);
                 btnMyFlight.setEnabled(false);
                 break;
@@ -47,7 +47,7 @@ public class MainMenuPanel extends javax.swing.JPanel {
                 btnAdmins.setEnabled(false);
                 btnAirliner.setEnabled(false);
                 btnCustomers.setEnabled(false);
-                btnFlights.setEnabled(true);
+                btnAircrafts.setEnabled(true);
                 btnBookFlight.setEnabled(false);
                 btnMyFlight.setEnabled(false);
                 break;
@@ -56,7 +56,7 @@ public class MainMenuPanel extends javax.swing.JPanel {
                 btnAdmins.setEnabled(false);
                 btnAirliner.setEnabled(false);
                 btnCustomers.setEnabled(false);
-                btnFlights.setEnabled(false);
+                btnAircrafts.setEnabled(false);
                 btnBookFlight.setEnabled(true);
                 btnMyFlight.setEnabled(true);
                 break;
@@ -82,7 +82,7 @@ public class MainMenuPanel extends javax.swing.JPanel {
         btnAirliner = new javax.swing.JButton();
         btnCustomers = new javax.swing.JButton();
         btnBookFlight = new javax.swing.JButton();
-        btnFlights = new javax.swing.JButton();
+        btnAircrafts = new javax.swing.JButton();
         btnMyFlight = new javax.swing.JButton();
         bottomPanel = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -106,7 +106,7 @@ public class MainMenuPanel extends javax.swing.JPanel {
             }
         });
 
-        btnFlights.setText("Manage Flights");
+        btnAircrafts.setText("Manage Aircrafts");
 
         btnMyFlight.setText("Manage My Flights");
 
@@ -126,7 +126,7 @@ public class MainMenuPanel extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnBookFlight, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnFlights, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnAircrafts, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 194, Short.MAX_VALUE)
                         .addComponent(btnMyFlight, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
@@ -146,7 +146,7 @@ public class MainMenuPanel extends javax.swing.JPanel {
                     .addComponent(btnBookFlight))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnFlights)
+                    .addComponent(btnAircrafts)
                     .addComponent(btnMyFlight))
                 .addGap(0, 8, Short.MAX_VALUE))
         );
@@ -185,10 +185,10 @@ public class MainMenuPanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel bottomPanel;
     private javax.swing.JButton btnAdmins;
+    private javax.swing.JButton btnAircrafts;
     private javax.swing.JButton btnAirliner;
     private javax.swing.JButton btnBookFlight;
     private javax.swing.JButton btnCustomers;
-    private javax.swing.JButton btnFlights;
     private javax.swing.JButton btnMyFlight;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;

@@ -60,7 +60,7 @@
                               <Component id="btnBookFlight" min="-2" pref="178" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="btnFlights" min="-2" pref="178" max="-2" attributes="0"/>
+                              <Component id="btnAircrafts" min="-2" pref="178" max="-2" attributes="0"/>
                               <EmptySpace pref="194" max="32767" attributes="0"/>
                               <Component id="btnMyFlight" min="-2" pref="178" max="-2" attributes="0"/>
                           </Group>
@@ -85,7 +85,7 @@
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="btnFlights" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnAircrafts" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="btnMyFlight" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="0" pref="8" max="32767" attributes="0"/>
@@ -123,9 +123,9 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBookFlightActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="btnFlights">
+            <Component class="javax.swing.JButton" name="btnAircrafts">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Manage Flights"/>
+                <Property name="text" type="java.lang.String" value="Manage Aircrafts"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="btnMyFlight">
