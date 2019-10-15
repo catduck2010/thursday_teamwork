@@ -38,16 +38,16 @@ public class FlightsPanel extends javax.swing.JPanel {
 
         dtm.setRowCount(0);
 
-        for (Airliner air : business.getAirliners().getAirlinerList()) {
-            for (Flight f : air.getFlightDirectory().getFlightDir()) {
+  
+            for (Flight f : business.getFlightDirectory().getFlightDir()) {
                 Object[] row = new Object[5];
-                row[0] = air;
+                row[0] = "";
                 row[1] = f;
                 row[2] = f.getDeparture();
                 row[3] = f.getArrival();
                 row[4] = f.getTakeOffTime();
             }
-        }
+        
 
     }
 

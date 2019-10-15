@@ -37,7 +37,6 @@ public class MainFrame extends javax.swing.JFrame {
     private User loggedUser = null;
     private boolean loggedIn = false;
 
-
     public MainFrame() {
         initComponents();
         this.business = Business.getInstance();
@@ -48,7 +47,15 @@ public class MainFrame extends javax.swing.JFrame {
         this.customers = business.getCustomers();
         this.aircraftList = business.getAircraftList();
         this.flightDirectory = business.getFlightDirectory();
-        
+
+    }
+
+    public void setLoggedUser(User u) {
+        loggedUser = u;
+    }
+
+    public User getLoggedUser() {
+        return loggedUser;
     }
 
     public JPanel getRightPanel() {
@@ -71,6 +78,16 @@ public class MainFrame extends javax.swing.JFrame {
         }
         this.btnRegister.setEnabled(!b);
         loggedIn = b;
+        if (!b) {
+            this.loggedUser = null;
+        }
+    }
+
+    public void logOut() {
+        clearRightPanel();
+        loggedIn = false;
+        setLoggedIn(loggedIn);
+
     }
 
     public void clearRightPanel() {
@@ -185,9 +202,7 @@ public class MainFrame extends javax.swing.JFrame {
         } else {
             if (JOptionPane.showConfirmDialog(this, "Are you sure to log out?", "WARNING",
                     JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-                clearRightPanel();
-                loggedIn = false;
-                setLoggedIn(loggedIn);
+                logOut();
             }
         }
 
@@ -195,9 +210,9 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
         // TODO add your handling code here:
-       
-        UserCreatePanel panel = new UserCreatePanel(rightPanel,airliners, customers);
-        rightPanel.add("UserCreatePanel",panel);
+
+        UserCreatePanel panel = new UserCreatePanel(rightPanel, airliners, customers);
+        rightPanel.add("UserCreatePanel", panel);
         CardLayout layout = (CardLayout) rightPanel.getLayout();
         layout.next(rightPanel);
     }//GEN-LAST:event_btnRegisterActionPerformed

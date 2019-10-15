@@ -69,6 +69,15 @@ public class UserCreatePanel extends javax.swing.JPanel {
 
     }
 
+    private void clearAllFields() {
+        this.txtFirstName.setText("");
+        this.txtProviderLast.setText("");
+        this.txtPword.setText("");
+        this.txtRePword.setText("");
+        this.txtUser.setText("");
+
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -299,6 +308,7 @@ public class UserCreatePanel extends javax.swing.JPanel {
             a.setProviderName(provider);
             airlinerList.getAirlinerList().add(a);
             JOptionPane.showMessageDialog(null, "Airliner created Successfully");
+            clearAllFields();
             //toMainScreen();
         }
 
@@ -309,6 +319,7 @@ public class UserCreatePanel extends javax.swing.JPanel {
             c.setLastName(provider);
             customerList.getCustomerList().add(c);
             JOptionPane.showMessageDialog(null, "Customer created Successfully");
+            clearAllFields();
             //toMainScreen();
         }
 

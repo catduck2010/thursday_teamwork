@@ -19,8 +19,8 @@ public class Business {
     private final AdminList admins = new AdminList();
     private final AirlinerList airliners = new AirlinerList();
     private final CustomerList customers = new CustomerList();
-    private  FlightDirectory flightDirectory = new FlightDirectory();
-    private  AircraftList aircraftList = new AircraftList();
+    private FlightDirectory flightDirectory = new FlightDirectory();
+    private AircraftList aircraftList = new AircraftList();
     private MainFrame mFrame;
 
     public Business() {
@@ -56,13 +56,13 @@ public class Business {
     public AdminList getAdmins() {
         return admins;
     }
-    
-    public MainFrame getMainFrame(){
+
+    public MainFrame getMainFrame() {
         return mFrame;
     }
-    
-    public void setMainFrame(MainFrame mf){
-        mFrame=mf;
+
+    public void setMainFrame(MainFrame mf) {
+        mFrame = mf;
     }
 
     public AirlinerList getAirliners() {
@@ -72,14 +72,14 @@ public class Business {
     public CustomerList getCustomers() {
         return customers;
     }
-    
-    public Date getNow(){
+
+    public Date getNow() {
         return new Date();
     }
-    
-    public Date getToday(){
-        Date today=new Date();
-        
+
+    public Date getToday() {
+        Date today = new Date();
+
         return today;
     }
 
