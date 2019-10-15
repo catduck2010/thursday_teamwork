@@ -15,6 +15,11 @@ import java.util.Date;
 public class Flight {
 
     private String modelNum;
+    private int seats;
+    private String planeModel;
+    private String airliner;
+    private String flightNo;
+    private String flightDate;
     private Date takeOffTime;
     private Date landTime;
     private String departure;
@@ -185,4 +190,12 @@ public class Flight {
         
     }
     
+    public Flight(String airliner, String flight, String from, String to, String date) {
+        this.airliner = airliner;
+        this.flightNo = flight;
+        this.departure = from;
+        this.arrival = to;
+        this.flightDate = date;
+           
+    }
 }

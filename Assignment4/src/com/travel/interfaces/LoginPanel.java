@@ -38,6 +38,7 @@ public class LoginPanel extends javax.swing.JPanel {
     private boolean noUser;
     static final String TXTPSWD_HINT = "Password";
     static char defaultChar;
+    private String username;
 
     public LoginPanel(MainFrame f, AdminList ad, AirlinerList al, CustomerList cl) {
         initComponents();
@@ -46,6 +47,7 @@ public class LoginPanel extends javax.swing.JPanel {
         this.admins = ad;
         this.airliners = al;
         this.customers = cl;
+        this.username = username;
         ItemListener il = new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
@@ -158,7 +160,7 @@ public class LoginPanel extends javax.swing.JPanel {
     private void grantAccess(User u) {
         mFrame.setLoggedIn(true);
         CardLayout layout = (CardLayout) this.rightPanel.getLayout();
-        MainMenuPanel panel = new MainMenuPanel(u);
+        MainMenuPanel panel = new MainMenuPanel(rightPanel,u);
         this.rightPanel.add("MainMenuPanel", panel);
         layout.next(rightPanel);
     }

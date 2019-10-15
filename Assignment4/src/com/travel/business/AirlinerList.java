@@ -15,6 +15,9 @@ import java.util.ArrayList;
 public class AirlinerList {
 
     private final ArrayList<Airliner> airlinerList;
+    private String username;
+    
+  
     
     public AirlinerList() {
         this.airlinerList = new ArrayList<>();
@@ -27,6 +30,7 @@ public class AirlinerList {
     public ArrayList<Airliner> getAirlinerList() {
         return airlinerList;
     }
+<<<<<<< HEAD
     
     public void addAirliner(String uname,String pw,String provider){
         Airliner a=new Airliner(uname, pw);
@@ -34,6 +38,16 @@ public class AirlinerList {
         airlinerList.add(a);
     }
     
+=======
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+>>>>>>> 050ab2de2493d123234d279cd41756a6bb2bbc20
     
 
 }

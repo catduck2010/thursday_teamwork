@@ -116,5 +116,7 @@
     </Component>
     <Component class="com.travel.util.DateChooserJButton" name="btnDateChooser">
     </Component>
+    <Component class="com.travel.util.DateChooserJButton" name="btnDateChooser">
+    </Component>
   </SubComponents>
 </Form>
