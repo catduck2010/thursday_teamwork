@@ -9,6 +9,7 @@ import com.travel.business.Aircraft;
 import com.travel.business.AircraftList;
 import com.travel.business.AirlinerList;
 import com.travel.business.Business;
+import com.travel.users.Airliner;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -26,12 +27,13 @@ public class AddAircraftPanel extends javax.swing.JPanel {
      */
     private AircraftList aircraftList;
     private JPanel bottomPanel;
-    private String airliner;
-    public AddAircraftPanel(JPanel buttomPanel,AircraftList aircraftList, String airliner) {
+    private Airliner airliner;
+    public AddAircraftPanel(JPanel buttomPanel,AircraftList aircraftList, Airliner airliner) {
         initComponents();
         this.bottomPanel = buttomPanel;
         this.aircraftList = aircraftList;
-        this.airliner = this.airliner;
+        this.airliner = airliner;
+        
         
     }
 
@@ -161,7 +163,8 @@ public class AddAircraftPanel extends javax.swing.JPanel {
         if(validation == true) {
             Aircraft aircraft = aircraftList.addAircraft();
             aircraft.setModelNum(modelNum);
-            aircraft.setAirliner(airliner);
+            String airlinerName = airliner.getProviderName();
+            aircraft.setAirliner(airlinerName);
             aircraft.setModel(model);
             JOptionPane.showMessageDialog(null, "Add a new aircraft successfully!");
             

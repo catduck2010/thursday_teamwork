@@ -26,6 +26,10 @@ public class AircraftList {
         aircraftDir.add(newAircraft);
         return newAircraft;
     }
+    public void deleteAircraft(Aircraft aircraft){
+        aircraftDir.remove(aircraft);
+        
+    }
     public boolean sameModelNum(String modelNum){
         boolean b = false;
         for(Aircraft aircraft : aircraftDir){

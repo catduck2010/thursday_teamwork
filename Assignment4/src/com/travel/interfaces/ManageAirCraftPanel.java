@@ -191,9 +191,11 @@ public class ManageAirCraftPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnUpdateFlightActionPerformed
 
     private void btnCreateFlightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateFlightActionPerformed
-        CardLayout layout = (CardLayout)bottomPanel.getLayout();
-        bottomPanel.add(new CreateFlightsPanel(bottomPanel,flightDirectory,modelNum));
-        layout.next(bottomPanel);
+        
+        CreateFlightsPanel createFlightsPanel = new CreateFlightsPanel(bottomPanel,flightDirectory,modelNum);
+        this.bottomPanel.add("CreateFlightsPanel",createFlightsPanel);
+        CardLayout cardlayout = (CardLayout)this.bottomPanel.getLayout();
+        cardlayout.next(bottomPanel);
         
     }//GEN-LAST:event_btnCreateFlightActionPerformed
 
@@ -222,7 +224,7 @@ public class ManageAirCraftPanel extends javax.swing.JPanel {
         Component[] comps = this.bottomPanel.getComponents();
         for(Component comp : comps){
             if(comp instanceof AirlinerManagePanel){
-
+         
                 AirlinerManagePanel airlinerManagePanel = (AirlinerManagePanel) comp;
                 airlinerManagePanel.populateTable(aircraftList.getAircraftDir());
             }
