@@ -21,6 +21,7 @@ public class Flight {
     private double ticketPrice;
     private int[][] seatTable;
     private String flightNum;
+    private String airliner;
     
     public Flight() {
         generateSeatTable();
@@ -84,8 +85,15 @@ public class Flight {
     }
     private CustomerList onBoard;
 
-    
+    public String getAirliner() {
+        return airliner;
+    }
 
+    public void setAirliner(String airliner) {
+        this.airliner = airliner;
+    }
+
+    
     public void generateSeatTable() {
         seatTable = new int[25][6];
     }

@@ -185,7 +185,7 @@ public void populateTable(ArrayList<Aircraft> aircraftList){
         if (selectedRow >= 0) {
             Aircraft aircraft = (Aircraft)tblAircraft.getValueAt(selectedRow, 0);
         String modelNum = aircraft.getModelNum();
-        ManageAirCraftPanel manageAirCraftPanel = new ManageAirCraftPanel(bottomPanel, flightDirectory, aircraftList, modelNum);
+        ManageAirCraftPanel manageAirCraftPanel = new ManageAirCraftPanel(bottomPanel, flightDirectory, aircraftList, modelNum, airliner);
         this.bottomPanel.add("ManageAirCraftPanel",manageAirCraftPanel);
         CardLayout cardlayout = (CardLayout)this.bottomPanel.getLayout();
         cardlayout.next(bottomPanel);

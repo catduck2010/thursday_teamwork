@@ -8,6 +8,7 @@ package com.travel.interfaces;
 import com.travel.business.AircraftList;
 import com.travel.business.Flight;
 import com.travel.business.FlightDirectory;
+import com.travel.users.Airliner;
 import java.awt.CardLayout;
 import java.awt.Component;
 import java.util.ArrayList;
@@ -28,12 +29,14 @@ public class ManageAirCraftPanel extends javax.swing.JPanel {
     private JPanel bottomPanel;
     private String modelNum;
     private AircraftList aircraftList;
-    public ManageAirCraftPanel(JPanel bottomPanel, FlightDirectory flightDirectory,AircraftList aircraftList, String modelNum) {
+    private Airliner airliner;
+    public ManageAirCraftPanel(JPanel bottomPanel, FlightDirectory flightDirectory,AircraftList aircraftList, String modelNum,Airliner airliner) {
         initComponents();
         this.flightDirectory = flightDirectory;
         this.bottomPanel = bottomPanel;
         this.modelNum = modelNum;
         this.aircraftList = aircraftList;
+        this.airliner = airliner;
         modelNumLabel.setText(modelNum);  
         populateTable(flightDirectory.getFlightDir());
     }
@@ -192,7 +195,7 @@ public class ManageAirCraftPanel extends javax.swing.JPanel {
 
     private void btnCreateFlightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateFlightActionPerformed
         
-        CreateFlightsPanel createFlightsPanel = new CreateFlightsPanel(bottomPanel,flightDirectory,modelNum);
+        CreateFlightsPanel createFlightsPanel = new CreateFlightsPanel(bottomPanel,flightDirectory,modelNum,airliner);
         this.bottomPanel.add("CreateFlightsPanel",createFlightsPanel);
         CardLayout cardlayout = (CardLayout)this.bottomPanel.getLayout();
         cardlayout.next(bottomPanel);
