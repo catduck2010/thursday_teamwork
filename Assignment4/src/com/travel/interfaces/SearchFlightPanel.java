@@ -44,6 +44,7 @@ public class SearchFlightPanel extends javax.swing.JPanel {
         btnGoBack = new javax.swing.JButton();
         btnSearch = new javax.swing.JButton();
         btnDateChooser = new com.travel.util.DateChooserJButton();
+        btnDateChooser1 = new com.travel.util.DateChooserJButton();
 
         jLabel1.setText("Depart on");
 
@@ -71,18 +72,19 @@ public class SearchFlightPanel extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addComponent(btnGoBack, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jLabel2)
+                    .addComponent(jLabel3)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnGoBack)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel1))
-                    .addComponent(jLabel3))
+                        .addGap(10, 10, 10)
+                        .addComponent(jLabel1)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 202, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 222, Short.MAX_VALUE)
                         .addComponent(btnSearch))
                     .addComponent(txtFrom)
                     .addComponent(txtTo))
@@ -132,6 +134,7 @@ public class SearchFlightPanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.travel.util.DateChooserJButton btnDateChooser;
+    private com.travel.util.DateChooserJButton btnDateChooser1;
     private javax.swing.JButton btnGoBack;
     private javax.swing.JButton btnSearch;
     private com.travel.util.SeatChooserJButton btnSeatChooser;

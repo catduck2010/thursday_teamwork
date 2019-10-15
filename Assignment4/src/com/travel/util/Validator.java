@@ -22,7 +22,7 @@ public class Validator {
         return Match(regex, str);
     }
 
-    public static boolean isSameDate(Date d1, Date d2) {
+    public static boolean IsSameDay(Date d1, Date d2) {
         if (null == d1 || null == d2) {
             return false;
         }
@@ -56,6 +56,25 @@ public class Validator {
 
     public static boolean IsEmpty(String str) {
         return !IsNotEmpty(str);
+    }
+
+    public static boolean IsEmail(String str) {
+        String regex = "^[a-zA-Z0-9]+_[a-zA-Z0-9]+@[a-zA-Z0-9]+.[a-zA-Z0-9]+$";
+        return Match(regex, str);
+    }
+
+    public static boolean IsPassword(String str) {
+        String regex = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[$*#&])[A-Za-z\\d$*#&]{6,}$";
+        return Match(regex, str);
+    }
+
+    public static boolean IsSamePassword(String str1, String str2) {
+        return str1.equals(str2);
+    }
+
+    public static boolean IsUsername(String str) {
+        String regex = "^[a-zA-Z0-9]+$";
+        return Match(regex, str);
     }
 
     private static boolean Match(String regex, String str) {

@@ -28,7 +28,7 @@ public class Flight {
     private int[][] seatTable;
     private Object[][] travelerTable;
     private String flightNum;
-    private final ArrayList<Traveler> travelers;
+    private final ArrayList<Traveler> travelers=new ArrayList<>();
 
     public String getFlightNum() {
         return flightNum;
@@ -44,7 +44,7 @@ public class Flight {
     
     public Flight() {
         generateSeatTable();
-        travelers=new ArrayList<>();
+       
     }
     
     public ArrayList<Traveler> getTravelers(){
