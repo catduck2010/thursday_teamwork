@@ -8,6 +8,7 @@ package com.travel.interfaces;
 import com.travel.business.Business;
 import com.travel.business.Flight;
 import com.travel.users.Airliner;
+import com.travel.util.Validator;
 import java.awt.CardLayout;
 import java.awt.Panel;
 import java.util.Date;
@@ -26,11 +27,17 @@ public class FlightsPanel extends javax.swing.JPanel {
      */
     private final JPanel bottomPanel;
     private final Business business;
+    private String to;
+    private String from;
+    private Date depart;
 
     public FlightsPanel(JPanel b, String from, String to, Date depart) {
         initComponents();
         bottomPanel = b;
         business = Business.getInstance();
+        this.to = to;
+        this.from = from;
+        this.depart = depart;
     }
 
     public void loadFlights() {
@@ -38,16 +45,18 @@ public class FlightsPanel extends javax.swing.JPanel {
 
         dtm.setRowCount(0);
 
-  
-            for (Flight f : business.getFlightDirectory().getFlightDir()) {
+        for (Flight f : business.getFlightDirectory().getFlightDir()) {
+//            if (f.getArrival().equals(to) && f.getDeparture().equals(from)
+//                    && Validator.IsSameDay(f.getTakeOffTime(), depart)) {
                 Object[] row = new Object[5];
-                row[0] = "";
+                row[0] = f.getAirliner();
                 row[1] = f;
                 row[2] = f.getDeparture();
                 row[3] = f.getArrival();
                 row[4] = f.getTakeOffTime();
-            }
-        
+                dtm.addRow(row);
+//            }
+        }
 
     }
 
@@ -142,7 +151,7 @@ public class FlightsPanel extends javax.swing.JPanel {
         int selected = -1;
         selected = tblFlights.getSelectedRow();
         if (selected != -1) {
-            Flight f=(Flight)tblFlights.getValueAt(selected, 1);
+            Flight f = (Flight) tblFlights.getValueAt(selected, 1);
             CardLayout layout = (CardLayout) bottomPanel.getLayout();
             AddViewEditPersonOnBoardPanel panel = new AddViewEditPersonOnBoardPanel(bottomPanel, f);
             bottomPanel.add(panel);
