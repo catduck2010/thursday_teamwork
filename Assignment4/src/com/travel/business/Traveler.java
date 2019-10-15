@@ -16,11 +16,18 @@ public class Traveler {
     String lastName;
     String ID;
     User orderPlacedBy;
-    String seat;
     
     @Override
     public String toString(){
         return firstName+" "+lastName;
     }
+
+    public Traveler(String firstName, String lastName, String ID, User orderPlacedBy) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.ID = ID;
+        this.orderPlacedBy = orderPlacedBy;
+    }
+    
     
 }

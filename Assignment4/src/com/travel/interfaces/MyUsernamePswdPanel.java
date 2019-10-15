@@ -44,9 +44,9 @@ public class MyUsernamePswdPanel extends javax.swing.JPanel {
         pwOld.setEchoChar('\0');
         pwNew.setEchoChar('\0');
         pwConfirmNew.setEchoChar('\0');
-        pwOld.setForeground(Color.gray);
-        pwNew.setForeground(Color.gray);
-        pwConfirmNew.setForeground(Color.gray);
+        pwOld.setForeground(Color.LIGHT_GRAY);
+        pwNew.setForeground(Color.LIGHT_GRAY);
+        pwConfirmNew.setForeground(Color.LIGHT_GRAY);
         pwOld.setText(PWOLD_HINT);
         pwNew.setText(PWNEW_HINT);
         pwConfirmNew.setText(PWCONF_HINT);
@@ -285,6 +285,12 @@ public class MyUsernamePswdPanel extends javax.swing.JPanel {
 
     private void btnEditSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditSaveActionPerformed
         // TODO add your handling code here:
+        if(user.getUsername().equals("Administrator")){
+            JOptionPane.showMessageDialog(this, "Superuser's username "
+                    + "is not allowed to edit.", 
+                    "Administrator", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
         if(!isEditing){
             this.txtUsername.setEditable(true);
             isEditing=true;

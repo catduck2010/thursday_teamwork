@@ -44,7 +44,7 @@ public class MainMenuPanel extends javax.swing.JPanel {
                 btnAirliner.setEnabled(true);
                 btnCustomers.setEnabled(true);
                 btnAircrafts.setEnabled(false);
-                btnBookFlight.setEnabled(false);
+                btnBookFlight.setEnabled(true);
                 btnFlights.setEnabled(false);
                 break;
             case User.AIRLINER:

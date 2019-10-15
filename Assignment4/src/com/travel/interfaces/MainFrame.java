@@ -200,7 +200,7 @@ public class MainFrame extends javax.swing.JFrame {
             layout.next(rightPanel);
             //loggedIn=true;
         } else {
-            if (JOptionPane.showConfirmDialog(this, "Are you sure to log out?", "WARNING",
+            if (JOptionPane.showConfirmDialog(this, "Are you sure to \nlog out?", "WARNING",
                     JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
                 logOut();
             }

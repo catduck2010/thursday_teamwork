@@ -10,6 +10,7 @@ package com.travel.business;
  * @author lihang
  */
 public class Aircraft {
+
     String modelNum;
     String airliner;
     String model;
@@ -21,8 +22,6 @@ public class Aircraft {
     public void setModel(String model) {
         this.model = model;
     }
-    
-    
 
     public String getModelNum() {
         return modelNum;
@@ -39,10 +38,11 @@ public class Aircraft {
     public void setAirliner(String airliner) {
         this.airliner = airliner;
     }
+
     @Override
-    
-    public String toString(){
-        
+
+    public String toString() {
+
         return this.modelNum;
     }
 }

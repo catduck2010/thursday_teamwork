@@ -33,11 +33,13 @@ public class FlightsPanel extends javax.swing.JPanel {
 
     public FlightsPanel(JPanel b, String from, String to, Date depart) {
         initComponents();
+
         bottomPanel = b;
         business = Business.getInstance();
         this.to = to;
         this.from = from;
         this.depart = depart;
+        loadFlights();
     }
 
     public void loadFlights() {
@@ -46,8 +48,8 @@ public class FlightsPanel extends javax.swing.JPanel {
         dtm.setRowCount(0);
 
         for (Flight f : business.getFlightDirectory().getFlightDir()) {
-//            if (f.getArrival().equals(to) && f.getDeparture().equals(from)
-//                    && Validator.IsSameDay(f.getTakeOffTime(), depart)) {
+            if (f.getArrival().equals(to) && f.getDeparture().equals(from)
+                    && Validator.IsSameDay(f.getTakeOffTime(), depart)) {
                 Object[] row = new Object[5];
                 row[0] = f.getAirliner();
                 row[1] = f;
@@ -55,7 +57,7 @@ public class FlightsPanel extends javax.swing.JPanel {
                 row[3] = f.getArrival();
                 row[4] = f.getTakeOffTime();
                 dtm.addRow(row);
-//            }
+            }
         }
 
     }
@@ -148,13 +150,12 @@ public class FlightsPanel extends javax.swing.JPanel {
 
     private void btnContinueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContinueActionPerformed
         // TODO add your handling code here:
-        int selected = -1;
-        selected = tblFlights.getSelectedRow();
-        if (selected != -1) {
+        int selected = tblFlights.getSelectedRow();
+        if (selected > -1) {
             Flight f = (Flight) tblFlights.getValueAt(selected, 1);
             CardLayout layout = (CardLayout) bottomPanel.getLayout();
             AddViewEditPersonOnBoardPanel panel = new AddViewEditPersonOnBoardPanel(bottomPanel, f);
-            bottomPanel.add(panel);
+            bottomPanel.add("SelectSeatPanel",panel);
             layout.next(bottomPanel);
         } else {
             JOptionPane.showMessageDialog(this, "Please select a flight!", "WARNING", JOptionPane.WARNING_MESSAGE);

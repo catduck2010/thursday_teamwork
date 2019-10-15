@@ -5,8 +5,11 @@
  */
 package com.travel.interfaces;
 
+import com.travel.business.Business;
 import com.travel.business.Flight;
+import com.travel.business.Traveler;
 import java.awt.CardLayout;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -20,11 +23,20 @@ public class AddViewEditPersonOnBoardPanel extends javax.swing.JPanel {
      */
     private final Flight flight;
     private final JPanel bottomPanel;
+
     public AddViewEditPersonOnBoardPanel(JPanel b, Flight f) {
         initComponents();
-        flight=f;
-        bottomPanel=b;
-        btnSeatChooser.setSeatTable(f.getSeatTable());
+        flight = f;
+        bottomPanel = b;
+        btnSeatChooser.setSeatTable(f.getIntSeatTable());
+    }
+    
+    private void backToMainMenu(){
+        CardLayout layout=(CardLayout) this.bottomPanel.getLayout();
+        for (int i = bottomPanel.getComponentCount() - 1; i > 0; i--) {
+            bottomPanel.remove(i);
+        }
+        layout.first(bottomPanel);
     }
 
     /**
@@ -46,7 +58,7 @@ public class AddViewEditPersonOnBoardPanel extends javax.swing.JPanel {
         txtLastName = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         txtID = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        btnSubmit = new javax.swing.JButton();
 
         btnGoBack.setText("←");
         btnGoBack.addActionListener(new java.awt.event.ActionListener() {
@@ -65,10 +77,10 @@ public class AddViewEditPersonOnBoardPanel extends javax.swing.JPanel {
 
         jLabel5.setText("Passport No.");
 
-        jButton1.setText("Submit");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnSubmit.setText("Submit");
+        btnSubmit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnSubmitActionPerformed(evt);
             }
         });
 
@@ -88,7 +100,7 @@ public class AddViewEditPersonOnBoardPanel extends javax.swing.JPanel {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 202, Short.MAX_VALUE)
-                                .addComponent(jButton1))
+                                .addComponent(btnSubmit))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel3)
@@ -111,7 +123,7 @@ public class AddViewEditPersonOnBoardPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnGoBack)
                     .addComponent(jLabel1)
-                    .addComponent(jButton1))
+                    .addComponent(btnSubmit))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -134,28 +146,36 @@ public class AddViewEditPersonOnBoardPanel extends javax.swing.JPanel {
 
     private void btnGoBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGoBackActionPerformed
         // TODO add your handling code here:
-        CardLayout layout=(CardLayout) bottomPanel.getLayout();
+        CardLayout layout = (CardLayout) bottomPanel.getLayout();
         this.bottomPanel.remove(this);
         layout.previous(this.bottomPanel);
     }//GEN-LAST:event_btnGoBackActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
         // TODO add your handling code here:
-        
+        String fName = txtFirstName.getText().trim(),
+                lName = this.txtLastName.getText().trim(),
+                id = this.txtID.getText().trim(),
+                seat = this.btnSeatChooser.getSeat();
+
         //validate
-        
         //add
-        String seat=this.btnSeatChooser.getSeat();
-        flight.pickSeat(seat);
-        
-        
-    }//GEN-LAST:event_jButton1ActionPerformed
+        if (JOptionPane.showConfirmDialog(this, "Are you sure to \nlog out?", "Confirm",
+                JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+            Traveler t = new Traveler(fName, lName, id, Business.getInstance().getMainFrame().getLoggedUser());
+            flight.pickSeat(seat, t);
+            JOptionPane.showMessageDialog(this, "Ordered successfully.", 
+                    "SUCCESS", JOptionPane.INFORMATION_MESSAGE);
+            backToMainMenu();
+        }
+
+    }//GEN-LAST:event_btnSubmitActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGoBack;
     private com.travel.util.SeatChooserJButton btnSeatChooser;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnSubmit;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

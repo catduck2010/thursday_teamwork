@@ -28,7 +28,7 @@ public class Business {
                 this.airliners, this.customers));
         this.customers.addCustomer("Lwh", "lwh", "Lynn", "Appleseed");
         this.airliners.addAirliner("Delta", "delta", "Delta");
-        this.airliners.addAirliner("Test", "test", "test");
+        this.airliners.addAirliner("Korean", "korean", "Korean Air");
     }
 
     public static Business getInstance() {

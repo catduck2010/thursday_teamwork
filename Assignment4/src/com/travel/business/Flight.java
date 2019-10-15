@@ -14,6 +14,9 @@ import java.util.Date;
  */
 public class Flight {
 
+    private static int ROW = 25;
+    private static int COL = 6;
+
     private String modelNum;
     private int seats;
     private String planeModel;
@@ -25,10 +28,9 @@ public class Flight {
     private String departure;
     private String arrival;
     private double ticketPrice;
-    private int[][] seatTable;
     private Object[][] travelerTable;
     private String flightNum;
-    private final ArrayList<Traveler> travelers=new ArrayList<>();
+    private final ArrayList<Traveler> travelers = new ArrayList<>();
 
     public String getFlightNum() {
         return flightNum;
@@ -40,14 +42,12 @@ public class Flight {
 
     private CustomerList onBoard;
 
-    
-    
     public Flight() {
         generateSeatTable();
-       
+
     }
-    
-    public ArrayList<Traveler> getTravelers(){
+
+    public ArrayList<Traveler> getTravelers() {
         return travelers;
     }
 
@@ -58,7 +58,6 @@ public class Flight {
     public void setModelNum(String modelNum) {
         this.modelNum = modelNum;
     }
-
 
     public Date getTakeOffTime() {
         return takeOffTime;
@@ -100,9 +99,6 @@ public class Flight {
         this.ticketPrice = ticketPrice;
     }
 
-
- 
-
     public String getAirliner() {
         return airliner;
     }
@@ -111,44 +107,52 @@ public class Flight {
         this.airliner = airliner;
     }
 
-    
     public void generateSeatTable() {
-        seatTable = new int[25][6];
-        travelerTable = new Object[25][6];
+        travelerTable = new Object[ROW][COL];
     }
 
-    public int[][] getSeatTable() {
-        return seatTable;
+    public int[][] getIntSeatTable() {
+        int[][] table = new int[ROW][COL];
+        int i = 0;
+        for (Object[] row : travelerTable) {
+            int j = 0;
+            for (Object o : row) {
+                table[i][j++] = (o == null) ? 0 : 1;
+            }
+            i++;
+        }
+
+        return table;
     }
 
-    public void setValueToTable(int row, int col, int value) {
-        seatTable[row][col] = value;
+    public void setValueToTable(int row, int col, Object value) {
+        travelerTable[row][col] = value;
     }
 
-    public void setOccupiedAt(int row, int col) {
+    public void setOccupiedAt(int row, int col, Object traveler) {
         setValueToTable(row, col, 1);
     }
 
     public void setEmptyAt(int row, int col) {
-        setValueToTable(row, col, 0);
+        setValueToTable(row, col, null);
     }
 
-    public void pickSeat(String seat) {
+    public void pickSeat(String seat, Object traveler) {
         char[] s = seat.toCharArray();
         char col = s[s.length - 1];
-        int row = Integer.parseInt(seat.substring(0, s.length - 1));
+        int row = Integer.parseInt(seat.substring(0, s.length - 1)) - 1;
         int column = getColumn(col);
-        if (col != -1) {
-            setOccupiedAt(row, column);
+        if (column != -1) {
+            setOccupiedAt(row, column, traveler);
         }
     }
 
     public void releaseSeat(String seat) {
         char[] s = seat.toCharArray();
         char col = s[s.length - 1];
-        int row = Integer.parseInt(seat.substring(0, s.length - 1));
+        int row = Integer.parseInt(seat.substring(0, s.length - 1)) - 1;
         int column = getColumn(col);
-        if (col != -1) {
+        if (column != -1) {
             setEmptyAt(row, column);
         }
     }
@@ -179,9 +183,9 @@ public class Flight {
         return column;
 
     }
-    
+
     @Override
-    public String toString(){
+    public String toString() {
         return flightNum;
     }
 
@@ -192,17 +196,17 @@ public class Flight {
     public void setOnBoard(CustomerList onBoard) {
         this.onBoard = onBoard;
     }
-    
-    public void getTravelerSeat(){
-        
+
+    public void getTravelerSeat() {
+
     }
-    
+
     public Flight(String airliner, String flight, String from, String to, String date) {
         this.airliner = airliner;
         this.flightNo = flight;
         this.departure = from;
         this.arrival = to;
         this.flightDate = date;
-           
+
     }
 }
