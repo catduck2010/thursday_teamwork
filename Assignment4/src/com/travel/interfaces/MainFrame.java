@@ -7,8 +7,11 @@ package com.travel.interfaces;
 
 import com.travel.users.Admin;
 import com.travel.business.AdminList;
+import com.travel.business.AircraftList;
 import com.travel.business.AirlinerList;
+import com.travel.business.Business;
 import com.travel.business.CustomerList;
+import com.travel.business.FlightDirectory;
 import com.travel.users.User;
 import java.awt.CardLayout;
 import java.util.ArrayList;
@@ -25,19 +28,26 @@ public class MainFrame extends javax.swing.JFrame {
     /**
      * Creates new form MainFrame
      */
-    private final AdminList admins = new AdminList();
-    private final AirlinerList airliners = new AirlinerList();
-    private final CustomerList customers = new CustomerList();
+    private final AdminList admins;
+    private final AirlinerList airliners;
+    private final CustomerList customers;
+    private final Business business;
+    private final AircraftList aircraftList;
+    private final FlightDirectory flightDirectory;
 
     private User loggedUser = null;
     private boolean loggedIn = false;
 
     public MainFrame() {
         initComponents();
+        this.business = Business.getInstance();
         this.rightPanel.setLayout(new CardLayout());
-        this.admins.addAdmin(new Admin("Administrator", "admin",
-                this.airliners, this.customers));
-        this.customers.addCustomer("Lwh", "lwh", "Lynn", "Appleseed");
+        this.admins = business.getAdmins();
+        this.airliners = business.getAirliners();
+        this.customers = business.getCustomers();
+        this.aircraftList = business.getAircraftList();
+        this.flightDirectory = business.getFlightDirectory();
+        
     }
 
     public JPanel getRightPanel() {

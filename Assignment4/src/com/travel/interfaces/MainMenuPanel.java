@@ -9,6 +9,7 @@ import com.travel.users.Airliner;
 import com.travel.users.Customer;
 import com.travel.users.User;
 import java.awt.CardLayout;
+import com.travel.business.Business;
 
 /**
  *
@@ -107,6 +108,11 @@ public class MainMenuPanel extends javax.swing.JPanel {
         });
 
         btnFlights.setText("Manage Flights");
+        btnFlights.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFlightsActionPerformed(evt);
+            }
+        });
 
         btnMyFlight.setText("Manage My Flights");
 
@@ -180,6 +186,14 @@ public class MainMenuPanel extends javax.swing.JPanel {
         this.bottomPanel.add(panel);
         layout.next(this.bottomPanel);
     }//GEN-LAST:event_btnBookFlightActionPerformed
+
+    private void btnFlightsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFlightsActionPerformed
+        // TODO add your handling code here:
+        CardLayout layout = (CardLayout)bottomPanel.getLayout();
+        bottomPanel.add(new AirlinerManagePanel(bottomPanel, Business.getInstance().getAircraftList(),Business.getInstance().getFlightDirectory(), user.getUsername()));
+        layout.next(bottomPanel);
+        
+    }//GEN-LAST:event_btnFlightsActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

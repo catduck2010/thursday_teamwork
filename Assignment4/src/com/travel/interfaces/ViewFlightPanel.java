@@ -26,10 +26,10 @@ public class ViewFlightPanel extends javax.swing.JPanel {
 
     private Flight flight;
     private FlightDirectory flightDirectory;
-    private JPanel rightPanel;
-    public ViewFlightPanel(JPanel rightPanel, FlightDirectory flightDirectory, Flight flight) {
+    private JPanel bottomPanel;
+    public ViewFlightPanel(JPanel bottomPanel, FlightDirectory flightDirectory, Flight flight) {
         initComponents();
-        this.rightPanel = rightPanel;
+        this.bottomPanel = bottomPanel;
         this.flightDirectory = flightDirectory;
         this.flight = flight;
         displayFlight(flight);
@@ -272,16 +272,16 @@ public class ViewFlightPanel extends javax.swing.JPanel {
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
 
-        this.rightPanel.remove(this);
-        CardLayout cardLayout =(CardLayout)rightPanel.getLayout();
-        Component[] comps = this.rightPanel.getComponents();
+        this.bottomPanel.remove(this);
+        CardLayout cardLayout =(CardLayout)bottomPanel.getLayout();
+        Component[] comps = this.bottomPanel.getComponents();
         for(Component comp : comps){
             if(comp instanceof ManageAirCraftPanel){
                 ManageAirCraftPanel manageAirCraftPanel = (ManageAirCraftPanel) comp;
                 manageAirCraftPanel.populateTable(flightDirectory.getFlightDir());
             }
         }
-        cardLayout.previous(rightPanel);
+        cardLayout.previous(bottomPanel);
 
     }//GEN-LAST:event_btnBackActionPerformed
 

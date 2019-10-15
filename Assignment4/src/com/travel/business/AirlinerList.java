@@ -27,7 +27,11 @@ public class AirlinerList {
     public ArrayList<Airliner> getAirlinerList() {
         return airlinerList;
     }
-    
+    public void addAirliner(String unameString, String pwString, String provider){
+        Airliner a = new Airliner(unameString, pwString);
+        a.setProviderName(provider);
+        airlinerList.add(a);
+    }
     
 
 }
