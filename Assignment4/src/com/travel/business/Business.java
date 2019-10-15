@@ -19,8 +19,8 @@ public class Business {
     private final AdminList admins = new AdminList();
     private final AirlinerList airliners = new AirlinerList();
     private final CustomerList customers = new CustomerList();
-    private FlightDirectory flightDirectory = new FlightDirectory();
-    private AircraftList aircraftList = new AircraftList();
+    private final FlightDirectory flightDirectory = new FlightDirectory();
+    private final AircraftList aircraftList = new AircraftList();
     private MainFrame mFrame;
 
     public Business() {
@@ -29,8 +29,8 @@ public class Business {
         this.customers.addCustomer("Lwh", "lwh", "Lynn", "Appleseed");
         this.airliners.addAirliner("Delta", "delta", "Delta");
         this.airliners.addAirliner("Test", "test", "test");
-        FlightDirectory flightDirectory = new FlightDirectory();
-        AircraftList aircraftList = new AircraftList();
+        
+        
     }
 
     public static Business getInstance() {
@@ -44,17 +44,13 @@ public class Business {
         return flightDirectory;
     }
 
-    public void setFlightDirectory(FlightDirectory flightDirectory) {
-        this.flightDirectory = flightDirectory;
-    }
+    
 
     public AircraftList getAircraftList() {
         return aircraftList;
     }
 
-    public void setAircraftList(AircraftList aircraftList) {
-        this.aircraftList = aircraftList;
-    }
+    
 
     public AdminList getAdmins() {
         return admins;

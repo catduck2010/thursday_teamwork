@@ -33,14 +33,18 @@ public class AircraftList {
     public boolean sameModelNum(String modelNum){
         boolean b = false;
         for(Aircraft aircraft : aircraftDir){
-            if(aircraftDir.size() != 0){
-                if(aircraft.getModelNum() == modelNum)
-                b = true;
-                
-            } 
+            
+                if(aircraft.getModelNum().equals(modelNum))
+                { 
+                    b = true;
+                    break;
+                }               
+            
         }
         return b;
     }
+    
+    
     
     
 }

@@ -5,7 +5,12 @@
  */
 package com.travel.interfaces;
 
+import com.sun.javafx.binding.SelectBinding;
 import java.awt.CardLayout;
+import java.awt.Color;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -23,7 +28,25 @@ public class SearchFlightPanel extends javax.swing.JPanel {
         initComponents();
         this.bottomPanel = p;
         //btnSeatChooser.setBorder(btnSearch.getBorder());
-
+        this.checkboxAirliner.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                if(checkboxAirliner.isSelected())
+                    txtAirliner.setEnabled(true);
+                if(!checkboxAirliner.isSelected())
+                    txtAirliner.setEnabled(false);
+            }
+        });
+        
+        this.checkboxMaxprice.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                if(checkboxMaxprice.isSelected())
+                    txtMaxPrice.setEnabled(true);
+                if(!checkboxMaxprice.isSelected())
+                    txtMaxPrice.setEnabled(false);
+            }
+        });
     }
 
     /**
@@ -45,6 +68,10 @@ public class SearchFlightPanel extends javax.swing.JPanel {
         btnSearch = new javax.swing.JButton();
         btnDateChooser = new com.travel.util.DateChooserJButton();
         btnDateChooser1 = new com.travel.util.DateChooserJButton();
+        txtAirliner = new javax.swing.JTextField();
+        txtMaxPrice = new javax.swing.JTextField();
+        checkboxAirliner = new javax.swing.JCheckBox();
+        checkboxMaxprice = new javax.swing.JCheckBox();
 
         jLabel1.setText("Depart on");
 
@@ -66,28 +93,60 @@ public class SearchFlightPanel extends javax.swing.JPanel {
             }
         });
 
+        txtAirliner.setEnabled(false);
+        txtAirliner.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtAirlinerActionPerformed(evt);
+            }
+        });
+
+        txtMaxPrice.setEnabled(false);
+
+        checkboxAirliner.setText("Airliner");
+        checkboxAirliner.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkboxAirlinerActionPerformed(evt);
+            }
+        });
+
+        checkboxMaxprice.setText("Max price");
+        checkboxMaxprice.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkboxMaxpriceActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnGoBack, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(jLabel1)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 222, Short.MAX_VALUE)
-                        .addComponent(btnSearch))
-                    .addComponent(txtFrom)
-                    .addComponent(txtTo))
+                        .addContainerGap()
+                        .addComponent(btnGoBack, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 222, Short.MAX_VALUE)
+                                .addComponent(btnSearch))
+                            .addComponent(txtFrom)
+                            .addComponent(txtTo)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(57, 57, 57)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(checkboxAirliner)
+                            .addComponent(checkboxMaxprice))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtAirliner)
+                            .addComponent(txtMaxPrice))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -111,7 +170,15 @@ public class SearchFlightPanel extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(5, 5, 5)
                         .addComponent(btnSearch)))
-                .addContainerGap(201, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtAirliner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(checkboxAirliner))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtMaxPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(checkboxMaxprice))
+                .addContainerGap(119, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -123,13 +190,115 @@ public class SearchFlightPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnGoBackActionPerformed
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
-        // TODO add your handling code here:
-        CardLayout layout = (CardLayout) bottomPanel.getLayout();
+        String from = txtFrom.getText();
+        jLabel2.setForeground(Color.black);
+        if("".equals(from)){
+                JOptionPane.showMessageDialog(this, "Please enter the departure");
+                jLabel2.setForeground(Color.red);
+               return;
+            }
+        
+        String to = txtTo.getText();
+        jLabel3.setForeground(Color.black);
+        if("".equals(to)){
+                JOptionPane.showMessageDialog(this, "Please enter the destination");
+                jLabel3.setForeground(Color.red);
+               return;
+            }
+        
+        if(checkboxAirliner.isSelected()==false && checkboxMaxprice.isSelected()==false){
+            CardLayout layout = (CardLayout) bottomPanel.getLayout();
         FlightsPanel panel = new FlightsPanel(bottomPanel, txtFrom.getText().trim(),
                 txtTo.getText().trim(), btnDateChooser.getDate());
         this.bottomPanel.add("FlightsPanel", panel);
         layout.next(bottomPanel);
+        }
+        txtAirliner.setEnabled(false);
+        txtMaxPrice.setEnabled(false);
+        
+        if(checkboxAirliner.isSelected()==true && checkboxMaxprice.isSelected()==false){
+           
+            String airliner = txtAirliner.getText();
+            if("".equals(airliner)){
+                JOptionPane.showMessageDialog(this, "Please enter the airliner name");
+                checkboxAirliner.setForeground(Color.red);
+               return;
+            }
+            else{
+                CardLayout layout = (CardLayout) bottomPanel.getLayout();
+        FlightsPanel panel = new FlightsPanel(bottomPanel, txtFrom.getText().trim(),
+                txtTo.getText().trim(), btnDateChooser.getDate(),txtAirliner.getText());
+        this.bottomPanel.add("FlightsPanel", panel);
+        layout.next(bottomPanel);
+                
+            }
+        }
+        
+        try{
+        if(checkboxAirliner.isSelected()==false && checkboxMaxprice.isSelected()==true){
+            
+            checkboxMaxprice.setForeground(Color.black);
+            Double maxprice = Double.parseDouble(txtMaxPrice.getText());
+            
+            
+                CardLayout layout = (CardLayout) bottomPanel.getLayout();
+        FlightsPanel panel = new FlightsPanel(bottomPanel, txtFrom.getText().trim(),
+                txtTo.getText().trim(), btnDateChooser.getDate(),maxprice);
+        this.bottomPanel.add("FlightsPanel", panel);
+        layout.next(bottomPanel);       
+            
+        }
+        }
+        catch(NumberFormatException e){
+            JOptionPane.showMessageDialog(this, "Please enter correct value for max price!");
+            checkboxMaxprice.setForeground(Color.red);
+            return;  
+        }
+        
+        try{
+        if(checkboxAirliner.isSelected()==true && checkboxMaxprice.isSelected()==true){
+           
+            checkboxMaxprice.setForeground(Color.black);
+            checkboxAirliner.setForeground(Color.black);
+            String airliner = txtAirliner.getText();
+            Double maxprice = Double.parseDouble(txtMaxPrice.getText());
+            if("".equals(airliner)){
+                JOptionPane.showMessageDialog(this, "Please enter the airliner name");
+                checkboxAirliner.setForeground(Color.red);
+               return;
+            }
+            else{
+            
+                CardLayout layout = (CardLayout) bottomPanel.getLayout();
+                FlightsPanel panel = new FlightsPanel(bottomPanel, txtFrom.getText().trim(),
+                txtTo.getText().trim(), btnDateChooser.getDate(),airliner,maxprice);
+                this.bottomPanel.add("FlightsPanel", panel);
+                layout.next(bottomPanel);       
+            }  
+        }
+        }
+        catch(NumberFormatException e){
+            JOptionPane.showMessageDialog(this, "Please enter correct value for max price!");
+            checkboxMaxprice.setForeground(Color.red);
+            return;  
+        }
+        
+        
+        
     }//GEN-LAST:event_btnSearchActionPerformed
+
+    private void txtAirlinerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAirlinerActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtAirlinerActionPerformed
+
+    private void checkboxMaxpriceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkboxMaxpriceActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_checkboxMaxpriceActionPerformed
+
+    private void checkboxAirlinerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkboxAirlinerActionPerformed
+ 
+    
+    }//GEN-LAST:event_checkboxAirlinerActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -138,10 +307,14 @@ public class SearchFlightPanel extends javax.swing.JPanel {
     private javax.swing.JButton btnGoBack;
     private javax.swing.JButton btnSearch;
     private com.travel.util.SeatChooserJButton btnSeatChooser;
+    private javax.swing.JCheckBox checkboxAirliner;
+    private javax.swing.JCheckBox checkboxMaxprice;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JTextField txtAirliner;
     private javax.swing.JTextField txtFrom;
+    private javax.swing.JTextField txtMaxPrice;
     private javax.swing.JTextField txtTo;
     // End of variables declaration//GEN-END:variables
 }

@@ -20,27 +20,40 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" attributes="0">
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="btnGoBack" min="-2" pref="45" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                  <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                  <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
-                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                  </Group>
-              </Group>
-              <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
+          <Group type="102" alignment="0" attributes="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="btnDateChooser" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="222" max="32767" attributes="0"/>
-                      <Component id="btnSearch" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="btnGoBack" min="-2" pref="45" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                          <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel1" alignment="1" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="btnDateChooser" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace pref="222" max="32767" attributes="0"/>
+                              <Component id="btnSearch" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="txtFrom" max="32767" attributes="0"/>
+                          <Component id="txtTo" alignment="0" max="32767" attributes="0"/>
+                      </Group>
                   </Group>
-                  <Component id="txtFrom" max="32767" attributes="0"/>
-                  <Component id="txtTo" alignment="0" max="32767" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="checkboxAirliner" min="-2" max="-2" attributes="0"/>
+                          <Component id="checkboxMaxprice" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="txtAirliner" max="32767" attributes="0"/>
+                          <Component id="txtMaxPrice" max="32767" attributes="0"/>
+                      </Group>
+                  </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -73,7 +86,17 @@
                       <Component id="btnSearch" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace pref="201" max="32767" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="txtAirliner" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="checkboxAirliner" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="txtMaxPrice" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="checkboxMaxprice" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace pref="119" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -117,6 +140,35 @@
     <Component class="com.travel.util.DateChooserJButton" name="btnDateChooser">
     </Component>
     <Component class="com.travel.util.DateChooserJButton" name="btnDateChooser1">
+    </Component>
+    <Component class="javax.swing.JTextField" name="txtAirliner">
+      <Properties>
+        <Property name="enabled" type="boolean" value="false"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtAirlinerActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JTextField" name="txtMaxPrice">
+      <Properties>
+        <Property name="enabled" type="boolean" value="false"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="checkboxAirliner">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Airliner"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkboxAirlinerActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="checkboxMaxprice">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Max price"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkboxMaxpriceActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

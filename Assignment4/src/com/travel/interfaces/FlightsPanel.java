@@ -8,6 +8,7 @@ package com.travel.interfaces;
 import com.travel.business.Business;
 import com.travel.business.Flight;
 import com.travel.users.Airliner;
+import com.travel.util.Validator;
 import java.awt.CardLayout;
 import java.awt.Panel;
 import java.util.Date;
@@ -26,31 +27,140 @@ public class FlightsPanel extends javax.swing.JPanel {
      */
     private final JPanel bottomPanel;
     private final Business business;
+    private String to;
+    private String from;
+    private Date depart;
+    private String airliner;
+    private Double price;
 
     public FlightsPanel(JPanel b, String from, String to, Date depart) {
         initComponents();
         bottomPanel = b;
         business = Business.getInstance();
+        this.to =to;
+        this.depart = depart;
+        this.from = from;
+        loadFlights();
+    }
+    public FlightsPanel(JPanel b, String from, String to, Date depart, String airliner){
+        initComponents();
+        bottomPanel = b;
+        business = Business.getInstance();
+        this.to =to;
+        this.depart = depart;
+        this.from = from;
+        this.airliner = airliner;
+        loadFlightsA();
+    }
+    
+    public FlightsPanel(JPanel b, String from, String to, Date depart, Double price){
+        initComponents();
+        bottomPanel = b;
+        business = Business.getInstance();
+        this.to =to;
+        this.depart = depart;
+        this.from = from;
+        this.price = price;
+        loadFlightsB();
+    }
+    
+    public FlightsPanel(JPanel b, String from, String to, Date depart,String airliner, Double price){
+        initComponents();
+        bottomPanel = b;
+        business = Business.getInstance();
+        this.to =to;
+        this.depart = depart;
+        this.from = from;
+        this.price = price;
+        this.airliner = airliner;
+        loadFlightsC();
     }
 
     public void loadFlights() {
         DefaultTableModel dtm = (DefaultTableModel) tblFlights.getModel();
-
         dtm.setRowCount(0);
 
   
             for (Flight f : business.getFlightDirectory().getFlightDir()) {
+                if(f.getArrival().equals(to) && f.getDeparture().equals(from) && Validator.IsSameDay(f.getTakeOffTime(), depart)){
                 Object[] row = new Object[5];
-                row[0] = "";
+                row[0] = f.getAirliner();
                 row[1] = f;
                 row[2] = f.getDeparture();
                 row[3] = f.getArrival();
                 row[4] = f.getTakeOffTime();
+                dtm.addRow(row);
+                }
+                
             }
+            if(dtm.getRowCount()==0)
+                    JOptionPane.showMessageDialog(this,"No result"); 
         
+    }
+    
+    public void loadFlightsA() {
+        DefaultTableModel dtm = (DefaultTableModel) tblFlights.getModel();
+        dtm.setRowCount(0);
 
+  
+            for (Flight f : business.getFlightDirectory().getFlightDir()) {
+                if(f.getArrival().equals(to) && f.getDeparture().equals(from) && Validator.IsSameDay(f.getTakeOffTime(), depart)&&f.getAirliner().equals(airliner)){
+                Object[] row = new Object[5];
+                row[0] = f.getAirliner();
+                row[1] = f;
+                row[2] = f.getDeparture();
+                row[3] = f.getArrival();
+                row[4] = f.getTakeOffTime();
+                dtm.addRow(row);
+                }
+                
+            }
+        if(dtm.getRowCount()==0)
+                    JOptionPane.showMessageDialog(this, "No result"); 
     }
 
+    public void loadFlightsB() {
+        DefaultTableModel dtm = (DefaultTableModel) tblFlights.getModel();
+        dtm.setRowCount(0);
+
+  
+            for (Flight f : business.getFlightDirectory().getFlightDir()) {
+                if(f.getArrival().equals(to) && f.getDeparture().equals(from) && Validator.IsSameDay(f.getTakeOffTime(), depart)&&f.getTicketPrice()<= price){
+                Object[] row = new Object[5];
+                row[0] = f.getAirliner();
+                row[1] = f;
+                row[2] = f.getDeparture();
+                row[3] = f.getArrival();
+                row[4] = f.getTakeOffTime();
+                dtm.addRow(row);
+                }
+                
+                
+            }
+        if(dtm.getRowCount()==0)
+                    JOptionPane.showMessageDialog(this, "No result"); 
+    }
+    public void loadFlightsC() {
+        DefaultTableModel dtm = (DefaultTableModel) tblFlights.getModel();
+        dtm.setRowCount(0);
+
+  
+            for (Flight f : business.getFlightDirectory().getFlightDir()) {
+                if(f.getArrival().equals(to) && f.getDeparture().equals(from) && Validator.IsSameDay(f.getTakeOffTime(), depart)&&f.getTicketPrice()<= price&&f.getAirliner().equals(airliner)){
+                Object[] row = new Object[5];
+                row[0] = f.getAirliner();
+                row[1] = f;
+                row[2] = f.getDeparture();
+                row[3] = f.getArrival();
+                row[4] = f.getTakeOffTime();
+                dtm.addRow(row);
+                }
+                
+            }
+        if(dtm.getRowCount()==0)
+                    JOptionPane.showMessageDialog(this, "No result"); 
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
