@@ -19,6 +19,8 @@ public class Business {
     private final AdminList admins = new AdminList();
     private final AirlinerList airliners = new AirlinerList();
     private final CustomerList customers = new CustomerList();
+    private  FlightDirectory flightDirectory = new FlightDirectory();
+    private  AircraftList aircraftList = new AircraftList();
     private MainFrame mFrame;
 
     public Business() {
@@ -33,6 +35,22 @@ public class Business {
             business = new Business();
         }
         return business;
+    }
+
+    public FlightDirectory getFlightDirectory() {
+        return flightDirectory;
+    }
+
+    public void setFlightDirectory(FlightDirectory flightDirectory) {
+        this.flightDirectory = flightDirectory;
+    }
+
+    public AircraftList getAircraftList() {
+        return aircraftList;
+    }
+
+    public void setAircraftList(AircraftList aircraftList) {
+        this.aircraftList = aircraftList;
     }
 
     public AdminList getAdmins() {

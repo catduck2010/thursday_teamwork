@@ -10,7 +10,7 @@ import com.travel.business.FlightDirectory;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Component;
-import java.sql.Date;
+import java.util.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.regex.Matcher;
@@ -28,12 +28,12 @@ public class CreateFlightsPanel extends javax.swing.JPanel {
      * Creates new form CreateFlightsPanel
      */
     private FlightDirectory flightDirectory;
-    private JPanel rightPanel;
+    private JPanel bottomPanel;
     private String modelNum;
-    public CreateFlightsPanel(JPanel rightPanel, FlightDirectory flightDirectory, String modelNum) {
+    public CreateFlightsPanel(JPanel bottomPanel, FlightDirectory flightDirectory, String modelNum) {
         initComponents();
         this.flightDirectory = flightDirectory;
-        this.rightPanel = rightPanel;
+        this.bottomPanel = bottomPanel;
         this.modelNum = modelNum;
         titleLabel.setText(modelNum);
     }
@@ -47,7 +47,7 @@ public class CreateFlightsPanel extends javax.swing.JPanel {
     }
     
     private boolean checkFlightNum(String input){
-        Pattern pattern = Pattern.compile("^(?=.*[A-Z])(?=.*\\d)[A-Z\\d]$");
+        Pattern pattern = Pattern.compile("^[A-Z0-9]+$");
         Matcher m = pattern.matcher(input);
         if(!m.matches()){
             return false;
@@ -65,6 +65,7 @@ public class CreateFlightsPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jSpinner1 = new javax.swing.JSpinner();
         jLabel1 = new javax.swing.JLabel();
         depLabel = new javax.swing.JLabel();
         txtDeparture = new javax.swing.JTextField();
@@ -170,8 +171,8 @@ public class CreateFlightsPanel extends javax.swing.JPanel {
                         .addGap(12, 12, 12)
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(titleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(134, Short.MAX_VALUE))
+                        .addComponent(titleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(60, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -179,7 +180,7 @@ public class CreateFlightsPanel extends javax.swing.JPanel {
                 .addGap(16, 16, 16)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(titleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 8, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(titleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBack))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -231,7 +232,7 @@ public class CreateFlightsPanel extends javax.swing.JPanel {
                 return;
             }
          if(!checkFlightNum(flightNum)){
-            JOptionPane.showMessageDialog(this, "Flight Number Must contain Upper Case letter and numbers!");
+            JOptionPane.showMessageDialog(this, "Flight Number Must contain Upper Case letter or numbers or both!");
                 flightNumLabel.setForeground(Color.red);
                 validation = false;
                 return;
@@ -297,12 +298,18 @@ public class CreateFlightsPanel extends javax.swing.JPanel {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm"); 
         try {
             dateFormat.setLenient(false);
-            dateFormat.parse(txtTakeOffTime.getText());
-            Date takeOfftime = Date.valueOf(txtTakeOffTime.getText());
+            Date takeOfftime = dateFormat.parse(txtTakeOffTime.getText());
+            Date currentDate = new Date();
             takeOffLabel.setForeground(Color.black);
             if(flightDirectory.checkLandTime(takeOfftime,modelNum)== false)
             {
                 JOptionPane.showMessageDialog(this, "Take Off time is unreasonalbe!");
+                takeOffLabel.setForeground(Color.red);
+                validation = false;
+                return;
+            }
+            if(takeOfftime.before(currentDate)){
+                JOptionPane.showMessageDialog(this, "Take Off time must after current time!");
                 takeOffLabel.setForeground(Color.red);
                 validation = false;
                 return;
@@ -318,8 +325,9 @@ public class CreateFlightsPanel extends javax.swing.JPanel {
         
         try {
             dateFormat.setLenient(false);
-            dateFormat.parse(txtLandTime.getText());
-            Date landtime = Date.valueOf(txtLandTime.getText());
+            Date takeOfftime = dateFormat.parse(txtTakeOffTime.getText());
+            Date currentDate = new Date();
+            Date landtime = dateFormat.parse(txtLandTime.getText());
             landLabel.setForeground(Color.black);
             if(flightDirectory.checkLandTime(landtime,modelNum)== false)
             {
@@ -328,6 +336,13 @@ public class CreateFlightsPanel extends javax.swing.JPanel {
                 validation = false;
                 return;
             }
+            if(landtime.before(takeOfftime)){
+                JOptionPane.showMessageDialog(this, "Land time must after take off time!");
+                takeOffLabel.setForeground(Color.red);
+                validation = false;
+                return;
+            }
+            
               
         } catch (ParseException e) {
             
@@ -338,33 +353,41 @@ public class CreateFlightsPanel extends javax.swing.JPanel {
         }
         
         if(validation == true) {
-              
+             try{ 
+                 Date takeOfftime = dateFormat.parse(txtTakeOffTime.getText());
+                 Date landtime = dateFormat.parse(txtLandTime.getText());
               Flight flight = flightDirectory.addFlight();
               flight.setArrival(arrival);
               flight.setDeparture(departure);
               flight.setFlightNum(flightNum);
-              flight.setLandTime(Date.valueOf(txtLandTime.getText()));
+              flight.setLandTime(landtime);
               flight.setModelNum(modelNum);
-              flight.setTakeOffTime(Date.valueOf(txtTakeOffTime.getText()));
+              flight.setTakeOffTime(takeOfftime);
               flight.setTicketPrice(Double.parseDouble(txtPrice.getText()));
 
         JOptionPane.showMessageDialog(null, "Add a Flight successfully!");
+             }
+             catch(ParseException e){
+                
+                 JOptionPane.showMessageDialog(this, "Please enter correct value for time! The format is yyyy-MM-dd HH:mm");
+             return;
+             }
         }
     }//GEN-LAST:event_btnCreateActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
        
         
-        this.rightPanel.remove(this);
-        CardLayout cardLayout =(CardLayout)rightPanel.getLayout();
-        Component[] comps = this.rightPanel.getComponents();
+        this.bottomPanel.remove(this);
+        CardLayout cardLayout =(CardLayout)bottomPanel.getLayout();
+        Component[] comps = this.bottomPanel.getComponents();
         for(Component comp : comps){
             if(comp instanceof ManageAirCraftPanel){
                 ManageAirCraftPanel manageAirCraftPanel = (ManageAirCraftPanel) comp;
                 manageAirCraftPanel.populateTable(flightDirectory.getFlightDir());
             }
         }
-        cardLayout.previous(rightPanel);
+        cardLayout.previous(bottomPanel);
         
     }//GEN-LAST:event_btnBackActionPerformed
 
@@ -373,11 +396,10 @@ public class CreateFlightsPanel extends javax.swing.JPanel {
     private javax.swing.JLabel arrivalLabel;
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnCreate;
-    private javax.swing.JButton btnGoBack;
-    private javax.swing.JButton btnGoBack1;
     private javax.swing.JLabel depLabel;
     private javax.swing.JLabel flightNumLabel;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JSpinner jSpinner1;
     private javax.swing.JLabel landLabel;
     private javax.swing.JLabel priceLabel;
     private javax.swing.JLabel takeOffLabel;

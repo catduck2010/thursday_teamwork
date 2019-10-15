@@ -6,10 +6,12 @@
 package com.travel.interfaces;
 
 import com.travel.business.AdminList;
+import com.travel.business.AircraftList;
 import com.travel.business.AirlinerList;
 import com.travel.business.Business;
 import com.travel.business.CustomerList;
 import com.travel.business.UserList;
+import com.travel.business.FlightDirectory;
 import com.travel.users.User;
 import java.awt.CardLayout;
 import javax.swing.JButton;
@@ -29,6 +31,9 @@ public class MainFrame extends javax.swing.JFrame {
     private final AirlinerList airliners;
     private final CustomerList customers;
     private final Business business;
+    private final AircraftList aircraftList;
+    private final FlightDirectory flightDirectory;
+
     private User loggedUser = null;
     private boolean loggedIn = false;
 
@@ -36,10 +41,14 @@ public class MainFrame extends javax.swing.JFrame {
     public MainFrame() {
         initComponents();
         this.business = Business.getInstance();
+        business.setMainFrame(this);
+        this.rightPanel.setLayout(new CardLayout());
         this.admins = business.getAdmins();
         this.airliners = business.getAirliners();
         this.customers = business.getCustomers();
-        business.setMainFrame(this);
+        this.aircraftList = business.getAircraftList();
+        this.flightDirectory = business.getFlightDirectory();
+        
     }
 
     public JPanel getRightPanel() {
