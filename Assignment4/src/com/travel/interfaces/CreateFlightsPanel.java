@@ -7,6 +7,7 @@ package com.travel.interfaces;
 
 import com.travel.business.Flight;
 import com.travel.business.FlightDirectory;
+import com.travel.users.Airliner;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -30,11 +31,13 @@ public class CreateFlightsPanel extends javax.swing.JPanel {
     private FlightDirectory flightDirectory;
     private JPanel bottomPanel;
     private String modelNum;
-    public CreateFlightsPanel(JPanel bottomPanel, FlightDirectory flightDirectory, String modelNum) {
+    private Airliner airliner;
+    public CreateFlightsPanel(JPanel bottomPanel, FlightDirectory flightDirectory, String modelNum, Airliner airliner) {
         initComponents();
         this.flightDirectory = flightDirectory;
         this.bottomPanel = bottomPanel;
         this.modelNum = modelNum;
+        this.airliner = airliner;
         titleLabel.setText(modelNum);
     }
     private boolean checkLetter(String input){
@@ -338,7 +341,7 @@ public class CreateFlightsPanel extends javax.swing.JPanel {
             }
             if(landtime.before(takeOfftime)){
                 JOptionPane.showMessageDialog(this, "Land time must after take off time!");
-                takeOffLabel.setForeground(Color.red);
+                landLabel.setForeground(Color.red);
                 validation = false;
                 return;
             }
@@ -364,6 +367,7 @@ public class CreateFlightsPanel extends javax.swing.JPanel {
               flight.setModelNum(modelNum);
               flight.setTakeOffTime(takeOfftime);
               flight.setTicketPrice(Double.parseDouble(txtPrice.getText()));
+              flight.setAirliner(airliner.getProviderName());
 
         JOptionPane.showMessageDialog(null, "Add a Flight successfully!");
              }

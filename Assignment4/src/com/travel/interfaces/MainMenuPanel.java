@@ -217,11 +217,14 @@ public class MainMenuPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnBookFlightActionPerformed
 
     private void btnFlightsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFlightsActionPerformed
-        // TODO add your handling code here:
-        CardLayout layout = (CardLayout)bottomPanel.getLayout();
-        bottomPanel.add(new AirlinerManagePanel(bottomPanel, Business.getInstance().getAircraftList(),Business.getInstance().getFlightDirectory(), user.getUsername()));
-        layout.next(bottomPanel);
         
+        Airliner airliner = (Airliner) user;
+        AirlinerManagePanel airlinerManagePanel = new AirlinerManagePanel(bottomPanel, Business.getInstance().getAircraftList(),Business.getInstance().getFlightDirectory(), airliner);
+        this.bottomPanel.add("AirlinerManagePanel",airlinerManagePanel);
+        CardLayout cardLayout = (CardLayout)this.bottomPanel.getLayout();
+        cardLayout.next(bottomPanel);
+        
+       
     }//GEN-LAST:event_btnFlightsActionPerformed
 
     private void btnProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProfileActionPerformed

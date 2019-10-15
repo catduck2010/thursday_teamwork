@@ -33,6 +33,14 @@ public class FlightDirectory {
         flightDir.remove(flight);
         
     }
+    public void deleteSelectedAirCraft(String modelNum){
+        for(Flight flight : flightDir){
+            if (flight.getModelNum() == modelNum) {
+                flightDir.remove(flight);
+                
+            }
+        }
+    }
     
     public boolean sameFlightNum(String flightNum){
         boolean b = false;

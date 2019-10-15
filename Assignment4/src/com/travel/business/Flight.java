@@ -103,8 +103,15 @@ public class Flight {
 
  
 
-    
+    public String getAirliner() {
+        return airliner;
+    }
 
+    public void setAirliner(String airliner) {
+        this.airliner = airliner;
+    }
+
+    
     public void generateSeatTable() {
         seatTable = new int[25][6];
         travelerTable = new Object[25][6];

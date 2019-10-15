@@ -8,6 +8,7 @@ package com.travel.interfaces;
 import com.travel.business.AircraftList;
 import com.travel.business.Flight;
 import com.travel.business.FlightDirectory;
+import com.travel.users.Airliner;
 import java.awt.CardLayout;
 import java.awt.Component;
 import java.util.ArrayList;
@@ -28,12 +29,14 @@ public class ManageAirCraftPanel extends javax.swing.JPanel {
     private JPanel bottomPanel;
     private String modelNum;
     private AircraftList aircraftList;
-    public ManageAirCraftPanel(JPanel bottomPanel, FlightDirectory flightDirectory,AircraftList aircraftList, String modelNum) {
+    private Airliner airliner;
+    public ManageAirCraftPanel(JPanel bottomPanel, FlightDirectory flightDirectory,AircraftList aircraftList, String modelNum,Airliner airliner) {
         initComponents();
         this.flightDirectory = flightDirectory;
         this.bottomPanel = bottomPanel;
         this.modelNum = modelNum;
         this.aircraftList = aircraftList;
+        this.airliner = airliner;
         modelNumLabel.setText(modelNum);  
         populateTable(flightDirectory.getFlightDir());
     }
@@ -191,9 +194,11 @@ public class ManageAirCraftPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnUpdateFlightActionPerformed
 
     private void btnCreateFlightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateFlightActionPerformed
-        CardLayout layout = (CardLayout)bottomPanel.getLayout();
-        bottomPanel.add(new CreateFlightsPanel(bottomPanel,flightDirectory,modelNum));
-        layout.next(bottomPanel);
+        
+        CreateFlightsPanel createFlightsPanel = new CreateFlightsPanel(bottomPanel,flightDirectory,modelNum,airliner);
+        this.bottomPanel.add("CreateFlightsPanel",createFlightsPanel);
+        CardLayout cardlayout = (CardLayout)this.bottomPanel.getLayout();
+        cardlayout.next(bottomPanel);
         
     }//GEN-LAST:event_btnCreateFlightActionPerformed
 
@@ -222,7 +227,7 @@ public class ManageAirCraftPanel extends javax.swing.JPanel {
         Component[] comps = this.bottomPanel.getComponents();
         for(Component comp : comps){
             if(comp instanceof AirlinerManagePanel){
-
+         
                 AirlinerManagePanel airlinerManagePanel = (AirlinerManagePanel) comp;
                 airlinerManagePanel.populateTable(aircraftList.getAircraftDir());
             }
