@@ -341,7 +341,7 @@ public class CreateFlightsPanel extends javax.swing.JPanel {
             }
             if(landtime.before(takeOfftime)){
                 JOptionPane.showMessageDialog(this, "Land time must after take off time!");
-                takeOffLabel.setForeground(Color.red);
+                landLabel.setForeground(Color.red);
                 validation = false;
                 return;
             }
