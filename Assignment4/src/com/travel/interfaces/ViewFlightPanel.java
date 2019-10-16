@@ -27,6 +27,7 @@ public class ViewFlightPanel extends javax.swing.JPanel {
     private Flight flight;
     private FlightDirectory flightDirectory;
     private JPanel bottomPanel;
+    private final SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm");
     public ViewFlightPanel(JPanel bottomPanel, FlightDirectory flightDirectory, Flight flight) {
         initComponents();
         this.bottomPanel = bottomPanel;
@@ -41,8 +42,8 @@ public class ViewFlightPanel extends javax.swing.JPanel {
         txtPrice.setText(String.valueOf(flight.getTicketPrice()));
         txtDeparture.setText(flight.getDeparture());
         txtFlightNum.setText(flight.getFlightNum());
-        txtTakeOffTime.setText(String.valueOf(flight.getTakeOffTime()));
-        txtLandTime.setText(String.valueOf(flight.getLandTime()));
+        txtTakeOffTime.setText(sdf.format(flight.getTakeOffTime()));
+        txtLandTime.setText(sdf.format(flight.getLandTime()));
           
      }
       private void setFieldEnabled(boolean b){
