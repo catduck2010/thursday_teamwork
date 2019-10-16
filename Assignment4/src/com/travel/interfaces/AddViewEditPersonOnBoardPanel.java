@@ -27,6 +27,7 @@ public class AddViewEditPersonOnBoardPanel extends javax.swing.JPanel {
     private final Flight flight;
     private final JPanel bottomPanel;
     private Traveler traveler;
+    private String prevSeat;
     private final int mode;
 
     public AddViewEditPersonOnBoardPanel(JPanel b, Flight f) {
@@ -42,12 +43,13 @@ public class AddViewEditPersonOnBoardPanel extends javax.swing.JPanel {
         flight = t.getFlight();
         traveler = t;
         bottomPanel = b;
-        String seat = flight.getTravelerSeat(traveler);
-        flight.releaseSeat(seat);
-        btnSeatChooser.setSeat(seat);
+        prevSeat = flight.getTravelerSeat(traveler);
+        flight.releaseSeat(prevSeat);
+        btnSeatChooser.setSeat(prevSeat);
         btnSeatChooser.setSeatTable(flight.getIntSeatTable());
         mode = VIEW_EDIT_MODE;
         fillTxtFields();
+        flight.pickSeat(prevSeat, traveler);
     }
 
     private void backToMainMenu() {
@@ -186,9 +188,15 @@ public class AddViewEditPersonOnBoardPanel extends javax.swing.JPanel {
 
         //validate
         //add
-        if (JOptionPane.showConfirmDialog(this, "Are you sure to \nenroll?", "Confirm",
+        if (mode == VIEW_EDIT_MODE) {
+            flight.releaseSeat(prevSeat);
+        }
+        if (JOptionPane.showConfirmDialog(this, "Are you sure to \nenroll?",
+                "Confirm",
                 JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-            Traveler t = new Traveler(fName, lName, id, Business.getInstance().getMainFrame().getLoggedUser(), flight);
+            Traveler t = new Traveler(fName, lName, id,
+                    Business.getInstance().getMainFrame().getLoggedUser(),
+                    flight);
             flight.pickSeat(seat, t);
             JOptionPane.showMessageDialog(this, "Ordered successfully.",
                     "SUCCESS", JOptionPane.INFORMATION_MESSAGE);
