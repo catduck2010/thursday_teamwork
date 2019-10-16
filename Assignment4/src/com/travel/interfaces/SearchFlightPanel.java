@@ -74,7 +74,7 @@ public class SearchFlightPanel extends javax.swing.JPanel {
         txtMaxPrice = new javax.swing.JTextField();
         checkboxAirliner = new javax.swing.JCheckBox();
         checkboxMaxprice = new javax.swing.JCheckBox();
-        boxSection = new javax.swing.JComboBox<>();
+        timeCheckBox = new javax.swing.JComboBox<>();
 
         jLabel1.setText("Depart on");
 
@@ -119,7 +119,7 @@ public class SearchFlightPanel extends javax.swing.JPanel {
             }
         });
 
-        boxSection.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "All Time", "Day (8AM-4PM)", "Evening (4PM-12AM)", "Night (12AM-8AM)" }));
+        timeCheckBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "All time", "Day", "Evening", "Night" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -139,9 +139,9 @@ public class SearchFlightPanel extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(boxSection, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                                .addGap(18, 18, 18)
+                                .addComponent(timeCheckBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 99, Short.MAX_VALUE)
                                 .addComponent(btnSearch))
                             .addComponent(txtFrom)
                             .addComponent(txtTo)))
@@ -166,7 +166,7 @@ public class SearchFlightPanel extends javax.swing.JPanel {
                             .addComponent(btnGoBack)
                             .addComponent(jLabel1)
                             .addComponent(btnDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(boxSection, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(timeCheckBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
@@ -198,6 +198,8 @@ public class SearchFlightPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnGoBackActionPerformed
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
+       int dateRange = timeCheckBox.getSelectedIndex();
+        
         String from = txtFrom.getText();
         jLabel2.setForeground(Color.black);
         if("".equals(from)){
@@ -216,7 +218,7 @@ public class SearchFlightPanel extends javax.swing.JPanel {
         
         if(checkboxAirliner.isSelected()==false && checkboxMaxprice.isSelected()==false){
             CardLayout layout = (CardLayout) bottomPanel.getLayout();
-        FlightsPanel panel = new FlightsPanel(bottomPanel, txtFrom.getText().trim(),
+        FlightsPanel panel = new FlightsPanel(dateRange,bottomPanel, txtFrom.getText().trim(),
                 txtTo.getText().trim(), btnDateChooser.getDate());
         this.bottomPanel.add("FlightsPanel", panel);
         layout.next(bottomPanel);
@@ -234,7 +236,7 @@ public class SearchFlightPanel extends javax.swing.JPanel {
             }
             else{
                 CardLayout layout = (CardLayout) bottomPanel.getLayout();
-        FlightsPanel panel = new FlightsPanel(bottomPanel, txtFrom.getText().trim(),
+        FlightsPanel panel = new FlightsPanel(dateRange,bottomPanel, txtFrom.getText().trim(),
                 txtTo.getText().trim(), btnDateChooser.getDate(),txtAirliner.getText());
         this.bottomPanel.add("FlightsPanel", panel);
         layout.next(bottomPanel);
@@ -250,7 +252,7 @@ public class SearchFlightPanel extends javax.swing.JPanel {
             
             
                 CardLayout layout = (CardLayout) bottomPanel.getLayout();
-        FlightsPanel panel = new FlightsPanel(bottomPanel, txtFrom.getText().trim(),
+        FlightsPanel panel = new FlightsPanel(dateRange,bottomPanel, txtFrom.getText().trim(),
                 txtTo.getText().trim(), btnDateChooser.getDate(),maxprice);
         this.bottomPanel.add("FlightsPanel", panel);
         layout.next(bottomPanel);       
@@ -278,7 +280,7 @@ public class SearchFlightPanel extends javax.swing.JPanel {
             else{
             
                 CardLayout layout = (CardLayout) bottomPanel.getLayout();
-                FlightsPanel panel = new FlightsPanel(bottomPanel, txtFrom.getText().trim(),
+                FlightsPanel panel = new FlightsPanel(dateRange,bottomPanel, txtFrom.getText().trim(),
                 txtTo.getText().trim(), btnDateChooser.getDate(),airliner,maxprice);
                 this.bottomPanel.add("FlightsPanel", panel);
                 layout.next(bottomPanel);       
@@ -321,6 +323,7 @@ public class SearchFlightPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JComboBox<String> timeCheckBox;
     private javax.swing.JTextField txtAirliner;
     private javax.swing.JTextField txtFrom;
     private javax.swing.JTextField txtMaxPrice;
