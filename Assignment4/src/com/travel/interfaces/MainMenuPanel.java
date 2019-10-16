@@ -52,6 +52,7 @@ public class MainMenuPanel extends javax.swing.JPanel {
                 btnAircrafts.setEnabled(true);
                 btnBookFlight.setEnabled(false);
                 btnFlights.setEnabled(false);
+                btnProfile.setEnabled(false);
                 break;
             case User.CUSTOMER:
                 lblUsername.setText(((Customer) user).getFullName());
@@ -115,6 +116,11 @@ public class MainMenuPanel extends javax.swing.JPanel {
         lblUsername.setText("*Username*");
 
         btnAdmins.setText("Show All Flights");
+        btnAdmins.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdminsActionPerformed(evt);
+            }
+        });
 
         btnAirliner.setText("Manage Airliners");
 
@@ -261,6 +267,13 @@ public class MainMenuPanel extends javax.swing.JPanel {
         bottomPanel.add("EditFlightsPanel", new FlightsPanel(bottomPanel, Business.getInstance().getMainFrame().getLoggedUser()));
         layout.next(this.bottomPanel);
     }//GEN-LAST:event_btnFlightsActionPerformed1
+
+    private void btnAdminsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdminsActionPerformed
+        // Show all flights
+        CardLayout layout = (CardLayout) bottomPanel.getLayout();
+        bottomPanel.add("AdminShowAllFlightsPanel",new AdminShowAllFlightsPanel(bottomPanel));
+        layout.next(this.bottomPanel);
+    }//GEN-LAST:event_btnAdminsActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
