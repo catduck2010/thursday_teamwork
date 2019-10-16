@@ -41,8 +41,6 @@ public class Flight {
         this.flightNum = flightNum;
     }
 
-    private CustomerList onBoard;
-
     public Flight() {
         generateSeatTable();
 
@@ -108,7 +106,7 @@ public class Flight {
         this.airliner = airliner;
     }
 
-    public void generateSeatTable() {
+    private void generateSeatTable() {
         travelerTable = new Traveler[ROW][COL];
     }
 
@@ -126,15 +124,15 @@ public class Flight {
         return table;
     }
 
-    public void setValueToTable(int row, int col, Traveler value) {
+    private void setValueToTable(int row, int col, Traveler value) {
         travelerTable[row][col] = value;
     }
 
-    public void setOccupiedAt(int row, int col, Traveler traveler) {
+    private void setOccupiedAt(int row, int col, Traveler traveler) {
         setValueToTable(row, col, traveler);
     }
 
-    public void setEmptyAt(int row, int col) {
+    private void setEmptyAt(int row, int col) {
         setValueToTable(row, col, null);
     }
 
@@ -209,13 +207,7 @@ public class Flight {
         return flightNum;
     }
 
-    public CustomerList getOnBoard() {
-        return onBoard;
-    }
 
-    public void setOnBoard(CustomerList onBoard) {
-        this.onBoard = onBoard;
-    }
 
     public String getTravelerSeat(Traveler t) {
         int i = 0, j = 0;
