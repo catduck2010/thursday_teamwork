@@ -77,6 +77,36 @@ public class Validator {
         return Match(regex, str);
     }
 
+    public static boolean IsDay(Date d) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(d);
+        int hour = cal.get(Calendar.HOUR_OF_DAY);
+        if (hour < 16 && hour >= 8) {
+            return true;
+        }
+        return false;
+    }
+
+    public static boolean IsEvening(Date d) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(d);
+        int hour = cal.get(Calendar.HOUR_OF_DAY);
+        if (hour <= 23 && hour >= 16) {
+            return true;
+        }
+        return false;
+    }
+
+    public static boolean IsNight(Date d) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(d);
+        int hour = cal.get(Calendar.HOUR_OF_DAY);
+        if (hour < 8 && hour >= 0) {
+            return true;
+        }
+        return false;
+    }
+
     private static boolean Match(String regex, String str) {
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(str);

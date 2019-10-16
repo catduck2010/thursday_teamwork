@@ -32,20 +32,23 @@ public class FlightsPanel extends javax.swing.JPanel {
     private Date depart;
     private String airliner;
     private Double price;
+    private int timeRange;
 
-    public FlightsPanel(JPanel b, String from, String to, Date depart) {
+    public FlightsPanel(int timeRange, JPanel b, String from, String to, Date depart) {
         initComponents();
         bottomPanel = b;
         business = Business.getInstance();
+        this.timeRange = timeRange;
         this.to =to;
         this.depart = depart;
         this.from = from;
         loadFlights();
     }
-    public FlightsPanel(JPanel b, String from, String to, Date depart, String airliner){
+    public FlightsPanel(int timeRange,JPanel b, String from, String to, Date depart, String airliner){
         initComponents();
         bottomPanel = b;
         business = Business.getInstance();
+        this.timeRange = timeRange;
         this.to =to;
         this.depart = depart;
         this.from = from;
@@ -53,10 +56,11 @@ public class FlightsPanel extends javax.swing.JPanel {
         loadFlightsA();
     }
     
-    public FlightsPanel(JPanel b, String from, String to, Date depart, Double price){
+    public FlightsPanel(int timeRange,JPanel b, String from, String to, Date depart, Double price){
         initComponents();
         bottomPanel = b;
         business = Business.getInstance();
+        this.timeRange = timeRange;
         this.to =to;
         this.depart = depart;
         this.from = from;
@@ -64,10 +68,11 @@ public class FlightsPanel extends javax.swing.JPanel {
         loadFlightsB();
     }
     
-    public FlightsPanel(JPanel b, String from, String to, Date depart,String airliner, Double price){
+    public FlightsPanel(int timeRange,JPanel b, String from, String to, Date depart,String airliner, Double price){
         initComponents();
         bottomPanel = b;
         business = Business.getInstance();
+        this.timeRange = timeRange;
         this.to =to;
         this.depart = depart;
         this.from = from;
@@ -82,6 +87,7 @@ public class FlightsPanel extends javax.swing.JPanel {
 
   
             for (Flight f : business.getFlightDirectory().getFlightDir()) {
+                if(timeRange == 0){
                 if(f.getArrival().equals(to) && f.getDeparture().equals(from) && Validator.IsSameDay(f.getTakeOffTime(), depart)){
                 Object[] row = new Object[5];
                 row[0] = f.getAirliner();
@@ -90,6 +96,41 @@ public class FlightsPanel extends javax.swing.JPanel {
                 row[3] = f.getArrival();
                 row[4] = f.getTakeOffTime();
                 dtm.addRow(row);
+                }
+                }
+                if(timeRange == 1){
+                    if(Validator.IsDay(f.getTakeOffTime()) && f.getArrival().equals(to) && f.getDeparture().equals(from) && Validator.IsSameDay(f.getTakeOffTime(), depart)){
+                Object[] row = new Object[5];
+                row[0] = f.getAirliner();
+                row[1] = f;
+                row[2] = f.getDeparture();
+                row[3] = f.getArrival();
+                row[4] = f.getTakeOffTime();
+                dtm.addRow(row);
+                    }
+                }
+                if(timeRange ==2){
+                    if(Validator.IsEvening(f.getTakeOffTime()) && f.getArrival().equals(to) && f.getDeparture().equals(from) && Validator.IsSameDay(f.getTakeOffTime(), depart)){
+                Object[] row = new Object[5];
+                row[0] = f.getAirliner();
+                row[1] = f;
+                row[2] = f.getDeparture();
+                row[3] = f.getArrival();
+                row[4] = f.getTakeOffTime();
+                dtm.addRow(row);
+                    }
+                }
+                
+                if(timeRange ==3){
+                    if(Validator.IsNight(f.getTakeOffTime()) && f.getArrival().equals(to) && f.getDeparture().equals(from) && Validator.IsSameDay(f.getTakeOffTime(), depart)){
+                Object[] row = new Object[5];
+                row[0] = f.getAirliner();
+                row[1] = f;
+                row[2] = f.getDeparture();
+                row[3] = f.getArrival();
+                row[4] = f.getTakeOffTime();
+                dtm.addRow(row);
+                    }
                 }
                 
             }
@@ -104,6 +145,7 @@ public class FlightsPanel extends javax.swing.JPanel {
 
   
             for (Flight f : business.getFlightDirectory().getFlightDir()) {
+                if(timeRange == 0){
                 if(f.getArrival().equals(to) && f.getDeparture().equals(from) && Validator.IsSameDay(f.getTakeOffTime(), depart)&&f.getAirliner().equals(airliner)){
                 Object[] row = new Object[5];
                 row[0] = f.getAirliner();
@@ -113,6 +155,42 @@ public class FlightsPanel extends javax.swing.JPanel {
                 row[4] = f.getTakeOffTime();
                 dtm.addRow(row);
                 }
+                }
+                
+                if(timeRange == 1){
+                   if(Validator.IsDay(f.getTakeOffTime()) && f.getArrival().equals(to) && f.getDeparture().equals(from) && Validator.IsSameDay(f.getTakeOffTime(), depart)&&f.getAirliner().equals(airliner)){
+                Object[] row = new Object[5];
+                row[0] = f.getAirliner();
+                row[1] = f;
+                row[2] = f.getDeparture();
+                row[3] = f.getArrival();
+                row[4] = f.getTakeOffTime();
+                dtm.addRow(row);
+                } 
+                }
+                if(timeRange == 2){
+                   if(Validator.IsEvening(f.getTakeOffTime()) && f.getArrival().equals(to) && f.getDeparture().equals(from) && Validator.IsSameDay(f.getTakeOffTime(), depart)&&f.getAirliner().equals(airliner)){
+                Object[] row = new Object[5];
+                row[0] = f.getAirliner();
+                row[1] = f;
+                row[2] = f.getDeparture();
+                row[3] = f.getArrival();
+                row[4] = f.getTakeOffTime();
+                dtm.addRow(row);
+                }  
+                }
+                if(timeRange == 3){
+                    if(Validator.IsNight(f.getTakeOffTime()) && f.getArrival().equals(to) && f.getDeparture().equals(from) && Validator.IsSameDay(f.getTakeOffTime(), depart)&&f.getAirliner().equals(airliner)){
+                Object[] row = new Object[5];
+                row[0] = f.getAirliner();
+                row[1] = f;
+                row[2] = f.getDeparture();
+                row[3] = f.getArrival();
+                row[4] = f.getTakeOffTime();
+                dtm.addRow(row);
+                } 
+                }
+               
                 
             }
         if(dtm.getRowCount()==0)
@@ -125,6 +203,7 @@ public class FlightsPanel extends javax.swing.JPanel {
 
   
             for (Flight f : business.getFlightDirectory().getFlightDir()) {
+                if(timeRange == 0){
                 if(f.getArrival().equals(to) && f.getDeparture().equals(from) && Validator.IsSameDay(f.getTakeOffTime(), depart)&&f.getTicketPrice()<= price){
                 Object[] row = new Object[5];
                 row[0] = f.getAirliner();
@@ -134,7 +213,40 @@ public class FlightsPanel extends javax.swing.JPanel {
                 row[4] = f.getTakeOffTime();
                 dtm.addRow(row);
                 }
-                
+                }
+                if(timeRange == 1){
+                 if(Validator.IsDay(f.getTakeOffTime()) && f.getArrival().equals(to) && f.getDeparture().equals(from) && Validator.IsSameDay(f.getTakeOffTime(), depart)&&f.getTicketPrice()<= price){
+                Object[] row = new Object[5];
+                row[0] = f.getAirliner();
+                row[1] = f;
+                row[2] = f.getDeparture();
+                row[3] = f.getArrival();
+                row[4] = f.getTakeOffTime();
+                dtm.addRow(row);
+                }   
+                }
+                if(timeRange == 2){
+                  if(Validator.IsEvening(f.getTakeOffTime()) && f.getArrival().equals(to) && f.getDeparture().equals(from) && Validator.IsSameDay(f.getTakeOffTime(), depart)&&f.getTicketPrice()<= price){
+                Object[] row = new Object[5];
+                row[0] = f.getAirliner();
+                row[1] = f;
+                row[2] = f.getDeparture();
+                row[3] = f.getArrival();
+                row[4] = f.getTakeOffTime();
+                dtm.addRow(row);
+                }  
+                }
+                if(timeRange ==3){
+                    if(Validator.IsNight(f.getTakeOffTime()) && f.getArrival().equals(to) && f.getDeparture().equals(from) && Validator.IsSameDay(f.getTakeOffTime(), depart)&&f.getTicketPrice()<= price){
+                Object[] row = new Object[5];
+                row[0] = f.getAirliner();
+                row[1] = f;
+                row[2] = f.getDeparture();
+                row[3] = f.getArrival();
+                row[4] = f.getTakeOffTime();
+                dtm.addRow(row);
+                } 
+                }
                 
             }
         if(dtm.getRowCount()==0)
@@ -146,6 +258,7 @@ public class FlightsPanel extends javax.swing.JPanel {
 
   
             for (Flight f : business.getFlightDirectory().getFlightDir()) {
+                if(timeRange == 0){
                 if(f.getArrival().equals(to) && f.getDeparture().equals(from) && Validator.IsSameDay(f.getTakeOffTime(), depart)&&f.getTicketPrice()<= price&&f.getAirliner().equals(airliner)){
                 Object[] row = new Object[5];
                 row[0] = f.getAirliner();
@@ -155,7 +268,40 @@ public class FlightsPanel extends javax.swing.JPanel {
                 row[4] = f.getTakeOffTime();
                 dtm.addRow(row);
                 }
-                
+                }
+                if(timeRange == 1){
+                   if(Validator.IsDay(f.getTakeOffTime()) && f.getArrival().equals(to) && f.getDeparture().equals(from) && Validator.IsSameDay(f.getTakeOffTime(), depart)&&f.getTicketPrice()<= price&&f.getAirliner().equals(airliner)){
+                Object[] row = new Object[5];
+                row[0] = f.getAirliner();
+                row[1] = f;
+                row[2] = f.getDeparture();
+                row[3] = f.getArrival();
+                row[4] = f.getTakeOffTime();
+                dtm.addRow(row);
+                } 
+                }
+                if(timeRange == 2){
+                    if(Validator.IsEvening(f.getTakeOffTime()) && f.getArrival().equals(to) && f.getDeparture().equals(from) && Validator.IsSameDay(f.getTakeOffTime(), depart)&&f.getTicketPrice()<= price&&f.getAirliner().equals(airliner)){
+                Object[] row = new Object[5];
+                row[0] = f.getAirliner();
+                row[1] = f;
+                row[2] = f.getDeparture();
+                row[3] = f.getArrival();
+                row[4] = f.getTakeOffTime();
+                dtm.addRow(row);
+                }
+                }
+                if(timeRange == 3){
+                   if(Validator.IsNight(f.getTakeOffTime()) && f.getArrival().equals(to) && f.getDeparture().equals(from) && Validator.IsSameDay(f.getTakeOffTime(), depart)&&f.getTicketPrice()<= price&&f.getAirliner().equals(airliner)){
+                Object[] row = new Object[5];
+                row[0] = f.getAirliner();
+                row[1] = f;
+                row[2] = f.getDeparture();
+                row[3] = f.getArrival();
+                row[4] = f.getTakeOffTime();
+                dtm.addRow(row);
+                } 
+                }
             }
         if(dtm.getRowCount()==0)
                     JOptionPane.showMessageDialog(this, "No result"); 
