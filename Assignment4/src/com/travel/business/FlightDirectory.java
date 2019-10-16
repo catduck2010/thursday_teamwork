@@ -45,14 +45,16 @@ public class FlightDirectory {
     public boolean sameFlightNum(String flightNum){
         boolean b = false;
         for(Flight flight : flightDir){
-            if(flightDir.size() != 0){
-                if(flight.getFlightNum() == flightNum)
+            
+                if(flight.getFlightNum().equals(flightNum)){
                 b = true;
-                
-            } 
+                break;
+                }
+             
         }
         return b;
     }
+    
     
     public boolean checkTakeOffTime(Date takeOffTime, String modelNum){
         boolean b = true;
