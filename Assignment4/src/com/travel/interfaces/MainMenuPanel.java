@@ -24,21 +24,20 @@ public class MainMenuPanel extends javax.swing.JPanel {
      */
     private final User user;
     private JPanel rightPanel;
-    
-    
+
     public MainMenuPanel(JPanel rightPanel, User u) {
         initComponents();
-        this.user=u;
+        this.user = u;
         //this.lblUsername.setText(u.getUsername());
         detectUserType();
     }
-    
-    private void detectUserType(){
-        int type=user.getUserType();
-        
-        switch(type){
+
+    private void detectUserType() {
+        int type = user.getUserType();
+
+        switch (type) {
             case User.ADMINISTRATOR:
-               
+
                 lblUsername.setText(user.getUsername());
                 btnAdmins.setEnabled(true);
                 btnAirliner.setEnabled(true);
@@ -48,7 +47,7 @@ public class MainMenuPanel extends javax.swing.JPanel {
                 btnFlights.setEnabled(false);
                 break;
             case User.AIRLINER:
-                lblUsername.setText(((Airliner)user).getProviderName());
+                lblUsername.setText(((Airliner) user).getProviderName());
                 btnAdmins.setEnabled(false);
                 btnAirliner.setEnabled(false);
                 btnCustomers.setEnabled(false);
@@ -57,7 +56,7 @@ public class MainMenuPanel extends javax.swing.JPanel {
                 btnFlights.setEnabled(false);
                 break;
             case User.CUSTOMER:
-                lblUsername.setText(((Customer)user).getFullName());
+                lblUsername.setText(((Customer) user).getFullName());
                 btnAdmins.setEnabled(false);
                 btnAirliner.setEnabled(false);
                 btnCustomers.setEnabled(false);
@@ -67,10 +66,9 @@ public class MainMenuPanel extends javax.swing.JPanel {
                 break;
             default:
                 break;
-                        
+
         }
-  
-        
+
     }
 
     /**
@@ -123,6 +121,11 @@ public class MainMenuPanel extends javax.swing.JPanel {
         });
 
         btnFlights.setText("Manage My Flights");
+        btnFlights.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFlightsActionPerformed1(evt);
+            }
+        });
 
         btnProfile.setText("My Profile");
         btnProfile.addActionListener(new java.awt.event.ActionListener() {
@@ -210,21 +213,18 @@ public class MainMenuPanel extends javax.swing.JPanel {
 
     private void btnBookFlightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBookFlightActionPerformed
         // TODO add your handling code here:
-        CardLayout layout = (CardLayout)this.bottomPanel.getLayout();
-        SearchFlightPanel panel=new SearchFlightPanel(this.bottomPanel);
+        CardLayout layout = (CardLayout) this.bottomPanel.getLayout();
+        SearchFlightPanel panel = new SearchFlightPanel(this.bottomPanel);
         this.bottomPanel.add(panel);
         layout.next(this.bottomPanel);
     }//GEN-LAST:event_btnBookFlightActionPerformed
 
     private void btnFlightsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFlightsActionPerformed
-        
         Airliner airliner = (Airliner) user;
-        AirlinerManagePanel airlinerManagePanel = new AirlinerManagePanel(bottomPanel, Business.getInstance().getAircraftList(),Business.getInstance().getFlightDirectory(), airliner);
-        this.bottomPanel.add("AirlinerManagePanel",airlinerManagePanel);
-        CardLayout cardLayout = (CardLayout)this.bottomPanel.getLayout();
+        AirlinerManagePanel airlinerManagePanel = new AirlinerManagePanel(bottomPanel, Business.getInstance().getAircraftList(), Business.getInstance().getFlightDirectory(), airliner);
+        this.bottomPanel.add("AirlinerManagePanel", airlinerManagePanel);
+        CardLayout cardLayout = (CardLayout) this.bottomPanel.getLayout();
         cardLayout.next(bottomPanel);
-        
-       
     }//GEN-LAST:event_btnFlightsActionPerformed
 
     private void btnProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProfileActionPerformed
@@ -233,10 +233,17 @@ public class MainMenuPanel extends javax.swing.JPanel {
 
     private void btnUsernamePasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsernamePasswordActionPerformed
         // TODO add your handling code here:
-        CardLayout layout = (CardLayout)bottomPanel.getLayout();
-        bottomPanel.add("MyUsernamePswdPanel",new MyUsernamePswdPanel(bottomPanel,Business.getInstance().getMainFrame().getLoggedUser()));
+        CardLayout layout = (CardLayout) bottomPanel.getLayout();
+        bottomPanel.add("MyUsernamePswdPanel", new MyUsernamePswdPanel(bottomPanel, Business.getInstance().getMainFrame().getLoggedUser()));
         layout.next(this.bottomPanel);
     }//GEN-LAST:event_btnUsernamePasswordActionPerformed
+
+    private void btnFlightsActionPerformed1(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFlightsActionPerformed1
+        // TODO add your handling code here:
+        CardLayout layout = (CardLayout) bottomPanel.getLayout();
+        bottomPanel.add("EditFlightsPanel", new FlightsPanel(bottomPanel, Business.getInstance().getMainFrame().getLoggedUser()));
+        layout.next(this.bottomPanel);
+    }//GEN-LAST:event_btnFlightsActionPerformed1
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

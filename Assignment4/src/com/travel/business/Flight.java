@@ -5,6 +5,7 @@
  */
 package com.travel.business;
 
+import com.travel.users.User;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -28,7 +29,7 @@ public class Flight {
     private String departure;
     private String arrival;
     private double ticketPrice;
-    private Object[][] travelerTable;
+    private Traveler[][] travelerTable;
     private String flightNum;
     private final ArrayList<Traveler> travelers = new ArrayList<>();
 
@@ -47,8 +48,8 @@ public class Flight {
 
     }
 
-    public ArrayList<Traveler> getTravelers() {
-        return travelers;
+    public Object[][] getTravelerTable() {
+        return this.travelerTable;
     }
 
     public String getModelNum() {
@@ -108,7 +109,7 @@ public class Flight {
     }
 
     public void generateSeatTable() {
-        travelerTable = new Object[ROW][COL];
+        travelerTable = new Traveler[ROW][COL];
     }
 
     public int[][] getIntSeatTable() {
@@ -125,19 +126,19 @@ public class Flight {
         return table;
     }
 
-    public void setValueToTable(int row, int col, Object value) {
+    public void setValueToTable(int row, int col, Traveler value) {
         travelerTable[row][col] = value;
     }
 
-    public void setOccupiedAt(int row, int col, Object traveler) {
-        setValueToTable(row, col, 1);
+    public void setOccupiedAt(int row, int col, Traveler traveler) {
+        setValueToTable(row, col, traveler);
     }
 
     public void setEmptyAt(int row, int col) {
         setValueToTable(row, col, null);
     }
 
-    public void pickSeat(String seat, Object traveler) {
+    public void pickSeat(String seat, Traveler traveler) {
         char[] s = seat.toCharArray();
         char col = s[s.length - 1];
         int row = Integer.parseInt(seat.substring(0, s.length - 1)) - 1;
@@ -184,6 +185,25 @@ public class Flight {
 
     }
 
+    private char returnColumn(int c) {
+        switch (c) {
+            case 0:
+                return 'A';
+            case 1:
+                return 'B';
+            case 2:
+                return 'C';
+            case 3:
+                return 'H';
+            case 4:
+                return 'J';
+            case 5:
+                return 'K';
+
+        }
+        return '\0';
+    }
+
     @Override
     public String toString() {
         return flightNum;
@@ -197,8 +217,37 @@ public class Flight {
         this.onBoard = onBoard;
     }
 
-    public void getTravelerSeat() {
+    public String getTravelerSeat(Traveler t) {
+        int i = 0, j = 0;
+        for (Traveler[] row : travelerTable) {
+            j = 0;
+            for (Traveler s : row) {
+                if (s != null) {
+                    if (s.equals(t)) {
+                        return String.valueOf(i + 1)
+                                + String.valueOf(returnColumn(j));
+                    }
+                }
+                j++;
+            }
+            i++;
+        }
+        return "";
+    }
 
+    public ArrayList<Traveler> getTravelers(User u) {
+        ArrayList<Traveler> tr = new ArrayList<>();
+
+        for (Traveler[] row : travelerTable) {
+            for (Traveler t : row) {
+                if (t != null) {
+                    if (t.getOrderPlacedBy().equals(u)) {
+                        tr.add(t);
+                    }
+                }
+            }
+        }
+        return tr;
     }
 
     public Flight(String airliner, String flight, String from, String to, String date) {

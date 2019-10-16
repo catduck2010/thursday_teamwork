@@ -21,22 +21,48 @@ public class AddViewEditPersonOnBoardPanel extends javax.swing.JPanel {
     /**
      * Creates new form AddViewEditPersonOnBoardPanel
      */
+    public final static int ADD_MODE = 0;
+    public final static int VIEW_EDIT_MODE = 1;
+
     private final Flight flight;
     private final JPanel bottomPanel;
+    private Traveler traveler;
+    private final int mode;
 
     public AddViewEditPersonOnBoardPanel(JPanel b, Flight f) {
         initComponents();
         flight = f;
         bottomPanel = b;
         btnSeatChooser.setSeatTable(f.getIntSeatTable());
+        mode = ADD_MODE;
     }
-    
-    private void backToMainMenu(){
-        CardLayout layout=(CardLayout) this.bottomPanel.getLayout();
+
+    public AddViewEditPersonOnBoardPanel(JPanel b, Traveler t) {
+        initComponents();
+        flight = t.getFlight();
+        traveler = t;
+        bottomPanel = b;
+        String seat = flight.getTravelerSeat(traveler);
+        flight.releaseSeat(seat);
+        btnSeatChooser.setSeat(seat);
+        btnSeatChooser.setSeatTable(flight.getIntSeatTable());
+        mode = VIEW_EDIT_MODE;
+        fillTxtFields();
+    }
+
+    private void backToMainMenu() {
+        CardLayout layout = (CardLayout) this.bottomPanel.getLayout();
         for (int i = bottomPanel.getComponentCount() - 1; i > 0; i--) {
             bottomPanel.remove(i);
         }
         layout.first(bottomPanel);
+    }
+
+    private void fillTxtFields() {
+        this.txtFirstName.setText(traveler.getFirstName());
+        this.txtLastName.setText(traveler.getLastName());
+        this.txtID.setText(traveler.getID());
+
     }
 
     /**
@@ -160,11 +186,11 @@ public class AddViewEditPersonOnBoardPanel extends javax.swing.JPanel {
 
         //validate
         //add
-        if (JOptionPane.showConfirmDialog(this, "Are you sure to \nlog out?", "Confirm",
+        if (JOptionPane.showConfirmDialog(this, "Are you sure to \nenroll?", "Confirm",
                 JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-            Traveler t = new Traveler(fName, lName, id, Business.getInstance().getMainFrame().getLoggedUser());
+            Traveler t = new Traveler(fName, lName, id, Business.getInstance().getMainFrame().getLoggedUser(), flight);
             flight.pickSeat(seat, t);
-            JOptionPane.showMessageDialog(this, "Ordered successfully.", 
+            JOptionPane.showMessageDialog(this, "Ordered successfully.",
                     "SUCCESS", JOptionPane.INFORMATION_MESSAGE);
             backToMainMenu();
         }

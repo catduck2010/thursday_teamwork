@@ -7,7 +7,9 @@ package com.travel.interfaces;
 
 import com.travel.business.Business;
 import com.travel.business.Flight;
+import com.travel.business.Traveler;
 import com.travel.users.Airliner;
+import com.travel.users.User;
 import com.travel.util.Validator;
 import java.awt.CardLayout;
 import java.awt.Panel;
@@ -25,15 +27,20 @@ public class FlightsPanel extends javax.swing.JPanel {
     /**
      * Creates new form FlightsPanel
      */
+    public final static int SEARCH_MODE = 0;
+    public final static int VIEW_EDIT_MODE = 1;
+
     private final JPanel bottomPanel;
     private final Business business;
     private String to;
     private String from;
     private Date depart;
+    private int mode;
+    private User user;
 
     public FlightsPanel(JPanel b, String from, String to, Date depart) {
         initComponents();
-
+        this.mode = SEARCH_MODE;
         bottomPanel = b;
         business = Business.getInstance();
         this.to = to;
@@ -42,9 +49,35 @@ public class FlightsPanel extends javax.swing.JPanel {
         loadFlights();
     }
 
+    public FlightsPanel(JPanel b, User u) {
+        initComponents();
+        business = Business.getInstance();
+        this.bottomPanel = b;
+        this.user = u;
+        this.mode = VIEW_EDIT_MODE;
+        loadUserFlights();
+    }
+
+    public void loadUserFlights() {
+        DefaultTableModel dtm = (DefaultTableModel) tblFlights.getModel();
+        dtm.setRowCount(0);
+
+        for (Flight ff : business.getFlightDirectory().getFlightDir()) {
+            for (Traveler t : ff.getTravelers(user)) {
+                Flight f = t.getFlight();
+                Object[] row = new Object[5];
+                row[0] = t;
+                row[1] = f;
+                row[2] = f.getDeparture();
+                row[3] = f.getArrival();
+                row[4] = f.getTakeOffTime();
+                dtm.addRow(row);
+            }
+        }
+    }
+
     public void loadFlights() {
         DefaultTableModel dtm = (DefaultTableModel) tblFlights.getModel();
-
         dtm.setRowCount(0);
 
         for (Flight f : business.getFlightDirectory().getFlightDir()) {
@@ -151,16 +184,26 @@ public class FlightsPanel extends javax.swing.JPanel {
     private void btnContinueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContinueActionPerformed
         // TODO add your handling code here:
         int selected = tblFlights.getSelectedRow();
-        if (selected > -1) {
-            Flight f = (Flight) tblFlights.getValueAt(selected, 1);
-            CardLayout layout = (CardLayout) bottomPanel.getLayout();
-            AddViewEditPersonOnBoardPanel panel = new AddViewEditPersonOnBoardPanel(bottomPanel, f);
-            bottomPanel.add("SelectSeatPanel",panel);
-            layout.next(bottomPanel);
-        } else {
-            JOptionPane.showMessageDialog(this, "Please select a flight!", "WARNING", JOptionPane.WARNING_MESSAGE);
+        CardLayout layout = (CardLayout) bottomPanel.getLayout();
+        if (mode == SEARCH_MODE) {
+            if (selected > -1) {
+                Flight f = (Flight) tblFlights.getValueAt(selected, 1);
+                AddViewEditPersonOnBoardPanel panel = new AddViewEditPersonOnBoardPanel(bottomPanel, f);
+                bottomPanel.add("SelectSeatPanel", panel);
+                layout.next(bottomPanel);
+            } else {
+                JOptionPane.showMessageDialog(this, "Please select a flight!", "WARNING", JOptionPane.WARNING_MESSAGE);
+            }
+        } else if (mode == VIEW_EDIT_MODE) {
+            if (selected < 0) {
+                JOptionPane.showMessageDialog(this, "Please select a flight!", "WARNING", JOptionPane.WARNING_MESSAGE);
+            } else {
+                Traveler tra = (Traveler) tblFlights.getValueAt(selected, 0);
+                AddViewEditPersonOnBoardPanel panel = new AddViewEditPersonOnBoardPanel(bottomPanel, tra);
+                bottomPanel.add("EditSeatPanel", panel);
+                layout.next(bottomPanel);
+            }
         }
-
     }//GEN-LAST:event_btnContinueActionPerformed
 
 
