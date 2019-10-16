@@ -26,6 +26,8 @@ public class SearchFlightPanel extends javax.swing.JPanel {
 
     public SearchFlightPanel(JPanel p) {
         initComponents();
+        txtMaxPrice.setText("");
+        txtAirliner.setText("");
         this.bottomPanel = p;
         //btnSeatChooser.setBorder(btnSearch.getBorder());
         this.checkboxAirliner.addItemListener(new ItemListener() {
