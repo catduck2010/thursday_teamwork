@@ -37,6 +37,8 @@ public class AddViewEditPersonOnBoardPanel extends javax.swing.JPanel {
         bottomPanel = b;
         btnSeatChooser.setSeatTable(f.getIntSeatTable());
         mode = ADD_MODE;
+        this.btnUnenroll.setVisible(false);
+        this.btnUnenroll.setEnabled(false);
     }
 
     public AddViewEditPersonOnBoardPanel(JPanel b, Traveler t) {
@@ -65,7 +67,21 @@ public class AddViewEditPersonOnBoardPanel extends javax.swing.JPanel {
         this.txtFirstName.setText(traveler.getFirstName());
         this.txtLastName.setText(traveler.getLastName());
         this.txtID.setText(traveler.getID());
-
+        this.btnUnenroll.setVisible(true);
+        this.btnUnenroll.setEnabled(true);
+    }
+    
+    private void goBack(){
+        CardLayout layout = (CardLayout) bottomPanel.getLayout();
+        this.bottomPanel.remove(this);
+        for (Component comp : bottomPanel.getComponents()) {
+            if (comp instanceof FlightsPanel) {
+                if (((FlightsPanel) comp).getMode() == FlightsPanel.VIEW_EDIT_MODE) {
+                    ((FlightsPanel) comp).loadUserFlights();
+                }
+            }
+        }
+        layout.previous(this.bottomPanel);
     }
 
     /**
@@ -88,6 +104,7 @@ public class AddViewEditPersonOnBoardPanel extends javax.swing.JPanel {
         jLabel5 = new javax.swing.JLabel();
         txtID = new javax.swing.JTextField();
         btnSubmit = new javax.swing.JButton();
+        btnUnenroll = new javax.swing.JButton();
 
         btnGoBack.setText("←");
         btnGoBack.addActionListener(new java.awt.event.ActionListener() {
@@ -113,6 +130,14 @@ public class AddViewEditPersonOnBoardPanel extends javax.swing.JPanel {
             }
         });
 
+        btnUnenroll.setText("Unenroll");
+        btnUnenroll.setEnabled(false);
+        btnUnenroll.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUnenrollActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -128,9 +153,9 @@ public class AddViewEditPersonOnBoardPanel extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 202, Short.MAX_VALUE)
-                                .addComponent(btnSubmit))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnSubmit, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel3)
                                     .addComponent(jLabel2)
@@ -142,9 +167,13 @@ public class AddViewEditPersonOnBoardPanel extends javax.swing.JPanel {
                                     .addComponent(txtFirstName, javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(btnSeatChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(0, 0, Short.MAX_VALUE)))))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(btnUnenroll)))))
                         .addGap(6, 6, 6))))
         );
+
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnSubmit, btnUnenroll});
+
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
@@ -168,23 +197,15 @@ public class AddViewEditPersonOnBoardPanel extends javax.swing.JPanel {
                 .addGap(5, 5, 5)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(btnSeatChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnSeatChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnUnenroll))
                 .addContainerGap(135, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGoBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGoBackActionPerformed
         // TODO add your handling code here:
-        CardLayout layout = (CardLayout) bottomPanel.getLayout();
-        this.bottomPanel.remove(this);
-        for(Component comp:bottomPanel.getComponents()){
-            if(comp instanceof FlightsPanel){
-                if(((FlightsPanel)comp).getMode()==FlightsPanel.VIEW_EDIT_MODE){
-                    ((FlightsPanel)comp).loadUserFlights();
-                }
-            }
-        }
-        layout.previous(this.bottomPanel);
+        goBack();
     }//GEN-LAST:event_btnGoBackActionPerformed
 
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
@@ -196,12 +217,12 @@ public class AddViewEditPersonOnBoardPanel extends javax.swing.JPanel {
 
         //validate
         //add
-        if (mode == VIEW_EDIT_MODE) {
-            flight.releaseSeat(prevSeat);
-        }
         if (JOptionPane.showConfirmDialog(this, "Are you sure to \nenroll?",
                 "Confirm",
                 JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+            if (mode == VIEW_EDIT_MODE) {
+                flight.releaseSeat(prevSeat);
+            }
             Traveler t = new Traveler(fName, lName, id,
                     Business.getInstance().getMainFrame().getLoggedUser(),
                     flight);
@@ -213,11 +234,26 @@ public class AddViewEditPersonOnBoardPanel extends javax.swing.JPanel {
 
     }//GEN-LAST:event_btnSubmitActionPerformed
 
+    private void btnUnenrollActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUnenrollActionPerformed
+        // TODO add your handling code here:
+        if (mode == VIEW_EDIT_MODE) {
+            if(JOptionPane.showConfirmDialog(this, "Are you sure to \nunenroll?",
+                "Confirm",
+                JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
+                flight.releaseSeat(prevSeat);
+                JOptionPane.showMessageDialog(this, "Unenrolled successfully.",
+                    "SUCCESS", JOptionPane.INFORMATION_MESSAGE);
+                goBack();
+            }
+        }
+    }//GEN-LAST:event_btnUnenrollActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGoBack;
     private com.travel.util.SeatChooserJButton btnSeatChooser;
     private javax.swing.JButton btnSubmit;
+    private javax.swing.JButton btnUnenroll;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

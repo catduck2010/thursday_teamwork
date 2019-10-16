@@ -74,6 +74,7 @@ public class SearchFlightPanel extends javax.swing.JPanel {
         txtMaxPrice = new javax.swing.JTextField();
         checkboxAirliner = new javax.swing.JCheckBox();
         checkboxMaxprice = new javax.swing.JCheckBox();
+        boxSection = new javax.swing.JComboBox<>();
 
         jLabel1.setText("Depart on");
 
@@ -118,6 +119,8 @@ public class SearchFlightPanel extends javax.swing.JPanel {
             }
         });
 
+        boxSection.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "All Time", "Day (8AM-4PM)", "Evening (4PM-12AM)", "Night (12AM-8AM)" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -136,7 +139,9 @@ public class SearchFlightPanel extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 222, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(boxSection, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                                 .addComponent(btnSearch))
                             .addComponent(txtFrom)
                             .addComponent(txtTo)))
@@ -160,7 +165,8 @@ public class SearchFlightPanel extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnGoBack)
                             .addComponent(jLabel1)
-                            .addComponent(btnDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(boxSection, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
@@ -304,6 +310,7 @@ public class SearchFlightPanel extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> boxSection;
     private com.travel.util.DateChooserJButton btnDateChooser;
     private com.travel.util.DateChooserJButton btnDateChooser1;
     private javax.swing.JButton btnGoBack;
