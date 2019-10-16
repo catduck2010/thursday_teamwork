@@ -69,12 +69,11 @@ public class SearchFlightPanel extends javax.swing.JPanel {
         btnGoBack = new javax.swing.JButton();
         btnSearch = new javax.swing.JButton();
         btnDateChooser = new com.travel.util.DateChooserJButton();
-        btnDateChooser1 = new com.travel.util.DateChooserJButton();
         txtAirliner = new javax.swing.JTextField();
         txtMaxPrice = new javax.swing.JTextField();
         checkboxAirliner = new javax.swing.JCheckBox();
         checkboxMaxprice = new javax.swing.JCheckBox();
-        timeCheckBox = new javax.swing.JComboBox<>();
+        boxSection = new javax.swing.JComboBox<>();
 
         jLabel1.setText("Depart on");
 
@@ -119,7 +118,7 @@ public class SearchFlightPanel extends javax.swing.JPanel {
             }
         });
 
-        timeCheckBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "All time", "Day", "Evening", "Night" }));
+        boxSection.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "All Time", "Day (8AM-4PM)", "Evening (4PM-12AM)", "Night (12AM-8AM)" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -139,9 +138,9 @@ public class SearchFlightPanel extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(timeCheckBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 99, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(boxSection, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                                 .addComponent(btnSearch))
                             .addComponent(txtFrom)
                             .addComponent(txtTo)))
@@ -166,7 +165,7 @@ public class SearchFlightPanel extends javax.swing.JPanel {
                             .addComponent(btnGoBack)
                             .addComponent(jLabel1)
                             .addComponent(btnDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(timeCheckBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(boxSection, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
@@ -198,7 +197,7 @@ public class SearchFlightPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnGoBackActionPerformed
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
-       int dateRange = timeCheckBox.getSelectedIndex();
+       int dateRange = boxSection.getSelectedIndex();
         
         String from = txtFrom.getText();
         jLabel2.setForeground(Color.black);
@@ -314,7 +313,6 @@ public class SearchFlightPanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> boxSection;
     private com.travel.util.DateChooserJButton btnDateChooser;
-    private com.travel.util.DateChooserJButton btnDateChooser1;
     private javax.swing.JButton btnGoBack;
     private javax.swing.JButton btnSearch;
     private com.travel.util.SeatChooserJButton btnSeatChooser;
@@ -323,7 +321,6 @@ public class SearchFlightPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JComboBox<String> timeCheckBox;
     private javax.swing.JTextField txtAirliner;
     private javax.swing.JTextField txtFrom;
     private javax.swing.JTextField txtMaxPrice;

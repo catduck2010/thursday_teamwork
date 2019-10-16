@@ -142,8 +142,6 @@
     </Component>
     <Component class="com.travel.util.DateChooserJButton" name="btnDateChooser">
     </Component>
-    <Component class="com.travel.util.DateChooserJButton" name="btnDateChooser1">
-    </Component>
     <Component class="javax.swing.JTextField" name="txtAirliner">
       <Properties>
         <Property name="enabled" type="boolean" value="false"/>
