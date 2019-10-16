@@ -16,9 +16,7 @@ public class AirlinerList {
 
     private final ArrayList<Airliner> airlinerList;
     private String username;
-    
-  
-    
+
     public AirlinerList() {
         this.airlinerList = new ArrayList<>();
     }
@@ -31,14 +29,11 @@ public class AirlinerList {
         return airlinerList;
     }
 
-    
-    public void addAirliner(String uname,String pw,String provider){
-        Airliner a=new Airliner(uname, pw);
+    public void addAirliner(String uname, String pw, String provider) {
+        Airliner a = new Airliner(uname, pw);
         a.setProviderName(provider);
         airlinerList.add(a);
     }
-    
-
 
     public String getUsername() {
         return username;
@@ -48,6 +43,13 @@ public class AirlinerList {
         this.username = username;
     }
 
-    
+    public Airliner getAirliner(String username) {
+        for (Airliner a : airlinerList) {
+            if (a.getUsername().equals(username)) {
+                return a;
+            }
+        }
+        return null;
+    }
 
 }

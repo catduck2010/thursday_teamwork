@@ -7,7 +7,7 @@ package com.travel.interfaces;
 
 import com.travel.business.Business;
 import static com.travel.interfaces.LoginPanel.TXTPSWD_HINT;
-import com.travel.users.User;
+import com.travel.users.*;
 import com.travel.util.Validator;
 import java.awt.CardLayout;
 import java.awt.Color;
@@ -27,8 +27,8 @@ public class MyUsernamePswdPanel extends javax.swing.JPanel {
      */
     private final JPanel bottomPanel;
     private final User user;
-    private boolean isEditing=false;
-    
+    private boolean isEditing = false;
+
     private boolean noUser;
     static final String PWOLD_HINT = "Old Password";
     static final String PWNEW_HINT = "New Password";
@@ -40,7 +40,7 @@ public class MyUsernamePswdPanel extends javax.swing.JPanel {
         this.bottomPanel = jp;
         this.user = u;
         this.txtUsername.setText(user.getUsername());
-        defaultChar=pwOld.getEchoChar();
+        defaultChar = pwOld.getEchoChar();
         pwOld.setEchoChar('\0');
         pwNew.setEchoChar('\0');
         pwConfirmNew.setEchoChar('\0');
@@ -50,7 +50,7 @@ public class MyUsernamePswdPanel extends javax.swing.JPanel {
         pwOld.setText(PWOLD_HINT);
         pwNew.setText(PWNEW_HINT);
         pwConfirmNew.setText(PWCONF_HINT);
-        this.pwOld.addFocusListener(new FocusListener(){
+        this.pwOld.addFocusListener(new FocusListener() {
             @Override
             public void focusLost(FocusEvent e) {// when focus lost
                 String pswd = new String(pwOld.getPassword()).trim();
@@ -71,7 +71,7 @@ public class MyUsernamePswdPanel extends javax.swing.JPanel {
                 }
             }
         });
-        this.pwNew.addFocusListener(new FocusListener(){
+        this.pwNew.addFocusListener(new FocusListener() {
             @Override
             public void focusLost(FocusEvent e) {// when focus lost
                 String pswd = new String(pwNew.getPassword()).trim();
@@ -92,7 +92,7 @@ public class MyUsernamePswdPanel extends javax.swing.JPanel {
                 }
             }
         });
-        this.pwConfirmNew.addFocusListener(new FocusListener(){
+        this.pwConfirmNew.addFocusListener(new FocusListener() {
             @Override
             public void focusLost(FocusEvent e) {// when focus lost
                 String pswd = new String(pwConfirmNew.getPassword()).trim();
@@ -113,6 +113,31 @@ public class MyUsernamePswdPanel extends javax.swing.JPanel {
                 }
             }
         });
+    }
+
+    private boolean isValidUsername(String username) {
+        int type = user.getUserType();
+        switch (user.getUserType()) {
+            case User.ADMINISTRATOR:
+                if (Business.getInstance().getAdmins().getAdmin(username) == null
+                        || Business.getInstance().getAdmins().getAdmin(username).equals((Admin) user)) {
+                    return true;
+                }
+                break;
+            case User.AIRLINER:
+                if (Business.getInstance().getAirliners().getAirliner(username) == null
+                        || Business.getInstance().getAirliners().getAirliner(username).equals((Airliner) user)) {
+                    return true;
+                }
+                break;
+            case User.CUSTOMER:
+                if (Business.getInstance().getCustomers().getCustomer(username) == null
+                        || Business.getInstance().getCustomers().getCustomer(username).equals((Customer) user)) {
+                    return true;
+                }
+                break;
+        }
+        return false;
     }
 
     /**
@@ -242,72 +267,78 @@ public class MyUsernamePswdPanel extends javax.swing.JPanel {
 
     private void btnSavePwActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSavePwActionPerformed
         // TODO add your handling code here:
-        String oldPw=new String(this.pwOld.getPassword());
-        String newPw=new String(this.pwNew.getPassword());
-        String confirm=new String(this.pwConfirmNew.getPassword());
-        
-        if(!user.verify(oldPw)){
-            JOptionPane.showMessageDialog(this, "Old Password is Incorrect!", 
+        String oldPw = new String(this.pwOld.getPassword());
+        String newPw = new String(this.pwNew.getPassword());
+        String confirm = new String(this.pwConfirmNew.getPassword());
+
+        if (!user.verify(oldPw)) {
+            JOptionPane.showMessageDialog(this, "Old Password is Incorrect!",
                     "WARNING", JOptionPane.WARNING_MESSAGE);
-            
-        }else{
-            if(Validator.IsEmpty(newPw)){
-                JOptionPane.showMessageDialog(this, "New Password cannot be Empty!", 
-                    "WARNING", JOptionPane.WARNING_MESSAGE);
+
+        } else {
+            if (Validator.IsEmpty(newPw)) {
+                JOptionPane.showMessageDialog(this, "New Password cannot be Empty!",
+                        "WARNING", JOptionPane.WARNING_MESSAGE);
                 return;
             }
-            if(!Validator.IsPassword(newPw)){
-                JOptionPane.showMessageDialog(this, 
+            if (!Validator.IsPassword(newPw)) {
+                JOptionPane.showMessageDialog(this,
                         "Password should be in the form of at least 6 "
-                                + "letters and including numbers, "
-                                + "Lowercase and Uppercase ", 
-                    "WARNING", JOptionPane.WARNING_MESSAGE);
+                        + "letters and including numbers, "
+                        + "Lowercase and Uppercase ",
+                        "WARNING", JOptionPane.WARNING_MESSAGE);
                 return;
             }
-            if(Validator.IsEmpty(confirm)){
-                JOptionPane.showMessageDialog(this, "Confirm Password cannot be Empty!", 
-                    "WARNING", JOptionPane.WARNING_MESSAGE);
+            if (Validator.IsEmpty(confirm)) {
+                JOptionPane.showMessageDialog(this, "Confirm Password cannot be Empty!",
+                        "WARNING", JOptionPane.WARNING_MESSAGE);
                 return;
             }
-            if(!Validator.IsSamePassword(newPw, confirm)){
+            if (!Validator.IsSamePassword(newPw, confirm)) {
                 JOptionPane.showMessageDialog(this, "Re-enter password is "
-                        + "not as same as previous password", 
-                    "WARNING", JOptionPane.WARNING_MESSAGE);
+                        + "not as same as previous password",
+                        "WARNING", JOptionPane.WARNING_MESSAGE);
                 return;
             }
             user.setPasswd(newPw);
             JOptionPane.showMessageDialog(this, "New Password is set and "
-                    + "you are going to log out for safety reasons.", 
+                    + "you are going to log out for safety reasons.",
                     "New Password Set", JOptionPane.INFORMATION_MESSAGE);
-            Business.getInstance().getMainFrame().logOut();  
+            Business.getInstance().getMainFrame().logOut();
         }
     }//GEN-LAST:event_btnSavePwActionPerformed
 
     private void btnEditSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditSaveActionPerformed
         // TODO add your handling code here:
-        if(user.getUsername().equals("Administrator")){
+        if (user.getUsername().equals("Administrator")) {
             JOptionPane.showMessageDialog(this, "Superuser's username "
-                    + "is not allowed to edit.", 
+                    + "is not allowed to edit.",
                     "Administrator", JOptionPane.INFORMATION_MESSAGE);
             return;
         }
-        if(!isEditing){
+        if (!isEditing) {
             this.txtUsername.setEditable(true);
-            isEditing=true;
+            isEditing = true;
             this.btnEditSave.setText("Save");
-        }else{
-            String uname=this.txtUsername.getText().trim();
-            if(Validator.IsUsername(uname)){
-                this.user.setUsername(uname);
-                JOptionPane.showMessageDialog(this, "Username is set!", 
-                    "INFORMATION", JOptionPane.INFORMATION_MESSAGE);
-            }else{
-                JOptionPane.showMessageDialog(this, "New Username is invalid!", 
-                    "WARNING", JOptionPane.WARNING_MESSAGE);
+        } else {
+            String uname = this.txtUsername.getText().trim();
+            if (!isValidUsername(uname)) {
+                JOptionPane.showMessageDialog(this, "New Username has been used by another account!",
+                        "WARNING", JOptionPane.WARNING_MESSAGE);
                 this.txtUsername.setText(user.getUsername());
+            } else {
+                if (Validator.IsUsername(uname)) {
+                    this.user.setUsername(uname);
+                    JOptionPane.showMessageDialog(this, "Username is set!",
+                            "INFORMATION", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(this, "New Username is invalid!",
+                            "WARNING", JOptionPane.WARNING_MESSAGE);
+                    this.txtUsername.setText(user.getUsername());
+                }
             }
             this.txtUsername.setEditable(false);
-            isEditing=false;
+            isEditing = false;
             this.btnEditSave.setText("Edit");
         }
     }//GEN-LAST:event_btnEditSaveActionPerformed

@@ -49,6 +49,10 @@ public class FlightsPanel extends javax.swing.JPanel {
         loadFlights();
     }
 
+    public int getMode() {
+        return this.mode;
+    }
+
     public FlightsPanel(JPanel b, User u) {
         initComponents();
         business = Business.getInstance();
@@ -60,6 +64,9 @@ public class FlightsPanel extends javax.swing.JPanel {
 
     public void loadUserFlights() {
         DefaultTableModel dtm = (DefaultTableModel) tblFlights.getModel();
+        dtm.setColumnIdentifiers(new String[]{
+            "Traveler Name", "Flight #", "From", "To", "Date & Time"
+        });
         dtm.setRowCount(0);
 
         for (Flight ff : business.getFlightDirectory().getFlightDir()) {

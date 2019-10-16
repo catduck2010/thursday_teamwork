@@ -23,7 +23,6 @@ public class MainMenuPanel extends javax.swing.JPanel {
      * Creates new form MainMenuPanel
      */
     private final User user;
-    private JPanel rightPanel;
 
     public MainMenuPanel(JPanel rightPanel, User u) {
         initComponents();
@@ -33,9 +32,7 @@ public class MainMenuPanel extends javax.swing.JPanel {
     }
 
     private void detectUserType() {
-        int type = user.getUserType();
-
-        switch (type) {
+        switch (user.getUserType()) {
             case User.ADMINISTRATOR:
 
                 lblUsername.setText(user.getUsername());
@@ -45,6 +42,7 @@ public class MainMenuPanel extends javax.swing.JPanel {
                 btnAircrafts.setEnabled(false);
                 btnBookFlight.setEnabled(true);
                 btnFlights.setEnabled(false);
+                btnProfile.setEnabled(false);
                 break;
             case User.AIRLINER:
                 lblUsername.setText(((Airliner) user).getProviderName());
@@ -69,6 +67,22 @@ public class MainMenuPanel extends javax.swing.JPanel {
 
         }
 
+    }
+
+    public void setUsername(User u) {
+        switch (user.getUserType()) {
+            case User.ADMINISTRATOR:
+                lblUsername.setText(user.getUsername());
+                break;
+            case User.AIRLINER:
+                lblUsername.setText(((Airliner) user).getProviderName());
+                break;
+            case User.CUSTOMER:
+                lblUsername.setText(((Customer) user).getFullName());
+                break;
+            default:
+                break;
+        }
     }
 
     /**
@@ -229,6 +243,9 @@ public class MainMenuPanel extends javax.swing.JPanel {
 
     private void btnProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProfileActionPerformed
         // TODO add your handling code here:
+        CardLayout layout = (CardLayout) bottomPanel.getLayout();
+        bottomPanel.add("MyProfilePanel", new MyProfilePanel(this, this.bottomPanel, user));
+        layout.next(bottomPanel);
     }//GEN-LAST:event_btnProfileActionPerformed
 
     private void btnUsernamePasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsernamePasswordActionPerformed

@@ -5,7 +5,9 @@
  */
 package com.travel.interfaces;
 
+import com.travel.users.*;
 import java.awt.CardLayout;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -17,9 +19,37 @@ public class MyProfilePanel extends javax.swing.JPanel {
     /**
      * Creates new form MyProfilePanel
      */
+    private MainMenuPanel mainMenu;
+    private User user;
     private JPanel bottomPanel;
+
     public MyProfilePanel() {
         initComponents();
+    }
+
+    public MyProfilePanel(MainMenuPanel m,JPanel jp, User u) {
+        initComponents();
+        this.mainMenu = m;
+        this.user = u;
+        this.bottomPanel=jp;
+        fillTxtField();
+    }
+
+    private void fillTxtField() {
+        switch (user.getUserType()) {
+            case User.CUSTOMER:
+                txtLastName.setText(((Customer) user).getLastName());
+                txtProviderFirst.setText(((Customer) user).getFirstName());
+                break;
+            case User.AIRLINER:
+                txtProviderFirst.setText(((Airliner) user).getProviderName());
+                txtLastName.setVisible(false);
+                jLabel3.setVisible(false);
+                jLabel2.setText("Airline Name");
+                break;
+            default:
+                break;
+        }
     }
 
     /**
@@ -37,8 +67,7 @@ public class MyProfilePanel extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         txtProviderFirst = new javax.swing.JTextField();
         txtLastName = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnSave = new javax.swing.JButton();
 
         btnGoBack.setText("←");
         btnGoBack.addActionListener(new java.awt.event.ActionListener() {
@@ -53,35 +82,33 @@ public class MyProfilePanel extends javax.swing.JPanel {
 
         jLabel3.setText("Last Name");
 
-        txtProviderFirst.setText("jTextField1");
-
-        txtLastName.setText("jTextField2");
-
-        jButton1.setText("Save");
-
-        jButton2.setText("Username & Password");
+        btnSave.setText("Save");
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSaveActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addComponent(btnGoBack, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnGoBack, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 175, Short.MAX_VALUE)
+                        .addComponent(btnSave))
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
-                            .addComponent(jLabel1)
                             .addComponent(jLabel3))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(txtLastName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 271, Short.MAX_VALUE)
-                            .addComponent(txtProviderFirst, javax.swing.GroupLayout.Alignment.TRAILING)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton2)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtLastName)
+                            .addComponent(txtProviderFirst))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -91,7 +118,7 @@ public class MyProfilePanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnGoBack)
                     .addComponent(jLabel1)
-                    .addComponent(jButton1))
+                    .addComponent(btnSave))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -100,9 +127,7 @@ public class MyProfilePanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(txtLastName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2)
-                .addContainerGap(166, Short.MAX_VALUE))
+                .addContainerGap(201, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -113,11 +138,28 @@ public class MyProfilePanel extends javax.swing.JPanel {
         layout.previous(this.bottomPanel);
     }//GEN-LAST:event_btnGoBackActionPerformed
 
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+        // TODO add your handling code here:
+        switch (user.getUserType()) {
+            case User.CUSTOMER:
+                ((Customer) user).setLastName(txtLastName.getText().trim());
+                ((Customer) user).setFirstName(txtProviderFirst.getText().trim());
+                break;
+            case User.AIRLINER:
+                ((Airliner) user).setProviderName(txtProviderFirst.getText().trim());
+                break;
+            default:
+                break;
+        }
+        JOptionPane.showMessageDialog(this, "New Profile Saved.",
+                "PROFILE",JOptionPane.INFORMATION_MESSAGE);
+        mainMenu.setUsername(user);
+    }//GEN-LAST:event_btnSaveActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGoBack;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btnSave;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

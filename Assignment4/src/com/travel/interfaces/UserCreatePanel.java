@@ -6,6 +6,7 @@
 package com.travel.interfaces;
 
 import com.travel.business.AirlinerList;
+import com.travel.business.Business;
 import com.travel.business.CustomerList;
 import com.travel.users.Admin;
 import com.travel.users.Airliner;
@@ -253,66 +254,60 @@ public class UserCreatePanel extends javax.swing.JPanel {
 
         if (Validator.IsEmpty(username)) {
             txtUser.setBorder(BorderFactory.createLineBorder(Color.RED));
-            lblProviderLast.setForeground(Color.RED);
             JOptionPane.showMessageDialog(null, "Username can't be empty");
             return;
         }
         if (!Validator.IsUsername(username)) {
             JOptionPane.showMessageDialog(null, "Username should be in the form of Words and Number");
             txtUser.setBorder(BorderFactory.createLineBorder(Color.RED));
-            lblProviderLast.setForeground(Color.RED);
             return;
         }
 
         if (Validator.IsEmpty(provider)) {
             txtProviderLast.setBorder(BorderFactory.createLineBorder(Color.RED));
-            jLabel1.setForeground(Color.RED);
             JOptionPane.showMessageDialog(null, "Last Name/Provider Name can't be empty");
             return;
         }
 //        if (!Validator.IsEmail(provider)) {
 //            JOptionPane.showMessageDialog(null, "E-mail should be in the form of xxx_xxx@xxx.xxx");
 //            txtProviderLast.setBorder(BorderFactory.createLineBorder(Color.RED));
-//            jLabel1.setForeground(Color.RED);
 //            return;
 //        }
 
         if (Validator.IsEmpty(password)) {
             txtPword.setBorder(BorderFactory.createLineBorder(Color.RED));
-            jLabel2.setForeground(Color.RED);
             JOptionPane.showMessageDialog(null, "Password can't be empty");
             return;
         }
         if (!Validator.IsPassword(password)) {
             JOptionPane.showMessageDialog(null, "Password should be in the form of at least 6 letters and including numbers, Lowercase and Uppercase ");
             txtPword.setBorder(BorderFactory.createLineBorder(Color.RED));
-            jLabel2.setForeground(Color.RED);
             return;
         }
 
         if (Validator.IsEmpty(repassword)) {
             txtRePword.setBorder(BorderFactory.createLineBorder(Color.RED));
-            jLabel3.setForeground(Color.RED);
             JOptionPane.showMessageDialog(null, "Re-enter password can't be empty");
             return;
         }
         if (!Validator.IsSamePassword(password, repassword)) {
             JOptionPane.showMessageDialog(null, "Re-enter password is not as same as previous password");
             txtRePword.setBorder(BorderFactory.createLineBorder(Color.RED));
-            jLabel3.setForeground(Color.RED);
             return;
         }
-
-        if (radioAirliner.isSelected()) {
+        if (Business.getInstance().getAirliners().getAirliner(username) == null
+                || Business.getInstance().getCustomers().getCustomer(username) == null) {
+            JOptionPane.showMessageDialog(this, "Username exists!",
+                    "WARNING", JOptionPane.WARNING_MESSAGE);
+            txtUser.setBorder(BorderFactory.createLineBorder(Color.RED));
+        } else if (radioAirliner.isSelected()) {
             Airliner a = new Airliner(username, password);
             a.setProviderName(provider);
             airlinerList.getAirlinerList().add(a);
             JOptionPane.showMessageDialog(null, "Airliner created Successfully");
             clearAllFields();
             //toMainScreen();
-        }
-
-        if (radioCustomer.isSelected()) {
+        } else if (radioCustomer.isSelected()) {
             Date date = new Date();
             Customer c = new Customer(username, password);
             c.setFirstName(firstname);

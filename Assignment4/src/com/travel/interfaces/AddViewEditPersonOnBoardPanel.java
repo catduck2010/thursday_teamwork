@@ -9,6 +9,7 @@ import com.travel.business.Business;
 import com.travel.business.Flight;
 import com.travel.business.Traveler;
 import java.awt.CardLayout;
+import java.awt.Component;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -176,6 +177,13 @@ public class AddViewEditPersonOnBoardPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         CardLayout layout = (CardLayout) bottomPanel.getLayout();
         this.bottomPanel.remove(this);
+        for(Component comp:bottomPanel.getComponents()){
+            if(comp instanceof FlightsPanel){
+                if(((FlightsPanel)comp).getMode()==FlightsPanel.VIEW_EDIT_MODE){
+                    ((FlightsPanel)comp).loadUserFlights();
+                }
+            }
+        }
         layout.previous(this.bottomPanel);
     }//GEN-LAST:event_btnGoBackActionPerformed
 

@@ -44,5 +44,14 @@ public class AdminList {
         return adminList.isEmpty();
     }
     
+    public Admin getAdmin(String username){
+        for(Admin a:adminList){
+            if(a.getUsername().equals(username)){
+                return a;
+            }
+        }
+        return null;
+    }
+    
     
 }
