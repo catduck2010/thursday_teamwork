@@ -11,6 +11,7 @@ import com.travel.business.FlightDirectory;
 import static com.travel.interfaces.FlightsPanel.VIEW_EDIT_MODE;
 import com.travel.users.User;
 import java.util.ArrayList;
+import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
@@ -24,12 +25,27 @@ public class DisplayAllPanel extends javax.swing.JPanel {
 
     private FlightDirectory flightDir;
     private JPanel rightPanel;
+    private final JPanel bottomPanel;
+    private final Business business;
+    private String to;
+    private String from;
+    private Date depart;
+    private int mode;
+    private User user;
+    private String airliner;
+    private Double price;
+    private int timeRange;
 
     /**
      * Creates new form DisplayAllPanel
      */
-    public DisplayAllPanel() {
+    public DisplayAllPanel(JPanel b, User u) {
         initComponents();
+        business = Business.getInstance();
+        this.bottomPanel = b;
+        this.user = u;
+        this.mode = VIEW_EDIT_MODE;
+        this.flightDir = business.getFlightDirectory();
         
     }
 
@@ -49,8 +65,8 @@ public class DisplayAllPanel extends javax.swing.JPanel {
         txtAirliner = new javax.swing.JTextField();
         btnSearch = new javax.swing.JButton();
 
-        jLabel1.setFont(new java.awt.Font("等线", 1, 36)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 153, 153));
+        jLabel1.setFont(new java.awt.Font("等线", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(102, 153, 255));
         jLabel1.setText("View All Flights");
 
         jLabel2.setText("Airliner:");
@@ -60,11 +76,11 @@ public class DisplayAllPanel extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Airliner", "Flight Model", "Flight No.", "From", "To", "Date&Time"
+                "Airliner", "Flight No.", "From", "To", "Date&Time"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -78,7 +94,6 @@ public class DisplayAllPanel extends javax.swing.JPanel {
             allFlightsTable.getColumnModel().getColumn(2).setResizable(false);
             allFlightsTable.getColumnModel().getColumn(3).setResizable(false);
             allFlightsTable.getColumnModel().getColumn(4).setResizable(false);
-            allFlightsTable.getColumnModel().getColumn(5).setResizable(false);
         }
 
         txtAirliner.addActionListener(new java.awt.event.ActionListener() {
@@ -98,35 +113,35 @@ public class DisplayAllPanel extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(256, 256, 256))
             .addGroup(layout.createSequentialGroup()
-                .addGap(40, 40, 40)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtAirliner, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnSearch)
-                .addContainerGap(322, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1)
-                .addContainerGap())
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(284, 284, 284)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(50, 50, 50)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 677, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtAirliner, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnSearch)))))
+                .addContainerGap(44, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtAirliner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSearch))
-                .addGap(33, 33, 33)
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 194, Short.MAX_VALUE))
+                .addGap(0, 241, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -153,12 +168,12 @@ public class DisplayAllPanel extends javax.swing.JPanel {
         
         for(Flight a : list){
             Object[] row = new Object[dtm.getColumnCount()];
-            row[0]=a;
-            row[1]=a.getPlaneModel();
-            row[2]=a.getFlightNum();
-            row[3]=a.getDeparture();
-            row[4]=a.getArrival();
-            row[5]=a.getTakeOffTime();
+            row[0]=a.getAirliner();
+            //row[1]=a.getPlaneModel();
+            row[1]=a.getFlightNum();
+            row[2]=a.getDeparture();
+            row[3]=a.getArrival();
+            row[4]=a.getTakeOffTime();
             
             dtm.addRow(row);
         }

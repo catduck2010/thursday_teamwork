@@ -272,7 +272,7 @@ public class MainMenuPanel extends javax.swing.JPanel {
     private void btnAdminsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdminsActionPerformed
         // Show all flights
         CardLayout layout = (CardLayout) bottomPanel.getLayout();
-        bottomPanel.add("DisplayAllPanel",rightPanel);
+        bottomPanel.add("DisplayAllPanel",new DisplayAllPanel(bottomPanel, Business.getInstance().getMainFrame().getLoggedUser()));
         layout.next(this.bottomPanel);
     }//GEN-LAST:event_btnAdminsActionPerformed
 
