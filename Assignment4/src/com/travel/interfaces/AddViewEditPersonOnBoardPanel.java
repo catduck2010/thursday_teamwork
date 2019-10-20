@@ -8,8 +8,11 @@ package com.travel.interfaces;
 import com.travel.business.Business;
 import com.travel.business.Flight;
 import com.travel.business.Traveler;
+import com.travel.util.Validator;
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.Component;
+import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -70,8 +73,8 @@ public class AddViewEditPersonOnBoardPanel extends javax.swing.JPanel {
         this.btnUnenroll.setVisible(true);
         this.btnUnenroll.setEnabled(true);
     }
-    
-    private void goBack(){
+
+    private void goBack() {
         CardLayout layout = (CardLayout) bottomPanel.getLayout();
         this.bottomPanel.remove(this);
         for (Component comp : bottomPanel.getComponents()) {
@@ -82,6 +85,31 @@ public class AddViewEditPersonOnBoardPanel extends javax.swing.JPanel {
             }
         }
         layout.previous(this.bottomPanel);
+    }
+    
+    private void refreshLabel(){
+        this.lblFName.setForeground(Color.BLACK);
+        this.lblLName.setForeground(Color.BLACK);
+        this.lblSeat.setForeground(Color.BLACK);
+        this.lblID.setForeground(Color.BLACK);
+    }
+
+    private int confirmInformation(String fName, String lName, String id, String seat, Flight f) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        String info = "Please confirm the following details.\n\n";
+        info = info + "Traveler Name: " + fName + " " + lName + "\n";
+        info = info + "ID: " + id + "\n";
+        info = info + "Seat: " + seat + "\n";
+        info = info + "Flight #:" + f.getFlightNum() + "\n";
+        info = info + "Departure: " + f.getDeparture() + "\n";
+        info = info + "Arrival: " + f.getArrival() + "\n";
+        info = info + "Depart Time: \t" + sdf.format(f.getTakeOffTime()) + "\n";
+        info = info + "Arrive Time: \t" + sdf.format(f.getLandTime()) + "\n";
+        info = info + "Ticket Price: " + f.getTicketPrice() + "\n";
+
+        return JOptionPane.showConfirmDialog(this, info + "\nAre you sure to enroll?",
+                "Order Confirm",
+                JOptionPane.YES_NO_OPTION);
     }
 
     /**
@@ -95,13 +123,13 @@ public class AddViewEditPersonOnBoardPanel extends javax.swing.JPanel {
 
         btnGoBack = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        lblFName = new javax.swing.JLabel();
+        lblLName = new javax.swing.JLabel();
+        lblSeat = new javax.swing.JLabel();
         btnSeatChooser = new com.travel.util.SeatChooserJButton();
         txtFirstName = new javax.swing.JTextField();
         txtLastName = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
+        lblID = new javax.swing.JLabel();
         txtID = new javax.swing.JTextField();
         btnSubmit = new javax.swing.JButton();
         btnUnenroll = new javax.swing.JButton();
@@ -115,13 +143,13 @@ public class AddViewEditPersonOnBoardPanel extends javax.swing.JPanel {
 
         jLabel1.setText("Edit Traveler");
 
-        jLabel2.setText("First Name");
+        lblFName.setText("First Name");
 
-        jLabel3.setText("Last Name");
+        lblLName.setText("Last Name");
 
-        jLabel4.setText("Seat");
+        lblSeat.setText("Seat");
 
-        jLabel5.setText("Passport No.");
+        lblID.setText("Passport No.");
 
         btnSubmit.setText("Submit");
         btnSubmit.addActionListener(new java.awt.event.ActionListener() {
@@ -147,7 +175,7 @@ public class AddViewEditPersonOnBoardPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel5)
+                        .addComponent(lblID)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -157,9 +185,9 @@ public class AddViewEditPersonOnBoardPanel extends javax.swing.JPanel {
                                 .addComponent(btnSubmit, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel4))
+                                    .addComponent(lblLName)
+                                    .addComponent(lblFName)
+                                    .addComponent(lblSeat))
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtLastName)
@@ -184,19 +212,19 @@ public class AddViewEditPersonOnBoardPanel extends javax.swing.JPanel {
                     .addComponent(btnSubmit))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
+                    .addComponent(lblFName)
                     .addComponent(txtFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
+                    .addComponent(lblLName)
                     .addComponent(txtLastName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
+                    .addComponent(lblID)
                     .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(5, 5, 5)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
+                    .addComponent(lblSeat)
                     .addComponent(btnSeatChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnUnenroll))
                 .addContainerGap(135, Short.MAX_VALUE))
@@ -210,16 +238,41 @@ public class AddViewEditPersonOnBoardPanel extends javax.swing.JPanel {
 
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
         // TODO add your handling code here:
+        refreshLabel();
         String fName = txtFirstName.getText().trim(),
                 lName = this.txtLastName.getText().trim(),
                 id = this.txtID.getText().trim(),
                 seat = this.btnSeatChooser.getSeat();
 
         //validate
+        if (Validator.IsEmpty(fName) || Validator.IsEmpty(lName)) {
+            JOptionPane.showMessageDialog(this, "First/Last Name cannot be empty!",
+                    "Empty Field", JOptionPane.WARNING_MESSAGE);
+            this.lblFName.setForeground(Color.red);
+            this.lblLName.setForeground(Color.red);
+            return;
+        }
+        if((!Validator.IsEngName(fName))||(!Validator.IsEngName(lName))){
+            JOptionPane.showMessageDialog(this, "First/Last Name must be in 26 Characters!",
+                    "Invalid Name", JOptionPane.WARNING_MESSAGE);
+            this.lblFName.setForeground(Color.red);
+            this.lblLName.setForeground(Color.red);
+            return;
+        }
+        if (Validator.IsEmpty(id)) {
+            JOptionPane.showMessageDialog(this, "ID cannot be empty!",
+                    "Empty Field", JOptionPane.WARNING_MESSAGE);
+            this.lblID.setForeground(Color.red);
+            return;
+        }
+        if (Validator.IsEmpty(seat)) {
+            JOptionPane.showMessageDialog(this, "Please Pick a Seat!",
+                    "Empty Field", JOptionPane.WARNING_MESSAGE);
+            this.lblSeat.setForeground(Color.red);
+            return;
+        }
         //add
-        if (JOptionPane.showConfirmDialog(this, "Are you sure to \nenroll?",
-                "Confirm",
-                JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+        if (confirmInformation(fName, lName, id, seat, flight) == JOptionPane.YES_OPTION) {
             if (mode == VIEW_EDIT_MODE) {
                 flight.releaseSeat(prevSeat);
             }
@@ -237,12 +290,12 @@ public class AddViewEditPersonOnBoardPanel extends javax.swing.JPanel {
     private void btnUnenrollActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUnenrollActionPerformed
         // TODO add your handling code here:
         if (mode == VIEW_EDIT_MODE) {
-            if(JOptionPane.showConfirmDialog(this, "Are you sure to \nunenroll?",
-                "Confirm",
-                JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION){
+            if (JOptionPane.showConfirmDialog(this, "Are you sure to \nunenroll?",
+                    "Confirm",
+                    JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
                 flight.releaseSeat(prevSeat);
                 JOptionPane.showMessageDialog(this, "Unenrolled successfully.",
-                    "SUCCESS", JOptionPane.INFORMATION_MESSAGE);
+                        "SUCCESS", JOptionPane.INFORMATION_MESSAGE);
                 goBack();
             }
         }
@@ -255,10 +308,10 @@ public class AddViewEditPersonOnBoardPanel extends javax.swing.JPanel {
     private javax.swing.JButton btnSubmit;
     private javax.swing.JButton btnUnenroll;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel lblFName;
+    private javax.swing.JLabel lblID;
+    private javax.swing.JLabel lblLName;
+    private javax.swing.JLabel lblSeat;
     private javax.swing.JTextField txtFirstName;
     private javax.swing.JTextField txtID;
     private javax.swing.JTextField txtLastName;

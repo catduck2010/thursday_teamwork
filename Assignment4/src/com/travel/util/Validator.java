@@ -16,6 +16,16 @@ import java.util.regex.Pattern;
  */
 public class Validator {
 
+    public static boolean IsEngName(String str) {
+        String regex = "^[a-zA-Z]{1,}$";
+        return Match(regex, str);
+    }
+    
+    public static boolean IsChineseChar(String str) {
+        String regex = "^[\\u4E00-\\u9FA5]{1,4}$";
+        return Match(regex, str);
+    }
+
     public static boolean IsLatLon(String str) {
         //Latitude, Longitude
         String regex = "^[-+]?([1-8]?\\d(\\.\\d+)?|90(\\.0+)?),\\s*[-+]?(180(\\.0+)?|((1[0-7]\\d)|([1-9]?\\d))(\\.\\d+)?)$";
