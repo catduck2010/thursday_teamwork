@@ -28,38 +28,6 @@ public class Flight {
     private Traveler[][] travelerTable;
     private String flightNum;
 
-    public int getSeats() {
-        return seats;
-    }
-
-    public void setSeats(int seats) {
-        this.seats = seats;
-    }
-
-    public String getPlaneModel() {
-        return planeModel;
-    }
-
-    public void setPlaneModel(String planeModel) {
-        this.planeModel = planeModel;
-    }
-
-    public String getFlightNo() {
-        return flightNo;
-    }
-
-    public void setFlightNo(String flightNo) {
-        this.flightNo = flightNo;
-    }
-
-    public String getFlightDate() {
-        return flightDate;
-    }
-
-    public void setFlightDate(String flightDate) {
-        this.flightDate = flightDate;
-    }
-
     public String getFlightNum() {
         return flightNum;
     }
@@ -234,8 +202,6 @@ public class Flight {
         return flightNum;
     }
 
-
-
     public String getTravelerSeat(Traveler t) {
         int i = 0, j = 0;
         for (Traveler[] row : travelerTable) {
@@ -269,5 +235,4 @@ public class Flight {
         return tr;
     }
 
-    
 }
