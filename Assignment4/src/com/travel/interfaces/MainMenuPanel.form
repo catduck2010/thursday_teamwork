@@ -56,7 +56,7 @@
                           </Group>
                           <Component id="btnProfile" linkSize="1" alignment="0" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="178" max="32767" attributes="0"/>
+                      <EmptySpace pref="139" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="btnBookFlight" linkSize="1" alignment="1" max="32767" attributes="0"/>
                           <Component id="btnUsernamePassword" linkSize="1" alignment="1" pref="0" max="32767" attributes="0"/>
@@ -69,7 +69,7 @@
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                       <Component id="lblUsername" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -86,7 +86,6 @@
                           <Component id="btnAircrafts" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="btnFlights" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="0" pref="31" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
