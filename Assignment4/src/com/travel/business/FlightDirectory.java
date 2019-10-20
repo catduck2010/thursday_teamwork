@@ -80,5 +80,14 @@ public class FlightDirectory {
         return b;
     }
     
+    public ArrayList<Flight> searchAirliner(String keyword){
+        ArrayList<Flight> result = new ArrayList<>();
+        for(Flight flight : this.flightDir){
+            if(flight.getAirliner().toLowerCase().contains(keyword.toLowerCase())){
+                result.add(flight);
+            }
+        }
+        return result;
+    }
 
 }
