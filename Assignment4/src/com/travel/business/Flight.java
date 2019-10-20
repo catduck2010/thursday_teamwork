@@ -19,11 +19,7 @@ public class Flight {
     private static int COL = 6;
 
     private String modelNum;
-    private int seats;
-    private String planeModel;
     private String airliner;
-    private String flightNo;
-    private String flightDate;
     private Date takeOffTime;
     private Date landTime;
     private String departure;
@@ -31,7 +27,6 @@ public class Flight {
     private double ticketPrice;
     private Traveler[][] travelerTable;
     private String flightNum;
-    private final ArrayList<Traveler> travelers = new ArrayList<>();
 
     public String getFlightNum() {
         return flightNum;
@@ -242,12 +237,5 @@ public class Flight {
         return tr;
     }
 
-    public Flight(String airliner, String flight, String from, String to, String date) {
-        this.airliner = airliner;
-        this.flightNo = flight;
-        this.departure = from;
-        this.arrival = to;
-        this.flightDate = date;
-
-    }
+    
 }
