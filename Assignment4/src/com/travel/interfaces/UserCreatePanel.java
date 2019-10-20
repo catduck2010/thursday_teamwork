@@ -296,7 +296,7 @@ public class UserCreatePanel extends javax.swing.JPanel {
             return;
         }
         if (Business.getInstance().getAirliners().getAirliner(username) != null
-                && Business.getInstance().getCustomers().getCustomer(username) != null) {
+                || Business.getInstance().getCustomers().getCustomer(username) != null) {
             JOptionPane.showMessageDialog(this, "Username exists!",
                     "WARNING", JOptionPane.WARNING_MESSAGE);
             txtUser.setBorder(BorderFactory.createLineBorder(Color.RED));
