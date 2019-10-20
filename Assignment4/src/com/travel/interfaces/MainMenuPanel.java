@@ -23,7 +23,8 @@ public class MainMenuPanel extends javax.swing.JPanel {
      * Creates new form MainMenuPanel
      */
     private final User user;
-
+    private JPanel rightPanel;
+    
     public MainMenuPanel(JPanel rightPanel, User u) {
         initComponents();
         this.user = u;
@@ -271,7 +272,7 @@ public class MainMenuPanel extends javax.swing.JPanel {
     private void btnAdminsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdminsActionPerformed
         // Show all flights
         CardLayout layout = (CardLayout) bottomPanel.getLayout();
-        bottomPanel.add("AdminShowAllFlightsPanel",new AdminShowAllFlightsPanel(bottomPanel));
+        bottomPanel.add("DisplayAllPanel",rightPanel);
         layout.next(this.bottomPanel);
     }//GEN-LAST:event_btnAdminsActionPerformed
 

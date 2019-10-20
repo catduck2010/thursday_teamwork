@@ -5,8 +5,11 @@
  */
 package com.travel.interfaces;
 
+import com.travel.business.Business;
 import com.travel.business.Flight;
 import com.travel.business.FlightDirectory;
+import static com.travel.interfaces.FlightsPanel.VIEW_EDIT_MODE;
+import com.travel.users.User;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -21,11 +24,13 @@ public class DisplayAllPanel extends javax.swing.JPanel {
 
     private FlightDirectory flightDir;
     private JPanel rightPanel;
+
     /**
      * Creates new form DisplayAllPanel
      */
     public DisplayAllPanel() {
         initComponents();
+        
     }
 
     /**
@@ -158,6 +163,7 @@ public class DisplayAllPanel extends javax.swing.JPanel {
             dtm.addRow(row);
         }
     }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable allFlightsTable;

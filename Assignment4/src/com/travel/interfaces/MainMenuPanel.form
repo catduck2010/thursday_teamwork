@@ -50,12 +50,10 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="btnAircrafts" max="32767" attributes="0"/>
-                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                              <Component id="lblUsername" max="32767" attributes="0"/>
-                              <Component id="btnAdmins" linkSize="1" alignment="0" max="32767" attributes="0"/>
-                              <Component id="btnAirliner" alignment="0" max="32767" attributes="0"/>
-                              <Component id="btnCustomers" alignment="0" max="32767" attributes="0"/>
-                          </Group>
+                          <Component id="lblUsername" alignment="1" max="32767" attributes="0"/>
+                          <Component id="btnAdmins" linkSize="1" alignment="0" max="32767" attributes="0"/>
+                          <Component id="btnAirliner" alignment="0" max="32767" attributes="0"/>
+                          <Component id="btnCustomers" alignment="0" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace pref="178" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
