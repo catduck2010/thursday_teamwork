@@ -37,6 +37,6 @@ public class Airliner extends User {
     
     @Override
     public String toString(){
-        return providerName;
+        return providerName+" ("+this.getUsername()+")";
     }
 }
