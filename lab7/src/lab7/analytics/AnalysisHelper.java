@@ -5,7 +5,11 @@
  */
 package lab7.analytics;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import lab7.entities.Comment;
 import lab7.entities.User;
@@ -18,7 +22,7 @@ public class AnalysisHelper {
 
     // find user with Most Likes
     // TODO
-    public static void userWithMostLikes() {
+    public void userWithMostLikes() {
         Map<Integer, Integer> userLikesCount = new HashMap<>();
         Map<Integer, User> users = DataStore.getInstance().getUsers();
 
@@ -48,4 +52,21 @@ public class AnalysisHelper {
 
     // find 5 comments which have the most likes
     // TODO
+    public void getFiveMostLikedComment(){
+        Map<Integer,Comment> comments=DataStore.getInstance().getComments();
+        List<Comment> commentList=new ArrayList<>(comments.values());
+        Collections.sort(commentList,new Comparator<Comment>(){
+            @Override
+            public int compare(Comment o1, Comment o2) {
+                //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                return o2.getLikes()-o1.getLikes();
+            }
+            
+        });
+        
+        System.out.println("5 most likes comments: ");
+        for(int i=0;i<commentList.size()&&i<5;i++){
+            System.out.println(commentList.get(i));
+        }
+    }
 }
