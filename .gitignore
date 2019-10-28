@@ -55,3 +55,6 @@ release.properties
 pom.xml.releaseBackup
 pom.xml.tag
 
+# special
+UserCatalogue.csv
+CommentData.csv

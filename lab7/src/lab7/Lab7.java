@@ -97,5 +97,8 @@ public class Lab7 {
         // TODO
         helper.userWithMostLikes();
         helper.getFiveMostLikedComment();
+        helper.getAvgLikeNumPerComment();
+        helper.getPostWithMostLikedComments();
+        helper.getPostWithMostComments();
     }
 }
