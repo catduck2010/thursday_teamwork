@@ -113,5 +113,49 @@ public class AnalysisHelper {
         
         System.out.println("Post w/ Most Comments ("+pwmc.getComments().size()+"): "+pwmc);
     }
+    
+     //Top 5 inactive users based on total posts number
+    public void Top5inactiveusersbasedonposts() {
+         Map<Integer,Post> posts = DataStore.getInstance().getPosts();
+         Map<Integer,User> users = DataStore.getInstance().getUsers();
+         Map<Integer,Integer> user = new HashMap<Integer,Integer>();
+         List<Post> postList = new ArrayList<>();
+         int number =0;
+         for (Post p:posts.values()){
+             postList.add(p);
+         }
+          Collections.sort(postList,new Comparator<Post>(){
+        @Override
+        public int compare(Post o1, Post o2){
+           return Integer.compare(o2.getUserId(), o1.getUserId());
+       }
+       });
+          int maxId = postList.get(0).getUserId();
+          for(int i =0;i<maxId;i++){
+              for(Post po:posts.values()){
+                  if(po.getUserId() == i ){
+                      number = number+1;
+                  }
+              }
+              user.put(i, number);
+              number = 0;
+          }
+          System.out.println(user);
+          Comparator<Map.Entry<Integer,Integer>> valueComparator = new Comparator<Map.Entry<Integer,Integer>>(){
+             @Override
+             public int compare(Map.Entry<Integer,Integer>o1,Map.Entry<Integer,Integer> o2){
+                 return o1.getValue()- o2.getValue();
+             }
+          };
+          List<Map.Entry<Integer,Integer>> list= new ArrayList<Map.Entry<Integer,Integer>>(user.entrySet());
+          Collections.sort(list,valueComparator);
+          System.out.println("Top 5 inactive users based on posts");
+          System.out.println(users.get(list.get(0).getKey()));
+          System.out.println(users.get(list.get(1).getKey()));
+          System.out.println(users.get(list.get(2).getKey()));
+          System.out.println(users.get(list.get(3).getKey()));
+          System.out.println(users.get(list.get(4).getKey()));
+          System.out.println();
+}
         
 }
