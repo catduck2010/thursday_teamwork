@@ -58,3 +58,5 @@ pom.xml.tag
 # special
 UserCatalogue.csv
 CommentData.csv
+ProductCatalogue.csv
+SalesData.csv
