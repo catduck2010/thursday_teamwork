@@ -10,14 +10,16 @@ package com.assignment5.entities;
  * @author kasai
  */
 public class Customer {
-     private String name;
-     private String address;
-     
-     public Customer(String name,String address){
-         this.name=name;
-         this.address=address;
-     }
-     
-     
+
+    private int customerId;
+    private String name;
+    private String address;
+
+    public Customer(int customerId, String name, String address) {
+        this.customerId = customerId;
+        this.name = name;
+        this.address = address;
+    }
+
 }
 

@@ -10,7 +10,7 @@ package com.assignment5.entities;
  * @author kasai
  */
 public class Item {
-    
+
     int productId;
     int salesPrice;
     int quantity;
@@ -44,5 +44,6 @@ public class Item {
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
-    
+
 }
+

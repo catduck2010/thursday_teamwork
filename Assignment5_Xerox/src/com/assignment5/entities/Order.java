@@ -10,7 +10,7 @@ package com.assignment5.entities;
  * @author kasai
  */
 public class Order {
-    
+
     int orderId;
     int supplierId;
     int customerId;
@@ -54,5 +54,6 @@ public class Order {
     public void setItem(Item item) {
         this.item = item;
     }
-    
+
 }
+
