@@ -140,7 +140,7 @@ public class AnalysisHelper {
               user.put(i, number);
               number = 0;
           }
-          System.out.println("User ID and Post Number:");
+          System.out.println("User ID and Post Number(User ID = Post number):");
           System.out.println(user);
           Comparator<Map.Entry<Integer,Integer>> valueComparator = new Comparator<Map.Entry<Integer,Integer>>(){
              @Override
@@ -158,5 +158,45 @@ public class AnalysisHelper {
           System.out.println(users.get(list.get(4).getKey()));
           System.out.println();
 }
+    // Top 5 inactive users overall
+    public void fiveinactoverall(){
+       Map<Integer, Comment> comments = DataStore.getInstance().getComments();
+       Map<Integer, Post> posts = DataStore.getInstance().getPosts();
+       Map<Integer,Integer> res = new HashMap<Integer,Integer>();
+       List<Comment> commentList = new ArrayList<>(comments.values());
+       List<Post> postList = new ArrayList<>(posts.values());
+       for(Comment c: commentList){
+           if(res.containsKey(c.getUserId()))
+               res.put(c.getUserId(), res.get(c.getUserId())+2);
+           else
+               res.put(c.getUserId(), 2);
+       }
+       for(Post p: postList){
+           if(res.containsKey(p.getUserId()))
+               res.put(p.getUserId(), res.get(p.getUserId())+3);
+           else
+               res.put(p.getUserId(), 3);
+       }
+       for(Comment c: commentList){
+           if(res.containsKey(c.getUserId()))
+               res.put(c.getUserId(), res.get(c.getUserId())+c.getLikes());
+           else
+               res.put(c.getUserId(), 1);
+       }
+       List<Map.Entry<Integer,Integer>> list = new ArrayList<>(res.entrySet());
+       
+       Collections.sort(list, new Comparator<Map.Entry<Integer,Integer>>() {
+           @Override
+           public int compare(Map.Entry o1, Map.Entry o2) {
+               //so as to get decending list
+               return (int)o1.getValue() - (int)o2.getValue();
+           }
+       });
+        System.out.println("Five Most inactive User:(post 3 points, comment 2 points, 1 like 1 point)"+"\nId:"+list.get(0).getKey()+" Score:"+list.get(0).getValue()
+                +"\nId:"+list.get(1).getKey()+" Score:"+list.get(1).getValue()
+                +"\nId:"+list.get(2).getKey()+" Score:"+list.get(2).getValue()
+                +"\nId:"+list.get(3).getKey()+" Score:"+list.get(3).getValue()
+                +"\nId:"+list.get(4).getKey()+" Score:"+list.get(4).getValue()+"\n");
+    }
         
 }
