@@ -22,6 +22,7 @@ import lab7.entities.User;
 public class AnalysisHelper {
     // find user with Most Likes
     // TODO
+/*
     public void userWithMostLikes(){
         Map<Integer, User> userHashMap = DataStore.getInstance().getUsers();
         
@@ -46,7 +47,7 @@ public class AnalysisHelper {
             }
         }
         
-        System.out.println("User With Most Likes:\t" + max + "\t Entire User Object\t" + userHashMap);
+        //System.out.println("User With Most Likes:\t" + max + "\t Entire User Object\t" + userHashMap);
         
     }
     
@@ -63,13 +64,13 @@ public class AnalysisHelper {
             }
         });
         
-        System.out.println("Printing the top five comments");
+       // System.out.println("Printing the top five comments");
         
         for(int j = 0; j < commentList.size () && j<5; j++){
             System.out.println(commentList.get(j));
         }
     }
-  
+*/ 
 public void lastFiveComments(){
         Map<Integer, Comment> commentHashMap = DataStore.getInstance().getComments();
         List<Comment> commentList = new ArrayList<Comment>(commentHashMap.values());      
@@ -85,6 +86,9 @@ public void lastFiveComments(){
         for(int j = 0; j < commentList.size () && j<5; j++){
             System.out.println(commentList.get(j));
         }
+        
+        System.out.println("\n");
+        
     }
 
  

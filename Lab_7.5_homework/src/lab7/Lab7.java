@@ -83,8 +83,9 @@ public class Lab7 {
     
     private void runAnalysis(){
         // TODO
-        helper.userWithMostLikes();
-        helper.topFiveComments();
+        //helper.userWithMostLikes();
+        //helper.topFiveComments();
         helper.lastFiveComments();
+        helper.topProactiveUsers();
     }
 }
