@@ -160,7 +160,7 @@ public class LoginPanel extends javax.swing.JPanel {
     private void grantAccess(User u) {
         mFrame.setLoggedIn(true);
         CardLayout layout = (CardLayout) this.rightPanel.getLayout();
-        MainMenuPanel panel = new MainMenuPanel(rightPanel,u);
+        MainMenuPanel panel = new MainMenuPanel(rightPanel, u);
         this.rightPanel.add("MainMenuPanel", panel);
         layout.next(rightPanel);
     }
@@ -236,9 +236,8 @@ public class LoginPanel extends javax.swing.JPanel {
                         .addComponent(btnLogin)))
                 .addContainerGap(70, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(btnGoBack, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -273,8 +272,10 @@ public class LoginPanel extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Please Enter Password", "WARNING", JOptionPane.WARNING_MESSAGE);
         } else if (((User) this.boxUsers.getSelectedItem()).verify(pswd)) {
             //pass
-            grantAccess((User) this.boxUsers.getSelectedItem());
-            System.out.println("Pass");
+            User u = (User) this.boxUsers.getSelectedItem();
+            grantAccess(u);
+            //System.out.println("Pass");
+            mFrame.setLoggedUser(u);
         } else {
             JOptionPane.showMessageDialog(this, "Wrong Password", "WARNING", JOptionPane.WARNING_MESSAGE);
         }

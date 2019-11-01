@@ -4,25 +4,23 @@
  * and open the template in the editor.
  */
 package com.travel.interfaces;
+
 import com.travel.business.AirlinerList;
+import com.travel.business.Business;
 import com.travel.business.CustomerList;
 import com.travel.users.Admin;
 import com.travel.users.Airliner;
 import com.travel.users.Customer;
-import com.travel.users.User;
+import com.travel.util.Validator;
 import java.awt.CardLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Date;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
+
 /**
  *
  * @author CHEN JIEYING
@@ -32,18 +30,53 @@ public class UserCreatePanel extends javax.swing.JPanel {
     /**
      * Creates new form UserCreatePanel
      */
-    
-    private JPanel panelRight;
+    private JPanel rightPanel;
     private AirlinerList airlinerList;
     private CustomerList customerList;
     private Admin admin;
-    
+
     public UserCreatePanel(JPanel panelRight, AirlinerList airlinerList, CustomerList customerList) {
         initComponents();
-        this.panelRight = panelRight;
+        this.rightPanel = panelRight;
         this.airlinerList = airlinerList;
         this.customerList = customerList;
         this.admin = admin;
+
+        this.radioAirliner.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                setTxtEnabled(false);
+            }
+
+        });
+        this.radioCustomer.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                setTxtEnabled(true);
+            }
+
+        });
+    }
+
+    private void setTxtEnabled(boolean b) {
+        this.txtFirstName.setVisible(b);
+        this.lblFirstName.setVisible(b);
+        if (!b) {
+            this.lblProviderLast.setText("Airline");
+
+        } else {
+            this.lblProviderLast.setText("Last Name");
+        }
+
+    }
+
+    private void clearAllFields() {
+        this.txtFirstName.setText("");
+        this.txtProviderLast.setText("");
+        this.txtPword.setText("");
+        this.txtRePword.setText("");
+        this.txtUser.setText("");
+
     }
 
     /**
@@ -55,8 +88,9 @@ public class UserCreatePanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        btnGroup = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
-        txtEmail = new javax.swing.JTextField();
+        txtProviderLast = new javax.swing.JTextField();
         txtPword = new javax.swing.JTextField();
         txtRePword = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
@@ -64,23 +98,27 @@ public class UserCreatePanel extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         radioCustomer = new javax.swing.JRadioButton();
         radioAirliner = new javax.swing.JRadioButton();
-        jLabel4 = new javax.swing.JLabel();
+        lblProviderLast = new javax.swing.JLabel();
         txtUser = new javax.swing.JTextField();
+        txtFirstName = new javax.swing.JTextField();
+        lblFirstName = new javax.swing.JLabel();
         btnCreate = new javax.swing.JButton();
         btnBack = new javax.swing.JButton();
 
-        txtEmail.addActionListener(new java.awt.event.ActionListener() {
+        txtProviderLast.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtEmailActionPerformed(evt);
+                txtProviderLastActionPerformed(evt);
             }
         });
 
-        jLabel1.setText("e-mail:");
+        jLabel1.setText("Username");
 
         jLabel2.setText("Password:");
 
-        jLabel3.setText("Re-enter password :");
+        jLabel3.setText("Confirm");
 
+        btnGroup.add(radioCustomer);
+        radioCustomer.setSelected(true);
         radioCustomer.setText("Customer");
         radioCustomer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -88,6 +126,7 @@ public class UserCreatePanel extends javax.swing.JPanel {
             }
         });
 
+        btnGroup.add(radioAirliner);
         radioAirliner.setText("Airliner");
         radioAirliner.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -95,13 +134,15 @@ public class UserCreatePanel extends javax.swing.JPanel {
             }
         });
 
-        jLabel4.setText("UserName:");
+        lblProviderLast.setText("Last Name");
 
         txtUser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtUserActionPerformed(evt);
             }
         });
+
+        lblFirstName.setText("First Name");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -110,46 +151,52 @@ public class UserCreatePanel extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel4)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel3)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)))
+                    .addComponent(lblProviderLast)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel3)
+                    .addComponent(lblFirstName))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtPword, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtRePword, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtUser)
+                    .addComponent(txtProviderLast)
+                    .addComponent(txtPword)
+                    .addComponent(txtRePword)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(35, 35, 35)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(radioAirliner)
-                            .addComponent(radioCustomer)))
-                    .addComponent(txtUser, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(76, Short.MAX_VALUE))
+                            .addComponent(radioCustomer))
+                        .addGap(0, 115, Short.MAX_VALUE))
+                    .addComponent(txtFirstName))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(31, 31, 31)
+                .addGap(13, 13, 13)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
+                    .addComponent(txtFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblFirstName))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblProviderLast)
+                    .addComponent(txtProviderLast, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
                     .addComponent(txtUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtPword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtRePword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
                 .addGap(30, 30, 30)
                 .addComponent(radioAirliner)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(radioCustomer)
                 .addContainerGap(56, Short.MAX_VALUE))
         );
@@ -161,7 +208,7 @@ public class UserCreatePanel extends javax.swing.JPanel {
             }
         });
 
-        btnBack.setText("< BACK");
+        btnBack.setText("←");
         btnBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBackActionPerformed(evt);
@@ -172,111 +219,105 @@ public class UserCreatePanel extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addComponent(btnBack)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(190, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnCreate, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(181, 181, 181))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 46, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 45, Short.MAX_VALUE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(106, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(105, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(35, 35, 35)
+                .addContainerGap()
                 .addComponent(btnBack)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 369, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 134, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(btnCreate)
-                .addGap(65, 65, 65))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 98, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 97, Short.MAX_VALUE)))
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
         // TODO add your handling code here:
-       
-        String email = txtEmail.getText();
+        String firstname = txtFirstName.getText().trim();
+        String provider = txtProviderLast.getText();
         String username = txtUser.getText();
         String password = txtPword.getText();
         String repassword = txtRePword.getText();
-        
-        
 
-        if(username==null || username.equals("")){
+        if (Validator.IsEmpty(username)) {
             txtUser.setBorder(BorderFactory.createLineBorder(Color.RED));
-            jLabel4.setForeground(Color.RED);
             JOptionPane.showMessageDialog(null, "Username can't be empty");
             return;
         }
-        if(!usernamePatternCorrect()){
+        if (!Validator.IsUsername(username)) {
             JOptionPane.showMessageDialog(null, "Username should be in the form of Words and Number");
             txtUser.setBorder(BorderFactory.createLineBorder(Color.RED));
-            jLabel4.setForeground(Color.RED);
-            return;
-        }
-        
-        if(email==null || email.equals("")){
-            txtEmail.setBorder(BorderFactory.createLineBorder(Color.RED));
-            jLabel1.setForeground(Color.RED);
-            JOptionPane.showMessageDialog(null, "E-mail can't be empty");
-            return;
-        }
-        if(!emailPatternCorrect()){
-            JOptionPane.showMessageDialog(null, "E-mail should be in the form of xxx_xxx@xxx.xxx");
-            txtEmail.setBorder(BorderFactory.createLineBorder(Color.RED));
-            jLabel1.setForeground(Color.RED);
             return;
         }
 
-        if(password==null || username.equals("")){
+        if (Validator.IsEmpty(provider)) {
+            txtProviderLast.setBorder(BorderFactory.createLineBorder(Color.RED));
+            JOptionPane.showMessageDialog(null, "Last Name/Provider Name can't be empty");
+            return;
+        }
+//        if (!Validator.IsEmail(provider)) {
+//            JOptionPane.showMessageDialog(null, "E-mail should be in the form of xxx_xxx@xxx.xxx");
+//            txtProviderLast.setBorder(BorderFactory.createLineBorder(Color.RED));
+//            return;
+//        }
+
+        if (Validator.IsEmpty(password)) {
             txtPword.setBorder(BorderFactory.createLineBorder(Color.RED));
-            jLabel2.setForeground(Color.RED);
             JOptionPane.showMessageDialog(null, "Password can't be empty");
             return;
         }
-        if(!passwordPatternCorrect()){
+        if (!Validator.IsPassword(password)) {
             JOptionPane.showMessageDialog(null, "Password should be in the form of at least 6 letters and including numbers, Lowercase and Uppercase ");
             txtPword.setBorder(BorderFactory.createLineBorder(Color.RED));
-            jLabel2.setForeground(Color.RED);
             return;
         }
 
-        if(repassword==null || username.equals("")){
+        if (Validator.IsEmpty(repassword)) {
             txtRePword.setBorder(BorderFactory.createLineBorder(Color.RED));
-            jLabel3.setForeground(Color.RED);
             JOptionPane.showMessageDialog(null, "Re-enter password can't be empty");
             return;
         }
-        if(!repasswordPatternCorrect()){
+        if (!Validator.IsSamePassword(password, repassword)) {
             JOptionPane.showMessageDialog(null, "Re-enter password is not as same as previous password");
             txtRePword.setBorder(BorderFactory.createLineBorder(Color.RED));
-            jLabel3.setForeground(Color.RED);
             return;
         }
-        
-        if(radioAirliner.isSelected()){
-            airlinerList.getAirlinerList().add(new Airliner(username, password));
+        if (Business.getInstance().getAirliners().getAirliner(username) != null
+                || Business.getInstance().getCustomers().getCustomer(username) != null) {
+            JOptionPane.showMessageDialog(this, "Username exists!",
+                    "WARNING", JOptionPane.WARNING_MESSAGE);
+            txtUser.setBorder(BorderFactory.createLineBorder(Color.RED));
+        } else if (radioAirliner.isSelected()) {
+            Airliner a = new Airliner(username, password);
+            a.setProviderName(provider);
+            airlinerList.getAirlinerList().add(a);
             JOptionPane.showMessageDialog(null, "Airliner created Successfully");
+            clearAllFields();
+            //toMainScreen();
+        } else if (radioCustomer.isSelected()) {
+            Date date = new Date();
+            Customer c = new Customer(username, password);
+            c.setFirstName(firstname);
+            c.setLastName(provider);
+            customerList.getCustomerList().add(c);
+            JOptionPane.showMessageDialog(null, "Customer created Successfully");
+            clearAllFields();
             //toMainScreen();
         }
 
-        if(radioCustomer.isSelected()){
-            Date date = new Date();
-            customerList.getCustomerList().add(new Customer(username, password));
-            JOptionPane.showMessageDialog(null, "Customer created Successfully");
-            //toMainScreen();
-        }
-        
 
     }//GEN-LAST:event_btnCreateActionPerformed
 
@@ -285,61 +326,27 @@ public class UserCreatePanel extends javax.swing.JPanel {
 
     }//GEN-LAST:event_radioCustomerActionPerformed
 
-    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
-
-        CardLayout layout = (CardLayout)panelRight.getLayout();
-        panelRight.remove(this);
-        layout.previous(panelRight);
-    }//GEN-LAST:event_btnBackActionPerformed
-
     private void radioAirlinerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioAirlinerActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_radioAirlinerActionPerformed
 
-    private void txtEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmailActionPerformed
+    private void txtProviderLastActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtProviderLastActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtEmailActionPerformed
+    }//GEN-LAST:event_txtProviderLastActionPerformed
 
     private void txtUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUserActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtUserActionPerformed
 
-private boolean emailPatternCorrect() {
-        Pattern p = Pattern.compile("^[a-zA-Z0-9]+_[a-zA-Z0-9]+@[a-zA-Z0-9]+.[a-zA-Z0-9]+$");
-        Matcher m = p.matcher(txtEmail.getText());
-        boolean b = m.matches();
-        return b;
-    }
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
 
-private boolean usernamePatternCorrect() {
-        Pattern p = Pattern.compile("^[a-zA-Z0-9]+$");
-        Matcher m = p.matcher(txtUser.getText());
-        boolean b = m.matches();
-        return b;
-    }
+        this.rightPanel.remove(this);
+        CardLayout cardLayout = (CardLayout) rightPanel.getLayout();
+        cardLayout.previous(rightPanel);
+    }//GEN-LAST:event_btnBackActionPerformed
 
-private boolean passwordPatternCorrect() {
-        Pattern p = Pattern.compile("^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[$*#&])[A-Za-z\\d$*#&]{6,}$");
-        Matcher m = p.matcher(txtPword.getText());
-        boolean b = m.matches();
-        return b;
-    }
 
-private boolean repasswordPatternCorrect(){
-        Pattern p = Pattern.compile("^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[$*#&])[A-Za-z\\d$*#&]{6,}$");
-        Matcher m = p.matcher(txtPword.getText());
-        Matcher o = p.matcher(txtRePword.getText());
-        boolean b = m.matches();
-        boolean b2 = o.matches();
-
-        if(b = b2){
-            return true;
-        }else{
-            return false;
-        }
-        
-    }
-/*
+    /*
 private void toMainScreen() {
         CardLayout layout = (CardLayout) this.panelRight.getLayout();
         this.panelRight.remove(this);
@@ -352,21 +359,23 @@ private void toMainScreen() {
         }
         layout.previous(panelRight);
     }
-    */
+     */
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnCreate;
+    private javax.swing.ButtonGroup btnGroup;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel lblFirstName;
+    private javax.swing.JLabel lblProviderLast;
     private javax.swing.JRadioButton radioAirliner;
     private javax.swing.JRadioButton radioCustomer;
-    private javax.swing.JTextField txtEmail;
+    private javax.swing.JTextField txtFirstName;
+    private javax.swing.JTextField txtProviderLast;
     private javax.swing.JTextField txtPword;
     private javax.swing.JTextField txtRePword;
     private javax.swing.JTextField txtUser;
     // End of variables declaration//GEN-END:variables
 }
-

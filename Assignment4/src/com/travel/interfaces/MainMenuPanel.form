@@ -48,22 +48,19 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="btnAircrafts" max="32767" attributes="0"/>
+                          <Component id="lblUsername" alignment="1" max="32767" attributes="0"/>
+                          <Component id="btnAdmins" linkSize="1" alignment="0" max="32767" attributes="0"/>
+                          <Component id="btnAirliner" alignment="0" max="32767" attributes="0"/>
+                          <Component id="btnCustomers" alignment="0" max="32767" attributes="0"/>
+                      </Group>
+                      <EmptySpace pref="178" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                  <Component id="lblUsername" max="32767" attributes="0"/>
-                                  <Component id="btnAdmins" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="btnAirliner" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="btnCustomers" alignment="0" pref="180" max="32767" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="32767" attributes="0"/>
-                              <Component id="btnBookFlight" min="-2" pref="178" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="btnFlights" min="-2" pref="178" max="-2" attributes="0"/>
-                              <EmptySpace pref="194" max="32767" attributes="0"/>
-                              <Component id="btnMyFlight" min="-2" pref="178" max="-2" attributes="0"/>
-                          </Group>
+                          <Component id="btnBookFlight" linkSize="1" alignment="1" max="32767" attributes="0"/>
+                          <Component id="btnProfile" linkSize="1" alignment="1" max="32767" attributes="0"/>
+                          <Component id="btnUsernamePassword" linkSize="1" alignment="1" pref="0" max="32767" attributes="0"/>
+                          <Component id="btnFlights" linkSize="1" alignment="1" min="-2" pref="178" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -75,9 +72,15 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="lblUsername" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="btnAdmins" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="btnAdmins" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnProfile" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="btnAirliner" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="btnAirliner" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnUsernamePassword" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="btnCustomers" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -85,8 +88,8 @@
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="btnAircrafts" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="btnFlights" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="btnMyFlight" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="0" pref="8" max="32767" attributes="0"/>
                   </Group>
@@ -102,8 +105,11 @@
             </Component>
             <Component class="javax.swing.JButton" name="btnAdmins">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Manage Admins"/>
+                <Property name="text" type="java.lang.String" value="Show All Flights"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAdminsActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btnAirliner">
               <Properties>
@@ -117,21 +123,43 @@
             </Component>
             <Component class="javax.swing.JButton" name="btnBookFlight">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Book A Flight"/>
+                <Property name="text" type="java.lang.String" value="Search &amp; Book A Flight"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBookFlightActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="btnFlights">
+            <Component class="javax.swing.JButton" name="btnAircrafts">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Manage Flights"/>
+                <Property name="text" type="java.lang.String" value="Manage Aircrafts"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnFlightsActionPerformed"/>
+              </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="btnMyFlight">
+            <Component class="javax.swing.JButton" name="btnFlights">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Manage My Flights"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnFlightsActionPerformed1"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="btnProfile">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="My Profile"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnProfileActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="btnUsernamePassword">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Username &amp; Password"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnUsernamePasswordActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

@@ -6,6 +6,7 @@
 package com.travel.business;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  *
@@ -23,6 +24,70 @@ public class FlightDirectory {
         return flightDir;
     }
     
+    public Flight addFlight(){
+        Flight newFlight = new Flight();
+        flightDir.add(newFlight);
+        return newFlight;
+    }
+    public void deleteFlight(Flight flight){
+        flightDir.remove(flight);
+        
+    }
+    public void deleteSelectedAirCraft(String modelNum){
+        for(Flight flight : flightDir){
+            if (flight.getModelNum() == modelNum) {
+                flightDir.remove(flight);
+                
+            }
+        }
+    }
     
+    public boolean sameFlightNum(String flightNum){
+        boolean b = false;
+        for(Flight flight : flightDir){
+            
+                if(flight.getFlightNum().equals(flightNum)){
+                b = true;
+                break;
+                }
+             
+        }
+        return b;
+    }
+    
+    
+    public boolean checkTakeOffTime(Date takeOffTime, String modelNum){
+        boolean b = true;
+        for(Flight flight : flightDir){
+            if(flightDir.size() != 0 && flight.getModelNum() == modelNum){
+                if(takeOffTime.before(flight.getLandTime()) && takeOffTime.after(flight.getTakeOffTime()))
+                b = false;
+                
+            } 
+        }
+        return b;
+    }
+    
+    public boolean checkLandTime(Date landTime, String modelNum){
+        boolean b = true;
+        for(Flight flight : flightDir){
+            if(flightDir.size() != 0 && flight.getModelNum() == modelNum){
+                if(landTime.before(flight.getLandTime()) && landTime.after(flight.getTakeOffTime()))
+                b = false;
+                
+            } 
+        }
+        return b;
+    }
+    
+    public ArrayList<Flight> searchAirliner(String keyword){
+        ArrayList<Flight> result = new ArrayList<>();
+        for(Flight flight : this.flightDir){
+            if(flight.getAirliner().toLowerCase().contains(keyword.toLowerCase())){
+                result.add(flight);
+            }
+        }
+        return result;
+    }
 
 }

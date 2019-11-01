@@ -5,6 +5,8 @@
  */
 package com.travel.util;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -18,6 +20,18 @@ public class Validator {
         //Latitude, Longitude
         String regex = "^[-+]?([1-8]?\\d(\\.\\d+)?|90(\\.0+)?),\\s*[-+]?(180(\\.0+)?|((1[0-7]\\d)|([1-9]?\\d))(\\.\\d+)?)$";
         return Match(regex, str);
+    }
+
+    public static boolean IsSameDay(Date d1, Date d2) {
+        if (null == d1 || null == d2) {
+            return false;
+        }
+        //return getOnlyDate(d1).equals(getOnlyDate(d2));
+        Calendar cal1 = Calendar.getInstance();
+        cal1.setTime(d1);
+        Calendar cal2 = Calendar.getInstance();
+        cal2.setTime(d2);
+        return cal1.get(0) == cal2.get(0) && cal1.get(1) == cal2.get(1) && cal1.get(6) == cal2.get(6);
     }
 
     public static boolean IsBetweenNums(String str) {
@@ -39,9 +53,58 @@ public class Validator {
     public static boolean IsNotEmpty(String str) {
         return !(str == null || str.length() <= 0);
     }
-    
-    public static boolean IsEmpty(String str){
+
+    public static boolean IsEmpty(String str) {
         return !IsNotEmpty(str);
+    }
+
+    public static boolean IsEmail(String str) {
+        String regex = "^[a-zA-Z0-9]+_[a-zA-Z0-9]+@[a-zA-Z0-9]+.[a-zA-Z0-9]+$";
+        return Match(regex, str);
+    }
+
+    public static boolean IsPassword(String str) {
+        String regex = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[$*#&])[A-Za-z\\d$*#&]{6,}$";
+        return Match(regex, str);
+    }
+
+    public static boolean IsSamePassword(String str1, String str2) {
+        return str1.equals(str2);
+    }
+
+    public static boolean IsUsername(String str) {
+        String regex = "^[a-zA-Z0-9]+$";
+        return Match(regex, str);
+    }
+
+    public static boolean IsDay(Date d) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(d);
+        int hour = cal.get(Calendar.HOUR_OF_DAY);
+        if (hour < 16 && hour >= 8) {
+            return true;
+        }
+        return false;
+    }
+
+    public static boolean IsEvening(Date d) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(d);
+        int hour = cal.get(Calendar.HOUR_OF_DAY);
+        if (hour <= 23 && hour >= 16) {
+            return true;
+        }
+        return false;
+    }
+
+    public static boolean IsNight(Date d) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(d);
+        int hour = cal.get(Calendar.HOUR_OF_DAY);
+        if (hour < 8 && hour >= 0) {
+            return true;
+        }
+        return false;
     }
 
     private static boolean Match(String regex, String str) {

@@ -3,8 +3,7 @@ package com.travel.util;
 /**
  * <code>SeatChooserJButton from DateChooserJButton</code>
  *
- * @author Lihang Zhou
- * based on DateChooserJButton.java
+ * @author Lihang Zhou based on DateChooserJButton.java
  */
 import java.awt.Color;
 import java.awt.Font;
@@ -29,11 +28,12 @@ public class SeatChooserJButton extends JButton {
 
     private SeatChooser seatChooser = null;
     private String selected = "";
+    private static String HINT_STR = "Pick...";
     private int[][] seatTable;
 
     public SeatChooserJButton() {
         seatTable = null;
-        super.setText("Pick...");
+        super.setText(HINT_STR);
         super.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -54,8 +54,12 @@ public class SeatChooserJButton extends JButton {
     }
 
     public void setSeat(String str) {
-        super.setText(str);
-        selected=str;
+        if (str == null || str.length() <= 0) {
+            super.setText(HINT_STR);
+        } else {
+            super.setText(str);
+        }
+        selected = str;
     }
 
     public String getSeat() {

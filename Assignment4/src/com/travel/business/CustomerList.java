@@ -13,7 +13,7 @@ import java.util.ArrayList;
  * @author lihang
  */
 public class CustomerList {
-
+    
     private final ArrayList<Customer> customerList;
 
     public CustomerList() {
@@ -34,5 +34,14 @@ public class CustomerList {
         c.setFirstName(fName);
         c.setLastName(lName);
         customerList.add(c);
+    }
+    
+    public Customer getCustomer(String username){
+        for(Customer c:customerList){
+            if(c.getUsername().equals(username)){
+                return c;
+            }
+        }
+        return null;
     }
 }
