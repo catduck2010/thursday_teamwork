@@ -85,6 +85,6 @@ public class Lab7 {
         // TODO
         helper.userWithMostLikes();
         helper.topFiveComments();
-       // helper.lastFiveComments();
+        helper.lastFiveComments();
     }
 }
