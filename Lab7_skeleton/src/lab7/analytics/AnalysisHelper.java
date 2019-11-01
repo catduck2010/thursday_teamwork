@@ -85,10 +85,7 @@ public void lastFiveComments(){
         
         for(int j = 0; j < commentList.size () && j<5; j++){
             System.out.println(commentList.get(j));
-        }
-        
-        System.out.println("\n");
-        
+        }    
     }
 
  
@@ -125,6 +122,7 @@ public void lastFiveComments(){
                return (int)o2.getValue() - (int)o1.getValue();
            }
        });
+
         System.out.println("Five Most proactive User:(post 3 points, comment 2 points, 1 like 1 point)"+"\nId:"+list.get(0).getKey()+" Score:"+list.get(0).getValue()
                 +"\nId:"+list.get(1).getKey()+" Score:"+list.get(1).getValue()
                 +"\nId:"+list.get(2).getKey()+" Score:"+list.get(2).getValue()
