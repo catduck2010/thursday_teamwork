@@ -15,6 +15,11 @@ public class Order {
     int supplierId;
     int customerId;
     Item item;
+//    public class Item {
+//        int productId;
+//        int salesPrice;
+//        int quantity;
+//    }
 
     public Order(int orderId, int supplierId, int customerId, Item item) {
         this.orderId = orderId;
@@ -56,4 +61,5 @@ public class Order {
     }
 
 }
+
 

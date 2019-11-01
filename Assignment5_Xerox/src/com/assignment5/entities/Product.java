@@ -10,14 +10,15 @@ package com.assignment5.entities;
  * @author kasai
  */
 public class Product {
+
     private int min;
     private int max;
     private int target;
-    
-    public Product(int min,int max,int tg){
-        this.min=min;
-        this.max=max;
-        this.target=tg;
+
+    public Product(int min, int max, int tg) {
+        this.min = min;
+        this.max = max;
+        this.target = tg;
     }
 
     public int getMin() {
@@ -43,8 +44,10 @@ public class Product {
     public void setTarget(int target) {
         this.target = target;
     }
-    
-    
-}
 
+    public String toString() {
+        return super.toString() + "{max: " + max + ", min: "
+                + min + ", target: " + target + "}";
+    }
+}
 

@@ -10,5 +10,12 @@ package com.assignment5.entities;
  * @author kasai
  */
 public class SalesPerson {
+    private int salesId;
+    private String fName;
+    private String lName;
+    private String marketSegment;
+    
     
 }
+
+

@@ -12,34 +12,37 @@ import java.io.IOException;
  * @author kasai
  */
 public class GateWay {
-    
-    public static void main(String args[]) throws IOException{
-        
-        DataGenerator generator = DataGenerator.getInstance();
-        
+
+    public static void main(String args[]) throws IOException {
+
+        //DataGenerator generator = DataGenerator.getInstance();
+
         //Below is the sample for how you can use reader. you might wanna 
         //delete it once you understood.
+//        DataReader orderReader = new DataReader(generator.getOrderFilePath());
+//        String[] orderRow;
+//        printRow(orderReader.getFileHeader());
+//        while((orderRow = orderReader.getNextRow()) != null){
+//            printRow(orderRow);
+//        }
+//        System.out.println("_____________________________________________________________");
+//        DataReader productReader = new DataReader(generator.getProductCataloguePath());
+//        String[] prodRow;
+//        printRow(productReader.getFileHeader());
+//        while((prodRow = productReader.getNextRow()) != null){
+//            printRow(prodRow);
+//        }
+        GeneralReader genReader = GeneralReader.getInstance();
         
-        DataReader orderReader = new DataReader(generator.getOrderFilePath());
-        String[] orderRow;
-        printRow(orderReader.getFileHeader());
-        while((orderRow = orderReader.getNextRow()) != null){
-            printRow(orderRow);
-        }
-        System.out.println("_____________________________________________________________");
-        DataReader productReader = new DataReader(generator.getProductCataloguePath());
-        String[] prodRow;
-        printRow(productReader.getFileHeader());
-        while((prodRow = productReader.getNextRow()) != null){
-            printRow(prodRow);
-        }
+        Helper.BestNegotiatedProducts();
     }
-    
-    public static void printRow(String[] row){
+
+    public static void printRow(String[] row) {
         for (String row1 : row) {
             System.out.print(row1 + ", ");
         }
         System.out.println("");
     }
-    
+
 }
+
