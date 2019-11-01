@@ -140,6 +140,7 @@ public class AnalysisHelper {
               user.put(i, number);
               number = 0;
           }
+          System.out.println("User ID and Post Number:");
           System.out.println(user);
           Comparator<Map.Entry<Integer,Integer>> valueComparator = new Comparator<Map.Entry<Integer,Integer>>(){
              @Override
