@@ -13,7 +13,7 @@ import java.util.List;
  * @author harshalneelkamal
  */
 public class Post {
-    
+
     private int postId;
     private int userId;
     private List<Comment> comments;
@@ -47,5 +47,14 @@ public class Post {
     public void setPostId(int postId) {
         this.postId = postId;
     }
-    
+
+    @Override
+    public String toString() {
+        String res = "Post {" + " postId = " + postId + ", userId = " + userId + ", comments below }\n";
+        for (Comment c : comments) {
+            res += c.toString()+"\n";
+        }
+        return res;
+    }
+
 }

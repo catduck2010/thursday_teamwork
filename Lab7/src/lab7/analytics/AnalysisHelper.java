@@ -48,7 +48,7 @@ public class AnalysisHelper {
         }
 
         System.out.println("User with most likes: " + max + "\n"
-                + users.get(maxId));
+                + users.get(maxId) + "\n");
     }
 
     // find 5 comments which have the most likes
@@ -69,6 +69,7 @@ public class AnalysisHelper {
         for (int i = 0; i < commentList.size() && i < 5; i++) {
             System.out.println(commentList.get(i));
         }
+        System.out.println("");
     }
 
     // find Average number of likes per comment
@@ -81,7 +82,7 @@ public class AnalysisHelper {
         }
         likes = likes / commentList.size();
 
-        System.out.println("Average # of Likes Per Comment: " + likes);
+        System.out.println("Average # of Likes Per Comment: " + likes + "\n");
     }
 
     // Find the post with most liked comments.
@@ -220,6 +221,7 @@ public class AnalysisHelper {
         for (int j = 0; j < commentList.size() && j < 5; j++) {
             System.out.println(commentList.get(j));
         }
+        System.out.println("");
     }
 
     public void topProactiveUsers() {
@@ -264,6 +266,7 @@ public class AnalysisHelper {
                 + "\nId:" + list.get(2).getKey() + " Score:" + list.get(2).getValue()
                 + "\nId:" + list.get(3).getKey() + " Score:" + list.get(3).getValue()
                 + "\nId:" + list.get(4).getKey() + " Score:" + list.get(4).getValue() + "\n");
+        System.out.println("");
     }
 
 }
