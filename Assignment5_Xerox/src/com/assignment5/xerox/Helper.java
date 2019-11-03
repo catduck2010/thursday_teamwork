@@ -96,11 +96,6 @@ public class Helper {
 
     //4) Our total revenue for the year that is above expected target
     public static void TotalRevenue() throws IOException {
-        Map<Integer, Integer> totalSale = Tools.getSalePeopleProfits();
-        int revenue = 0;
-        for (Integer i : totalSale.values()) {
-            revenue += i;
-        }
-        System.out.println("Total Revenue: " + revenue);
+        System.out.println("Total Revenue: " + Tools.getTotalRevenue());
     }
 }

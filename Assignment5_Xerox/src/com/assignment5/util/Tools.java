@@ -58,4 +58,13 @@ public class Tools {
         }
         return totalProfits;
     }
+    
+    public static int getTotalRevenue() throws IOException {
+        Map<Integer, Integer> totalSale = Tools.getSalePeopleProfits();
+        int revenue = 0;
+        for (Integer i : totalSale.values()) {
+            revenue += i;
+        }
+        return revenue;
+    }
 }
