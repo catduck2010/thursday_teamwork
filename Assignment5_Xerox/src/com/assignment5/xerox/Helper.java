@@ -25,23 +25,23 @@ public class Helper {
 
     public static void BestNegotiatedProducts() throws IOException {
         Map<Integer, Product> prodCatalog = GeneralReader.getInstance().getProductCatalog();
-        List<Product> productList = new ArrayList<>(prodCatalog.values());
         Map<Integer, Integer> overPrice = Tools.getOverSalesPrice();
-        Map<Product, Integer> proToOP = new HashMap<>();
-        for (Integer i : prodCatalog.keySet()) {
-            proToOP.put(prodCatalog.get(i), overPrice.get(i));
-        }
-        System.out.println("Best 3 Negotiated Products:");
-        int i = 0;
-        for (int c = 0; c < 3; c++) {
-            Product max=null;
-            for (Product p : productList) {
-                if(max!=null&&proToOP.get(max)<proToOP.get(p)){
-                    max=p;
-                }
+
+        List<Map.Entry<Integer, Integer>> ov = new ArrayList<>(overPrice.entrySet());
+
+        Collections.sort(ov, new Comparator<Map.Entry<Integer, Integer>>() {
+            @Override
+            public int compare(Map.Entry<Integer, Integer> o1, Map.Entry<Integer, Integer> o2) {
+                return -o1.getValue().compareTo(o2.getValue());
             }
-            System.out.println(max);
-            productList.remove(max);
+
+        });
+        System.out.println("Best 3 Negotiated Products:");
+        for (int i = 0; i < 3; i++) {
+            Map.Entry<Integer, Integer> c = ov.get(i);
+
+            Product p = prodCatalog.get(c.getKey());
+            System.out.println("productID: " + c.getKey() + "-->" + p);
         }
     }
 }

@@ -59,7 +59,11 @@ public class Order {
     public void setItem(Item item) {
         this.item = item;
     }
-
+    public String toString(){
+        return "Order{orderID="+orderId+", salesID="+supplierId+", customerID="+
+                customerId+", Item="+item.toString()+"}";
+    }
 }
+
 
 

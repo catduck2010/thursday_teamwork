@@ -24,12 +24,21 @@ public class Tools {
         Map<Integer, Product> prodCatalog = GeneralReader.getInstance().getProductCatalog();
 
         for (Order o : GeneralReader.getInstance().getOrderList()) {
-            Item i = o.getItem();
-            Product pr = null;
-            int target = (pr = prodCatalog.getOrDefault(i.getProductId(), null)) != null ? pr.getTarget() : 0;
-            overSales.put(i.getProductId(), overSales.getOrDefault(i.getProductId(), 0)
-                    + i.getSalesPrice() - target);
+            try {
+                Item i = o.getItem();
+                //System.out.println(i);
+                Product pr = prodCatalog.get(i.getProductId());
+                int target = pr.getTarget();
+                //System.out.println(target);
+                overSales.put(i.getProductId(), overSales.getOrDefault(i.getProductId(), 0)
+                        + i.getSalesPrice() - target);
+            } catch (Exception e) {
+                System.out.println(e);
+            } finally {
+                continue;
+            }
         }
+        System.out.println(overSales);
         return overSales;
     }
 }

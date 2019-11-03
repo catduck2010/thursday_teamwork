@@ -46,8 +46,9 @@ public class Product {
     }
 
     public String toString() {
-        return super.toString() + "{max: " + max + ", min: "
+        return   "Product{max: " + max + ", min: "
                 + min + ", target: " + target + "}";
     }
 }
+
 
