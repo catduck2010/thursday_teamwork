@@ -25,7 +25,7 @@ public class Helper {
 
     public static void BestNegotiatedProducts() throws IOException {
         Map<Integer, Product> prodCatalog = GeneralReader.getInstance().getProductCatalog();
-        Map<Integer, Integer> overPrice = Tools.getOverSalesPrice();
+        Map<Integer, Integer> overPrice = Tools.getQuantityOfOverSalesPrice();
 
         List<Map.Entry<Integer, Integer>> ov = new ArrayList<>(overPrice.entrySet());
 

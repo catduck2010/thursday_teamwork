@@ -19,26 +19,16 @@ import java.util.Map;
  */
 public class Tools {
 
-    public static Map<Integer, Integer> getOverSalesPrice() throws IOException {
+    //Sales quantity of the product sold above the target price
+    public static Map<Integer, Integer> getQuantityOfOverSalesPrice() throws IOException {
         Map<Integer, Integer> overSales = new HashMap<>();
-        Map<Integer, Product> prodCatalog = GeneralReader.getInstance().getProductCatalog();
 
         for (Order o : GeneralReader.getInstance().getOrderList()) {
-            try {
-                Item i = o.getItem();
-                //System.out.println(i);
-                Product pr = prodCatalog.get(i.getProductId());
-                int target = pr.getTarget();
-                //System.out.println(target);
-                overSales.put(i.getProductId(), overSales.getOrDefault(i.getProductId(), 0)
-                        + i.getSalesPrice() - target);
-            } catch (Exception e) {
-                System.out.println(e);
-            } finally {
-                continue;
-            }
+            Item i = o.getItem();
+            overSales.put(i.getProductId(), overSales.getOrDefault(i.getProductId(), 0)
+                    + i.getQuantity());
         }
-        System.out.println(overSales);
+//        System.out.println(overSales);
         return overSales;
     }
 }
