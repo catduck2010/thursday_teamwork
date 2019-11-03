@@ -23,6 +23,7 @@ import java.util.stream.Collectors;
  */
 public class Helper {
 
+    // 1) Our top 3 best negotiated products (meaning products that sell above target)
     public static void BestNegotiatedProducts() throws IOException {
         Map<Integer, Product> prodCatalog = GeneralReader.getInstance().getProductCatalog();
         Map<Integer, Integer> overPrice = Tools.getQuantityOfOverSalesPrice();
@@ -39,9 +40,67 @@ public class Helper {
         System.out.println("Best 3 Negotiated Products:");
         for (int i = 0; i < 3; i++) {
             Map.Entry<Integer, Integer> c = ov.get(i);
-
+            if (c == null) {
+                break;
+            }
             Product p = prodCatalog.get(c.getKey());
             System.out.println("productID: " + c.getKey() + "-->" + p);
         }
+    }
+    // 2) Our 3 best customers (customers who buy about target price)
+
+    public static void BestCustomers() throws IOException {
+        Map<Integer, Integer> totalSale = Tools.getCustomerTotalSale();
+        List<Map.Entry<Integer, Integer>> tsList = new ArrayList<>(totalSale.entrySet());
+
+        Collections.sort(tsList, new Comparator<Map.Entry<Integer, Integer>>() {
+            @Override
+            public int compare(Map.Entry<Integer, Integer> o1, Map.Entry<Integer, Integer> o2) {
+                return -o1.getValue().compareTo(o2.getValue());
+            }
+
+        });
+        System.out.println("Best 3 Customers:");
+        for (int i = 0; i < 3; i++) {
+            Map.Entry<Integer, Integer> c = tsList.get(i);
+            if (c == null) {
+                break;
+            }
+            System.out.println("Customer: " + c.getKey());
+        }
+
+    }
+
+    //3) Our top 3 best sales people (sell higher that target) 
+    public static void BestSalesPeople() throws IOException {
+        Map<Integer, Integer> totalSale = Tools.getSalePeopleProfits();
+        List<Map.Entry<Integer, Integer>> tsList = new ArrayList<>(totalSale.entrySet());
+
+        Collections.sort(tsList, new Comparator<Map.Entry<Integer, Integer>>() {
+            @Override
+            public int compare(Map.Entry<Integer, Integer> o1, Map.Entry<Integer, Integer> o2) {
+                return -o1.getValue().compareTo(o2.getValue());
+            }
+
+        });
+
+        System.out.println("Best 3 Sales People:");
+        for (int i = 0; i < 3; i++) {
+            Map.Entry<Integer, Integer> c = tsList.get(i);
+            if (c == null) {
+                break;
+            }
+            System.out.println("SalesPerson: " + c.getKey());
+        }
+    }
+
+    //4) Our total revenue for the year that is above expected target
+    public static void TotalRevenue() throws IOException {
+        Map<Integer, Integer> totalSale = Tools.getSalePeopleProfits();
+        int revenue = 0;
+        for (Integer i : totalSale.values()) {
+            revenue += i;
+        }
+        System.out.println("Total Revenue: " + revenue);
     }
 }
