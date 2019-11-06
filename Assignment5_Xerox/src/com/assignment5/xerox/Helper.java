@@ -90,7 +90,8 @@ public class Helper {
             if (c == null) {
                 break;
             }
-            System.out.println("SalesPerson: " + c.getKey());
+            System.out.println("SalesPerson: " + c.getKey()
+                    + " --> Profit: " + c.getValue());
         }
     }
 
@@ -98,4 +99,44 @@ public class Helper {
     public static void TotalRevenue() throws IOException {
         System.out.println("Total Revenue: " + Tools.getTotalRevenue());
     }
+
+    //https://docs.google.com/document/d/1g82__eFobYWOTr-w8vRB_T_XBgJUjLhyHJnqN_yy0b4/
+    /*
+    5) Determine if the company is pricing its products correctly. 
+    Show how to make changes so prices are performing at optimum levels. 
+    [As we discussed in class] 
+    You need to think about the questions, including but not limited to the 
+    following questions: Is the target price too high or too low? Is there 
+    enough gap between the target price and ceiling price? Is the ceiling 
+    price/targe price/floor price should be adjusted depending on your analysis?
+    a. You need to have two copies of the data. The first one includes original 
+    prices and the other one includes prices after adjustments.   
+    b. You need to explain how and why to make changes in prices. 
+    c. You are required to implement a simple program to demonstrate why the 
+    original prices need to be adjusted and why the modified prices are 
+    performing at optimum levels. 
+    The two copies of the data should contain at least 10 products and 
+    1000 sales records.
+
+    For original data, you need to print a table which includes 
+    1. the average sale price of each product
+    2. the targe price of each product
+    3. the difference between the average sale price and target price of each product
+
+    For modified data, you need to print a table which includes:
+    1. the average sale price of each product
+    2. the modified target price of each product
+    3. the difference between the average sale price and target price of each product
+    4. The error of the modified target price. 
+    error = (modified target price - average sale price)/average sale price
+    You need to show the modified target price is close to the sale price and 
+    the error should be in the range of -5%-5%;
+
+    For both two tables, you need to:
+    1. separate the products into two sections: ones have average sale price 
+    lower than the target price and ones have average sale price higher than 
+    the target price. 
+    2. sort the table by the difference between the average sale price and 
+    target price of each product, from hight to low.
+     */
 }
