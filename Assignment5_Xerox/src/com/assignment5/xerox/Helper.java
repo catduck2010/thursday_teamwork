@@ -5,6 +5,7 @@
  */
 package com.assignment5.xerox;
 
+import com.assignment5.entities.Item;
 import com.assignment5.entities.Order;
 import com.assignment5.entities.Product;
 import com.assignment5.util.Tools;
@@ -24,6 +25,33 @@ import java.util.stream.Collectors;
 public class Helper {
 
     // 1) Our top 3 best negotiated products (meaning products that sell above target)
+     public static void topNegotiatedProducts()throws IOException {
+        Map<Integer, Product> prodCatalog = GeneralReader.getInstance().getProductCatalog();
+        Map<Integer, Double> overPrice = Tools.getNegotiatedPrice();
+
+        List<Map.Entry<Integer, Double>> ov = new ArrayList<>(overPrice.entrySet());
+
+        Collections.sort(ov, new Comparator<Map.Entry<Integer, Double>>() {
+            @Override
+            public int compare(Map.Entry<Integer, Double> o1, Map.Entry<Integer, Double> o2) {
+                return -o1.getValue().compareTo(o2.getValue());
+            }
+
+        });
+        System.out.println("Best 3 Negotiated Products:");
+        for (int i = 0; i < 3; i++) {
+            Map.Entry<Integer, Double> c = ov.get(i);
+            if (c == null) {
+                System.out.println("No related data.");
+                break;
+            }
+            Product p = prodCatalog.get(c.getKey());
+            System.out.println("productID: " + c.getKey() + "-->" + p);
+        }
+    }
+    
+    
+ /*   
     public static void BestNegotiatedProducts() throws IOException {
         Map<Integer, Product> prodCatalog = GeneralReader.getInstance().getProductCatalog();
         Map<Integer, Integer> overPrice = Tools.getQuantityOfOverSalesPrice();
@@ -41,12 +69,15 @@ public class Helper {
         for (int i = 0; i < 3; i++) {
             Map.Entry<Integer, Integer> c = ov.get(i);
             if (c == null) {
+                System.out.println("No related data.");
                 break;
             }
             Product p = prodCatalog.get(c.getKey());
             System.out.println("productID: " + c.getKey() + "-->" + p);
         }
     }
+*/
+     
     // 2) Our 3 best customers (customers who buy about target price)
 
     public static void BestCustomers() throws IOException {

@@ -15,7 +15,7 @@ public class GateWay {
 
     public static void main(String args[]) throws IOException {
 
-        DataGenerator generator = DataGenerator.getInstance();
+        //DataGenerator generator = DataGenerator.getInstance();
 
         //Below is the sample for how you can use reader. you might wanna 
         //delete it once you understood.
@@ -34,7 +34,7 @@ public class GateWay {
 //        }
 //        GeneralReader genReader = GeneralReader.getInstance();
         
-        Helper.BestNegotiatedProducts();
+        Helper.topNegotiatedProducts();
         Helper.BestCustomers();
         Helper.BestSalesPeople();
         Helper.TotalRevenue();

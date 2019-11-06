@@ -41,8 +41,8 @@ public class DataGenerator {
     private final String PRODUCT_HEADER = "Product-Id,Min-Price,Max-Price,Target-Price";
     private final String LINE_BREAK = "\n";
     
-    private final String PROD_CAT_PATH = "./ProductCatalogue.csv";
-    private final String ORDER_FILE_PATH = "./SalesData.csv";
+    public static final String PROD_CAT_PATH = "./ProductCatalogue.csv";
+    public static final String ORDER_FILE_PATH = "./SalesData.csv";
     
     private DataGenerator() throws IOException {
         
