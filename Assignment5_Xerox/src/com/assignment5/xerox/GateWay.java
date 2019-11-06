@@ -35,6 +35,9 @@ public class GateWay {
 //        GeneralReader genReader = GeneralReader.getInstance();
         
         Helper.BestNegotiatedProducts();
+        Helper.BestCustomers();
+        Helper.BestSalesPeople();
+        Helper.TotalRevenue();
     }
 
     public static void printRow(String[] row) {
@@ -45,6 +48,9 @@ public class GateWay {
     }
 
 }
+
+
+
 
 
 

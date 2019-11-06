@@ -102,5 +102,10 @@ public class Lab7 {
         helper.getPostWithMostComments();
         helper.Top5inactiveusersbasedonposts();
         helper.fiveinactoverall();
+
+        helper.lastFiveComments();
+        helper.topProactiveUsers();
+        
+
     }
 }
