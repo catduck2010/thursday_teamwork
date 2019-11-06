@@ -7,6 +7,7 @@ package com.assignment5.xerox;
 
 import com.assignment5.entities.Item;
 import com.assignment5.entities.Order;
+import com.assignment5.entities.OriginalData;
 import com.assignment5.entities.Product;
 import com.assignment5.util.Tools;
 import java.io.IOException;
@@ -145,15 +146,16 @@ public class Helper {
     // Original Data Table
     public static void PrintOriDataTable() throws IOException{
         System.out.println("Product ID |  Average Salses Price | Target Price| Difference");
+        List<OriginalData> originalDataList = new ArrayList<>();
         Map<Integer, Item> itemCatalog = GeneralReader.getInstance().getItemCatalog();
         Map<Integer, Product> prodCatalog = GeneralReader.getInstance().getProductCatalog();
-        List<Map.Entry<Integer,Item>> itemList = new ArrayList<>(itemCatalog.entrySet());
+        /*List<Map.Entry<Integer,Item>> itemList = new ArrayList<>(itemCatalog.entrySet());
         Collections.sort(itemList,new Comparator<Map.Entry<Integer, Item>>(){
             @Override
             public int compare(Map.Entry<Integer,Item> i1,Map.Entry<Integer,Item> i2 ){
                 return i1.getValue().getProductId() - i2.getValue().getProductId();
             }
-        });
+        });*/
         Map<Integer, Integer> proSalesPrice = new HashMap<>();
         
         for(Map.Entry<Integer,Item> entry : itemCatalog.entrySet()){
@@ -167,11 +169,37 @@ public class Helper {
            if(entry.getValue().getProductId() == entry1.getKey())
                count+=1;
         }
-            //System.out.println(entry1.getValue() + "Count:" + count);
+            
             double average = entry1.getValue()/(double)count;
             double target = prodCatalog.get(entry1.getKey()).getTarget();
             double difference = average - target;
-            System.out.println(entry1.getKey() + "          |    " + average + " |    " + target +"    |    " + difference);
+            
+            OriginalData od =new OriginalData(entry1.getKey(), average, target, difference);
+            originalDataList.add(od);  
+        }
+        Collections.sort(originalDataList,new Comparator<OriginalData>(){
+            @Override
+            public int compare(OriginalData od1,OriginalData od2 ){
+                if(Math.abs(od2.getDifference()) > Math.abs(od1.getDifference()))
+                    return  1;
+                if(Math.abs(od2.getDifference()) < Math.abs(od1.getDifference()))
+                {
+                    return -1;
+                }
+                
+                return 0;
+            }
+        });
+        
+        System.out.println("Section 1:");
+        for(OriginalData od: originalDataList){
+            if(od.getDifference()<0)
+                System.out.println(od);
+        }
+        System.out.println("Section 2:");
+        for(OriginalData od: originalDataList){
+            if(od.getDifference()>0)
+                System.out.println(od);
         }
     }
     
