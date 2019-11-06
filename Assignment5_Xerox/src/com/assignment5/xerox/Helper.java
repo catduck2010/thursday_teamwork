@@ -5,6 +5,7 @@
  */
 package com.assignment5.xerox;
 
+import com.assignment5.entities.Item;
 import com.assignment5.entities.Order;
 import com.assignment5.entities.Product;
 import com.assignment5.util.Tools;
@@ -139,4 +140,39 @@ public class Helper {
     2. sort the table by the difference between the average sale price and 
     target price of each product, from hight to low.
      */
+    
+    
+    // Original Data Table
+    public static void PrintOriDataTable() throws IOException{
+        System.out.println("Product ID |  Average Salses Price | Target Price| Difference");
+        Map<Integer, Item> itemCatalog = GeneralReader.getInstance().getItemCatalog();
+        Map<Integer, Product> prodCatalog = GeneralReader.getInstance().getProductCatalog();
+        List<Map.Entry<Integer,Item>> itemList = new ArrayList<>(itemCatalog.entrySet());
+        Collections.sort(itemList,new Comparator<Map.Entry<Integer, Item>>(){
+            @Override
+            public int compare(Map.Entry<Integer,Item> i1,Map.Entry<Integer,Item> i2 ){
+                return i1.getValue().getProductId() - i2.getValue().getProductId();
+            }
+        });
+        Map<Integer, Integer> proSalesPrice = new HashMap<>();
+        
+        for(Map.Entry<Integer,Item> entry : itemCatalog.entrySet()){
+            
+            int total = proSalesPrice.getOrDefault(entry.getValue().getProductId(),0) ;
+            proSalesPrice.put(entry.getValue().getProductId(),  total + entry.getValue().getSalesPrice());
+        }
+        for(Map.Entry<Integer,Integer> entry1 : proSalesPrice.entrySet()){
+            int count = 0;
+            for(Map.Entry<Integer,Item> entry : itemCatalog.entrySet()){
+           if(entry.getValue().getProductId() == entry1.getKey())
+               count+=1;
+        }
+            //System.out.println(entry1.getValue() + "Count:" + count);
+            double average = entry1.getValue()/(double)count;
+            double target = prodCatalog.get(entry1.getKey()).getTarget();
+            double difference = average - target;
+            System.out.println(entry1.getKey() + "          |    " + average + " |    " + target +"    |    " + difference);
+        }
+    }
+    
 }
