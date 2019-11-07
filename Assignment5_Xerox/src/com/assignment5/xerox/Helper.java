@@ -39,16 +39,38 @@ public class Helper {
 
         });
         System.out.println("Best 3 Negotiated Products:");
-        for (int i = 0; i < 3; i++) {
-            Map.Entry<Integer, Double> c = ov.get(i);
-            if (c == null) {
-                System.out.println("No related data.");
+        
+        for (int i = 0;; i++) {
+            if (i >= ov.size()) {
                 break;
             }
-            Product p = prodCatalog.get(c.getKey());
-            System.out.println("productID: " + c.getKey() + "-->" + p);
+            if (i == 3) {
+                for (;;) {
+                    if (i >= ov.size()) {
+                        return;
+                    }
+                    Map.Entry<Integer, Double> c = ov.get(i);
+                    if (c.getValue().equals(ov.get(i-1).getValue())) {
+                        System.out.println("ProductID: " + c.getKey()
+                                + " --> " + prodCatalog.get(c.getKey()) + " Average sales price:" + c.getValue());
+                        i++;
+                    } else {
+                        return;
+                    }
+                }
+            } else {
+                Map.Entry<Integer, Double> c = ov.get(i);
+                if (c == null) {
+                    break;
+                }
+                System.out.println("ProductID: " + c.getKey()
+                                + " --> " + prodCatalog.get(c.getKey()) + "  Average sales price:" + c.getValue());
+               
+            }
+
         }
-    }
+    }        
+    
     
     
  /*   
