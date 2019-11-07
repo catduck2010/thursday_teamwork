@@ -8,7 +8,11 @@ package com.assignment5.xerox;
 import com.assignment5.entities.Item;
 import com.assignment5.entities.Order;
 import com.assignment5.entities.Product;
+import static com.assignment5.xerox.DataGenerator.NEW_PROD_CAT_PATH;
+import static com.assignment5.xerox.DataGenerator.PROD_CAT_PATH;
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -27,15 +31,37 @@ public class GeneralReader {
     private Map<Integer, Product> modifiedProductCatalog;
     private Map<Integer, Item> itemCatalog;
     private ArrayList<Order> orderList;
+    private File file;
+    private File copyFile;
 
     public GeneralReader() throws IOException {
         productCatalog = new HashMap<>();
         modifiedProductCatalog = new HashMap<>();
         itemCatalog = new HashMap<>();
         orderList = new ArrayList<>();
-        orderReader = new DataReader(DataGenerator.getInstance().getOrderFilePath());
-        prodReader = new DataReader(DataGenerator.getInstance().getProductCataloguePath());
-        modProReader =  new DataReader(DataGenerator.getInstance().getModifiedProductCatalog());
+        orderReader = new DataReader(DataGenerator.ORDER_FILE_PATH);
+        prodReader = new DataReader(DataGenerator.PROD_CAT_PATH);
+        try {
+            file = new File(PROD_CAT_PATH);
+           copyFile = new File(NEW_PROD_CAT_PATH);
+           if(copyFile.exists()){
+                
+                copyFile.delete();
+            }
+        }finally{
+            try {
+                Files.copy(file.toPath(), copyFile.toPath());
+            } catch (IOException e) {
+                System.out.println("Error ");
+                e.printStackTrace();
+            }
+        
+    
+        
+        
+    }
+        modProReader =  new DataReader(DataGenerator.NEW_PROD_CAT_PATH);
+        
 
         parseProductRow();
         parseOrderRow();

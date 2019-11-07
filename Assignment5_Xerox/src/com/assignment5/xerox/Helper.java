@@ -6,6 +6,7 @@
 package com.assignment5.xerox;
 
 import com.assignment5.entities.Item;
+import com.assignment5.entities.ModifiedData;
 import com.assignment5.entities.Order;
 import com.assignment5.entities.OriginalData;
 import com.assignment5.entities.Product;
@@ -143,13 +144,19 @@ public class Helper {
      */
     
     
-    // Original Data Table
-    public static void PrintOriDataTable() throws IOException{
+    
+    public static void Question5() throws IOException{
+        // Original Data Table
+        System.out.println("");
+        System.out.println("Original Data Table");
         System.out.println("Product ID |  Average Salses Price | Target Price| Difference");
         List<OriginalData> originalDataList = new ArrayList<>();
         Map<Integer, Item> itemCatalog = GeneralReader.getInstance().getItemCatalog();
         Map<Integer, Product> prodCatalog = GeneralReader.getInstance().getProductCatalog();        
         Map<Integer, Integer> proSalesPrice = new HashMap<>();
+        List<ModifiedData> modifiedDataList = new ArrayList<>();
+        Map<Integer, Product> modifiedProdCatalog = GeneralReader.getInstance().getModifiedProductCatalog();
+        
         
         for(Map.Entry<Integer,Item> entry : itemCatalog.entrySet()){
             
@@ -166,9 +173,12 @@ public class Helper {
             double average = entry1.getValue()/(double)count;
             double target = prodCatalog.get(entry1.getKey()).getTarget();
             double difference = average - target;
+            double newTarget = modifiedProdCatalog.get(entry1.getKey()).getTarget();
             
             OriginalData od =new OriginalData(entry1.getKey(), average, target, difference);
             originalDataList.add(od);  
+            ModifiedData md = new ModifiedData(entry1.getKey(), average, newTarget, difference);
+            modifiedDataList.add(md);
         }
         Collections.sort(originalDataList,new Comparator<OriginalData>(){
             @Override
@@ -194,11 +204,57 @@ public class Helper {
             if(od.getDifference()>0)
                 System.out.println(od);
         }
+        //Modify suggestion
+        System.out.println("");
+        System.out.println("Modify Suggestion:");
+        Collections.sort(originalDataList,new Comparator<OriginalData>(){
+            @Override
+            public int compare(OriginalData od1,OriginalData od2 ){
+                return od1.getProductID() - od2.getProductID();
+            }
+        });
+        for(OriginalData od: originalDataList){
+            double error = (od.getTarget()-od.getAverage())/od.getAverage();
+            if(error>0.05 || error< -0.05){
+                System.out.println("Product ID:"+ od.getProductID());
+                System.out.println("Target price need modify, Suggestion range:" + 0.95*od.getAverage()+"--" +1.05*od.getAverage());
+            }
+            if(error>-0.05 && error<0.05)
+            {
+                System.out.println("Product ID:"+ od.getProductID());
+                System.out.println("Target Price do not need to modify ");
+            }
+        }
+        // Print Modified Data Table
+        System.out.println("");
+        System.out.println("Modified Data Table");
+        System.out.println("Product ID |  Average Salses Price | Modified Target Price| Difference | Error");
+         Collections.sort(modifiedDataList,new Comparator<ModifiedData>(){
+            @Override
+            public int compare(ModifiedData md1,ModifiedData md2 ){
+                if(Math.abs(md2.getDifference()) > Math.abs(md1.getDifference()))
+                    return  1;
+                if(Math.abs(md2.getDifference()) < Math.abs(md1.getDifference()))
+                {
+                    return -1;
+                }
+                
+                return 0;
+            }
+        });
+        
+        System.out.println("Section 1:");
+        for(ModifiedData md: modifiedDataList){
+            if(md.getDifference()<0)
+                System.out.println(md);
+        }
+        System.out.println("Section 2:");
+        for(ModifiedData md: modifiedDataList){
+            if(md.getDifference()>0)
+                System.out.println(md);
+        }
     }
-    // Modify suggestion
-    public static void ModifySuggestion() throws IOException{
     
     
-    }
     
 }
