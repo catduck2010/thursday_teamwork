@@ -38,10 +38,14 @@ public class Helper {
 
         });
         System.out.println("Best 3 Negotiated Products:");
+        int entry = 0;
         String[] hint = {"1st", "2nd", "3rd"};
         int prev = Integer.MIN_VALUE;
         for (int i = 0; i < 3; i++) {
-            Map.Entry<Integer, Integer> c = ov.get(i);
+            if (entry >= ov.size()) {
+                break;
+            }
+            Map.Entry<Integer, Integer> c = ov.get(entry++);
             if (c == null) {
                 break;
             }
@@ -71,11 +75,15 @@ public class Helper {
             }
 
         });
+        //System.out.println(totalSale);
         System.out.println("Best 3 Customers:");
         int prev = Integer.MIN_VALUE;
         String[] hint = {"1st", "2nd", "3rd"};
         int entry = 0;
         for (int i = 0; i < 4; i++) {
+            if (entry >= tsList.size()) {
+                break;
+            }
             Map.Entry<Integer, Integer> c = tsList.get(entry++);
             if (c == null) {
                 break;
@@ -107,11 +115,16 @@ public class Helper {
             }
 
         });
+        //System.out.println(totalSale);
         String[] hint = {"1st", "2nd", "3rd"};
+        int entry = 0;
         System.out.println("Best 3 Sales People:");
         int profit = Integer.MIN_VALUE;
         for (int i = 0; i < 4; i++) {
-            Map.Entry<Integer, Integer> c = tsList.get(i);
+            if (entry >= tsList.size()) {
+                break;
+            }
+            Map.Entry<Integer, Integer> c = tsList.get(entry++);
             if (c == null) {
                 break;
             }
