@@ -38,13 +38,24 @@ public class Helper {
 
         });
         System.out.println("Best 3 Negotiated Products:");
+        String[] hint = {"1st", "2nd", "3rd"};
+        int prev = Integer.MIN_VALUE;
         for (int i = 0; i < 3; i++) {
             Map.Entry<Integer, Integer> c = ov.get(i);
             if (c == null) {
                 break;
             }
+            if (prev != c.getValue()) {
+                if (i == 3) {
+                    break;
+                }
+                System.out.println(hint[i] + ": ");
+            } else {
+                i--;
+            }
             Product p = prodCatalog.get(c.getKey());
-            System.out.println("productID: " + c.getKey() + "-->" + p);
+            System.out.println("productID: " + c.getKey() + " --> " + p);
+            prev = c.getValue();
         }
     }
     // 2) Our 3 best customers (customers who buy about target price)
@@ -56,17 +67,30 @@ public class Helper {
         Collections.sort(tsList, new Comparator<Map.Entry<Integer, Integer>>() {
             @Override
             public int compare(Map.Entry<Integer, Integer> o1, Map.Entry<Integer, Integer> o2) {
-                return -o1.getValue().compareTo(o2.getValue());
+                return o1.getValue().compareTo(o2.getValue());
             }
 
         });
         System.out.println("Best 3 Customers:");
-        for (int i = 0; i < 3; i++) {
-            Map.Entry<Integer, Integer> c = tsList.get(i);
+        int prev = Integer.MIN_VALUE;
+        String[] hint = {"1st", "2nd", "3rd"};
+        int entry = 0;
+        for (int i = 0; i < 4; i++) {
+            Map.Entry<Integer, Integer> c = tsList.get(entry++);
             if (c == null) {
                 break;
             }
+            if (prev != c.getValue()) {
+                if (i == 3) {
+                    break;
+                }
+                System.out.println(hint[i] + ": ");
+            } else {
+                i--;
+            }
             System.out.println("Customer: " + c.getKey());
+            prev = c.getValue();
+
         }
 
     }
@@ -83,15 +107,25 @@ public class Helper {
             }
 
         });
-
+        String[] hint = {"1st", "2nd", "3rd"};
         System.out.println("Best 3 Sales People:");
-        for (int i = 0; i < 3; i++) {
+        int profit = Integer.MIN_VALUE;
+        for (int i = 0; i < 4; i++) {
             Map.Entry<Integer, Integer> c = tsList.get(i);
             if (c == null) {
                 break;
             }
+            if (profit != c.getValue()) {
+                if (i == 3) {
+                    break;
+                }
+                System.out.println(hint[i] + ": ");
+            } else {
+                i--;
+            }
             System.out.println("SalesPerson: " + c.getKey()
                     + " --> Profit: " + c.getValue());
+            profit = c.getValue();
         }
     }
 

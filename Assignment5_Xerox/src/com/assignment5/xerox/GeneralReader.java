@@ -30,8 +30,8 @@ public class GeneralReader {
         productCatalog = new HashMap<>();
         itemCatalog = new HashMap<>();
         orderList = new ArrayList<>();
-        orderReader = new DataReader(DataGenerator.getInstance().getOrderFilePath());
-        prodReader = new DataReader(DataGenerator.getInstance().getProductCataloguePath());
+        orderReader = new DataReader(DataGenerator.ORDER_FILE_PATH);
+        prodReader = new DataReader(DataGenerator.PROD_CAT_PATH);
 
         parseProductRow();
         parseOrderRow();
