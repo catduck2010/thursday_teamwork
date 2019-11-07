@@ -173,11 +173,13 @@ public class Helper {
             double average = entry1.getValue()/(double)count;
             double target = prodCatalog.get(entry1.getKey()).getTarget();
             double difference = average - target;
+            
             double newTarget = modifiedProdCatalog.get(entry1.getKey()).getTarget();
+            double newdifference = average - newTarget;
             
             OriginalData od =new OriginalData(entry1.getKey(), average, target, difference);
             originalDataList.add(od);  
-            ModifiedData md = new ModifiedData(entry1.getKey(), average, newTarget, difference);
+            ModifiedData md = new ModifiedData(entry1.getKey(), average, newTarget, newdifference);
             modifiedDataList.add(md);
         }
         Collections.sort(originalDataList,new Comparator<OriginalData>(){

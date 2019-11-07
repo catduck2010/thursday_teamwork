@@ -44,20 +44,15 @@ public class GeneralReader {
         try {
             file = new File(PROD_CAT_PATH);
            copyFile = new File(NEW_PROD_CAT_PATH);
-           if(copyFile.exists()){
+           
+           if(!copyFile.exists()){
                 
-                copyFile.delete();
-            }
-        }finally{
-            try {
                 Files.copy(file.toPath(), copyFile.toPath());
-            } catch (IOException e) {
+            }
+        }catch (IOException e) {
                 System.out.println("Error ");
                 e.printStackTrace();
-            }
-        
-    
-        
+            
         
     }
         modProReader =  new DataReader(DataGenerator.NEW_PROD_CAT_PATH);
