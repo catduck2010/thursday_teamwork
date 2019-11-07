@@ -5,7 +5,10 @@
  */
 package com.assignment5.xerox;
 
+import com.assignment5.entities.Item;
+import com.assignment5.entities.ModifiedData;
 import com.assignment5.entities.Order;
+import com.assignment5.entities.OriginalData;
 import com.assignment5.entities.Product;
 import com.assignment5.util.Tools;
 import java.io.IOException;
@@ -155,7 +158,7 @@ public class Helper {
         System.out.println("Total Revenue: " + Tools.getTotalRevenue());
     }
 
-    //https://docs.google.com/document/d/1g82__eFobYWOTr-w8vRB_T_XBgJUjLhyHJnqN_yy0b4/
+    
     /*
     5) Determine if the company is pricing its products correctly. 
     Show how to make changes so prices are performing at optimum levels. 
@@ -194,4 +197,121 @@ public class Helper {
     2. sort the table by the difference between the average sale price and 
     target price of each product, from hight to low.
      */
+    
+    
+    
+    public static void Question5() throws IOException{
+        // Original Data Table
+        System.out.println("");
+        System.out.println("Original Data Table");
+        System.out.println("Product ID |  Average Salses Price | Target Price| Difference");
+        List<OriginalData> originalDataList = new ArrayList<>();
+        Map<Integer, Item> itemCatalog = GeneralReader.getInstance().getItemCatalog();
+        Map<Integer, Product> prodCatalog = GeneralReader.getInstance().getProductCatalog();        
+        Map<Integer, Integer> proSalesPrice = new HashMap<>();
+        List<ModifiedData> modifiedDataList = new ArrayList<>();
+        Map<Integer, Product> modifiedProdCatalog = GeneralReader.getInstance().getModifiedProductCatalog();
+        
+        
+        for(Map.Entry<Integer,Item> entry : itemCatalog.entrySet()){
+            
+            int total = proSalesPrice.getOrDefault(entry.getValue().getProductId(),0) ;
+            proSalesPrice.put(entry.getValue().getProductId(),  total + entry.getValue().getSalesPrice());
+        }
+        for(Map.Entry<Integer,Integer> entry1 : proSalesPrice.entrySet()){
+            int count = 0;
+            for(Map.Entry<Integer,Item> entry : itemCatalog.entrySet()){
+           if(entry.getValue().getProductId() == entry1.getKey())
+               count+=1;
+        }
+            
+            double average = entry1.getValue()/(double)count;
+            double target = prodCatalog.get(entry1.getKey()).getTarget();
+            double difference = average - target;
+            
+            double newTarget = modifiedProdCatalog.get(entry1.getKey()).getTarget();
+            double newdifference = average - newTarget;
+            
+            OriginalData od =new OriginalData(entry1.getKey(), average, target, difference);
+            originalDataList.add(od);  
+            ModifiedData md = new ModifiedData(entry1.getKey(), average, newTarget, newdifference);
+            modifiedDataList.add(md);
+        }
+        Collections.sort(originalDataList,new Comparator<OriginalData>(){
+            @Override
+            public int compare(OriginalData od1,OriginalData od2 ){
+                if(Math.abs(od2.getDifference()) > Math.abs(od1.getDifference()))
+                    return  1;
+                if(Math.abs(od2.getDifference()) < Math.abs(od1.getDifference()))
+                {
+                    return -1;
+                }
+                
+                return 0;
+            }
+        });
+        
+        System.out.println("Section 1:");
+        for(OriginalData od: originalDataList){
+            if(od.getDifference()<0)
+                System.out.println(od);
+        }
+        System.out.println("Section 2:");
+        for(OriginalData od: originalDataList){
+            if(od.getDifference()>0)
+                System.out.println(od);
+        }
+        //Modify suggestion
+        System.out.println("");
+        System.out.println("Modify Suggestion:");
+        Collections.sort(originalDataList,new Comparator<OriginalData>(){
+            @Override
+            public int compare(OriginalData od1,OriginalData od2 ){
+                return od1.getProductID() - od2.getProductID();
+            }
+        });
+        for(OriginalData od: originalDataList){
+            double error = (od.getTarget()-od.getAverage())/od.getAverage();
+            if(error>0.05 || error< -0.05){
+                System.out.println("Product ID:"+ od.getProductID());
+                System.out.println("Target price need modify, Suggestion range:" + 0.95*od.getAverage()+"--" +1.05*od.getAverage());
+            }
+            if(error>-0.05 && error<0.05)
+            {
+                System.out.println("Product ID:"+ od.getProductID());
+                System.out.println("Target Price do not need to modify ");
+            }
+        }
+        // Print Modified Data Table
+        System.out.println("");
+        System.out.println("Modified Data Table");
+        System.out.println("Product ID |  Average Salses Price | Modified Target Price| Difference | Error");
+         Collections.sort(modifiedDataList,new Comparator<ModifiedData>(){
+            @Override
+            public int compare(ModifiedData md1,ModifiedData md2 ){
+                if(Math.abs(md2.getDifference()) > Math.abs(md1.getDifference()))
+                    return  1;
+                if(Math.abs(md2.getDifference()) < Math.abs(md1.getDifference()))
+                {
+                    return -1;
+                }
+                
+                return 0;
+            }
+        });
+        
+        System.out.println("Section 1:");
+        for(ModifiedData md: modifiedDataList){
+            if(md.getDifference()<0)
+                System.out.println(md);
+        }
+        System.out.println("Section 2:");
+        for(ModifiedData md: modifiedDataList){
+            if(md.getDifference()>0)
+                System.out.println(md);
+        }
+    }
+    
+    
+    
 }

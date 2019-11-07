@@ -38,6 +38,7 @@ public class GateWay {
         Helper.BestCustomers();
         Helper.BestSalesPeople();
         Helper.TotalRevenue();
+        Helper.Question5();
     }
 
     public static void printRow(String[] row) {
