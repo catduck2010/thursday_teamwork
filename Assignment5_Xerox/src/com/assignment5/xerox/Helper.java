@@ -102,7 +102,7 @@ public class Helper {
         System.out.println("Total Revenue: " + Tools.getTotalRevenue());
     }
 
-    //https://docs.google.com/document/d/1g82__eFobYWOTr-w8vRB_T_XBgJUjLhyHJnqN_yy0b4/
+    
     /*
     5) Determine if the company is pricing its products correctly. 
     Show how to make changes so prices are performing at optimum levels. 
@@ -148,14 +148,7 @@ public class Helper {
         System.out.println("Product ID |  Average Salses Price | Target Price| Difference");
         List<OriginalData> originalDataList = new ArrayList<>();
         Map<Integer, Item> itemCatalog = GeneralReader.getInstance().getItemCatalog();
-        Map<Integer, Product> prodCatalog = GeneralReader.getInstance().getProductCatalog();
-        /*List<Map.Entry<Integer,Item>> itemList = new ArrayList<>(itemCatalog.entrySet());
-        Collections.sort(itemList,new Comparator<Map.Entry<Integer, Item>>(){
-            @Override
-            public int compare(Map.Entry<Integer,Item> i1,Map.Entry<Integer,Item> i2 ){
-                return i1.getValue().getProductId() - i2.getValue().getProductId();
-            }
-        });*/
+        Map<Integer, Product> prodCatalog = GeneralReader.getInstance().getProductCatalog();        
         Map<Integer, Integer> proSalesPrice = new HashMap<>();
         
         for(Map.Entry<Integer,Item> entry : itemCatalog.entrySet()){
@@ -201,6 +194,11 @@ public class Helper {
             if(od.getDifference()>0)
                 System.out.println(od);
         }
+    }
+    // Modify suggestion
+    public static void ModifySuggestion() throws IOException{
+    
+    
     }
     
 }

@@ -9,6 +9,7 @@ import com.assignment5.entities.Product;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -24,6 +25,7 @@ public class DataGenerator {
     
     private FileWriter writer;
     private File file;
+    private File copyFile;
     
     private final Random rand;
     
@@ -43,6 +45,7 @@ public class DataGenerator {
     
     private final String PROD_CAT_PATH = "./ProductCatalogue.csv";
     private final String ORDER_FILE_PATH = "./SalesData.csv";
+    private final String NEW_PROD_CAT_PATH= "./ModifiedProductCatalogue.csv";
     
     private DataGenerator() throws IOException {
         
@@ -62,6 +65,7 @@ public class DataGenerator {
         
         generateProductsFile();
         generateOrdersFile();
+        
         
     }
     
@@ -149,6 +153,8 @@ public class DataGenerator {
             if(file.exists()){
                 file.delete();
             }
+            
+            
             file.createNewFile();
             System.out.println("New Product Catalogue Created");
             writer = new FileWriter(file);
@@ -156,13 +162,21 @@ public class DataGenerator {
             writer.append(PRODUCT_HEADER);
             writer.append(LINE_BREAK);
         
-            generateProductsColumns();   
+            generateProductsColumns();  
+            
+            copyFile = new File(NEW_PROD_CAT_PATH);
+            if(copyFile.exists()){
+                
+                copyFile.delete();
+            }
+            
             
         }finally{
             
             try {
                 writer.flush();
                 writer.close();
+                Files.copy(file.toPath(), copyFile.toPath());
             } catch (IOException e) {
                 System.out.println("Error while flushing/closing fileWriter !!!");
                 e.printStackTrace();
@@ -171,6 +185,8 @@ public class DataGenerator {
         
         
     }
+    
+
     
     private void generateProductsColumns() throws IOException{
         int productId = 0;
@@ -199,6 +215,10 @@ public class DataGenerator {
     
     public String getProductCataloguePath(){
         return PROD_CAT_PATH;
+    }
+
+    public String getModifiedProductCatalog() {
+        return NEW_PROD_CAT_PATH;
     }
     
     

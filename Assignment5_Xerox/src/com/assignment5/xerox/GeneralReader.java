@@ -22,19 +22,24 @@ public class GeneralReader {
     private static GeneralReader theReader;
     private DataReader orderReader;
     private DataReader prodReader;
+    private DataReader modProReader;
     private Map<Integer, Product> productCatalog;
+    private Map<Integer, Product> modifiedProductCatalog;
     private Map<Integer, Item> itemCatalog;
     private ArrayList<Order> orderList;
 
     public GeneralReader() throws IOException {
         productCatalog = new HashMap<>();
+        modifiedProductCatalog = new HashMap<>();
         itemCatalog = new HashMap<>();
         orderList = new ArrayList<>();
         orderReader = new DataReader(DataGenerator.getInstance().getOrderFilePath());
         prodReader = new DataReader(DataGenerator.getInstance().getProductCataloguePath());
+        modProReader =  new DataReader(DataGenerator.getInstance().getModifiedProductCatalog());
 
         parseProductRow();
         parseOrderRow();
+        parseModProductRow();
     }
 
     public static GeneralReader getInstance() throws IOException {
@@ -89,10 +94,33 @@ public class GeneralReader {
             //System.out.println("productID: "+prodId+"->"+prod.toString());
         }
     }
+    private void parseModProductRow() throws IOException {
+        //Product-Id, Min-Price, Max-Price, Target-Price, 
+        for (;;) {
+            String[] line = modProReader.getNextRow();
+            if (line == null) {
+                System.out.println("Parse New Product Over");
+                return;
+            }
+            int prodId = Integer.parseInt(line[0]);
+            int min = Integer.parseInt(line[1]);
+            int max = Integer.parseInt(line[2]);
+            int tar = Integer.parseInt(line[3]);
+
+            Product prod = new Product(min, max, tar);
+            modifiedProductCatalog.put(prodId, prod);
+            //System.out.println("productID: "+prodId+"->"+prod.toString());
+        }
+    }
 
     public Map<Integer, Product> getProductCatalog() {
         return productCatalog;
     }
+
+    public Map<Integer, Product> getModifiedProductCatalog() {
+        return modifiedProductCatalog;
+    }
+    
 
     public Map<Integer, Item> getItemCatalog() {
         return itemCatalog;
