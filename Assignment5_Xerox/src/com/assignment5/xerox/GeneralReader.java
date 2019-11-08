@@ -33,6 +33,15 @@ public class GeneralReader {
     private ArrayList<Order> orderList;
     private File file;
     private File copyFile;
+    private Map<Integer, Integer> productNum;
+
+    public Map<Integer, Integer> getProductNum() {
+        return productNum;
+    }
+
+    public void setProductNum(Map<Integer, Integer> productNum) {
+        this.productNum = productNum;
+    }
 
     public GeneralReader() throws IOException {
         productCatalog = new HashMap<>();
@@ -57,6 +66,7 @@ public class GeneralReader {
     }
         modProReader =  new DataReader(DataGenerator.NEW_PROD_CAT_PATH);
         
+        productNum = new HashMap<>();
 
         parseProductRow();
         parseOrderRow();

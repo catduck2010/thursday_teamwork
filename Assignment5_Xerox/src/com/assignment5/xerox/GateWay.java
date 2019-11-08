@@ -34,7 +34,7 @@ public class GateWay {
 //        }
 //        GeneralReader genReader = GeneralReader.getInstance();
         
-        Helper.BestNegotiatedProducts();
+        Helper.topNegotiatedProducts();
         Helper.BestCustomers();
         Helper.BestSalesPeople();
         Helper.TotalRevenue();

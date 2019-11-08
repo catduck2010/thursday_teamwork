@@ -10,7 +10,9 @@ import com.assignment5.entities.Order;
 import com.assignment5.entities.Product;
 import com.assignment5.xerox.GeneralReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -18,7 +20,43 @@ import java.util.Map;
  * @author lihang
  */
 public class Tools {
-
+    public static Map<Integer, Double> getNegotiatedPrice() throws IOException {
+        Map<Integer, Double> negotiatedPrice = new HashMap<>();
+        
+        Map<Integer, Product> prodCatalog = GeneralReader.getInstance().getProductCatalog();
+  
+        for (Order o : GeneralReader.getInstance().getOrderList()) {
+            Item i = o.getItem();
+            int negotiated;
+            Product p = prodCatalog.get(o.getItem().getProductId());
+            if(o.getItem().getSalesPrice() > p.getTarget()){
+                negotiated = Math.abs((o.getItem().getSalesPrice() - p.getTarget())*o.getItem().getQuantity());                
+            }else{
+                continue;
+            }
+        negotiatedPrice.put(i.getProductId(), negotiatedPrice.getOrDefault(i.getSalesPrice(), 0.0) + negotiated);
+        }
+        
+        
+        int[] numbers=new int[negotiatedPrice.keySet().size()];
+        List<Integer> prodIDList =new ArrayList<>(negotiatedPrice.keySet());
+        for (Order o : GeneralReader.getInstance().getOrderList()) {
+            Item i=o.getItem();
+            
+            numbers[prodIDList.indexOf(i.getProductId())]+=i.getQuantity();
+        }
+        
+        for(int k=0;k<numbers.length;k++){
+            int s=prodIDList.get(k);
+            negotiatedPrice.put(s, negotiatedPrice.get(s)/numbers[s]);
+        }
+        
+        return negotiatedPrice;
+        
+        
+    }
+    
+ /*  
     //Sales quantity of the product sold above the target price
     public static Map<Integer, Integer> getQuantityOfOverSalesPrice() throws IOException {
         Map<Integer, Integer> overSales = new HashMap<>();
@@ -31,6 +69,7 @@ public class Tools {
 //        System.out.println(overSales);
         return overSales;
     }
+*/
 
     //Sum of absolute value of the difference between the sale price and target price of the products this customer bought.
     public static Map<Integer, Integer> getCustomerTotalSale() throws IOException {
