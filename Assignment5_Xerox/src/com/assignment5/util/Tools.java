@@ -22,6 +22,7 @@ import java.util.Map;
 public class Tools {
     public static Map<Integer, Double> getNegotiatedPrice() throws IOException {
         Map<Integer, Double> negotiatedPrice = new HashMap<>();
+        
         Map<Integer, Product> prodCatalog = GeneralReader.getInstance().getProductCatalog();
   
         for (Order o : GeneralReader.getInstance().getOrderList()) {
@@ -50,6 +51,7 @@ public class Tools {
         }
     
         return negotiatedPrice;
+        
     }
     
  /*  

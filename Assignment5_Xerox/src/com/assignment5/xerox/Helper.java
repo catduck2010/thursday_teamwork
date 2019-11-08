@@ -38,6 +38,32 @@ public class Helper {
             }
 
         });
+        Map<Integer, Double> salesPrice = new HashMap<>();
+        for (Order o : GeneralReader.getInstance().getOrderList()) {
+            Item i = o.getItem();
+            int allSalesPrice;
+            Product p = prodCatalog.get(o.getItem().getProductId());
+            if(o.getItem().getSalesPrice() > p.getTarget()){
+                allSalesPrice = Math.abs(o.getItem().getSalesPrice()*o.getItem().getQuantity());              
+            }else{
+                continue;
+            }
+        salesPrice.put(i.getProductId(), salesPrice.getOrDefault(i.getSalesPrice(), 0.0) + allSalesPrice);
+        }
+        
+        int[] numbers1=new int[salesPrice.keySet().size()];
+        List<Integer> prodIDList =new ArrayList<>(salesPrice.keySet());
+        for (Order o : GeneralReader.getInstance().getOrderList()) {
+            Item i=o.getItem();
+            
+            numbers1[prodIDList.indexOf(i.getProductId())]+=i.getQuantity();
+        }
+        
+        for(int k=0;k<numbers1.length;k++){
+            int s=prodIDList.get(k);
+            salesPrice.put(s, salesPrice.get(s)/numbers1[s]);
+        }
+        
         System.out.println("Best 3 Negotiated Products:");
         
         for (int i = 0;; i++) {
@@ -52,7 +78,7 @@ public class Helper {
                     Map.Entry<Integer, Double> c = ov.get(i);
                     if (c.getValue().equals(ov.get(i-1).getValue())) {
                         System.out.println("ProductID: " + c.getKey()
-                                + " --> " + prodCatalog.get(c.getKey()) + " Average sales price:" + c.getValue());
+                                + " --> " + prodCatalog.get(c.getKey()) + " Average sales price:" + salesPrice.get(c.getKey()));
                         i++;
                     } else {
                         return;
@@ -64,7 +90,7 @@ public class Helper {
                     break;
                 }
                 System.out.println("ProductID: " + c.getKey()
-                                + " --> " + prodCatalog.get(c.getKey()) + "  Average sales price:" + c.getValue());
+                                + " --> " + prodCatalog.get(c.getKey()) + "  Average sales price:" + salesPrice.get(c.getKey()));
                
             }
 
