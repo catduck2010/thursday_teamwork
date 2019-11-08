@@ -28,7 +28,9 @@ public class Helper {
      public static void topNegotiatedProducts()throws IOException {
         Map<Integer, Product> prodCatalog = GeneralReader.getInstance().getProductCatalog();
         Map<Integer, Double> overPrice = Tools.getNegotiatedPrice();
-
+        
+        //Map<Integer, Integer> prodNum = GeneralReader.getInstance().getProductNum();
+        
         List<Map.Entry<Integer, Double>> ov = new ArrayList<>(overPrice.entrySet());
 
         Collections.sort(ov, new Comparator<Map.Entry<Integer, Double>>() {
@@ -38,17 +40,30 @@ public class Helper {
             }
 
         });
+        
         Map<Integer, Double> salesPrice = new HashMap<>();
+        //Map<Integer, Integer> prodNum = new HashMap<>();
+        double[] productNumber = new double[25];
+        double result=0;
+        int allSalesPrice;  
         for (Order o : GeneralReader.getInstance().getOrderList()) {
-            Item i = o.getItem();
-            int allSalesPrice;
+            Item i = o.getItem();      
             Product p = prodCatalog.get(o.getItem().getProductId());
             if(o.getItem().getSalesPrice() > p.getTarget()){
-                allSalesPrice = Math.abs(o.getItem().getSalesPrice()*o.getItem().getQuantity());              
+                for(int j=0;j<=Math.max(0, o.getItem().getProductId());j++){
+                    if(o.getItem().getProductId()==j){
+                        allSalesPrice = o.getItem().getSalesPrice()*o.getItem().getQuantity();   
+                        result = result + allSalesPrice;
+                    }else{
+                        productNumber[j] = result;
+                        continue;
+                    }                 
+                }
             }else{
                 continue;
             }
-        salesPrice.put(i.getProductId(), salesPrice.getOrDefault(i.getSalesPrice(), 0.0) + allSalesPrice);
+            System.out.println(result+" -----------------------------------------");
+        salesPrice.put(i.getProductId(), productNumber[i.getProductId()]);
         }
         
         int[] numbers1=new int[salesPrice.keySet().size()];
@@ -60,7 +75,10 @@ public class Helper {
         }
         
         for(int k=0;k<numbers1.length;k++){
+
             int s=prodIDList.get(k);
+            System.out.println(salesPrice.get(s)+"****************************************salesprice");
+            System.out.println(numbers1[s]+"nums");
             salesPrice.put(s, salesPrice.get(s)/numbers1[s]);
         }
         

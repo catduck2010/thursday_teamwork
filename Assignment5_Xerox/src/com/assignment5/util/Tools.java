@@ -37,6 +37,7 @@ public class Tools {
         negotiatedPrice.put(i.getProductId(), negotiatedPrice.getOrDefault(i.getSalesPrice(), 0.0) + negotiated);
         }
         
+        
         int[] numbers=new int[negotiatedPrice.keySet().size()];
         List<Integer> prodIDList =new ArrayList<>(negotiatedPrice.keySet());
         for (Order o : GeneralReader.getInstance().getOrderList()) {
@@ -49,8 +50,9 @@ public class Tools {
             int s=prodIDList.get(k);
             negotiatedPrice.put(s, negotiatedPrice.get(s)/numbers[s]);
         }
-    
+        
         return negotiatedPrice;
+        
         
     }
     
