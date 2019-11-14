@@ -11,6 +11,7 @@ import java.io.IOException;
  *
  * @author kasai
  */
+
 public class GateWay {
 
     public static void main(String args[]) throws IOException {
@@ -38,6 +39,7 @@ public class GateWay {
         Helper.BestCustomers();
         Helper.BestSalesPeople();
         Helper.TotalRevenue();
+        Helper.Question5();
     }
 
     public static void printRow(String[] row) {
@@ -48,6 +50,10 @@ public class GateWay {
     }
 
 }
+
+
+
+
 
 
 
