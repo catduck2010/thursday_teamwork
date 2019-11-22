@@ -7,8 +7,8 @@ package lab7;
 
 import java.io.IOException;
 import java.util.Map;
-import lab7.analytics.AnalysisHelper;
-import lab7.analytics.DataStore;
+import com.analytics.AnalysisHelper;
+import com.analytics.DataStore;
 import lab7.entities.Comment;
 import lab7.entities.Post;
 import lab7.entities.User;
@@ -95,14 +95,14 @@ public class Lab7 {
 
     private void runAnalysis() {
         // TODO
-        helper.userWithMostLikes();
-        helper.getFiveMostLikedComment();
+//        helper.userWithMostLikes();
+//        helper.getFiveMostLikedComment();
         helper.getAvgLikeNumPerComment();
         helper.getPostWithMostLikedComments();
         helper.getPostWithMostComments();
         helper.Top5inactiveusersbasedonposts();
+        helper.getTopFiveInactiveUsersBasedOnComments();
         helper.fiveinactoverall();
-        helper.lastFiveComments();
         helper.topProactiveUsers();
         
     }

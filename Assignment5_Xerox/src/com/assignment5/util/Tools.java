@@ -21,42 +21,21 @@ import java.util.Map;
  */
 public class Tools {
 
-    public static Map<Integer, Double> getNegotiatedPrice() throws IOException {
-        Map<Integer, Double> negotiatedPrice = new HashMap<>();
+    public static Map<Integer, Integer> getNegotiatedPrice() throws IOException {
 
         Map<Integer, Product> prodCatalog = GeneralReader.getInstance().getProductCatalog();
-        Map<Integer, Integer> prodQuantity = new HashMap<>();
+        Map<Integer, Integer> prdoQu = new HashMap<>();
 
         for (Order o : GeneralReader.getInstance().getOrderList()) {
             Item i = o.getItem();
-            int negotiated;
             Product p = prodCatalog.get(o.getItem().getProductId());
-            if (o.getItem().getSalesPrice() > p.getTarget()) {
-                negotiated = (o.getItem().getSalesPrice() - p.getTarget()) * o.getItem().getQuantity();
-                negotiatedPrice.put(i.getProductId(), negotiatedPrice.getOrDefault(i.getProductId(), 0.0) + negotiated);
-                prodQuantity.put(i.getProductId(), prodQuantity.getOrDefault(i.getProductId(), 0) + i.getQuantity());
-                //System.out.println(i.getProductId() + ": Price: " + negotiated + " Quantity:" + i.getQuantity());
+            if (o.getItem().getSalesPrice() >= p.getTarget()) {
+                prdoQu.put(i.getProductId(), prdoQu.getOrDefault(i.getProductId(), 0) + o.getItem().getQuantity());
+
             }
         }
 
-//        int[] numbers = new int[negotiatedPrice.keySet().size()];
-//        List<Integer> prodIDList = new ArrayList<>(negotiatedPrice.keySet());
-//        for (Order o : GeneralReader.getInstance().getOrderList()) {
-//            Item i = o.getItem();
-//            Product p = prodCatalog.get(o.getItem().getProductId());
-//            if (o.getItem().getSalesPrice() > p.getTarget()) {
-//                numbers[prodIDList.indexOf(i.getProductId())] += i.getQuantity();
-//            }
-//        }
-//        System.out.println(negotiatedPrice);
-//        System.out.println(prodQuantity);
-        for (int s : negotiatedPrice.keySet()) {
-            double price = negotiatedPrice.get(s) / prodQuantity.get(s);
-//            System.out.println(s + ": NP:" + negotiatedPrice.get(s) + " NUM: " + prodQuantity.get(s) + " AVG:" + price);
-            negotiatedPrice.put(s, price);
-        }
-
-        return negotiatedPrice;
+        return prdoQu;
 
     }
 
@@ -82,7 +61,7 @@ public class Tools {
             Product p = prodCatalog.get(o.getItem().getProductId());
             int total = Math.abs(o.getItem().getSalesPrice() - p.getTarget());
 
-            totalSale.put(o.getCustomerId(), totalSale.getOrDefault(o.getCustomerId(), 0) + total);
+            totalSale.put(o.getCustomerId(), totalSale.getOrDefault(o.getCustomerId(), 0) + total*o.getItem().getQuantity());
         }
         return totalSale;
     }

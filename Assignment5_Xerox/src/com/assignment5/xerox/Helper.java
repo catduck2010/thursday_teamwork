@@ -29,14 +29,14 @@ public class Helper {
     // 1) Our top 3 best negotiated products (meaning products that sell above target)
     public static void topNegotiatedProducts() throws IOException {
         Map<Integer, Product> prodCatalog = GeneralReader.getInstance().getProductCatalog();
-        Map<Integer, Double> overPrice = Tools.getNegotiatedPrice();
+        Map<Integer, Integer> overPrice = Tools.getNegotiatedPrice();
 
         //Map<Integer, Integer> prodNum = GeneralReader.getInstance().getProductNum();
-        List<Map.Entry<Integer, Double>> ov = new ArrayList<>(overPrice.entrySet());
+        List<Map.Entry<Integer, Integer>> ov = new ArrayList<>(overPrice.entrySet());
 
-        Collections.sort(ov, new Comparator<Map.Entry<Integer, Double>>() {
+        Collections.sort(ov, new Comparator<Map.Entry<Integer, Integer>>() {
             @Override
-            public int compare(Map.Entry<Integer, Double> o1, Map.Entry<Integer, Double> o2) {
+            public int compare(Map.Entry<Integer, Integer> o1, Map.Entry<Integer, Integer> o2) {
                 return -o1.getValue().compareTo(o2.getValue());
             }
 
@@ -68,21 +68,6 @@ public class Helper {
 //            salesPrice.put(i.getProductId(), productNumber[i.getProductId()]);
 //        }
 //
-//        int[] numbers1 = new int[salesPrice.keySet().size()];
-//        List<Integer> prodIDList = new ArrayList<>(salesPrice.keySet());
-//        for (Order o : GeneralReader.getInstance().getOrderList()) {
-//            Item i = o.getItem();
-//
-//            numbers1[prodIDList.indexOf(i.getProductId())] += i.getQuantity();
-//        }
-//
-//        for (int k = 0; k < numbers1.length; k++) {
-//
-//            int s = prodIDList.get(k);
-//            //System.out.println(salesPrice.get(s) + "****************************************salesprice");
-//            //System.out.println(numbers1[s] + "nums");
-//            salesPrice.put(s, salesPrice.get(s) / numbers1[s]);
-//        }
         System.out.println("Best 3 Negotiated Products:");
 
         for (int i = 0;; i++) {
@@ -94,7 +79,7 @@ public class Helper {
                     if (i >= ov.size()) {
                         return;
                     }
-                    Map.Entry<Integer, Double> c = ov.get(i);
+                    Map.Entry<Integer, Integer> c = ov.get(i);
                     if (c.getValue().equals(ov.get(i - 1).getValue())) {
                         System.out.println("ProductID: " + c.getKey()
                                 + " --> " + prodCatalog.get(c.getKey())
@@ -106,7 +91,7 @@ public class Helper {
                     }
                 }
             } else {
-                Map.Entry<Integer, Double> c = ov.get(i);
+                Map.Entry<Integer, Integer> c = ov.get(i);
                 if (c == null) {
                     break;
                 }
@@ -160,7 +145,7 @@ public class Helper {
         }
     }
      */
-    // 2) Our 3 best customers (customers who buy about target price)
+// 2) Our 3 best customers (customers who buy about target price)
     public static void BestCustomers() throws IOException {
         Map<Integer, Integer> totalSale = Tools.getCustomerTotalSale();
         List<Map.Entry<Integer, Integer>> tsList = new ArrayList<>(totalSale.entrySet());

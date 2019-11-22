@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package lab7.analytics;
+package com.analytics;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -205,23 +205,46 @@ public class AnalysisHelper {
                 + "\nId:" + list.get(3).getKey() + " Score:" + list.get(3).getValue()
                 + "\nId:" + list.get(4).getKey() + " Score:" + list.get(4).getValue() + "\n");
     }
+    //dfsfs
+    public void getTopFiveInactiveUsersBasedOnComments() {
 
-    public void lastFiveComments() {
-        Map<Integer, Comment> commentHashMap = DataStore.getInstance().getComments();
-        List<Comment> commentList = new ArrayList<Comment>(commentHashMap.values());
-        Collections.sort(commentList, new Comparator<Comment>() {
+        Map<Integer, User> user = DataStore.getInstance().getUsers();
+
+        List<User> userList = new ArrayList<>(user.values());
+
+        Collections.sort(userList, new Comparator<User>() {
             @Override
-            public int compare(Comment o1, Comment o2) {
-                return o1.getLikes() - o2.getLikes();
+            public int compare(User o1, User o2) {
+                return o1.getComments().size() - o2.getComments().size();
             }
         });
-
-        System.out.println("Printing the last five comments");
-
-        for (int j = 0; j < commentList.size() && j < 5; j++) {
-            System.out.println(commentList.get(j));
+        System.out.println("");
+        System.out.println("Top Five Most Inactive Users Based on Comments:");
+        for (int i = 0; i < userList.size() && i < 5; i++) {
+            System.out.println(userList.get(i));
         }
         System.out.println("");
+    }
+
+    public void lastFiveComments() {
+        Map<Integer, User> users = DataStore.getInstance().getUsers();
+        List<User> list = new ArrayList<>();
+        for (User u : users.values()) {
+            list.add(u);
+        }
+        Collections.sort(list, new Comparator<User>() {
+            @Override
+            public int compare(User o1, User o2) {
+                return Integer.compare(o2.getComments().size(), o1.getComments().size());
+            }
+        });
+        System.out.println("Top5 Inactive User based on comments:");
+        System.out.println(list.get(0));
+        System.out.println(list.get(1));
+        System.out.println(list.get(2));
+        System.out.println(list.get(3));
+        System.out.println(list.get(4));
+        System.out.println();
     }
 
     public void topProactiveUsers() {
