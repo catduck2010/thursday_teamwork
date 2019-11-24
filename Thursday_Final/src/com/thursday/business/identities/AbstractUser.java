@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.thursday.business;
+package com.thursday.business.identities;
 
 import com.thursday.util.PasswordUtil;
 
@@ -11,14 +11,22 @@ import com.thursday.util.PasswordUtil;
  *
  * @author lihang
  */
-public abstract class User {
-
+public abstract class AbstractUser {
+    private String id;
     private String username;
-    private String passwdHash;
+    private String passwd;
 
-    public User(String username, char[] passwd) {
+    public AbstractUser(String username, char[] passwd) {
         this.username = username;
-        this.passwdHash = PasswordUtil.hash(passwd);
+        this.passwd = PasswordUtil.hash(passwd);
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getPasswd() {
+        return passwd;
     }
 
     public String getUsername() {
@@ -29,15 +37,17 @@ public abstract class User {
         this.username = username;
     }
 
-    public boolean setPasswd(char[] oldpw, char[] passwd) {
+    public boolean setPasswd(char[] oldpw, char[] newpw) {
         if (this.authenticate(oldpw)) {
-            this.passwdHash = PasswordUtil.hash(passwd);
+            this.passwd = PasswordUtil.hash(newpw);
             return true;
         }
         return false;
     }
 
     public boolean authenticate(char[] passwd) {
-        return PasswordUtil.authenticate(passwd, passwdHash);
+        return PasswordUtil.authenticate(passwd, this.passwd);
     }
+    
+    
 }
