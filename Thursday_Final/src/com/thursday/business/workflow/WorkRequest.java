@@ -4,7 +4,7 @@
  */
 package com.thursday.business.workflow;
 
-import com.thursday.business.identities.AbstractUser;
+import com.thursday.business.identities.User;
 import java.util.Date;
 
 /**
@@ -13,14 +13,24 @@ import java.util.Date;
  */
 public abstract class WorkRequest {
 
+    private String title;
     private String message;
-    private AbstractUser sender;
-    private AbstractUser receiver;
+    private User sender;
+    private User receiver;
     private String status;
     private Date requestDate;
     private Date resolveDate;
-    
-    public WorkRequest(){
+
+    public class Status {
+
+        public static final String PENDING = "PENDING";
+        public static final String WORKING = "WORKING";
+        public static final String FINISHED = "FINISHED";
+        public static final String WAIT_FOR_RESPONSE = "WAIT_FOR_RESPONSE";
+
+    }
+
+    public WorkRequest() {
         requestDate = new Date();
     }
 
@@ -32,28 +42,54 @@ public abstract class WorkRequest {
         this.message = message;
     }
 
-    public AbstractUser getSender() {
+    public User getSender() {
         return sender;
     }
 
-    public void setSender(AbstractUser sender) {
+    public void setSender(User sender) {
         this.sender = sender;
     }
 
-    public AbstractUser getReceiver() {
+    public User getReceiver() {
         return receiver;
     }
 
-    public void setReceiver(AbstractUser receiver) {
+    public void setReceiver(User receiver) {
         this.receiver = receiver;
     }
 
     public String getStatus() {
-        return status;
+        switch (status) {
+            case Status.PENDING:
+                return Status.PENDING;
+            case Status.WORKING:
+                return Status.WORKING;
+            case Status.FINISHED:
+                return Status.WORKING;
+            case Status.WAIT_FOR_RESPONSE:
+                return Status.WAIT_FOR_RESPONSE;
+        }
+        return "";
     }
 
     public void setStatus(String status) {
-        this.status = status;
+        status = status.toUpperCase();
+        switch (status) {
+            case Status.PENDING:
+                this.status = Status.PENDING;
+                break;
+            case Status.WORKING:
+                this.status = Status.WORKING;
+                break;
+            case Status.FINISHED:
+                this.status = Status.WORKING;
+                break;
+            case Status.WAIT_FOR_RESPONSE:
+                this.status = Status.WAIT_FOR_RESPONSE;
+                break;
+            default:
+                this.status = "";
+        }
     }
 
     public Date getRequestDate() {

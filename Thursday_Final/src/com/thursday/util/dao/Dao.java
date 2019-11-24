@@ -16,24 +16,29 @@ import org.apache.commons.dbutils.handlers.BeanListHandler;
  * @author yhy
  *
  */
-public class Dao {
+public abstract class Dao {
 
-    private static Connection conn;
+    private Connection conn;
+    private final String db;
+
+    public Dao(String db) {
+        this.db = db;
+    }
 
     /**
      * 获得连接
      *
      * @return
      */
-    public static Connection getConnection() {
-        conn = connect();
+    public Connection getConnection() {
+        conn = connect(db);
         return conn;
     }
 
-    private static Connection connect() {
+    private Connection connect() {
         Connection conn = null;
         String jdbcURL = "jdbc:mysql://" + DBInfo.IP + ":" + DBInfo.PORT + "/"
-                + DBInfo.DB + "?useUnicode=true&characterEncoding=UTF8";
+                + DBInfo.APARTMENT + "?useUnicode=true&characterEncoding=UTF8";
         String jdbcDriver = "com.mysql.jdbc.Driver";
         try {
             //DbUtils中加载驱动的方法
@@ -46,7 +51,23 @@ public class Dao {
         return conn;
     }
 
-    public static void disconnect() {
+    private Connection connect(String db) {
+        Connection conn = null;
+        String jdbcURL = "jdbc:mysql://" + DBInfo.IP + ":" + DBInfo.PORT + "/"
+                + db + "?useUnicode=true&characterEncoding=UTF8";
+        String jdbcDriver = "com.mysql.jdbc.Driver";
+        try {
+            //DbUtils中加载驱动的方法
+            DbUtils.loadDriver(jdbcDriver);
+            conn = DriverManager.getConnection(jdbcURL,
+                    DBInfo.USER, DBInfo.PASSWD);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return conn;
+    }
+
+    public void disconnect() {
         DbUtils.closeQuietly(conn);
     }
 
@@ -56,7 +77,7 @@ public class Dao {
      * @param sql
      * @return
      */
-    public static boolean update(String sql, Object[] params) {
+    public boolean update(String sql, Object[] params) {
         boolean flag = false;
         try {
             conn = getConnection();
@@ -80,7 +101,7 @@ public class Dao {
      * @param theClass
      * @return
      */
-    public static List query(String sql, Class theClass) {
+    public List query(String sql, Class theClass) {
         List beans = null;
         try {
             conn = getConnection();
@@ -105,7 +126,7 @@ public class Dao {
      * @param theClass
      * @return
      */
-    public static List query(String sql, Class theClass, Object[] params) {
+    public List query(String sql, Class theClass, Object[] params) {
         List beans = null;
         try {
             conn = getConnection();
@@ -129,7 +150,7 @@ public class Dao {
      * @param theClass
      * @return
      */
-    public static Object get(String sql, Class theClass) {
+    public Object get(String sql, Class theClass) {
         Object obj = null;
 
         try {
@@ -153,7 +174,7 @@ public class Dao {
      * @param theClass
      * @return
      */
-    public static Object get(String sql, Class theClass, Object[] params) {
+    public Object get(String sql, Class theClass, Object[] params) {
         Object obj = null;
         try {
             conn = getConnection();
@@ -169,4 +190,6 @@ public class Dao {
         return obj;
     }
 }
+
+
 

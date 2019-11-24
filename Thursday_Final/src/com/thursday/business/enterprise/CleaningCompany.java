@@ -5,10 +5,22 @@
  */
 package com.thursday.business.enterprise;
 
+import com.thursday.business.role.Role;
+import java.util.ArrayList;
+
 /**
  *
  * @author lihang
  */
-public class CleaningCompany {
+public class CleaningCompany extends Enterprise {
+
+    public CleaningCompany(String name) {
+        super(name, EnterpriseType.CleaningCompany);
+    }
+
+    @Override
+    public ArrayList<Role> getSupportedRole() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

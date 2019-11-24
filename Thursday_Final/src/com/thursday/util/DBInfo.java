@@ -15,6 +15,7 @@ public class DBInfo {
     public static String PORT = "3306";
     public static String USER = "thursday";
     public static String PASSWD = "Thursday689";
-    public static String DB = "this_thursday";
+    public static String APARTMENT = "apartment";
+    public static String CLEANCOMP = "cleancompany";
 
 }
