@@ -22,7 +22,7 @@ import javax.crypto.spec.PBEKeySpec;
  */
 public class PasswordUtil {
 
-    public static final String ID = "$31$";
+    private static final String ID = "$31$";
     private static final int SIZE = 128;
     private static int COST = 16;
     private static final String ALGORITHM = "PBKDF2WithHmacSHA1";
