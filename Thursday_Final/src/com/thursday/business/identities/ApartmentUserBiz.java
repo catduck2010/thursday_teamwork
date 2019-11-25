@@ -13,18 +13,18 @@ import java.util.List;
  *
  * @author lihang
  */
-public class ApaermentUserBiz {
+public class ApartmentUserBiz {
 
     public static boolean add(User u) {
-        String sql = "insert into user(username,password) values(?,?)";
-        Object[] params = {u.getUsername(), u.getPasswd()};
+        String sql = "insert into user(username,passwd,firstname,lastname,role) values(?,?,?,?,?)";
+        Object[] params = {u.getUsername(), u.getPasswd(), u.getFirstName(), u.getLastName(), u.getRole()};
         return ApartmentDao.getInstance().update(sql, params);
     }
 
     public static boolean delete(User u) {
         //soft delete using column 'state'
-        String sql = "update user set state=0 where id=?";
-        Object[] params = {u.getId()};
+        String sql = "update user set state=0 where username=?";
+        Object[] params = {u.getUsername()};
         return ApartmentDao.getInstance().update(sql, params);
     }
 

@@ -16,15 +16,15 @@ import java.util.List;
 public class CleaningCompUserBiz {
 
     public static boolean add(User u) {
-        String sql = "insert into user(username,password) values(?,?)";
+        String sql = "insert into user(username,passwd) values(?,?)";
         Object[] params = {u.getUsername(), u.getPasswd()};
         return CleanCompDao.getInstance().update(sql, params);
     }
 
     public static boolean delete(User u) {
         //soft delete using column 'state'
-        String sql = "update user set state=0 where id=?";
-        Object[] params = {u.getId()};
+        String sql = "update user set state=0 where username=?";
+        Object[] params = {u.getUsername()};
         return CleanCompDao.getInstance().update(sql, params);
     }
 

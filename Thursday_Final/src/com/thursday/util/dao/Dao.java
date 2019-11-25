@@ -54,7 +54,7 @@ public abstract class Dao {
     private Connection connect(String db) {
         Connection conn = null;
         String jdbcURL = "jdbc:mysql://" + DBInfo.IP + ":" + DBInfo.PORT + "/"
-                + db + "?useUnicode=true&characterEncoding=UTF8";
+                + db + "?useUnicode=true&characterEncoding=UTF8&useSSL=false";
         String jdbcDriver = "com.mysql.jdbc.Driver";
         try {
             //DbUtils中加载驱动的方法
@@ -190,6 +190,10 @@ public abstract class Dao {
         return obj;
     }
 }
+
+
+
+
 
 
 
