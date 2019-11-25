@@ -9,16 +9,17 @@ package com.thursday.business.identities;
  *
  * @author lihang
  */
-public class ApartmentUser extends User{
-    
-    public ApartmentUser(String username, char[] passwd, String name, String role) {
-        super(username, passwd, name, role);
+public class ApartmentUser extends User {
+
+    public ApartmentUser(String username, char[] passwd, String name, String last, String role) {
+        super(username, passwd, name, last, role);
     }
-    
-    public class Roles{
-        public static final String RESIDENT="RESIDENT";
-        public static final String ADMIN="ADMIN";
-        public static final String REPAIRPERSON="REPAIR PERSON";
+
+    public class Roles {
+
+        public static final String RESIDENT = "RESIDENT";
+        public static final String ADMIN = "ADMIN";
+        public static final String REPAIRPERSON = "REPAIR PERSON";
     }
-    
+
 }

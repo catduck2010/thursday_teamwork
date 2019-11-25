@@ -11,12 +11,14 @@ package com.thursday.business.identities;
  */
 public class User extends AbstractUser {
 
-    private String name;
+    private String firstName;
+    private String lastName;
     private String role;
 
-    public User(String username, char[] passwd, String name, String role) {
+    public User(String username, char[] passwd, String name, String last, String role) {
         super(username, passwd);
-        this.name = name;
+        this.firstName = name;
+        this.lastName = last;
         this.role = role;
     }
 

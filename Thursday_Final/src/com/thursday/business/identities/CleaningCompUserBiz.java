@@ -38,5 +38,5 @@ public class CleaningCompUserBiz {
         Object[] params = {username};
         return (User) CleanCompDao.getInstance().get(sql, User.class, params);
     }
-
+    
 }
