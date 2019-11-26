@@ -28,6 +28,13 @@ public class ApartmentUserBiz {
         return ApartmentDao.getInstance().update(sql, params);
     }
 
+    public static boolean update(User u) {
+        //soft delete using column 'state'
+        String sql = "update user set username=?, passwd=?, firstname=?, lastname=?, role=? where id=?";
+        Object[] params = {u.getUsername(), u.getPasswd(), u.getFirstName(), u.getLastName(), u.getRole(), u.getId()};
+        return ApartmentDao.getInstance().update(sql, params);
+    }
+
     public static List getAll() {
         String sql = "select * from user where state=1";
         return ApartmentDao.getInstance().query(sql, User.class);

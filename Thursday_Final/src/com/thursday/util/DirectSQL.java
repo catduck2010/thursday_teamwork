@@ -18,7 +18,7 @@ public class DirectSQL {
         //User u=new ApartmentUser("admin", "admin".toCharArray(), "Zero", "Administrator", "ADMIN");
         //ApartmentUserBiz.add(u);
         User u=ApartmentUserBiz.getUser("admin");
-        System.out.println(u.getPasswd());
+        System.out.println(u.getId());
         System.out.println(u.authenticate("admin".toCharArray()));
     }
 }

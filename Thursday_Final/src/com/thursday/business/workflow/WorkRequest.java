@@ -30,7 +30,7 @@ public abstract class WorkRequest {
 
     }
 
-    public WorkRequest() {
+    public WorkRequest(String[] args) {
         requestDate = new Date();
     }
 
@@ -114,5 +114,9 @@ public abstract class WorkRequest {
 
     public void setResolveDate(Date resolveDate) {
         this.resolveDate = resolveDate;
+    }
+    
+    public WorkRequest(){
+        
     }
 }

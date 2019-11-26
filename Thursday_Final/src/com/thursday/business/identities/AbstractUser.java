@@ -12,7 +12,7 @@ import com.thursday.util.PasswordUtil;
  * @author lihang
  */
 public abstract class AbstractUser {
-
+    private Integer id;
     private String username;
     private String passwd;
 
@@ -24,6 +24,14 @@ public abstract class AbstractUser {
     public AbstractUser(String username, char[] passwd) {
         this.username = username;
         this.passwd = PasswordUtil.hash(passwd);
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
 
