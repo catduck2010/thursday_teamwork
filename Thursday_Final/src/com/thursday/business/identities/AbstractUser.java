@@ -20,7 +20,7 @@ public abstract class AbstractUser {
 
     }
 
-    ;
+    
     public AbstractUser(String username, char[] passwd) {
         this.username = username;
         this.passwd = PasswordUtil.hash(passwd);

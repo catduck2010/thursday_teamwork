@@ -23,7 +23,7 @@ public class User extends AbstractUser {
     }
 
     public User() {
-
+        super();
     }
 
     public String getFirstName() {

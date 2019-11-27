@@ -21,5 +21,6 @@ public class DirectSQL {
         //User u=CleaningCompUserBiz.getUser("admin");
         //CleaningCompUserBiz.add(u);
         System.out.println(ApartmentUser.existUsername("admin"));
+        //System.out.println(ApartmentUser.Roles.ADMIN);
     }
 }

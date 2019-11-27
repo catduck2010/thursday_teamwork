@@ -22,11 +22,11 @@ public class ApartmentUser extends User {
         public static final String RESIDENT = "RESIDENT";
         public static final String ADMIN = "ADMIN";
         public static final String REPAIRPERSON = "REPAIR PERSON";
-        
+
     }
-    
+
     public static boolean existUsername(String uname) {
-        return ApartmentUserBiz.getUser(uname)!=null;
+        return ApartmentUserBiz.getUser(uname) != null;
     }
-    
+
 }
