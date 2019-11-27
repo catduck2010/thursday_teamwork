@@ -9,10 +9,16 @@ package com.thursday.business.identities;
  *
  * @author lihang
  */
-public class CleaningCompUser extends User{
-    
+public class CleaningCompUser extends User {
+
     public CleaningCompUser(String username, char[] passwd, String name, String last, String role) {
         super(username, passwd, name, last, role);
     }
-    
+
+    public class Role {
+
+        public static final String CLEANER = "CLEANER";
+        public static final String HR = "HUMAN RESOURCES";
+        public static final String SCHEDULER = "SCHEDULE MAKER";
+    }
 }

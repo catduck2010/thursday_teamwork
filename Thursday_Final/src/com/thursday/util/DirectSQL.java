@@ -7,6 +7,8 @@ package com.thursday.util;
 
 import com.thursday.business.identities.ApartmentUser;
 import com.thursday.business.identities.ApartmentUserBiz;
+import com.thursday.business.identities.CleaningCompUser;
+import com.thursday.business.identities.CleaningCompUserBiz;
 import com.thursday.business.identities.User;
 
 /**
@@ -15,10 +17,9 @@ import com.thursday.business.identities.User;
  */
 public class DirectSQL {
     public static void main(String[] args){
-        //User u=new ApartmentUser("admin", "admin".toCharArray(), "Zero", "Administrator", "ADMIN");
-        //ApartmentUserBiz.add(u);
-        User u=ApartmentUserBiz.getUser("admin");
-        System.out.println(u.getId());
+        //User u=new CleaningCompUser("admin", "admin".toCharArray(), "Zero", "Administrator", "ADMIN");
+        User u=CleaningCompUserBiz.getUser("admin");
+        //CleaningCompUserBiz.add(u);
         System.out.println(u.authenticate("admin".toCharArray()));
     }
 }
