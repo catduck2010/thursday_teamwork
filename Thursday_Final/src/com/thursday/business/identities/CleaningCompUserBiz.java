@@ -6,6 +6,7 @@
 package com.thursday.business.identities;
 
 
+import static com.thursday.business.identities.ApartmentUserBiz.getAll;
 import com.thursday.util.dao.CleanCompDao;
 import java.util.List;
 
@@ -39,4 +40,26 @@ public class CleaningCompUserBiz {
         return (User) CleanCompDao.getInstance().get(sql, User.class, params);
     }
 
+    
+/*    
+    public void addCleaningComp(CleaningCompUser c) {
+        CleaningCompUserBiz.add(c);
+    }
+   
+    public ApartmentUser addApartment(String uname, String pw,) {
+        ApartmentUser a = new ApartmentUser(uname, pw);
+        apartmentList.add(a);
+        return a;
+    }
+
+    public void deleteAdmin(CleaningCompUser c) {
+        CleaningCompUserBiz.delete(c);
+    }
+
+*/
+    public boolean isEmpty() {
+        return getAll().isEmpty();
+    }
+  
+    
 }

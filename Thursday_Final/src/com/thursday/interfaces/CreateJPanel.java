@@ -5,6 +5,10 @@
  */
 package com.thursday.interfaces;
 
+import com.thursday.business.identities.ApartmentUserBiz;
+import com.thursday.business.identities.CleaningCompUserBiz;
+import javax.swing.JPanel;
+
 /**
  *
  * @author CHEN JIEYING
@@ -14,8 +18,15 @@ public class CreateJPanel extends javax.swing.JPanel {
     /**
      * Creates new form CreateJPanel
      */
-    public CreateJPanel() {
+    private JPanel rightPanel;
+    private ApartmentUserBiz apBiz;
+    private CleaningCompUserBiz ccBiz;
+    
+    public CreateJPanel(JPanel rightPanel, ApartmentUserBiz apBiz, CleaningCompUserBiz ccBiz) {
         initComponents();
+        this.rightPanel = rightPanel;
+        this.apBiz = apBiz;
+        this.ccBiz = ccBiz;
     }
 
     /**
@@ -41,6 +52,8 @@ public class CreateJPanel extends javax.swing.JPanel {
         fnameTxt = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         lnameTxt = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        usernameTxt = new javax.swing.JTextField();
 
         backBtn.setText("< back");
 
@@ -67,6 +80,8 @@ public class CreateJPanel extends javax.swing.JPanel {
 
         jLabel6.setText("Last Name");
 
+        jLabel1.setText("Username");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -74,17 +89,13 @@ public class CreateJPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(270, 270, 270)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cleaningCompanyRBtn)
-                            .addComponent(apartmentRBtn)))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(285, 285, 285)
                         .addComponent(jButton1))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(24, 24, 24)
-                        .addComponent(backBtn)
-                        .addGap(40, 40, 40)
+                        .addComponent(backBtn))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(169, 169, 169)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -93,25 +104,38 @@ public class CreateJPanel extends javax.swing.JPanel {
                                     .addComponent(jLabel4))
                                 .addGap(52, 52, 52)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jComboBox1, 0, 184, Short.MAX_VALUE)
+                                    .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(passwordTxt)
-                                    .addComponent(comfirmPwdTxt)))
+                                    .addComponent(comfirmPwdTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jLabel1))
                                 .addGap(88, 88, 88)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(lnameTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
-                                    .addComponent(fnameTxt))))))
-                .addContainerGap(221, Short.MAX_VALUE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(usernameTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(lnameTxt)
+                                        .addComponent(fnameTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(266, 266, 266)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cleaningCompanyRBtn)
+                            .addComponent(apartmentRBtn))))
+                .addContainerGap(203, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(26, 26, 26)
                 .addComponent(backBtn)
-                .addGap(30, 30, 30)
+                .addGap(60, 60, 60)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(usernameTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addGap(31, 31, 31)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(fnameTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -131,13 +155,13 @@ public class CreateJPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(comfirmPwdTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(50, 50, 50)
+                .addGap(34, 34, 34)
                 .addComponent(apartmentRBtn)
                 .addGap(18, 18, 18)
                 .addComponent(cleaningCompanyRBtn)
-                .addGap(61, 61, 61)
+                .addGap(38, 38, 38)
                 .addComponent(jButton1)
-                .addContainerGap(72, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -154,6 +178,7 @@ public class CreateJPanel extends javax.swing.JPanel {
     private javax.swing.JTextField fnameTxt;
     private javax.swing.JButton jButton1;
     private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -161,5 +186,6 @@ public class CreateJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JTextField lnameTxt;
     private javax.swing.JTextField passwordTxt;
+    private javax.swing.JTextField usernameTxt;
     // End of variables declaration//GEN-END:variables
 }

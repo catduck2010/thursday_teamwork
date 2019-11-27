@@ -7,13 +7,14 @@ package com.thursday.business.identities;
 
 import com.thursday.util.dao.ApartmentDao;
 import com.thursday.util.dao.Dao;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  *
  * @author lihang
  */
-public class ApaermentUserBiz {
+public class ApartmentUserBiz {
 
     public static boolean add(User u) {
         String sql = "insert into user(username,password) values(?,?)";
@@ -38,5 +39,29 @@ public class ApaermentUserBiz {
         Object[] params = {username};
         return (User) ApartmentDao.getInstance().get(sql, User.class, params);
     }
+    
+    
+    
+   
+    
+    public void addApartment(ApartmentUser a) {
+        ApartmentUserBiz.add(a);
+    }
+/*    
+    public ApartmentUser addApartment(String uname, String pw,) {
+        ApartmentUser a = new ApartmentUser(uname, pw);
+        apartmentList.add(a);
+        return a;
+    }
+*/
+    public void deleteAdmin(ApartmentUser a) {
+        ApartmentUserBiz.delete(a);
+    }
+
+
+    public boolean isEmpty() {
+        return getAll().isEmpty();
+    }
+    
 
 }
