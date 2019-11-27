@@ -23,7 +23,7 @@ public class User extends AbstractUser {
     }
 
     public User() {
-
+        super();
     }
 
     public String getFirstName() {
@@ -54,4 +54,5 @@ public class User extends AbstractUser {
         return "User{" + getUsername() + " " + role + firstName + lastName
                 + "}";
     }
+    
 }
