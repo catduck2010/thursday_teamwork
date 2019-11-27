@@ -12,18 +12,29 @@ import com.thursday.util.PasswordUtil;
  * @author lihang
  */
 public abstract class AbstractUser {
-    private String id;
+    private Integer id;
     private String username;
     private String passwd;
 
+    public AbstractUser() {
+
+    }
+
+    ;
     public AbstractUser(String username, char[] passwd) {
         this.username = username;
         this.passwd = PasswordUtil.hash(passwd);
     }
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+
 
     public String getPasswd() {
         return passwd;
@@ -37,7 +48,11 @@ public abstract class AbstractUser {
         this.username = username;
     }
 
-    public boolean setPasswd(char[] oldpw, char[] newpw) {
+    public void setPasswd(String pw) {
+        this.passwd = pw;
+    }
+
+    public boolean resetPasswd(char[] oldpw, char[] newpw) {
         if (this.authenticate(oldpw)) {
             this.passwd = PasswordUtil.hash(newpw);
             return true;
@@ -48,6 +63,5 @@ public abstract class AbstractUser {
     public boolean authenticate(char[] passwd) {
         return PasswordUtil.authenticate(passwd, this.passwd);
     }
-    
-    
+
 }

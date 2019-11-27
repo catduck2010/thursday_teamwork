@@ -5,8 +5,6 @@
  */
 package com.thursday.business.identities;
 
-
-import static com.thursday.business.identities.ApartmentUserBiz.getAll;
 import com.thursday.util.dao.CleanCompDao;
 import java.util.List;
 
@@ -17,15 +15,15 @@ import java.util.List;
 public class CleaningCompUserBiz {
 
     public static boolean add(User u) {
-        String sql = "insert into user(username,password) values(?,?)";
-        Object[] params = {u.getUsername(), u.getPasswd()};
+        String sql = "insert into user(username,passwd,firstname,lastname,role) values(?,?,?,?,?)";
+        Object[] params = {u.getUsername(), u.getPasswd(), u.getFirstName(), u.getLastName(), u.getRole()};
         return CleanCompDao.getInstance().update(sql, params);
     }
 
     public static boolean delete(User u) {
         //soft delete using column 'state'
-        String sql = "update user set state=0 where id=?";
-        Object[] params = {u.getId()};
+        String sql = "update user set state=0 where username=?";
+        Object[] params = {u.getUsername()};
         return CleanCompDao.getInstance().update(sql, params);
     }
 
@@ -38,6 +36,11 @@ public class CleaningCompUserBiz {
         String sql = "select * from user where username=? and state=1";
         Object[] params = {username};
         return (User) CleanCompDao.getInstance().get(sql, User.class, params);
+    }
+    
+    public static List getAllUsernames(){
+        String sql="select username from user where state=1";
+        return CleanCompDao.getInstance().query(sql, String.class);
     }
 
     

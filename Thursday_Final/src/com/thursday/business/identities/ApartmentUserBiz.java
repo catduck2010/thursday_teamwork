@@ -17,15 +17,22 @@ import java.util.List;
 public class ApartmentUserBiz {
 
     public static boolean add(User u) {
-        String sql = "insert into user(username,password) values(?,?)";
-        Object[] params = {u.getUsername(), u.getPasswd()};
+        String sql = "insert into user(username,passwd,firstname,lastname,role) values(?,?,?,?,?)";
+        Object[] params = {u.getUsername(), u.getPasswd(), u.getFirstName(), u.getLastName(), u.getRole()};
         return ApartmentDao.getInstance().update(sql, params);
     }
 
     public static boolean delete(User u) {
         //soft delete using column 'state'
-        String sql = "update user set state=0 where id=?";
-        Object[] params = {u.getId()};
+        String sql = "update user set state=0 where username=?";
+        Object[] params = {u.getUsername()};
+        return ApartmentDao.getInstance().update(sql, params);
+    }
+
+    public static boolean update(User u) {
+        //soft delete using column 'state'
+        String sql = "update user set username=?, passwd=?, firstname=?, lastname=?, role=? where id=?";
+        Object[] params = {u.getUsername(), u.getPasswd(), u.getFirstName(), u.getLastName(), u.getRole(), u.getId()};
         return ApartmentDao.getInstance().update(sql, params);
     }
 
@@ -63,5 +70,9 @@ public class ApartmentUserBiz {
         return getAll().isEmpty();
     }
     
+    public static List getAllUsernames(){
+        String sql="select username from user where state=1";
+        return ApartmentDao.getInstance().query(sql, String.class);
+    }
 
 }

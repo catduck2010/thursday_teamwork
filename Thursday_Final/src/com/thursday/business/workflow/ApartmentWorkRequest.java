@@ -9,8 +9,10 @@ package com.thursday.business.workflow;
  *
  * @author lihang
  */
-public class ApartmentWorkRequest extends WorkRequest{
-    public WorkRequest sendRequest(){
+public class ApartmentWorkRequest extends WorkRequest {
+
+    public WorkRequest sendRequest() {
         return this;
     }
+
 }
