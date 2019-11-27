@@ -5,6 +5,8 @@
  */
 package com.thursday.business.identities;
 
+import java.util.List;
+
 /**
  *
  * @author lihang
@@ -20,5 +22,9 @@ public class CleaningCompUser extends User {
         public static final String CLEANER = "CLEANER";
         public static final String HR = "HUMAN RESOURCES";
         public static final String SCHEDULER = "SCHEDULE MAKER";
+    }
+
+    public static boolean existUsername(String uname) {
+        return CleaningCompUserBiz.getUser(uname)!=null;
     }
 }

@@ -18,8 +18,8 @@ import com.thursday.business.identities.User;
 public class DirectSQL {
     public static void main(String[] args){
         //User u=new CleaningCompUser("admin", "admin".toCharArray(), "Zero", "Administrator", "ADMIN");
-        User u=CleaningCompUserBiz.getUser("admin");
+        //User u=CleaningCompUserBiz.getUser("admin");
         //CleaningCompUserBiz.add(u);
-        System.out.println(u.authenticate("admin".toCharArray()));
+        System.out.println(ApartmentUser.existUsername("admin"));
     }
 }

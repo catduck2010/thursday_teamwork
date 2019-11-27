@@ -5,7 +5,6 @@
  */
 package com.thursday.business.identities;
 
-
 import com.thursday.util.dao.CleanCompDao;
 import java.util.List;
 
@@ -16,8 +15,8 @@ import java.util.List;
 public class CleaningCompUserBiz {
 
     public static boolean add(User u) {
-        String sql = "insert into user(username,passwd) values(?,?)";
-        Object[] params = {u.getUsername(), u.getPasswd()};
+        String sql = "insert into user(username,passwd,firstname,lastname,role) values(?,?,?,?,?)";
+        Object[] params = {u.getUsername(), u.getPasswd(), u.getFirstName(), u.getLastName(), u.getRole()};
         return CleanCompDao.getInstance().update(sql, params);
     }
 
@@ -39,4 +38,9 @@ public class CleaningCompUserBiz {
         return (User) CleanCompDao.getInstance().get(sql, User.class, params);
     }
     
+    public static List getAllUsernames(){
+        String sql="select username from user where state=1";
+        return CleanCompDao.getInstance().query(sql, String.class);
+    }
+
 }

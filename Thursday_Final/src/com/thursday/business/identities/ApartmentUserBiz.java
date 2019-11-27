@@ -45,5 +45,10 @@ public class ApartmentUserBiz {
         Object[] params = {username};
         return (User) ApartmentDao.getInstance().get(sql, User.class, params);
     }
+    
+    public static List getAllUsernames(){
+        String sql="select username from user where state=1";
+        return ApartmentDao.getInstance().query(sql, String.class);
+    }
 
 }
