@@ -20,6 +20,7 @@ public class ApartmentUser extends User {
         public static final String RESIDENT = "RESIDENT";
         public static final String ADMIN = "ADMIN";
         public static final String REPAIRPERSON = "REPAIR PERSON";
+        
     }
-
+    
 }
