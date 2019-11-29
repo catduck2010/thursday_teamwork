@@ -5,6 +5,7 @@
 package com.thursday.business.workflow;
 
 import com.thursday.business.identities.User;
+import java.sql.Timestamp;
 import java.util.Date;
 
 /**
@@ -13,13 +14,17 @@ import java.util.Date;
  */
 public abstract class WorkRequest {
 
+    private Integer id;
     private String title;
     private String message;
-    private User sender;
-    private User receiver;
+    private Integer senderId;
+    private Integer receiverId;
+    private Integer senderCompanyId;
+    private Integer receiverCompanyId;
     private String status;
-    private Date requestDate;
-    private Date resolveDate;
+    private Timestamp requestDate;
+    private Timestamp resolveDate;
+    //use TimeStamp
 
     public class Status {
 
@@ -31,7 +36,55 @@ public abstract class WorkRequest {
     }
 
     public WorkRequest(String[] args) {
-        requestDate = new Date();
+        requestDate = new Timestamp(new Date().getTime());
+    }
+
+    public WorkRequest(String title, String message, Integer sid, Integer rid) {
+        this();
+        this.title = title;
+        this.message = message;
+        this.senderId = sid;
+        this.receiverId = rid;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getSenderId() {
+        return senderId;
+    }
+
+    public void setSenderId(Integer senderId) {
+        this.senderId = senderId;
+    }
+
+    public Integer getReceiverId() {
+        return receiverId;
+    }
+
+    public void setReceiverId(Integer receiverId) {
+        this.receiverId = receiverId;
+    }
+
+    public Integer getSenderCompanyId() {
+        return senderCompanyId;
+    }
+
+    public void setSenderCompanyId(Integer senderCompanyId) {
+        this.senderCompanyId = senderCompanyId;
+    }
+
+    public Integer getReceiverCompanyId() {
+        return receiverCompanyId;
+    }
+
+    public void setReceiverCompanyId(Integer receiverCompanyId) {
+        this.receiverCompanyId = receiverCompanyId;
     }
 
     public String getTitle() {
@@ -48,22 +101,6 @@ public abstract class WorkRequest {
 
     public void setMessage(String message) {
         this.message = message;
-    }
-
-    public User getSender() {
-        return sender;
-    }
-
-    public void setSender(User sender) {
-        this.sender = sender;
-    }
-
-    public User getReceiver() {
-        return receiver;
-    }
-
-    public void setReceiver(User receiver) {
-        this.receiver = receiver;
     }
 
     public String getStatus() {
@@ -100,23 +137,40 @@ public abstract class WorkRequest {
         }
     }
 
-    public Date getRequestDate() {
+    public Timestamp getRequestDate() {
         return requestDate;
     }
 
-    public void setRequestDate(Date requestDate) {
-        this.requestDate = requestDate;
+    public Date getDateOfRequest() {
+        return new Date(requestDate.getTime());
     }
 
-    public Date getResolveDate() {
+    public void setRequestDate(Date requestDate) {
+        this.requestDate = new Timestamp(requestDate.getTime());
+    }
+
+    public void setRequestDate(Timestamp timeStamp) {
+        this.requestDate = timeStamp;
+    }
+
+    public Timestamp getResolveDate() {
         return resolveDate;
     }
 
+    public Date getDateofResolve() {
+        return new Date(resolveDate.getTime());
+    }
+
     public void setResolveDate(Date resolveDate) {
-        this.resolveDate = resolveDate;
+        this.resolveDate = new Timestamp(resolveDate.getTime());
     }
-    
-    public WorkRequest(){
-        
+
+    public void setResolveDate(Timestamp timeStamp) {
+        this.resolveDate = timeStamp;
     }
+
+    public WorkRequest() {
+
+    }
+
 }
