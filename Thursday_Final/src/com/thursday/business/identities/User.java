@@ -54,4 +54,5 @@ public class User extends AbstractUser {
         return "User{" + getUsername() + " " + role + firstName + lastName
                 + "}";
     }
+    
 }

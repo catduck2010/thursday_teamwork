@@ -7,9 +7,11 @@ package com.thursday.interfaces;
 
 
 
+import com.thursday.business.identities.AbstractUser;
 import com.thursday.business.identities.ApartmentUserBiz;
 import com.thursday.business.identities.CleaningCompUserBiz;
 import com.thursday.business.identities.User;
+import com.thursday.util.Validator;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.event.FocusEvent;
@@ -35,8 +37,7 @@ public class LoginJPanel extends javax.swing.JPanel {
 
     private final MainFrame mFrame;
     private final JPanel rightPanel;
-    private User user;
-    private boolean noUser;
+    //private User user;
     static final String TXTPSWD_HINT = "Password";
     static char defaultChar;
     private String username;
@@ -48,6 +49,7 @@ public class LoginJPanel extends javax.swing.JPanel {
         this.apBiz = apBiz;
         this.ccBiz = ccBiz;
         this.username = username;
+        
         ItemListener il = new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
@@ -62,69 +64,13 @@ public class LoginJPanel extends javax.swing.JPanel {
         this.apartmentRBtn.addItemListener(il);
         this.cleaningCompanyRBtn.addItemListener(il);
         defaultChar = this.passwordField.getEchoChar();
-        //fillUserBox();
-        //set empty password
-//        txtPswd.setText(TXTPSWD_HINT);
-//        txtPswd.setEchoChar('\0');
-//        txtPswd.setForeground(Color.GRAY);
-
-        //set user "Administrator" default password
+     //set user "Administrator" default password
         passwordField.setText("admin");
 
         txtPswdAddListener();
     }
 
-/*    
-    private void fillUserBox() {
-        noUser = true;
 
-        if (apartmentRBtn.isSelected()) {
-            if (apartment.isEmpty()) {
-                //set no user
-                setUserBoxEmpty();
-            } else {
-                //fill the box
-                noUser = false;
-                loadBoxWithAdmins(apartment.getApartmentList());
-            }
-        } else if (cleaningCompanyRBtn.isSelected()) {
-            if (cleaningComp.isEmpty()) {
-                setUserBoxEmpty();
-            } else {
-                noUser = false;
-                loadBoxWithAirliners(cleaningComp.getCleaningCompList());
-            }
-        } else {
-
-        }
-    }
-
-    private void setUserBoxEmpty() {
-        this.boxUsers.removeAllItems();
-        this.boxUsers.addItem("No Users");
-    }
-//////////////////////////////////////////////////////////////////////////////////////////////
-    private void loadBoxWithAdmins(ArrayList<Admin> al) {
-        this.boxUsers.removeAllItems();
-        for (Admin a : al) {
-            this.boxUsers.addItem(a);
-        }
-    }
-
-    private void loadBoxWithAirliners(ArrayList<Airliner> al) {
-        this.boxUsers.removeAllItems();
-        for (Airliner a : al) {
-            this.boxUsers.addItem(a);
-        }
-    }
-
-    private void loadBoxWithCustomers(ArrayList<Customer> al) {
-        this.boxUsers.removeAllItems();
-        for (Customer a : al) {
-            this.boxUsers.addItem(a);
-        }
-    }
-*/
     private void txtPswdAddListener() {
         passwordField.addFocusListener(new FocusListener() {
             @Override
@@ -149,7 +95,7 @@ public class LoginJPanel extends javax.swing.JPanel {
         });
     }
 
-    private void grantAccess() {
+    private void grantAccess(User user) {
         if(apartmentRBtn.isSelected()){
             User u=ApartmentUserBiz.getUser(usernameTxt.getText());
             if(u.authenticate(passwordField.getPassword())){
@@ -189,10 +135,11 @@ public class LoginJPanel extends javax.swing.JPanel {
         apartmentRBtn = new javax.swing.JRadioButton();
         cleaningCompanyRBtn = new javax.swing.JRadioButton();
         jLabel3 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        loginBtn = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         usernameTxt = new javax.swing.JTextField();
         passwordField = new javax.swing.JPasswordField();
+        backBtn = new javax.swing.JButton();
 
         jLabel1.setText("Login as:");
 
@@ -205,9 +152,21 @@ public class LoginJPanel extends javax.swing.JPanel {
 
         jLabel3.setText("Password");
 
-        jButton1.setText("Login");
+        loginBtn.setText("Login");
+        loginBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                loginBtnActionPerformed(evt);
+            }
+        });
 
         jLabel5.setText("Username");
+
+        backBtn.setText("< Back");
+        backBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -233,13 +192,18 @@ public class LoginJPanel extends javax.swing.JPanel {
                             .addComponent(jLabel1)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(344, 344, 344)
-                        .addComponent(jButton1)))
+                        .addComponent(loginBtn))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(35, 35, 35)
+                        .addComponent(backBtn)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(141, 141, 141)
+                .addContainerGap()
+                .addComponent(backBtn)
+                .addGap(97, 97, 97)
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addComponent(apartmentRBtn)
@@ -254,20 +218,48 @@ public class LoginJPanel extends javax.swing.JPanel {
                     .addComponent(jLabel3)
                     .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addComponent(loginBtn)
                 .addGap(103, 103, 103))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void loginBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginBtnActionPerformed
+        // TODO add your handling code here:
+        char[] pswd = passwordField.getPassword();
+        String uname = new String(usernameTxt.getText()).trim();
+        User u = ApartmentUserBiz.getUser(uname);
+        
+        if (Validator.IsEmpty(pswd)) {
+            JOptionPane.showMessageDialog(this, "Please Enter Password", "WARNING", JOptionPane.WARNING_MESSAGE);
+        }else if(Validator.IsEmpty(uname)){
+            JOptionPane.showMessageDialog(this, "Please Enter Username", "WARNING", JOptionPane.WARNING_MESSAGE);
+        }else if(u == null){
+            JOptionPane.showMessageDialog(this, "Please Sign Up first", "WARNING", JOptionPane.WARNING_MESSAGE);         
+        }else if(u.authenticate(pswd) == false){
+            JOptionPane.showMessageDialog(this, "Wrong Password", "WARNING", JOptionPane.WARNING_MESSAGE);
+        }else{
+            grantAccess(u);
+            mFrame.setLoggedUser(u);
+        }
+    }//GEN-LAST:event_loginBtnActionPerformed
+
+    private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
+        // TODO add your handling code here:
+        CardLayout layout = (CardLayout) this.rightPanel.getLayout();
+        this.rightPanel.remove(this);
+        layout.previous(this.rightPanel);
+    }//GEN-LAST:event_backBtnActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JRadioButton apartmentRBtn;
+    private javax.swing.JButton backBtn;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JRadioButton cleaningCompanyRBtn;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JButton loginBtn;
     private javax.swing.JPasswordField passwordField;
     private javax.swing.JTextField usernameTxt;
     // End of variables declaration//GEN-END:variables
