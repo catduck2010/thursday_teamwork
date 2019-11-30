@@ -50,9 +50,15 @@ public class User extends AbstractUser {
         this.role = role;
     }
 
+    @Override
     public String toString() {
         return "User{" + getUsername() + " " + role + firstName + lastName
                 + "}";
+    }
+
+    @Override
+    public String getUserType() {
+        return "User";
     }
     
 }

@@ -17,19 +17,35 @@ public class Task {
     private Integer id;
     private String title;
     private String message;
+    private String creator;
     private Timestamp createTime;
     private Timestamp resolveTime;
     private String status;
 
-    public Task() {
+    public class Status {
+
+        public static final String PENDING = "PENDING";
+        public static final String WORKING = "WORKING";
+        public static final String FINISHED = "FINISHED";
+        public static final String WAIT_FOR_RESPONSE = "WAIT_FOR_RESPONSE";
 
     }
 
-    public Task(String title, String message) {
+    public Task(String title, String message, String creator) {
         this();
         this.title = title;
         this.message = message;
+        this.creator = creator;
         this.createTime = new Timestamp(new Date().getTime());
+        this.status = Status.PENDING;
+    }
+
+    public String getCreator() {
+        return creator;
+    }
+
+    public void setCreator(String creator) {
+        this.creator = creator;
     }
 
     public Integer getId() {
@@ -78,6 +94,10 @@ public class Task {
 
     public void setResolveTime(Timestamp resolveTime) {
         this.resolveTime = resolveTime;
+    }
+
+    public Task() {
+
     }
 
 }

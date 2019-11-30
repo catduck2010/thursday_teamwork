@@ -26,7 +26,18 @@ public class ApartmentUser extends User {
     }
 
     public static boolean existUsername(String uname) {
-        return ApartmentUserBiz.getUser(uname) != null;
+        return UserBiz.getUser(uname) != null;
+    }
+    
+    @Override
+    public String toString() {
+        return "ApartmentUser{" + getUsername() + " " + getRole() + getFirstName() + getLastName()
+                + "}";
+    }
+
+    @Override
+    public String getUserType() {
+        return "ApartmentUser";
     }
 
 }

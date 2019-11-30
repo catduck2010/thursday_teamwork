@@ -14,35 +14,56 @@ import java.util.List;
  */
 public class UserDirectory {
 
-    private final List<User> userDirectory;
+    //it doesn't include any lists anymore
+    //it becomes a set of actions that manipulates users
 
-    public UserDirectory() {
-        userDirectory = new ArrayList<>();
+    public static boolean createApartmentUser(String username, char[] passwd, String name, String last, String role) {
+        User u = new ApartmentUser(username, passwd, name, last, role);
+        return UserBiz.add(u);
     }
 
-    public List<User> getUserDirectory() {
-        return userDirectory;
+    public static boolean createCleaningCompUser(String username, char[] passwd, String name, String last, String role) {
+        User u = new CleaningCompUser(username, passwd, name, last, role);
+        return UserBiz.add(u);
     }
 
-    public User authenticateUser(String uname, char[] passwd) {
-        for (User u : userDirectory) {
-            if (u.getUsername().equals(uname) && u.authenticate(passwd)) {
-                return u;
-            }
+    public static User authenticateUser(String uname, char[] passwd) {
+        User u = UserBiz.getUser(uname);
+        if (u != null && u.authenticate(passwd)) {
+            return u;
         }
         return null;
     }
-    
 
-    public boolean checkIfUsernameIsUnique(String username) {
-        if (!username.toLowerCase().equals(username)) {
-            return false;
+    public static boolean checkUsernameExistance(String username) {
+        return UserBiz.getUser(username) == null;
+        //true: username available
+        //false: username exists
+    }
+
+    public static boolean isApartmentUser(User u) {
+        String role = u.getRole();
+        switch (role) {
+            case ApartmentUser.Roles.ADMIN:
+                return true;
+            case ApartmentUser.Roles.REPAIRPERSON:
+                return true;
+            case ApartmentUser.Roles.RESIDENT:
+                return true;
         }
-        for (User u : userDirectory) {
-            if (u.getUsername().toLowerCase().equals(username)) {
-                return false;
-            }
+        return false;
+    }
+
+    public static boolean isCleaningCompUser(User u) {
+        String role = u.getRole();
+        switch (role) {
+            case CleaningCompUser.Roles.CLEANER:
+                return true;
+            case CleaningCompUser.Roles.HR:
+                return true;
+            case CleaningCompUser.Roles.SCHEDULER:
+                return true;
         }
-        return true;
+        return false;
     }
 }

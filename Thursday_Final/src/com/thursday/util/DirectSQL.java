@@ -6,21 +6,40 @@
 package com.thursday.util;
 
 import com.thursday.business.identities.ApartmentUser;
-import com.thursday.business.identities.ApartmentUserBiz;
+import com.thursday.business.identities.UserBiz;
 import com.thursday.business.identities.CleaningCompUser;
-import com.thursday.business.identities.CleaningCompUserBiz;
+import com.thursday.business.identities.CleaningCompUser;
 import com.thursday.business.identities.User;
+import com.thursday.business.identities.UserDirectory;
+import com.thursday.business.workflow.WorkRequest;
+import com.thursday.business.workflow.Task;
+import com.thursday.business.workflow.TaskBiz;
+import com.thursday.business.workflow.AbstractWorkRequest;
+import com.thursday.business.workflow.WorkRequestBiz;
+import java.sql.Timestamp;
+import java.util.Date;
 
 /**
  *
  * @author lihang
  */
 public class DirectSQL {
-    public static void main(String[] args){
-        //User u=new CleaningCompUser("admin", "admin".toCharArray(), "Zero", "Administrator", "ADMIN");
+
+    public static void main(String[] args) {
+        User u=new User("admin", "admin".toCharArray(), "Zero", "Administrator", "ADMIN");
+        System.out.println(u.getUserType());
+        u=UserDirectory.convertUser(u);
+        System.out.println(u.getUserType());
         //User u=CleaningCompUserBiz.getUser("admin");
         //CleaningCompUserBiz.add(u);
-        System.out.println(ApartmentUser.existUsername("admin"));
+        
+        //System.out.println(TaskBiz.update(t));
         //System.out.println(ApartmentUser.Roles.ADMIN);
+//        WorkRequest wr = new WorkRequest(1,"Hello","again","admin","123");
+//        System.out.println(WorkRequestBiz.add(wr));
+//        wr=WorkRequestBiz
+//        System.out.println(wr.getIsRead());
+//        wr.markRead();
+//        System.out.println(WorkRequestBiz.update(wr));
     }
 }

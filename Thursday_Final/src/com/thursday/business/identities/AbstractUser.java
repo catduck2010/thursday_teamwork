@@ -63,5 +63,7 @@ public abstract class AbstractUser {
     public boolean authenticate(char[] passwd) {
         return PasswordUtil.authenticate(passwd, this.passwd);
     }
+    
+    public abstract String getUserType();
 
 }

@@ -11,11 +11,11 @@ import com.thursday.util.DBInfo;
  *
  * @author lihang
  */
-public class CleanCompDao extends Dao {
+public class CleanCompDao extends AbstractDao {
 
-    private static Dao dao;
+    private static AbstractDao dao;
 
-    public static Dao getInstance() {
+    public static AbstractDao getInstance() {
         if (dao == null) {
             dao = new CleanCompDao();
         }

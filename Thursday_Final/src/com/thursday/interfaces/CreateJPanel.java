@@ -6,10 +6,10 @@
 package com.thursday.interfaces;
 
 import com.thursday.business.identities.ApartmentUser;
-import com.thursday.business.identities.ApartmentUserBiz;
 import com.thursday.business.identities.CleaningCompUser;
-import com.thursday.business.identities.CleaningCompUserBiz;
+import com.thursday.business.identities.UserBiz;
 import com.thursday.business.identities.User;
+import com.thursday.business.identities.UserDirectory;
 import com.thursday.util.Validator;
 import java.awt.Color;
 import java.awt.event.ItemEvent;
@@ -29,15 +29,13 @@ public class CreateJPanel extends javax.swing.JPanel {
      * Creates new form CreateJPanel
      */
     private JPanel rightPanel;
-    private ApartmentUserBiz apBiz;
-    private CleaningCompUserBiz ccBiz;
+    private UserBiz uBiz;
  
     
-    public CreateJPanel(JPanel rightPanel, ApartmentUserBiz apBiz, CleaningCompUserBiz ccBiz) {
+    public CreateJPanel(JPanel rightPanel, UserBiz apBiz) {
         initComponents();
         this.rightPanel = rightPanel;
-        this.apBiz = apBiz;
-        this.ccBiz = ccBiz;
+        this.uBiz = apBiz;
         
                 
         ItemListener il = new ItemListener() {
@@ -50,9 +48,9 @@ public class CreateJPanel extends javax.swing.JPanel {
                     roleComboBox.addItem(ApartmentUser.Roles.RESIDENT);
                 }else if(cleaningCompanyRBtn.isSelected()){
                     roleComboBox.removeAllItems();
-                    roleComboBox.addItem(CleaningCompUser.Role.HR);
-                    roleComboBox.addItem(CleaningCompUser.Role.CLEANER);
-                    roleComboBox.addItem(CleaningCompUser.Role.SCHEDULER);
+                    roleComboBox.addItem(CleaningCompUser.Roles.HR);
+                    roleComboBox.addItem(CleaningCompUser.Roles.CLEANER);
+                    roleComboBox.addItem(CleaningCompUser.Roles.SCHEDULER);
                 }
             }
         };
@@ -269,21 +267,17 @@ public class CreateJPanel extends javax.swing.JPanel {
             repasswordField.setBorder(BorderFactory.createLineBorder(Color.RED));
             return;
         }
-        if (ApartmentUser.existUsername(username)
-                || CleaningCompUser.existUsername(username)) {
+        if (!UserDirectory.checkUsernameExistance(username)) {
             JOptionPane.showMessageDialog(this, "Username exists!",
                     "WARNING", JOptionPane.WARNING_MESSAGE);
             usernameTxt.setBorder(BorderFactory.createLineBorder(Color.RED));
         } else if (apartmentRBtn.isSelected()) {
-            User a = new User(username, password, firstname, lastname, role);
-            ApartmentUserBiz.add(a);
+            UserDirectory.createApartmentUser(username, password, firstname, lastname, role);
             JOptionPane.showMessageDialog(null, "Account created Successfully");
             clearAllFields();
             //toMainScreen();
         } else if (cleaningCompanyRBtn.isSelected()) {
-            User c = new User(username, password, firstname, lastname, role);
-            CleaningCompUserBiz.add(c);
- 
+            UserDirectory.createCleaningCompUser(username, password, firstname, lastname, role);
             JOptionPane.showMessageDialog(null, "Account created Successfully");
             clearAllFields();
             //toMainScreen();

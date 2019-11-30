@@ -5,12 +5,10 @@
  */
 package com.thursday.interfaces;
 
-
-
 import com.thursday.business.identities.AbstractUser;
-import com.thursday.business.identities.ApartmentUserBiz;
-import com.thursday.business.identities.CleaningCompUserBiz;
+import com.thursday.business.identities.UserBiz;
 import com.thursday.business.identities.User;
+import com.thursday.business.identities.UserDirectory;
 import com.thursday.util.Validator;
 import java.awt.CardLayout;
 import java.awt.Color;
@@ -31,9 +29,7 @@ public class LoginJPanel extends javax.swing.JPanel {
     /**
      * Creates new form LoginJPanel
      */
-    
-    private ApartmentUserBiz apBiz;
-    private CleaningCompUserBiz ccBiz;
+    private UserBiz apBiz;
 
     private final MainFrame mFrame;
     private final JPanel rightPanel;
@@ -41,15 +37,14 @@ public class LoginJPanel extends javax.swing.JPanel {
     static final String TXTPSWD_HINT = "Password";
     static char defaultChar;
     private String username;
-    
-    public LoginJPanel(MainFrame f, ApartmentUserBiz apBiz, CleaningCompUserBiz ccBiz) {
+
+    public LoginJPanel(MainFrame f, UserBiz apBiz) {
         initComponents();
         this.mFrame = f;
         this.rightPanel = f.getRightPanel();
         this.apBiz = apBiz;
-        this.ccBiz = ccBiz;
         this.username = username;
-        
+
         ItemListener il = new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
@@ -64,12 +59,11 @@ public class LoginJPanel extends javax.swing.JPanel {
         this.apartmentRBtn.addItemListener(il);
         this.cleaningCompanyRBtn.addItemListener(il);
         defaultChar = this.passwordField.getEchoChar();
-     //set user "Administrator" default password
+        //set user "Administrator" default password
         passwordField.setText("admin");
 
         txtPswdAddListener();
     }
-
 
     private void txtPswdAddListener() {
         passwordField.addFocusListener(new FocusListener() {
@@ -96,31 +90,21 @@ public class LoginJPanel extends javax.swing.JPanel {
     }
 
     private void grantAccess(User user) {
-        if(apartmentRBtn.isSelected()){
-            User u=ApartmentUserBiz.getUser(usernameTxt.getText());
-            if(u.authenticate(passwordField.getPassword())){
-                CardLayout layout = (CardLayout) this.rightPanel.getLayout();
-                AdminBarJPanel panel = new AdminBarJPanel(rightPanel,user);
-                this.rightPanel.add("AdminBarJPanel", panel);
-                layout.next(rightPanel);
-            }else{
-                JOptionPane.showMessageDialog(this, "Wrong Password", "WARNING", JOptionPane.WARNING_MESSAGE);
-            }
-        }else{
-            User u=CleaningCompUserBiz.getUser(usernameTxt.getText());
-            if(u.authenticate(passwordField.getPassword())){
-                CardLayout layout = (CardLayout) this.rightPanel.getLayout();
-                HRBarJPanel panel = new HRBarJPanel(rightPanel,user);
-                this.rightPanel.add("HRBarJPanel", panel);
-                layout.next(rightPanel);
-            }else{
-                JOptionPane.showMessageDialog(this, "Wrong Password", "WARNING", JOptionPane.WARNING_MESSAGE);
-            }
+        if (UserDirectory.isApartmentUser(user)) {
+            CardLayout layout = (CardLayout) this.rightPanel.getLayout();
+            AdminBarJPanel panel = new AdminBarJPanel(rightPanel, user);
+            this.rightPanel.add("AdminBarJPanel", panel);
+            layout.next(rightPanel);
+
+        } else if (UserDirectory.isCleaningCompUser(user)) {
+            CardLayout layout = (CardLayout) this.rightPanel.getLayout();
+            HRBarJPanel panel = new HRBarJPanel(rightPanel, user);
+            this.rightPanel.add("HRBarJPanel", panel);
+            layout.next(rightPanel);
         }
-        
+
     }
 
-  
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -227,17 +211,18 @@ public class LoginJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         char[] pswd = passwordField.getPassword();
         String uname = new String(usernameTxt.getText()).trim();
-        User u = ApartmentUserBiz.getUser(uname);
-        
+        //User u = UserBiz.getUser(uname);
+
         if (Validator.IsEmpty(pswd)) {
             JOptionPane.showMessageDialog(this, "Please Enter Password", "WARNING", JOptionPane.WARNING_MESSAGE);
-        }else if(Validator.IsEmpty(uname)){
+        } else if (Validator.IsEmpty(uname)) {
             JOptionPane.showMessageDialog(this, "Please Enter Username", "WARNING", JOptionPane.WARNING_MESSAGE);
-        }else if(u == null){
-            JOptionPane.showMessageDialog(this, "Please Sign Up first", "WARNING", JOptionPane.WARNING_MESSAGE);         
-        }else if(u.authenticate(pswd) == false){
-            JOptionPane.showMessageDialog(this, "Wrong Password", "WARNING", JOptionPane.WARNING_MESSAGE);
-        }else{
+        }
+        User u = UserDirectory.authenticateUser(usernameTxt.getText(), passwordField.getPassword());
+        if (u == null) {
+            JOptionPane.showMessageDialog(this, "Incorrect Username or Password", "WARNING", JOptionPane.WARNING_MESSAGE);
+        } else {
+            System.out.println("pass");
             grantAccess(u);
             mFrame.setLoggedUser(u);
         }

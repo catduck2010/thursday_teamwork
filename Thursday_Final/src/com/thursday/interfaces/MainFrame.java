@@ -9,8 +9,8 @@ import com.thursday.business.enterprise.Apartment;
 
 import com.thursday.business.enterprise.CleaningCompany;
 
-import com.thursday.business.identities.ApartmentUserBiz;
-import com.thursday.business.identities.CleaningCompUserBiz;
+import com.thursday.business.identities.UserBiz;
+import com.thursday.business.identities.CleaningCompUser;
 import com.thursday.business.identities.User;
 import com.thursday.util.PasswordUtil;
 import java.util.*;
@@ -33,8 +33,8 @@ public class MainFrame extends javax.swing.JFrame {
     //private ApartmentList ap;
     //private CleaningCompanyList cc;
     
-    private ApartmentUserBiz apBiz;
-    private CleaningCompUserBiz ccBiz;
+    private UserBiz apBiz;
+    private CleaningCompUser ccBiz;
     private User loggedUser = null;
     private boolean loggedIn = false;
        
@@ -187,7 +187,7 @@ public class MainFrame extends javax.swing.JFrame {
         CardLayout layout = (CardLayout) this.rightPanel.getLayout();
         if (!loggedIn) {
             LoginJPanel panel = new LoginJPanel(
-                    this, apBiz, ccBiz);
+                    this, apBiz);
             this.rightPanel.add("LoginJPanel", panel);
             layout.next(rightPanel);
             //loggedIn=true;
@@ -201,7 +201,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void signUpBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signUpBtnActionPerformed
         // TODO add your handling code here:
-        CreateJPanel panel = new CreateJPanel(rightPanel, apBiz,ccBiz);
+        CreateJPanel panel = new CreateJPanel(rightPanel, apBiz);
         rightPanel.add("UserCreatePanel", panel);
         CardLayout layout = (CardLayout) rightPanel.getLayout();
         layout.next(rightPanel);
