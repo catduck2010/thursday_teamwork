@@ -142,7 +142,7 @@ public abstract class WorkRequest {
     }
 
     public Date getDateOfRequest() {
-        return new Date(requestDate.getTime());
+        return requestDate != null ? new Date(requestDate.getTime()) : null;
     }
 
     public void setRequestDate(Date requestDate) {
@@ -158,7 +158,7 @@ public abstract class WorkRequest {
     }
 
     public Date getDateofResolve() {
-        return new Date(resolveDate.getTime());
+        return resolveDate != null ? new Date(resolveDate.getTime()) : null;
     }
 
     public void setResolveDate(Date resolveDate) {
