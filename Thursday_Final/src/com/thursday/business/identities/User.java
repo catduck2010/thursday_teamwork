@@ -5,7 +5,7 @@
  */
 package com.thursday.business.identities;
 
-import com.thursday.business.WorkRequestDirectory;
+import com.thursday.business.WorkFlow;
 import com.thursday.business.workflow.Task;
 import com.thursday.util.db.TaskBiz;
 import com.thursday.util.db.WorkRequestBiz;
@@ -57,20 +57,20 @@ public class User extends AbstractUser {
     }
 
     //database related actions
-    public boolean sendRequest(String to, String title, String message, Integer taskId) {
-        return WorkRequestDirectory.createRequest(taskId, title, message, this.getUsername(), to);
+    public boolean sendRequest(String toUser, String title, String message, Integer taskId) {
+        return WorkFlow.createRequest(taskId, title, message, this.getUsername(), toUser);
     }
 
-    public boolean createTask(String admin, String title, String message) {
+    public boolean createTask(String toAdmin, String title, String message) {
         if (!role.equals(ApartmentUser.Roles.RESIDENT)) {
             return false;
             //only residents can create tasks
         }
-        Task t = WorkRequestDirectory.createTask(this.getUsername(), title, message);
-        return (t != null) ? sendRequest(admin, title, message, t.getId()) : false;
+        Task t = WorkFlow.createTask(this.getUsername(), title, message);
+        return (t != null) ? sendRequest(toAdmin, title, message, t.getId()) : false;
     }
 
-    public List getRequests() {
+    public List getMyRequests() {
         return WorkRequestBiz.getAllWorkRequests(this.getUsername());
     }
 

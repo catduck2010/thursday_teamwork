@@ -46,7 +46,7 @@ public class TaskBiz {
     }
 
     public static Task getLatestTask(String username) {
-        String sql="select * from task where creator=? order by id desc limit 1";
+        String sql="select * from task where creator=? and state=1 order by id desc limit 1";
         Object[] params = {username};
         return (Task)Dao.getInstance().get(sql, Task.class, params);
     }

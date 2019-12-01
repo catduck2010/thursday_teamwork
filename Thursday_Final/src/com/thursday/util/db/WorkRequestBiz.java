@@ -37,19 +37,26 @@ public class WorkRequestBiz {
     }
 
     public static WorkRequest getWorkRequest(Integer id) {
-        String sql = "select * from workrequest where id=?";
+        String sql = "select * from workrequest where id=? and state=1";
         Object[] params = {id};
         return (WorkRequest) Dao.getInstance().get(sql, WorkRequest.class, params);
     }
 
+    public static boolean deleteRelatedWorkRequests(Integer taskId) {
+        String sql = "update workrequest set state=0 where taskid=? and state=1";
+        Object[] params = {taskId};
+        return Dao.getInstance().update(sql, params);
+    }
+
     public static WorkRequest getLatestWorkRequest(String sender) {
-        String sql = "select * from task where sender=? order by id desc limit 1";
+        String sql = "select * from workrequest where sender=? and state=1 "
+                + "order by id desc limit 1";
         Object[] params = {sender};
         return (WorkRequest) Dao.getInstance().get(sql, WorkRequest.class, params);
     }
 
     public static List getAllWorkRequests(String receiver) {
-        String sql = "select * from task where receiver=?";
+        String sql = "select * from workrequest where receiver=? and state=1";
         Object[] params = {receiver};
         return Dao.getInstance().query(sql, WorkRequest.class, params);
     }

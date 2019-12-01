@@ -10,13 +10,25 @@ package com.thursday.business.enterprise;
  * @author lihang
  */
 public class Company {
+
     private Integer id;
     private String companyName;
     private String type;
-    
-    public class Type{
-        public final static String APARTMENT="APT";
-        public final static String CLEANING="CLC";
+
+    public class Type {
+
+        public final static String APARTMENT = "APT";
+        public final static String CLEANING = "CLC";
+    }
+
+    public Company(String name, String type) {
+        this();
+        this.companyName = name;
+        this.type = type;
+    }
+
+    public Company() {
+
     }
 
     public Integer getId() {
@@ -42,6 +54,10 @@ public class Company {
     public void setType(String type) {
         this.type = type;
     }
-    
-    
+
+    @Override
+    public String toString() {
+        return this.getCompanyName();
+    }
+
 }

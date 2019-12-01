@@ -38,11 +38,19 @@ public class UserDirectory {
         }
         return null;
     }
+    
+    public static boolean updateUser(User u){
+        return UserBiz.update(u);
+    }
+    
+    public static boolean deleteUser(User u){
+        return UserBiz.delete(u);
+    }
 
     public static boolean checkUsernameExistance(String username) {
-        return UserBiz.getUser(username) == null;
-        //true: username available
-        //false: username exists
+        return UserBiz.getUser(username) != null;
+        //false: username available
+        //true: username exists
     }
 
     public static boolean isApartmentUser(User u) {

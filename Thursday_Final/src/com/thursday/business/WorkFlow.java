@@ -9,12 +9,13 @@ import com.thursday.business.workflow.Task;
 import com.thursday.util.db.TaskBiz;
 import com.thursday.business.workflow.WorkRequest;
 import com.thursday.util.db.WorkRequestBiz;
+import java.util.List;
 
 /**
  *
  * @author lihang
  */
-public class WorkRequestDirectory {
+public class WorkFlow {
 
     public static boolean createRequest(int taskId, String title, String message, String from, String to) {
         WorkRequest wr = new WorkRequest(taskId, title, message, from, to);
@@ -28,6 +29,31 @@ public class WorkRequestDirectory {
         }
         return null;
     }
-    
-    
+
+    public static boolean deleteTask(Task t) {
+        boolean okay = WorkRequestBiz.deleteRelatedWorkRequests(t.getId());
+        return TaskBiz.delete(t) && okay;
+    }
+
+    public static boolean updateTask(Task t) {
+        return TaskBiz.update(t);
+    }
+
+    public static boolean markAsRead(WorkRequest wr) {
+        wr.markRead();
+        return updateWorkRequest(wr);
+    }
+
+    public static boolean markAsUnread(WorkRequest wr) {
+        wr.markUnread();
+        return updateWorkRequest(wr);
+    }
+
+    public static boolean updateWorkRequest(WorkRequest wr) {
+        return WorkRequestBiz.update(wr);
+    }
+
+    public static boolean withdrawWorkRequest(WorkRequest wr) {
+        return WorkRequestBiz.delete(wr);
+    }
 }

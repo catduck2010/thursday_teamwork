@@ -267,7 +267,7 @@ public class CreateJPanel extends javax.swing.JPanel {
             repasswordField.setBorder(BorderFactory.createLineBorder(Color.RED));
             return;
         }
-        if (!UserDirectory.checkUsernameExistance(username)) {
+        if (UserDirectory.checkUsernameExistance(username)) {
             JOptionPane.showMessageDialog(this, "Username exists!",
                     "WARNING", JOptionPane.WARNING_MESSAGE);
             usernameTxt.setBorder(BorderFactory.createLineBorder(Color.RED));
