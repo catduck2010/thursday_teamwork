@@ -3,10 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.thursday.business.workflow;
+package com.thursday.util.db;
 
-import com.thursday.util.dao.Dao;
+import com.thursday.business.workflow.WorkRequest;
+import com.thursday.util.db.Dao;
 import java.sql.Timestamp;
+import java.util.List;
 
 /**
  *
@@ -15,7 +17,8 @@ import java.sql.Timestamp;
 public class WorkRequestBiz {
 
     public static boolean add(WorkRequest wr) {
-        String sql = "insert into workrequest(taskid,title,message,sender,receiver,requesttime) values(?,?,?,?,?,?)";
+        String sql = "insert into workrequest(taskid,title,message,sender,"
+                + "receiver,requesttime) values(?,?,?,?,?,?)";
         Object[] params = {wr.getTaskId(), wr.getTitle(), wr.getMessage(),
             wr.getSender(), wr.getReceiver(), wr.getRequestTime()};
         return Dao.getInstance().update(sql, params);
@@ -38,10 +41,16 @@ public class WorkRequestBiz {
         Object[] params = {id};
         return (WorkRequest) Dao.getInstance().get(sql, WorkRequest.class, params);
     }
-    
-    public static WorkRequest getLatestWorkRequest(String sender){
-        String sql="select * from task where sender=? order by id desc limit 1";
+
+    public static WorkRequest getLatestWorkRequest(String sender) {
+        String sql = "select * from task where sender=? order by id desc limit 1";
         Object[] params = {sender};
         return (WorkRequest) Dao.getInstance().get(sql, WorkRequest.class, params);
+    }
+
+    public static List getAllWorkRequests(String receiver) {
+        String sql = "select * from task where receiver=?";
+        Object[] params = {receiver};
+        return Dao.getInstance().query(sql, WorkRequest.class, params);
     }
 }

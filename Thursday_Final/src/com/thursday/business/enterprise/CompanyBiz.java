@@ -6,7 +6,7 @@
 package com.thursday.business.enterprise;
 
 import com.thursday.business.enterprise.Company;
-import com.thursday.util.dao.Dao;
+import com.thursday.util.db.Dao;
 import java.util.List;
 
 /**

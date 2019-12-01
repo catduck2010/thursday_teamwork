@@ -3,10 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.thursday.business.identities;
+package com.thursday.util.db;
 
-import com.thursday.util.dao.Dao;
-import com.thursday.util.dao.AbstractDao;
+import com.thursday.business.identities.ApartmentUser;
+import com.thursday.business.identities.User;
+import com.thursday.util.db.Dao;
+import com.thursday.util.db.AbstractDao;
 import java.util.ArrayList;
 import java.util.List;
 

@@ -7,7 +7,7 @@ package com.thursday.business.organization;
 
 
 
-import com.thursday.business.identities.UserDirectory;
+import com.thursday.business.UserDirectory;
 import com.thursday.business.role.Role;
 import com.thursday.business.workflow.WorkQueue;
 

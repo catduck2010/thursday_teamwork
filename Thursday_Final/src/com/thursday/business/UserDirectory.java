@@ -3,8 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.thursday.business.identities;
+package com.thursday.business;
 
+import com.thursday.business.identities.ApartmentUser;
+import com.thursday.business.identities.CleaningCompUser;
+import com.thursday.business.identities.User;
+import com.thursday.util.db.UserBiz;
 import java.util.ArrayList;
 import java.util.List;
 

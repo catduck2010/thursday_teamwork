@@ -5,6 +5,7 @@
  */
 package com.thursday.business.identities;
 
+import com.thursday.util.db.UserBiz;
 import java.util.List;
 
 /**

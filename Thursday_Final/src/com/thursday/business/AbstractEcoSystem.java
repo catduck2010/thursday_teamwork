@@ -11,16 +11,7 @@ package com.thursday.business;
  */
 public class AbstractEcoSystem {
 
-    private static AbstractEcoSystem business;
-
-    public static AbstractEcoSystem getInstance() {
-        if (business == null) {
-            business = new AbstractEcoSystem();
-        }
-        return business;
-    }
-
-    private AbstractEcoSystem() {
+    public AbstractEcoSystem() {
 
     }
 }

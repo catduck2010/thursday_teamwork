@@ -5,6 +5,12 @@
  */
 package com.thursday.business.identities;
 
+import com.thursday.business.WorkRequestDirectory;
+import com.thursday.business.workflow.Task;
+import com.thursday.util.db.TaskBiz;
+import com.thursday.util.db.WorkRequestBiz;
+import java.util.List;
+
 /**
  *
  * @author lihang
@@ -50,6 +56,24 @@ public class User extends AbstractUser {
         this.role = role;
     }
 
+    //database related actions
+    public boolean sendRequest(String to, String title, String message, Integer taskId) {
+        return WorkRequestDirectory.createRequest(taskId, title, message, this.getUsername(), to);
+    }
+
+    public boolean createTask(String admin, String title, String message) {
+        if (!role.equals(ApartmentUser.Roles.RESIDENT)) {
+            return false;
+            //only residents can create tasks
+        }
+        Task t = WorkRequestDirectory.createTask(this.getUsername(), title, message);
+        return (t != null) ? sendRequest(admin, title, message, t.getId()) : false;
+    }
+
+    public List getRequests() {
+        return WorkRequestBiz.getAllWorkRequests(this.getUsername());
+    }
+
     @Override
     public String toString() {
         return "User{" + getUsername() + " " + role + firstName + lastName
@@ -60,5 +84,5 @@ public class User extends AbstractUser {
     public String getUserType() {
         return "User";
     }
-    
+
 }

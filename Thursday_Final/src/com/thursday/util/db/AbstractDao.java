@@ -1,6 +1,5 @@
-package com.thursday.util.dao;
+package com.thursday.util.db;
 
-import com.thursday.util.DBInfo;
 import java.util.List;
 import java.sql.DriverManager;
 import java.sql.SQLException;

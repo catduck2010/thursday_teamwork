@@ -3,9 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.thursday.business.workflow;
+package com.thursday.util.db;
 
-import com.thursday.util.dao.Dao;
+import com.thursday.business.workflow.Task;
+import com.thursday.util.db.Dao;
 import java.util.List;
 
 /**

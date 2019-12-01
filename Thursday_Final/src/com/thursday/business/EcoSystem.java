@@ -9,10 +9,14 @@ package com.thursday.business;
  *
  * @author lihang
  */
-public class EcoSystem {
+public class EcoSystem extends AbstractEcoSystem {
+
     private static EcoSystem business;
-    
-    private EcoSystem(){
-        
+
+    public static EcoSystem getInstance() {
+        if (business == null) {
+            business = new EcoSystem();
+        }
+        return business;
     }
 }

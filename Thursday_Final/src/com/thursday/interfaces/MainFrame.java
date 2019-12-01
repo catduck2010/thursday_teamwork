@@ -9,7 +9,7 @@ import com.thursday.business.enterprise.Apartment;
 
 import com.thursday.business.enterprise.CleaningCompany;
 
-import com.thursday.business.identities.UserBiz;
+import com.thursday.util.db.UserBiz;
 import com.thursday.business.identities.CleaningCompUser;
 import com.thursday.business.identities.User;
 import com.thursday.util.PasswordUtil;

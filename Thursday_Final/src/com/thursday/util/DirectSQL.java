@@ -6,16 +6,16 @@
 package com.thursday.util;
 
 import com.thursday.business.identities.ApartmentUser;
-import com.thursday.business.identities.UserBiz;
+import com.thursday.util.db.UserBiz;
 import com.thursday.business.identities.CleaningCompUser;
 import com.thursday.business.identities.CleaningCompUser;
 import com.thursday.business.identities.User;
-import com.thursday.business.identities.UserDirectory;
+import com.thursday.business.UserDirectory;
 import com.thursday.business.workflow.WorkRequest;
 import com.thursday.business.workflow.Task;
-import com.thursday.business.workflow.TaskBiz;
+import com.thursday.util.db.TaskBiz;
 import com.thursday.business.workflow.AbstractWorkRequest;
-import com.thursday.business.workflow.WorkRequestBiz;
+import com.thursday.util.db.WorkRequestBiz;
 import java.sql.Timestamp;
 import java.util.Date;
 
@@ -28,7 +28,7 @@ public class DirectSQL {
     public static void main(String[] args) {
         User u=new User("admin", "admin".toCharArray(), "Zero", "Administrator", "ADMIN");
         System.out.println(u.getUserType());
-        u=UserDirectory.convertUser(u);
+
         System.out.println(u.getUserType());
         //User u=CleaningCompUserBiz.getUser("admin");
         //CleaningCompUserBiz.add(u);

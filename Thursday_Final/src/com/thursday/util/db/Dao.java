@@ -3,9 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.thursday.util.dao;
-
-import com.thursday.util.DBInfo;
+package com.thursday.util.db;
 
 /**
  *

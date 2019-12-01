@@ -6,9 +6,9 @@
 package com.thursday.interfaces;
 
 import com.thursday.business.identities.AbstractUser;
-import com.thursday.business.identities.UserBiz;
+import com.thursday.util.db.UserBiz;
 import com.thursday.business.identities.User;
-import com.thursday.business.identities.UserDirectory;
+import com.thursday.business.UserDirectory;
 import com.thursday.util.Validator;
 import java.awt.CardLayout;
 import java.awt.Color;
