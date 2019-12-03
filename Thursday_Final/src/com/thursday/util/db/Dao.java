@@ -3,20 +3,24 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.thursday.business;
+package com.thursday.util.db;
 
 /**
  *
  * @author lihang
  */
-public class EcoSystem extends AbstractEcoSystem {
+public class Dao extends AbstractDao {
 
-    private static EcoSystem business;
+    private static AbstractDao business;
 
-    public static EcoSystem getInstance() {
+    public static AbstractDao getInstance() {
         if (business == null) {
-            business = new EcoSystem();
+            business = new Dao();
         }
         return business;
+    }
+
+    private Dao() {
+        super(DBInfo.DBNAME);
     }
 }

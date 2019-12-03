@@ -3,16 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.thursday.business.workflow;
+package com.thursday.business;
 
 /**
  *
  * @author lihang
  */
-public class ApartmentWorkRequest extends WorkRequest {
+public class AbstractEcoSystem {
 
-    public WorkRequest sendRequest() {
-        return this;
+    public AbstractEcoSystem() {
+
     }
-
 }

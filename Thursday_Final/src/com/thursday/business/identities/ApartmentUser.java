@@ -5,6 +5,7 @@
  */
 package com.thursday.business.identities;
 
+import com.thursday.util.db.UserBiz;
 import java.util.List;
 
 /**
@@ -22,11 +23,22 @@ public class ApartmentUser extends User {
         public static final String RESIDENT = "RESIDENT";
         public static final String ADMIN = "ADMIN";
         public static final String REPAIRPERSON = "REPAIR PERSON";
-        
+
     }
-    
+
     public static boolean existUsername(String uname) {
-        return ApartmentUserBiz.getUser(uname)!=null;
+        return UserBiz.getUser(uname) != null;
     }
     
+    @Override
+    public String toString() {
+        return "ApartmentUser{" + getUsername() + " " + getRole() + getFirstName() + getLastName()
+                + "}";
+    }
+
+    @Override
+    public String getUserType() {
+        return "ApartmentUser";
+    }
+
 }

@@ -3,66 +3,78 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.thursday.business.identities;
+package com.thursday.util.db;
 
-import com.thursday.util.dao.CleanCompDao;
+import com.thursday.business.identities.ApartmentUser;
+import com.thursday.business.identities.User;
+import com.thursday.util.db.Dao;
+import com.thursday.util.db.AbstractDao;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  *
  * @author lihang
  */
-public class CleaningCompUserBiz {
+public class UserBiz {
 
     public static boolean add(User u) {
         String sql = "insert into user(username,passwd,firstname,lastname,role) values(?,?,?,?,?)";
         Object[] params = {u.getUsername(), u.getPasswd(), u.getFirstName(), u.getLastName(), u.getRole()};
-        return CleanCompDao.getInstance().update(sql, params);
+        return Dao.getInstance().update(sql, params);
     }
 
     public static boolean delete(User u) {
         //soft delete using column 'state'
         String sql = "update user set state=0 where username=?";
         Object[] params = {u.getUsername()};
-        return CleanCompDao.getInstance().update(sql, params);
+        return Dao.getInstance().update(sql, params);
+    }
+
+    public static boolean update(User u) {
+        //soft delete using column 'state'
+        String sql = "update user set username=?, passwd=?, firstname=?, lastname=?, role=? where id=?";
+        Object[] params = {u.getUsername(), u.getPasswd(), u.getFirstName(), u.getLastName(), u.getRole(), u.getId()};
+        return Dao.getInstance().update(sql, params);
     }
 
     public static List getAll() {
         String sql = "select * from user where state=1";
-        return CleanCompDao.getInstance().query(sql, User.class);
+        return Dao.getInstance().query(sql, User.class);
     }
 
     public static User getUser(String username) {
         String sql = "select * from user where username=? and state=1";
         Object[] params = {username};
-        return (User) CleanCompDao.getInstance().get(sql, User.class, params);
+        return (User) Dao.getInstance().get(sql, User.class, params);
     }
     
-    public static List getAllUsernames(){
-        String sql="select username from user where state=1";
-        return CleanCompDao.getInstance().query(sql, String.class);
-    }
-
     
-/*    
-    public void addCleaningComp(CleaningCompUser c) {
-        CleaningCompUserBiz.add(c);
-    }
+    
    
+    
+    public void addApartment(ApartmentUser a) {
+        UserBiz.add(a);
+    }
+/*    
     public ApartmentUser addApartment(String uname, String pw,) {
         ApartmentUser a = new ApartmentUser(uname, pw);
         apartmentList.add(a);
         return a;
     }
-
-    public void deleteAdmin(CleaningCompUser c) {
-        CleaningCompUserBiz.delete(c);
+*/
+    public void deleteAdmin(ApartmentUser a) {
+        UserBiz.delete(a);
     }
 
-*/
+
     public boolean isEmpty() {
         return getAll().isEmpty();
     }
-  
     
+    public static List getAllUsernames(){
+        String sql="select username from user where state=1";
+        return Dao.getInstance().query(sql, String.class);
+    }
+
 }

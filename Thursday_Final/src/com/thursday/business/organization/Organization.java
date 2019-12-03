@@ -6,8 +6,8 @@ package com.thursday.business.organization;
 
 
 
-import com.thursday.business.identities.EmployeeDirectory;
-import com.thursday.business.identities.UserDirectory;
+
+import com.thursday.business.UserDirectory;
 import com.thursday.business.role.Role;
 import com.thursday.business.workflow.WorkQueue;
 
@@ -21,7 +21,7 @@ public abstract class Organization {
 
     private String name;
     private WorkQueue workQueue;
-    private EmployeeDirectory employeeDirectory;
+   
     private UserDirectory userDirectory;
     private int organizationID;
     private static int counter=0;
@@ -40,7 +40,7 @@ public abstract class Organization {
     public Organization(String name) {
         this.name = name;
         workQueue = new WorkQueue();
-        employeeDirectory = new EmployeeDirectory();
+//        employeeDirectory = new EmployeeDirectory();
         userDirectory = new UserDirectory();
         organizationID = counter;
         ++counter;
@@ -56,9 +56,9 @@ public abstract class Organization {
         return organizationID;
     }
 
-    public EmployeeDirectory getEmployeeDirectory() {
-        return employeeDirectory;
-    }
+//    public EmployeeDirectory getEmployeeDirectory() {
+//        return employeeDirectory;
+//    }
     
     public String getName() {
         return name;

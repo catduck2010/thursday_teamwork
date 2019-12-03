@@ -5,8 +5,6 @@
  */
 package com.thursday.business.identities;
 
-import java.util.List;
-
 /**
  *
  * @author lihang
@@ -17,14 +15,25 @@ public class CleaningCompUser extends User {
         super(username, passwd, name, last, role);
     }
 
-    public class Role {
+    public CleaningCompUser() {
+    }
 
-        public static final String CLEANER = "CLEANER";
+    public static class Roles {
+
         public static final String HR = "HUMAN RESOURCES";
+        public static final String CLEANER = "CLEANER";
         public static final String SCHEDULER = "SCHEDULE MAKER";
     }
 
-    public static boolean existUsername(String uname) {
-        return CleaningCompUserBiz.getUser(uname)!=null;
+    @Override
+    public String toString() {
+        return "CleaningCompUser{" + getUsername() + " " + getRole() + getFirstName() + getLastName()
+                + "}";
     }
+
+    @Override
+    public String getUserType() {
+        return "CleaningCompUser";
+    }
+
 }

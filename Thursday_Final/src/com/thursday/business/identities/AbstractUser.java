@@ -20,7 +20,7 @@ public abstract class AbstractUser {
 
     }
 
-    ;
+    
     public AbstractUser(String username, char[] passwd) {
         this.username = username;
         this.passwd = PasswordUtil.hash(passwd);
@@ -63,5 +63,7 @@ public abstract class AbstractUser {
     public boolean authenticate(char[] passwd) {
         return PasswordUtil.authenticate(passwd, this.passwd);
     }
+    
+    public abstract String getUserType();
 
 }

@@ -9,9 +9,9 @@ package com.thursday.business.workflow;
  *
  * @author lihang
  */
-public class CleaningCompWorkRequest extends WorkRequest {
+public class CleaningCompWorkRequest extends AbstractWorkRequest {
 
-    public CleaningCompWorkRequest receiveRequest(WorkRequest wr) {
+    public CleaningCompWorkRequest receiveRequest(AbstractWorkRequest wr) {
         return (CleaningCompWorkRequest) wr;
     }
     
