@@ -20,7 +20,6 @@ public class UserDirectory {
 
     //it doesn't include any lists anymore
     //it becomes a set of actions that manipulates users
-
     public static boolean createApartmentUser(String username, char[] passwd, String name, String last, String role) {
         User u = new ApartmentUser(username, passwd, name, last, role);
         return UserBiz.add(u);
@@ -38,12 +37,12 @@ public class UserDirectory {
         }
         return null;
     }
-    
-    public static boolean updateUser(User u){
+
+    public static boolean updateUser(User u) {
         return UserBiz.update(u);
     }
-    
-    public static boolean deleteUser(User u){
+
+    public static boolean deleteUser(User u) {
         return UserBiz.delete(u);
     }
 
@@ -77,5 +76,9 @@ public class UserDirectory {
                 return true;
         }
         return false;
+    }
+
+    public static User getUser(String username) {
+        return UserBiz.getUser(username);
     }
 }
