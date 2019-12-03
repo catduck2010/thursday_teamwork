@@ -16,11 +16,17 @@ import java.util.List;
 public class CompanyDirectory {
 
     public static boolean createApartment(String name) {
+        if (getCompany(name) != null) {
+            return false;
+        }
         Company c = new Company(name, Company.Type.APARTMENT);
         return CompanyBiz.add(c);
     }
 
     public static boolean createCleaningComp(String name) {
+        if (getCompany(name) != null) {
+            return false;
+        }
         Company c = new Company(name, Company.Type.CLEANING);
         return CompanyBiz.add(c);
     }

@@ -5,6 +5,7 @@
  */
 package com.thursday.util;
 
+import com.thursday.business.CompanyDirectory;
 import com.thursday.business.identities.ApartmentUser;
 import com.thursday.util.db.UserBiz;
 import com.thursday.business.identities.CleaningCompUser;
@@ -18,6 +19,7 @@ import com.thursday.business.workflow.AbstractWorkRequest;
 import com.thursday.util.db.WorkRequestBiz;
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -26,13 +28,13 @@ import java.util.Date;
 public class DirectSQL {
 
     public static void main(String[] args) {
-        User u=new User("admin", "admin".toCharArray(), "Zero", "Administrator", "ADMIN");
-        System.out.println(u.getUserType());
-
-        System.out.println(u.getUserType());
+//        User u=new User("admin", "admin".toCharArray(), "Zero", "Administrator", "ADMIN");
+//        System.out.println(u.getUserType());
+//
+//        System.out.println(u.getUserType());
         //User u=CleaningCompUserBiz.getUser("admin");
         //CleaningCompUserBiz.add(u);
-        
+
         //System.out.println(TaskBiz.update(t));
         //System.out.println(ApartmentUser.Roles.ADMIN);
 //        WorkRequest wr = new WorkRequest(1,"Hello","again","admin","123");
@@ -41,5 +43,8 @@ public class DirectSQL {
 //        System.out.println(wr.getIsRead());
 //        wr.markRead();
 //        System.out.println(WorkRequestBiz.update(wr));
+        CompanyDirectory.createCleaningComp("Carrie Lam 777");
+        List c = CompanyDirectory.getCleaningCompanies();
+        System.out.println(c);
     }
 }

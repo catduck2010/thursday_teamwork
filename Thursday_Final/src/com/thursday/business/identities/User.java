@@ -70,8 +70,12 @@ public class User extends AbstractUser {
         return (t != null) ? sendRequest(toAdmin, title, message, t.getId()) : false;
     }
 
-    public List getMyRequests() {
-        return WorkRequestBiz.getAllWorkRequests(this.getUsername());
+    public List getReceivedRequests() {
+        return WorkFlow.getReceivedRequest(this.getUsername());
+    }
+    
+    public List getSentRequests(){
+        return WorkFlow.getSentRequest(this.getUsername());
     }
 
     @Override

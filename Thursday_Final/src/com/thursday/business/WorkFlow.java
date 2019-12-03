@@ -5,6 +5,7 @@
  */
 package com.thursday.business;
 
+import com.thursday.business.identities.ApartmentUser;
 import com.thursday.business.workflow.Task;
 import com.thursday.util.db.TaskBiz;
 import com.thursday.business.workflow.WorkRequest;
@@ -55,5 +56,13 @@ public class WorkFlow {
 
     public static boolean withdrawWorkRequest(WorkRequest wr) {
         return WorkRequestBiz.delete(wr);
+    }
+
+    public static List getReceivedRequest(String username) {
+        return WorkRequestBiz.getAllReceivedWorkRequests(username);
+    }
+
+    public static List getSentRequest(String username) {
+        return WorkRequestBiz.getAllSentWorkRequests(username);
     }
 }

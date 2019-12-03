@@ -55,9 +55,15 @@ public class WorkRequestBiz {
         return (WorkRequest) Dao.getInstance().get(sql, WorkRequest.class, params);
     }
 
-    public static List getAllWorkRequests(String receiver) {
+    public static List getAllReceivedWorkRequests(String receiver) {
         String sql = "select * from workrequest where receiver=? and state=1";
         Object[] params = {receiver};
+        return Dao.getInstance().query(sql, WorkRequest.class, params);
+    }
+    
+    public static List getAllSentWorkRequests(String sender) {
+        String sql = "select * from workrequest where sender=? and state=1";
+        Object[] params = {sender};
         return Dao.getInstance().query(sql, WorkRequest.class, params);
     }
 }

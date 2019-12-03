@@ -16,6 +16,5 @@ public class DBInfo {
     public static String USER = "thursday";
     public static String PASSWD = "Thursday689";
     public static String DBNAME = "apartment";
-    public static String CLEANCOMP = "cleancompany";
 
 }

@@ -11,13 +11,13 @@ package com.thursday.util.db;
  */
 public class Dao extends AbstractDao {
 
-    private static AbstractDao dao;
+    private static AbstractDao business;
 
     public static AbstractDao getInstance() {
-        if (dao == null) {
-            dao = new Dao();
+        if (business == null) {
+            business = new Dao();
         }
-        return dao;
+        return business;
     }
 
     private Dao() {
