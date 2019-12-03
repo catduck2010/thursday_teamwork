@@ -9,8 +9,6 @@ import com.thursday.business.identities.ApartmentUser;
 import com.thursday.business.identities.CleaningCompUser;
 import com.thursday.business.identities.User;
 import com.thursday.util.db.UserBiz;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  *
@@ -20,15 +18,24 @@ public class UserDirectory {
 
     //it doesn't include any lists anymore
     //it becomes a set of actions that manipulates users
-
     public static boolean createApartmentUser(String username, char[] passwd, String name, String last, String role) {
         User u = new ApartmentUser(username, passwd, name, last, role);
         return UserBiz.add(u);
     }
 
+    public static boolean createApartmentUser(String company, String username, char[] passwd, String name, String last, String role) {
+        User u = new ApartmentUser(company, username, passwd, name, last, role);
+        return UserBiz.addWithCompany(u);
+    }
+
     public static boolean createCleaningCompUser(String username, char[] passwd, String name, String last, String role) {
         User u = new CleaningCompUser(username, passwd, name, last, role);
         return UserBiz.add(u);
+    }
+
+    public static boolean createCleaningCompUser(String company, String username, char[] passwd, String name, String last, String role) {
+        User u = new CleaningCompUser(company, username, passwd, name, last, role);
+        return UserBiz.addWithCompany(u);
     }
 
     public static User authenticateUser(String uname, char[] passwd) {
@@ -38,12 +45,12 @@ public class UserDirectory {
         }
         return null;
     }
-    
-    public static boolean updateUser(User u){
+
+    public static boolean updateUser(User u) {
         return UserBiz.update(u);
     }
-    
-    public static boolean deleteUser(User u){
+
+    public static boolean deleteUser(User u) {
         return UserBiz.delete(u);
     }
 
@@ -77,5 +84,9 @@ public class UserDirectory {
                 return true;
         }
         return false;
+    }
+
+    public static User getUser(String username) {
+        return UserBiz.getUser(username);
     }
 }
