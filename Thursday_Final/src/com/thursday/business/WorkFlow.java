@@ -65,4 +65,8 @@ public class WorkFlow {
     public static List getSentRequest(String username) {
         return WorkRequestBiz.getAllSentWorkRequests(username);
     }
+    
+    public static List getAllTasks(String username){
+        return TaskBiz.getUserTask(username);
+    }
 }
