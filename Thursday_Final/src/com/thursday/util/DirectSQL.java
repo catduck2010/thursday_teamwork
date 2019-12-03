@@ -29,6 +29,8 @@ public class DirectSQL {
 
     public static void main(String[] args) {
 //        User u=new User("admin", "admin".toCharArray(), "Zero", "Administrator", "ADMIN");
+        boolean cd=UserDirectory.createCleaningCompUser("yukman", "yukman".toCharArray(), "Yuk-man", "Wong", CleaningCompUser.Roles.SCHEDULER);
+        System.out.println(cd);
 //        System.out.println(u.getUserType());
 //
 //        System.out.println(u.getUserType());
