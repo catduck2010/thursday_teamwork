@@ -33,10 +33,13 @@ public class ManageRequestJPanel extends javax.swing.JPanel {
         timeTable = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
 
+        comfirmBtn.setFont(new java.awt.Font("Microsoft JhengHei", 0, 20)); // NOI18N
         comfirmBtn.setText("Comfirm");
 
+        dateBtn1.setFont(new java.awt.Font("Microsoft JhengHei", 0, 20)); // NOI18N
         dateBtn1.setText("Date");
 
+        timeTable.setFont(new java.awt.Font("Microsoft JhengHei", 0, 20)); // NOI18N
         timeTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -62,40 +65,40 @@ public class ManageRequestJPanel extends javax.swing.JPanel {
             timeTable.getColumnModel().getColumn(4).setResizable(false);
         }
 
+        jLabel1.setFont(new java.awt.Font("Microsoft JhengHei", 0, 24)); // NOI18N
         jLabel1.setText("Timetable");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(dateBtn1)
-                .addGap(172, 172, 172)
-                .addComponent(comfirmBtn)
-                .addGap(187, 187, 187))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(42, 42, 42)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 592, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 734, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(dateBtn1)
+                                .addGap(96, 96, 96)
+                                .addComponent(comfirmBtn))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(290, 290, 290)
+                        .addGap(339, 339, 339)
                         .addComponent(jLabel1)))
-                .addContainerGap(53, Short.MAX_VALUE))
+                .addContainerGap(41, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(80, 80, 80)
+                .addGap(56, 56, 56)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(comfirmBtn)
-                    .addComponent(dateBtn1))
-                .addGap(49, 49, 49)
+                    .addComponent(dateBtn1)
+                    .addComponent(comfirmBtn))
+                .addGap(19, 19, 19)
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(155, Short.MAX_VALUE))
+                .addGap(28, 28, 28)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 404, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(33, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
