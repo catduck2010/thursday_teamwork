@@ -5,6 +5,9 @@
  */
 package com.thursday.interfaces;
 
+import com.thursday.business.identities.User;
+import javax.swing.JPanel;
+
 /**
  *
  * @author CHEN JIEYING
@@ -14,8 +17,11 @@ public class TenementBarJPanel extends javax.swing.JPanel {
     /**
      * Creates new form TenementJPanel
      */
-    public TenementBarJPanel() {
+    private final User user;
+    
+    public TenementBarJPanel(JPanel rightPanel,User u) {
         initComponents();
+        this.user = u;
     }
 
     /**

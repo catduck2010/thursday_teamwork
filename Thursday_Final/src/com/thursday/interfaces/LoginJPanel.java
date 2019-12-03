@@ -9,6 +9,8 @@ import com.thursday.business.identities.AbstractUser;
 import com.thursday.util.db.UserBiz;
 import com.thursday.business.identities.User;
 import com.thursday.business.UserDirectory;
+import com.thursday.business.identities.ApartmentUser;
+import com.thursday.business.identities.CleaningCompUser;
 import com.thursday.util.Validator;
 import java.awt.CardLayout;
 import java.awt.Color;
@@ -56,8 +58,7 @@ public class LoginJPanel extends javax.swing.JPanel {
             }
         };
 
-        this.apartmentRBtn.addItemListener(il);
-        this.cleaningCompanyRBtn.addItemListener(il);
+        
         defaultChar = this.passwordField.getEchoChar();
      //set user "Administrator" default password
 
@@ -91,18 +92,45 @@ public class LoginJPanel extends javax.swing.JPanel {
     private void grantAccess(User user) {
         if (UserDirectory.isApartmentUser(user)) {
             CardLayout layout = (CardLayout) this.rightPanel.getLayout();
-            AdminBarJPanel panel = new AdminBarJPanel(rightPanel, user);
+            JPanel panel = swicthPanel(user);
             this.rightPanel.add("AdminBarJPanel", panel);
             layout.next(rightPanel);
 
         } else if (UserDirectory.isCleaningCompUser(user)) {
             CardLayout layout = (CardLayout) this.rightPanel.getLayout();
-            HRBarJPanel panel = new HRBarJPanel(rightPanel, user);
+            JPanel panel = swicth2Panel(user);
             this.rightPanel.add("HRBarJPanel", panel);
             layout.next(rightPanel);
         }
 
     }
+
+    private JPanel swicthPanel(User u){
+        String role = u.getRole();
+        switch (role) {
+            case ApartmentUser.Roles.ADMIN:
+                return new AdminBarJPanel(rightPanel, u);
+            case ApartmentUser.Roles.REPAIRPERSON:
+                return new RepairBarJPanel(rightPanel, u);
+            case ApartmentUser.Roles.RESIDENT:
+                return new TenementBarJPanel(rightPanel, u);
+        }
+        return null;
+    }
+    
+        private JPanel swicth2Panel(User u){
+        String role = u.getRole();
+        switch (role) {
+            case CleaningCompUser.Roles.HR:
+                return new HRBarJPanel(rightPanel, u);
+            case CleaningCompUser.Roles.CLEANER:
+                return new OtherCleaningBarJPanel(rightPanel, u);
+            case CleaningCompUser.Roles.SCHEDULER:
+                return new OtherCleaningBarJPanel(rightPanel, u);
+        }
+        return null;
+    }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -114,26 +142,11 @@ public class LoginJPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
-        jLabel1 = new javax.swing.JLabel();
-        apartmentRBtn = new javax.swing.JRadioButton();
-        cleaningCompanyRBtn = new javax.swing.JRadioButton();
         jLabel3 = new javax.swing.JLabel();
         loginBtn = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         usernameTxt = new javax.swing.JTextField();
         passwordField = new javax.swing.JPasswordField();
-
-        jLabel1.setFont(new java.awt.Font("Microsoft JhengHei", 0, 24)); // NOI18N
-        jLabel1.setText("Login as:");
-
-        buttonGroup1.add(apartmentRBtn);
-        apartmentRBtn.setFont(new java.awt.Font("Microsoft JhengHei", 0, 24)); // NOI18N
-        apartmentRBtn.setSelected(true);
-        apartmentRBtn.setText("Apartment");
-
-        buttonGroup1.add(cleaningCompanyRBtn);
-        cleaningCompanyRBtn.setFont(new java.awt.Font("Microsoft JhengHei", 0, 24)); // NOI18N
-        cleaningCompanyRBtn.setText("Cleaning company");
 
         jLabel3.setFont(new java.awt.Font("Microsoft JhengHei", 0, 24)); // NOI18N
         jLabel3.setText("Password");
@@ -156,12 +169,6 @@ public class LoginJPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(304, 304, 304)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cleaningCompanyRBtn)
-                            .addComponent(apartmentRBtn)
-                            .addComponent(jLabel1)))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(212, 212, 212)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
@@ -171,20 +178,14 @@ public class LoginJPanel extends javax.swing.JPanel {
                             .addComponent(usernameTxt)
                             .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(345, 345, 345)
+                        .addGap(339, 339, 339)
                         .addComponent(loginBtn)))
                 .addContainerGap(224, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(78, 78, 78)
-                .addComponent(jLabel1)
-                .addGap(37, 37, 37)
-                .addComponent(apartmentRBtn)
-                .addGap(18, 18, 18)
-                .addComponent(cleaningCompanyRBtn)
-                .addGap(56, 56, 56)
+                .addGap(172, 172, 172)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(usernameTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -192,9 +193,9 @@ public class LoginJPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(59, 59, 59)
+                .addGap(90, 90, 90)
                 .addComponent(loginBtn)
-                .addContainerGap(91, Short.MAX_VALUE))
+                .addContainerGap(192, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -221,10 +222,7 @@ public class LoginJPanel extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JRadioButton apartmentRBtn;
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JRadioButton cleaningCompanyRBtn;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JButton loginBtn;
