@@ -15,6 +15,10 @@ public class CleaningCompUser extends User {
         super(username, passwd, name, last, role);
     }
 
+    public CleaningCompUser(String company, String username, char[] passwd, String name, String last, String role) {
+        super(company, username, passwd, name, last, role);
+    }
+
     public CleaningCompUser() {
     }
 
