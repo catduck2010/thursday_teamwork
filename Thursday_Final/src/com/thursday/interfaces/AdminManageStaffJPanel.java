@@ -34,8 +34,11 @@ public class AdminManageStaffJPanel extends javax.swing.JPanel {
         deleteBtn = new javax.swing.JButton();
         updateBtn = new javax.swing.JButton();
 
+        jLabel1.setFont(new java.awt.Font("Microsoft JhengHei", 0, 24)); // NOI18N
         jLabel1.setText("Staff List");
 
+        jTable1.setBackground(new java.awt.Color(153, 153, 255));
+        jTable1.setFont(new java.awt.Font("Microsoft JhengHei", 0, 18)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -62,10 +65,13 @@ public class AdminManageStaffJPanel extends javax.swing.JPanel {
             jTable1.getColumnModel().getColumn(5).setResizable(false);
         }
 
+        addBtn.setFont(new java.awt.Font("Microsoft JhengHei", 0, 20)); // NOI18N
         addBtn.setText("+Add");
 
+        deleteBtn.setFont(new java.awt.Font("Microsoft JhengHei", 0, 20)); // NOI18N
         deleteBtn.setText("-Delete");
 
+        updateBtn.setFont(new java.awt.Font("Microsoft JhengHei", 0, 20)); // NOI18N
         updateBtn.setText("Update");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -73,33 +79,31 @@ public class AdminManageStaffJPanel extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(34, 34, 34)
-                        .addComponent(jLabel1)
-                        .addGap(84, 84, 84)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 254, Short.MAX_VALUE)
                         .addComponent(addBtn)
-                        .addGap(43, 43, 43)
+                        .addGap(59, 59, 59)
                         .addComponent(deleteBtn)
-                        .addGap(51, 51, 51)
+                        .addGap(56, 56, 56)
                         .addComponent(updateBtn))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(26, 26, 26)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 844, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(31, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(27, 27, 27)
+                .addContainerGap(31, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(addBtn)
+                    .addComponent(updateBtn)
                     .addComponent(deleteBtn)
-                    .addComponent(updateBtn))
-                .addGap(26, 26, 26)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(31, Short.MAX_VALUE))
+                    .addComponent(addBtn)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(27, 27, 27)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(61, 61, 61))
         );
     }// </editor-fold>//GEN-END:initComponents
 

@@ -9,6 +9,8 @@ import com.thursday.business.identities.AbstractUser;
 import com.thursday.util.db.UserBiz;
 import com.thursday.business.identities.User;
 import com.thursday.business.UserDirectory;
+import com.thursday.business.identities.ApartmentUser;
+import com.thursday.business.identities.CleaningCompUser;
 import com.thursday.util.Validator;
 import java.awt.CardLayout;
 import java.awt.Color;
@@ -56,11 +58,9 @@ public class LoginJPanel extends javax.swing.JPanel {
             }
         };
 
-        this.apartmentRBtn.addItemListener(il);
-        this.cleaningCompanyRBtn.addItemListener(il);
+        
         defaultChar = this.passwordField.getEchoChar();
-        //set user "Administrator" default password
-        passwordField.setText("admin");
+     //set user "Administrator" default password
 
         txtPswdAddListener();
     }
@@ -92,18 +92,45 @@ public class LoginJPanel extends javax.swing.JPanel {
     private void grantAccess(User user) {
         if (UserDirectory.isApartmentUser(user)) {
             CardLayout layout = (CardLayout) this.rightPanel.getLayout();
-            AdminBarJPanel panel = new AdminBarJPanel(rightPanel, user);
+            JPanel panel = swicthPanel(user);
             this.rightPanel.add("AdminBarJPanel", panel);
             layout.next(rightPanel);
 
         } else if (UserDirectory.isCleaningCompUser(user)) {
             CardLayout layout = (CardLayout) this.rightPanel.getLayout();
-            HRBarJPanel panel = new HRBarJPanel(rightPanel, user);
+            JPanel panel = swicth2Panel(user);
             this.rightPanel.add("HRBarJPanel", panel);
             layout.next(rightPanel);
         }
 
     }
+
+    private JPanel swicthPanel(User u){
+        String role = u.getRole();
+        switch (role) {
+            case ApartmentUser.Roles.ADMIN:
+                return new AdminBarJPanel(rightPanel, u);
+            case ApartmentUser.Roles.REPAIRPERSON:
+                return new RepairBarJPanel(rightPanel, u);
+            case ApartmentUser.Roles.RESIDENT:
+                return new TenementBarJPanel(rightPanel, u);
+        }
+        return null;
+    }
+    
+        private JPanel swicth2Panel(User u){
+        String role = u.getRole();
+        switch (role) {
+            case CleaningCompUser.Roles.HR:
+                return new HRBarJPanel(rightPanel, u);
+            case CleaningCompUser.Roles.CLEANER:
+                return new OtherCleaningBarJPanel(rightPanel, u);
+            case CleaningCompUser.Roles.SCHEDULER:
+                return new OtherCleaningBarJPanel(rightPanel, u);
+        }
+        return null;
+    }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -115,27 +142,16 @@ public class LoginJPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
-        jLabel1 = new javax.swing.JLabel();
-        apartmentRBtn = new javax.swing.JRadioButton();
-        cleaningCompanyRBtn = new javax.swing.JRadioButton();
         jLabel3 = new javax.swing.JLabel();
         loginBtn = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         usernameTxt = new javax.swing.JTextField();
         passwordField = new javax.swing.JPasswordField();
-        backBtn = new javax.swing.JButton();
 
-        jLabel1.setText("Login as:");
-
-        buttonGroup1.add(apartmentRBtn);
-        apartmentRBtn.setSelected(true);
-        apartmentRBtn.setText("Apartment");
-
-        buttonGroup1.add(cleaningCompanyRBtn);
-        cleaningCompanyRBtn.setText("Cleaning company");
-
+        jLabel3.setFont(new java.awt.Font("Microsoft JhengHei", 0, 24)); // NOI18N
         jLabel3.setText("Password");
 
+        loginBtn.setFont(new java.awt.Font("Microsoft JhengHei", 0, 24)); // NOI18N
         loginBtn.setText("Login");
         loginBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -143,57 +159,33 @@ public class LoginJPanel extends javax.swing.JPanel {
             }
         });
 
+        jLabel5.setFont(new java.awt.Font("Microsoft JhengHei", 0, 24)); // NOI18N
         jLabel5.setText("Username");
-
-        backBtn.setText("< Back");
-        backBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                backBtnActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(225, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
-                .addGap(88, 88, 88)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(usernameTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
-                    .addComponent(passwordField))
-                .addGap(419, 419, 419))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(297, 297, 297)
+                        .addGap(212, 212, 212)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cleaningCompanyRBtn)
-                            .addComponent(apartmentRBtn)
-                            .addComponent(jLabel1)))
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(67, 67, 67)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(usernameTxt)
+                            .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(344, 344, 344)
-                        .addComponent(loginBtn))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(35, 35, 35)
-                        .addComponent(backBtn)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(339, 339, 339)
+                        .addComponent(loginBtn)))
+                .addContainerGap(224, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(backBtn)
-                .addGap(97, 97, 97)
-                .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addComponent(apartmentRBtn)
-                .addGap(18, 18, 18)
-                .addComponent(cleaningCompanyRBtn)
-                .addGap(42, 42, 42)
+                .addGap(172, 172, 172)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(usernameTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -201,9 +193,9 @@ public class LoginJPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
+                .addGap(90, 90, 90)
                 .addComponent(loginBtn)
-                .addGap(103, 103, 103))
+                .addContainerGap(192, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -228,20 +220,9 @@ public class LoginJPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_loginBtnActionPerformed
 
-    private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
-        // TODO add your handling code here:
-        CardLayout layout = (CardLayout) this.rightPanel.getLayout();
-        this.rightPanel.remove(this);
-        layout.previous(this.rightPanel);
-    }//GEN-LAST:event_backBtnActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JRadioButton apartmentRBtn;
-    private javax.swing.JButton backBtn;
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JRadioButton cleaningCompanyRBtn;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JButton loginBtn;
