@@ -28,7 +28,7 @@ public class AdminBarJPanel extends javax.swing.JPanel {
                
     }
 private void manTaskPanel(){
-        ManageTaskJPanel manageTaskJPanel = new ManageTaskJPanel(rightPanel);
+        ManageTaskJPanel manageTaskJPanel = new ManageTaskJPanel(rightPanel,user);
         CardLayout layout = (CardLayout) jPanel2.getLayout();
         jPanel2.add("ManageTaskJPanel", manageTaskJPanel);
         layout.next(jPanel2);

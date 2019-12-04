@@ -10,6 +10,8 @@ import com.thursday.business.WorkFlow;
 import com.thursday.business.identities.ApartmentUser;
 import com.thursday.business.identities.User;
 import com.thursday.business.workflow.Task;
+import com.thursday.business.workflow.WorkRequest;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
@@ -24,9 +26,11 @@ public class AssignRepairTaskJPanel extends javax.swing.JPanel {
      */
     private Task task;
     private JPanel rightPanel;
-    public AssignRepairTaskJPanel(JPanel rightPanel, Task task) {
+    private User admin;
+    public AssignRepairTaskJPanel(JPanel rightPanel, Task task, User admin) {
         this.task = task;
         this.rightPanel = rightPanel;
+        this.admin = admin;
         initComponents();
         populateRepairTable();
     }
@@ -39,14 +43,27 @@ public class AssignRepairTaskJPanel extends javax.swing.JPanel {
         for( User u : UserDirectory.getUserOf(ApartmentUser.Roles.REPAIRPERSON)){
             
             
-            Object row[] = new Object [1];
+            Object row[] = new Object [2];
             row[0] = u;
+            row[1] = u.getUsername();
             
             dtm.addRow(row);
         
         }
     }
-
+    public void sendRequest(){
+        int selectedRow = tblRepairman.getSelectedRow();
+        if (selectedRow >= 0) {
+            
+            User u = (User)tblRepairman.getValueAt(selectedRow, 0);
+            WorkFlow.createRequest(task.getId(), task.getTitle(), task.getMessage(),admin.getUsername(),u.getUsername());
+            JOptionPane.showMessageDialog(null, "Send Repair Task Request Successfully!");
+            }
+        
+        else {
+            JOptionPane.showMessageDialog(null, "Please select any row");
+        }
+    } 
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -58,20 +75,21 @@ public class AssignRepairTaskJPanel extends javax.swing.JPanel {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         tblRepairman = new javax.swing.JTable();
+        btnSend = new javax.swing.JButton();
 
         tblRepairman.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null},
-                {null},
-                {null},
-                {null}
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
             },
             new String [] {
-                "Repair Man"
+                "Repair Man", "Username"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false
+                false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -80,13 +98,25 @@ public class AssignRepairTaskJPanel extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(tblRepairman);
 
+        btnSend.setText("Send Request");
+        btnSend.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSendActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(75, 75, 75)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 488, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(75, 75, 75)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 488, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(113, 113, 113)
+                        .addComponent(btnSend)))
                 .addContainerGap(133, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -94,12 +124,20 @@ public class AssignRepairTaskJPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(281, Short.MAX_VALUE))
+                .addGap(28, 28, 28)
+                .addComponent(btnSend)
+                .addContainerGap(224, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnSendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSendActionPerformed
+        // TODO add your handling code here:
+        sendRequest();
+    }//GEN-LAST:event_btnSendActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnSend;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblRepairman;
     // End of variables declaration//GEN-END:variables

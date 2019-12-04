@@ -8,12 +8,14 @@ package com.thursday.interfaces;
 
 import javax.swing.table.DefaultTableModel;
 import com.thursday.business.WorkFlow;
+import com.thursday.business.identities.User;
 
 /**
  *
  * @author andy
  */
 import com.thursday.business.workflow.Task;
+import java.awt.CardLayout;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -23,8 +25,10 @@ public class ManageTaskJPanel extends javax.swing.JPanel {
      * Creates new form ManageTaskJPanel
      */
     private JPanel rightPanel;
-    public ManageTaskJPanel(JPanel rightPanel) {
+    private User admin;
+    public ManageTaskJPanel(JPanel rightPanel, User admin) {
         this.rightPanel = rightPanel;
+        this.admin = admin;
         initComponents();
         populateTable();
     }
@@ -70,17 +74,22 @@ public class ManageTaskJPanel extends javax.swing.JPanel {
         int selectedRow = tblTask.getSelectedRow();
         if (selectedRow >= 0) {
             Task task = (Task)tblTask.getValueAt(selectedRow, 1);
-            if(task.getStatus() !="PENDING" || task.getTitle().contains("Repair") == false){
+            if(!task.getStatus().equals(Task.Status.PENDING) || task.getTitle().indexOf("Repair") == -1){
             JOptionPane.showMessageDialog(null, "Please select valid task");
             return;
             }
-            
-        
-        
-        else {
-            JOptionPane.showMessageDialog(null, "Please select any row");
+            else{
+            AssignRepairTaskJPanel assignRepairTaskJPanel = new AssignRepairTaskJPanel(rightPanel,task,admin);
+            CardLayout layout = (CardLayout) rightPanel.getLayout();
+            rightPanel.add("TAssignRepairTasjJPanel", assignRepairTaskJPanel);
+            layout.next(rightPanel);
+            }
         }
-    }
+        else 
+            JOptionPane.showMessageDialog(null, "Please select any row");
+        
+    
+    
     }
 
     /**
@@ -94,7 +103,7 @@ public class ManageTaskJPanel extends javax.swing.JPanel {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         tblTask = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        btnAssignRepairTask = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         btnStatus = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -120,10 +129,10 @@ public class ManageTaskJPanel extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(tblTask);
 
-        jButton1.setText("Assign Repair Task");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnAssignRepairTask.setText("Assign Repair Task");
+        btnAssignRepairTask.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnAssignRepairTaskActionPerformed(evt);
             }
         });
 
@@ -177,7 +186,7 @@ public class ManageTaskJPanel extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton1)
+                            .addComponent(btnAssignRepairTask)
                             .addComponent(jButton2)
                             .addComponent(statusCombobox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnStatus)))
@@ -195,7 +204,7 @@ public class ManageTaskJPanel extends javax.swing.JPanel {
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(55, 55, 55)
-                        .addComponent(jButton1)
+                        .addComponent(btnAssignRepairTask)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton2)
                         .addGap(41, 41, 41)
@@ -213,9 +222,10 @@ public class ManageTaskJPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnAssignRepairTaskActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAssignRepairTaskActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+        assignRepair();
+    }//GEN-LAST:event_btnAssignRepairTaskActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
@@ -232,8 +242,8 @@ public class ManageTaskJPanel extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAssignRepairTask;
     private javax.swing.JButton btnStatus;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;
     private javax.swing.JScrollPane jScrollPane1;
