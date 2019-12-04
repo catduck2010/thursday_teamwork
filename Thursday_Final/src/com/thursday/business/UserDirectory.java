@@ -94,4 +94,8 @@ public class UserDirectory {
     public static List<User> getUserOf(String role){
         return UserBiz.getUserOf(role);
     }
+    
+    public static List<User> getCompanyStaff(String company){
+        return UserBiz.getUserWithCondition("companyname=?", company);
+    }
 }

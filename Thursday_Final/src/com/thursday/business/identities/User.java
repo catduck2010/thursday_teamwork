@@ -97,8 +97,7 @@ public class User extends AbstractUser {
 
     @Override
     public String toString() {
-        return "User{" + getUsername() + " " + role + firstName + lastName
-                + "}";
+        return getUsername();
     }
 
     @Override

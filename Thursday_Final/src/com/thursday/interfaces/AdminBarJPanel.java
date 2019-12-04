@@ -6,6 +6,7 @@
 package com.thursday.interfaces;
 
 import com.thursday.business.identities.User;
+import java.awt.CardLayout;
 import javax.swing.JPanel;
 
 /**
@@ -18,11 +19,12 @@ public class AdminBarJPanel extends javax.swing.JPanel {
      * Creates new form AdminBarJPanel
      */
     private final User user;
-    
-    
-    public AdminBarJPanel(JPanel rightPanel,User u) {
+    private JPanel rightPanel;
+
+    public AdminBarJPanel(JPanel rightPanel, User u) {
         initComponents();
         this.user = u;
+        this.rightPanel = rightPanel;
     }
 
     /**
@@ -53,6 +55,11 @@ public class AdminBarJPanel extends javax.swing.JPanel {
 
         manageStaffBtn.setFont(new java.awt.Font("Microsoft JhengHei", 0, 22)); // NOI18N
         manageStaffBtn.setText("Manage Staff");
+        manageStaffBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                manageStaffBtnActionPerformed(evt);
+            }
+        });
 
         jButton1.setFont(new java.awt.Font("Microsoft JhengHei", 0, 22)); // NOI18N
         jButton1.setText("Manage Tenement");
@@ -124,6 +131,14 @@ public class AdminBarJPanel extends javax.swing.JPanel {
             .addComponent(jSplitPane1)
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void manageStaffBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageStaffBtnActionPerformed
+        // TODO add your handling code here:
+        CardLayout layout = (CardLayout) this.rightPanel.getLayout();
+        JPanel panel = new AdminManageStaffJPanel(rightPanel, user);
+        this.rightPanel.add("AdminManageStaffJPanel", panel);
+        layout.next(this.rightPanel);
+    }//GEN-LAST:event_manageStaffBtnActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

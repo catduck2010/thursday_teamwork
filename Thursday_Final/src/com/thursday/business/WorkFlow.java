@@ -69,4 +69,8 @@ public class WorkFlow {
     public static List<Task> getAllTasks(String username){
         return TaskBiz.getUserTask(username);
     }
+    
+    public static Task getTask(int taskId){
+        return TaskBiz.getTask(taskId);
+    }
 }

@@ -49,6 +49,12 @@ public class UserBiz {
         return Dao.getInstance().query(sql, User.class);
     }
     
+    public static List<User> getUserWithCondition(String condition, String val){
+        String sql = "select * from user where "+condition+" and state=1";
+        Object[] params = {val};
+        return Dao.getInstance().query(sql, User.class, params);
+    }
+    
     public static List<User> getUserOf(String role){
         String sql = "select * from user where role=? and state=1";
         Object[] params = {role};

@@ -5,17 +5,72 @@
  */
 package com.thursday.interfaces;
 
+import com.thursday.business.UserDirectory;
+import com.thursday.business.WorkFlow;
+import com.thursday.business.identities.ApartmentUser;
+import com.thursday.business.identities.User;
+import com.thursday.business.workflow.Task;
+import com.thursday.business.workflow.WorkRequest;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author CHEN JIEYING
  */
 public class AdminManageStaffJPanel extends javax.swing.JPanel {
 
+    private JPanel rightPanel;
+    private User user;
+    private DefaultTableModel dtm;
+
     /**
      * Creates new form AdminManageStaffJPanel
+     *
+     * @param rightPanel
+     * @param u
      */
-    public AdminManageStaffJPanel() {
+    public AdminManageStaffJPanel(JPanel rightPanel, User u) {
         initComponents();
+        this.rightPanel = rightPanel;
+        this.user = u;
+        this.dtm = (DefaultTableModel) jTable1.getModel();
+        loadTable();
+    }
+
+    private boolean deleteStaff(int tableIndex) {
+        if (tableIndex < 0) {
+            return false;
+        }
+
+        User u = (User) dtm.getValueAt(tableIndex, 1);
+        List<WorkRequest> list = WorkFlow.getReceivedRequest(u.getUsername());
+        for (WorkRequest wr : list) {
+            if (!WorkFlow.getTask(wr.getTaskId()).getStatus().equals(Task.Status.FINISHED)) {
+                return false;
+            }
+        }
+        return UserDirectory.deleteUser(u);
+    }
+
+    private void loadTable() {
+        List<User> list = UserDirectory.getCompanyStaff(user.getCompanyName());
+
+        dtm.setRowCount(0);
+
+        for (User u : list) {
+            if (u.getRole().equals(ApartmentUser.Roles.REPAIRPERSON)) {
+                Object[] row = {
+                    u.getCompanyName(),
+                    u,
+                    u.getFirstName(),
+                    u.getLastName(),
+                    u.getRole()};
+                dtm.addRow(row);
+            }
+        }
     }
 
     /**
@@ -70,9 +125,19 @@ public class AdminManageStaffJPanel extends javax.swing.JPanel {
 
         deleteBtn.setFont(new java.awt.Font("Microsoft JhengHei", 0, 20)); // NOI18N
         deleteBtn.setText("-Delete");
+        deleteBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteBtnActionPerformed(evt);
+            }
+        });
 
         updateBtn.setFont(new java.awt.Font("Microsoft JhengHei", 0, 20)); // NOI18N
         updateBtn.setText("Update");
+        updateBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updateBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -106,6 +171,33 @@ public class AdminManageStaffJPanel extends javax.swing.JPanel {
                 .addGap(61, 61, 61))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
+        // TODO add your handling code here:
+        int index = jTable1.getSelectedRow();
+        if (index != -1) {
+            if (JOptionPane.showConfirmDialog(this, "Are you sure to delete this user?",
+                    "User Management",
+                    JOptionPane.YES_NO_OPTION) == JOptionPane.NO_OPTION) {
+                return;
+            }
+            if (deleteStaff(index)) {
+                JOptionPane.showMessageDialog(this, "Success", "User Deleted", JOptionPane.INFORMATION_MESSAGE);
+                loadTable();
+            } else {
+                JOptionPane.showMessageDialog(this, "Failed because this user is doing her/his work.",
+                        "User Management", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Please select a row",
+                    "User Management", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_deleteBtnActionPerformed
+
+    private void updateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateBtnActionPerformed
+        // TODO add your handling code here:
+        loadTable();
+    }//GEN-LAST:event_updateBtnActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
