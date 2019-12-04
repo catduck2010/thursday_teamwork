@@ -30,7 +30,7 @@ public class TenementTaskJPanel extends javax.swing.JPanel {
 private void createTask(){
     String aptNo = aptTxt.getText();
     String taskType = (String)taskComboBox1.getSelectedItem();
-    String title = aptNo + " " + taskType;
+    String title = "Apt"+ aptNo + " " + taskType;
     String message = remarkTxt.getText();
     String creator = user.getUsername();
     Task t =WorkFlow.createTask(creator, title, message);

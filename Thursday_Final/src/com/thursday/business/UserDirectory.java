@@ -9,6 +9,7 @@ import com.thursday.business.identities.ApartmentUser;
 import com.thursday.business.identities.CleaningCompUser;
 import com.thursday.business.identities.User;
 import com.thursday.util.db.UserBiz;
+import java.util.List;
 
 /**
  *
@@ -88,6 +89,9 @@ public class UserDirectory {
 
     public static User getUser(String username) {
         return UserBiz.getUser(username);
+    }
+    public static List<User> getUserOf(String role){
+        return UserBiz.getUserOf(role);
     }
     
 }

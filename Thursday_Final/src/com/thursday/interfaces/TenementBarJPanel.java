@@ -29,7 +29,7 @@ public class TenementBarJPanel extends javax.swing.JPanel {
 private void taskPanel(){
         TenementTaskJPanel tenementTaskJPanel = new TenementTaskJPanel(rightPanel,user);
         CardLayout layout = (CardLayout) jPanel2.getLayout();
-        jPanel2.add("MyProfilePanel", tenementTaskJPanel);
+        jPanel2.add("TenementTaskJPanel", tenementTaskJPanel);
         layout.next(jPanel2);
 }
     /**
