@@ -13,10 +13,18 @@ public class EcoSystem extends AbstractEcoSystem {
 
     private static EcoSystem business;
 
-    public static EcoSystem getInstance() {
-        if (business == null) {
-            business = new EcoSystem();
-        }
+    private EcoSystem() {
+        super();
+    }
+
+    public static EcoSystem newInstance() {
+        business = new EcoSystem();
+        System.out.println(business);
         return business;
     }
+    
+    public static String getSessionId(){
+        return business.sessionId();
+    }
+
 }

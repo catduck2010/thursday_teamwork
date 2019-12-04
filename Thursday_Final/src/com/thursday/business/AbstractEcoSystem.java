@@ -5,13 +5,21 @@
  */
 package com.thursday.business;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 /**
  *
  * @author lihang
  */
 public class AbstractEcoSystem {
-
+    public String sessionId;
     public AbstractEcoSystem() {
-
+        byte[] bytes=new byte[10];
+        ThreadLocalRandom.current().nextBytes(bytes);
+        sessionId=new String(bytes);
+    }
+    
+    public String sessionId(){
+        return sessionId;
     }
 }

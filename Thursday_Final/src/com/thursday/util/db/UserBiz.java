@@ -48,6 +48,12 @@ public class UserBiz {
         String sql = "select * from user where state=1";
         return Dao.getInstance().query(sql, User.class);
     }
+    
+    public static List<User> getUserOf(String role){
+        String sql = "select * from user where role=? and state=1";
+        Object[] params = {role};
+        return Dao.getInstance().query(sql, User.class, params);
+    }
 
     public static User getUser(String username) {
         String sql = "select * from user where username=? and state=1";
