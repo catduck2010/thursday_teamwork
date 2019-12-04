@@ -44,7 +44,7 @@ public class UserBiz {
         return Dao.getInstance().update(sql, params);
     }
 
-    public static List getAll() {
+    public static List<User> getAll() {
         String sql = "select * from user where state=1";
         return Dao.getInstance().query(sql, User.class);
     }
@@ -72,11 +72,6 @@ public class UserBiz {
 
     public boolean isEmpty() {
         return getAll().isEmpty();
-    }
-
-    public static List getAllUsernames() {
-        String sql = "select username from user where state=1";
-        return Dao.getInstance().query(sql, String.class);
     }
 
 }
