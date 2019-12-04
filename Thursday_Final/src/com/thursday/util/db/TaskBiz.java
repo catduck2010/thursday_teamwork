@@ -39,10 +39,15 @@ public class TaskBiz {
         return (Task) Dao.getInstance().get(sql, Task.class, params);
     }
 
-    public static List getUserTask(String username) {
+    public static List<Task> getUserTask(String username) {
         String sql = "select * from task where creator=? and state=1";
         Object[] params = {username};
         return Dao.getInstance().query(sql, Task.class, params);
+    }
+    public static List<Task> getAllTask() {
+        String sql = "select * from task where state=1";
+        return Dao.getInstance().query(sql, Task.class);
+        
     }
 
     public static Task getLatestTask(String username) {

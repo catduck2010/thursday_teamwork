@@ -89,4 +89,5 @@ public class UserDirectory {
     public static User getUser(String username) {
         return UserBiz.getUser(username);
     }
+    
 }
