@@ -7,10 +7,12 @@ package com.thursday.interfaces;
 
 import com.thursday.business.UserDirectory;
 import com.thursday.business.WorkFlow;
+import com.thursday.business.enterprise.ApartmentList;
 import com.thursday.business.identities.ApartmentUser;
 import com.thursday.business.identities.User;
 import com.thursday.business.workflow.Task;
 import com.thursday.business.workflow.WorkRequest;
+import java.awt.CardLayout;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -25,6 +27,7 @@ public class AdminManageStaffJPanel extends javax.swing.JPanel {
     private JPanel rightPanel;
     private User user;
     private DefaultTableModel dtm;
+    private ApartmentList apartmentList;
 
     /**
      * Creates new form AdminManageStaffJPanel
@@ -37,6 +40,7 @@ public class AdminManageStaffJPanel extends javax.swing.JPanel {
         this.rightPanel = rightPanel;
         this.user = u;
         this.dtm = (DefaultTableModel) jTable1.getModel();
+        this.apartmentList = apartmentList;
         loadTable();
     }
 
@@ -122,6 +126,11 @@ public class AdminManageStaffJPanel extends javax.swing.JPanel {
 
         addBtn.setFont(new java.awt.Font("Microsoft JhengHei", 0, 20)); // NOI18N
         addBtn.setText("+Add");
+        addBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addBtnActionPerformed(evt);
+            }
+        });
 
         deleteBtn.setFont(new java.awt.Font("Microsoft JhengHei", 0, 20)); // NOI18N
         deleteBtn.setText("-Delete");
@@ -198,6 +207,14 @@ public class AdminManageStaffJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         loadTable();
     }//GEN-LAST:event_updateBtnActionPerformed
+
+    private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
+        // TODO add your handling code here:
+        CreateJPanel panel = new CreateJPanel(rightPanel);
+        rightPanel.add("CreateJPanel",panel);
+        CardLayout layout = (CardLayout) rightPanel.getLayout();
+        layout.next(rightPanel);
+    }//GEN-LAST:event_addBtnActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

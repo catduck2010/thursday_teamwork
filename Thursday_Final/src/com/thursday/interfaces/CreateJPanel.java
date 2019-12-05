@@ -32,10 +32,10 @@ public class CreateJPanel extends javax.swing.JPanel {
     private UserBiz uBiz;
  
     
-    public CreateJPanel(JPanel rightPanel, UserBiz apBiz) {
+    public CreateJPanel(JPanel rightPanel) {
         initComponents();
         this.rightPanel = rightPanel;
-        this.uBiz = apBiz;
+        
         
                 
         ItemListener il = new ItemListener() {
