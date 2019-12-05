@@ -58,15 +58,26 @@ public class WorkFlow {
         return WorkRequestBiz.delete(wr);
     }
 
-    public static List getReceivedRequest(String username) {
+    public static List<WorkRequest> getReceivedRequest(String username) {
         return WorkRequestBiz.getAllReceivedWorkRequests(username);
     }
 
-    public static List getSentRequest(String username) {
+    public static List<WorkRequest> getSentRequest(String username) {
         return WorkRequestBiz.getAllSentWorkRequests(username);
     }
     
-    public static List getAllTasks(String username){
+    public static List<Task> getAllTasks(String username){
         return TaskBiz.getUserTask(username);
+    }
+    
+    public static Task getTask(int taskId){
+        return TaskBiz.getTask(taskId);
+    }
+        
+    public static List<Task> getAllTasksOfOneUser(String username){
+        return TaskBiz.getUserTask(username);
+    }
+    public static List<Task> getAllTasks(){
+        return TaskBiz.getAllTasks();
     }
 }

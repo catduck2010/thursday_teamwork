@@ -24,6 +24,12 @@ public class UserBiz {
         return Dao.getInstance().update(sql, params);
     }
 
+    public static boolean addWithCompany(User u) {
+        String sql = "insert into user(username,passwd,firstname,lastname,companyname,role) values(?,?,?,?,?,?)";
+        Object[] params = {u.getUsername(), u.getPasswd(), u.getFirstName(), u.getLastName(), u.getCompanyName(), u.getRole()};
+        return Dao.getInstance().update(sql, params);
+    }
+
     public static boolean delete(User u) {
         //soft delete using column 'state'
         String sql = "update user set state=0 where username=?";
@@ -33,14 +39,26 @@ public class UserBiz {
 
     public static boolean update(User u) {
         //soft delete using column 'state'
-        String sql = "update user set username=?, passwd=?, firstname=?, lastname=?, role=? where id=?";
-        Object[] params = {u.getUsername(), u.getPasswd(), u.getFirstName(), u.getLastName(), u.getRole(), u.getId()};
+        String sql = "update user set username=?, passwd=?, firstname=?, lastname=?, companyname=?, role=? where id=?";
+        Object[] params = {u.getUsername(), u.getPasswd(), u.getFirstName(), u.getLastName(), u.getCompanyName(), u.getRole(), u.getId()};
         return Dao.getInstance().update(sql, params);
     }
 
-    public static List getAll() {
+    public static List<User> getAll() {
         String sql = "select * from user where state=1";
         return Dao.getInstance().query(sql, User.class);
+    }
+    
+    public static List<User> getUserWithCondition(String condition, String val){
+        String sql = "select * from user where "+condition+" and state=1";
+        Object[] params = {val};
+        return Dao.getInstance().query(sql, User.class, params);
+    }
+    
+    public static List<User> getUserOf(String role){
+        String sql = "select * from user where role=? and state=1";
+        Object[] params = {role};
+        return Dao.getInstance().query(sql, User.class, params);
     }
 
     public static User getUser(String username) {
@@ -48,33 +66,24 @@ public class UserBiz {
         Object[] params = {username};
         return (User) Dao.getInstance().get(sql, User.class, params);
     }
-    
-    
-    
-   
-    
+
     public void addApartment(ApartmentUser a) {
         UserBiz.add(a);
     }
-/*    
+
+    /*    
     public ApartmentUser addApartment(String uname, String pw,) {
         ApartmentUser a = new ApartmentUser(uname, pw);
         apartmentList.add(a);
         return a;
     }
-*/
+     */
     public void deleteAdmin(ApartmentUser a) {
         UserBiz.delete(a);
     }
 
-
     public boolean isEmpty() {
         return getAll().isEmpty();
-    }
-    
-    public static List getAllUsernames(){
-        String sql="select username from user where state=1";
-        return Dao.getInstance().query(sql, String.class);
     }
 
 }

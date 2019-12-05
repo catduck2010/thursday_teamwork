@@ -35,11 +35,11 @@ public class CompanyDirectory {
         return CompanyBiz.getCompany(name);
     }
 
-    public static List getApartments() {
+    public static List<Company> getApartments() {
         return CompanyBiz.getApartments();
     }
 
-    public static List getCleaningCompanies() {
+    public static List<Company> getCleaningCompanies() {
         return CompanyBiz.getCleaningCompanies();
     }
 }

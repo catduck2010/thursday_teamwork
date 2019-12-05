@@ -5,6 +5,7 @@
  */
 package com.thursday.interfaces;
 
+import com.thursday.business.EcoSystem;
 import com.thursday.business.identities.AbstractUser;
 import com.thursday.util.db.UserBiz;
 import com.thursday.business.identities.User;
@@ -38,14 +39,12 @@ public class LoginJPanel extends javax.swing.JPanel {
     //private User user;
     static final String TXTPSWD_HINT = "Password";
     static char defaultChar;
-    private String username;
 
     public LoginJPanel(MainFrame f, UserBiz apBiz) {
         initComponents();
         this.mFrame = f;
         this.rightPanel = f.getRightPanel();
         this.apBiz = apBiz;
-        this.username = username;
 
         ItemListener il = new ItemListener() {
             @Override
@@ -58,35 +57,44 @@ public class LoginJPanel extends javax.swing.JPanel {
             }
         };
 
-        
         defaultChar = this.passwordField.getEchoChar();
-     //set user "Administrator" default password
+        //set user "Administrator" default password
 
         txtPswdAddListener();
+        setPasswordHint();
     }
 
     private void txtPswdAddListener() {
         passwordField.addFocusListener(new FocusListener() {
             @Override
             public void focusLost(FocusEvent e) {// when focus lost
-                String pswd = new String(passwordField.getPassword());
-                if (pswd.equals("")) {// no password
-                    passwordField.setEchoChar('\0');// plaintext
-                    passwordField.setText(TXTPSWD_HINT);
-                    passwordField.setForeground(Color.LIGHT_GRAY);
-                }
+                setPasswordHint();
             }
 
             @Override
             public void focusGained(FocusEvent e) {// when focus gained
-                String pswd = new String(passwordField.getPassword());
-                if (pswd.equals(TXTPSWD_HINT)) {
-                    passwordField.setText("");
-                    passwordField.setEchoChar(defaultChar);// ciphertext
-                    passwordField.setForeground(Color.BLACK);
-                }
+                emptyPasswordField();
             }
         });
+    }
+
+    private void setPasswordHint() {
+        String pswd = new String(passwordField.getPassword());
+        if (pswd.equals("")) {// no password
+            passwordField.setEchoChar('\0');// plaintext
+            passwordField.setText(TXTPSWD_HINT);
+            passwordField.setForeground(Color.LIGHT_GRAY);
+        }
+    }
+
+    private void emptyPasswordField() {
+        String pswd = new String(passwordField.getPassword());
+        if (pswd.equals(TXTPSWD_HINT)) {
+            passwordField.setText("");
+            passwordField.setEchoChar(defaultChar);// ciphertext
+            passwordField.setForeground(Color.BLACK);
+
+        }
     }
 
     private void grantAccess(User user) {
@@ -102,10 +110,12 @@ public class LoginJPanel extends javax.swing.JPanel {
             this.rightPanel.add("HRBarJPanel", panel);
             layout.next(rightPanel);
         }
-
+        EcoSystem.login(user);
+        this.passwordField.setText("");
+        this.usernameTxt.setText("");
     }
 
-    private JPanel swicthPanel(User u){
+    private JPanel swicthPanel(User u) {
         String role = u.getRole();
         switch (role) {
             case ApartmentUser.Roles.ADMIN:
@@ -117,8 +127,8 @@ public class LoginJPanel extends javax.swing.JPanel {
         }
         return null;
     }
-    
-        private JPanel swicth2Panel(User u){
+
+    private JPanel swicth2Panel(User u) {
         String role = u.getRole();
         switch (role) {
             case CleaningCompUser.Roles.HR:
@@ -130,7 +140,6 @@ public class LoginJPanel extends javax.swing.JPanel {
         }
         return null;
     }
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -216,7 +225,6 @@ public class LoginJPanel extends javax.swing.JPanel {
         } else {
             System.out.println("pass");
             grantAccess(u);
-            mFrame.setLoggedUser(u);
         }
     }//GEN-LAST:event_loginBtnActionPerformed
 

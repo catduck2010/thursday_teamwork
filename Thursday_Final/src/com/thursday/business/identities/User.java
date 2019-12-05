@@ -20,12 +20,21 @@ public class User extends AbstractUser {
     private String firstName;
     private String lastName;
     private String role;
+    private String companyName;
 
     public User(String username, char[] passwd, String name, String last, String role) {
         super(username, passwd);
         this.firstName = name;
         this.lastName = last;
         this.role = role;
+    }
+
+    public User(String company, String username, char[] passwd, String name, String last, String role) {
+        super(username, passwd);
+        this.firstName = name;
+        this.lastName = last;
+        this.role = role;
+        this.companyName = company;
     }
 
     public User() {
@@ -56,6 +65,14 @@ public class User extends AbstractUser {
         this.role = role;
     }
 
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
+
     //database related actions
     public boolean sendRequest(String toUser, String title, String message, Integer taskId) {
         return WorkFlow.createRequest(taskId, title, message, this.getUsername(), toUser);
@@ -73,15 +90,14 @@ public class User extends AbstractUser {
     public List getReceivedRequests() {
         return WorkFlow.getReceivedRequest(this.getUsername());
     }
-    
-    public List getSentRequests(){
+
+    public List getSentRequests() {
         return WorkFlow.getSentRequest(this.getUsername());
     }
 
     @Override
     public String toString() {
-        return "User{" + getUsername() + " " + role + firstName + lastName
-                + "}";
+        return getUsername();
     }
 
     @Override

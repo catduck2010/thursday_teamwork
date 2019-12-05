@@ -5,6 +5,7 @@
  */
 package com.thursday.interfaces;
 
+import com.thursday.business.EcoSystem;
 import com.thursday.business.enterprise.Apartment;
 
 import com.thursday.business.enterprise.CleaningCompany;
@@ -32,37 +33,21 @@ public class MainFrame extends javax.swing.JFrame {
     //private final CleaningCompanyList cleaningComp;
     //private ApartmentList ap;
     //private CleaningCompanyList cc;
-    
     private UserBiz apBiz;
     private CleaningCompUser ccBiz;
     private User loggedUser = null;
     private boolean loggedIn = false;
-       
+
     public MainFrame() {
         initComponents();
+        EcoSystem.setMainFrame(this);
         //this.apartment = apartment;
     }
-    
+
     public JPanel getRightPanel() {
         return this.rightPanel;
     }
-    
-    public void setLoggedUser(User u) {
-        loggedUser = u;
-    }
 
-    public User getLoggedUser() {
-        return loggedUser;
-    }
-
-    public JButton getBtnLogin() {
-        return loginBtn;
-    }
-
-    public JButton getBtnRegister() {
-        return signUpBtn;
-    }
-    
     public void setLoggedIn(boolean b) {
         if (b) {
             this.loginBtn.setText("Logout");
@@ -75,20 +60,19 @@ public class MainFrame extends javax.swing.JFrame {
             this.loggedUser = null;
         }
     }
-    
+
     public void logOut() {
         clearRightPanel();
-        loggedIn = false;
-        setLoggedIn(loggedIn);
     }
-    
-    public void clearRightPanel() {
+
+    private void clearRightPanel() {
         CardLayout layout = (CardLayout) this.rightPanel.getLayout();
         for (int i = rightPanel.getComponentCount() - 1; i > 0; i--) {
             rightPanel.remove(i);
         }
         layout.first(rightPanel);
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -104,6 +88,7 @@ public class MainFrame extends javax.swing.JFrame {
         signUpBtn = new javax.swing.JButton();
         exitBtn = new javax.swing.JButton();
         rightPanel = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -160,6 +145,11 @@ public class MainFrame extends javax.swing.JFrame {
         jSplitPane1.setLeftComponent(leftPanel);
 
         rightPanel.setLayout(new java.awt.CardLayout());
+
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Click Buttons on the left to Start");
+        rightPanel.add(jLabel1, "card2");
+
         jSplitPane1.setRightComponent(rightPanel);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -184,7 +174,7 @@ public class MainFrame extends javax.swing.JFrame {
     private void loginBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginBtnActionPerformed
         // TODO add your handling code here:
         CardLayout layout = (CardLayout) this.rightPanel.getLayout();
-        if (!loggedIn) {
+        if (!EcoSystem.isLoggedIn()) {
             LoginJPanel panel = new LoginJPanel(
                     this, apBiz);
             this.rightPanel.add("LoginJPanel", panel);
@@ -193,7 +183,7 @@ public class MainFrame extends javax.swing.JFrame {
         } else {
             if (JOptionPane.showConfirmDialog(this, "Are you sure to \nlog out?", "WARNING",
                     JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-                logOut();
+                EcoSystem.logout();
             }
         }
     }//GEN-LAST:event_loginBtnActionPerformed
@@ -204,8 +194,13 @@ public class MainFrame extends javax.swing.JFrame {
         CreateJPanel panel = new CreateJPanel(rightPanel, apBiz);
         rightPanel.add("UserCreatePanel", panel);
         CardLayout layout = (CardLayout) rightPanel.getLayout();
+<<<<<<< HEAD
         layout.next(rightPanel);   
  */
+
+        //layout.next(rightPanel);
+
+
     }//GEN-LAST:event_signUpBtnActionPerformed
 
     /**
@@ -245,6 +240,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton exitBtn;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JPanel leftPanel;
     private javax.swing.JButton loginBtn;

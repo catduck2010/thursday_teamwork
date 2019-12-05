@@ -5,6 +5,9 @@
  */
 package com.thursday.business;
 
+import com.thursday.business.identities.User;
+import com.thursday.interfaces.MainFrame;
+
 /**
  *
  * @author lihang
@@ -12,11 +15,47 @@ package com.thursday.business;
 public class EcoSystem extends AbstractEcoSystem {
 
     private static EcoSystem business;
+    private static User currentUser;
+    private static boolean loggedIn = false;
+    private static MainFrame mainFrame;
 
-    public static EcoSystem getInstance() {
-        if (business == null) {
-            business = new EcoSystem();
-        }
+    private EcoSystem() {
+        super();
+    }
+
+    public static EcoSystem newInstance() {
+        business = new EcoSystem();
+        System.out.println(business);
         return business;
     }
+
+    public static String getSessionId() {
+        return business.sessionId();
+    }
+
+    public static void login(User u) {
+        currentUser = u;
+        loggedIn = true;
+        mainFrame.setLoggedIn(loggedIn);
+    }
+
+    public static void logout() {
+        currentUser = null;
+        loggedIn = false;
+        mainFrame.setLoggedIn(loggedIn);
+        mainFrame.logOut();
+    }
+
+    public static boolean isLoggedIn() {
+        return loggedIn;
+    }
+
+    public static void setMainFrame(MainFrame mf) {
+        mainFrame = mf;
+    }
+
+    public static User getCurrentUser() {
+        return currentUser;
+    }
+
 }

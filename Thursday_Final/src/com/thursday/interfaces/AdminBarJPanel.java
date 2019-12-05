@@ -6,6 +6,7 @@
 package com.thursday.interfaces;
 
 import com.thursday.business.identities.User;
+import java.awt.CardLayout;
 import javax.swing.JPanel;
 
 /**
@@ -18,11 +19,19 @@ public class AdminBarJPanel extends javax.swing.JPanel {
      * Creates new form AdminBarJPanel
      */
     private final User user;
-    
-    
-    public AdminBarJPanel(JPanel rightPanel,User u) {
+    private JPanel rightPanel;
+
+    public AdminBarJPanel(JPanel rightPanel, User u) {
         initComponents();
         this.user = u;
+        this.rightPanel = rightPanel;
+    }
+
+    private void manTaskPanel() {
+        ManageTaskJPanel manageTaskJPanel = new ManageTaskJPanel(downPanel, user);
+        CardLayout layout = (CardLayout) downPanel.getLayout();
+        downPanel.add("ManageTaskJPanel", manageTaskJPanel);
+        layout.next(downPanel);
     }
 
     /**
@@ -39,8 +48,8 @@ public class AdminBarJPanel extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         manageReqBtn = new javax.swing.JButton();
         manageStaffBtn = new javax.swing.JButton();
-        manageTnmtBtn = new javax.swing.JButton();
-        jPanel2 = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
+        downPanel = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
 
         jSplitPane1.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
@@ -50,15 +59,25 @@ public class AdminBarJPanel extends javax.swing.JPanel {
 
         manageReqBtn.setFont(new java.awt.Font("Microsoft JhengHei", 0, 22)); // NOI18N
         manageReqBtn.setText("Manage Requests");
+        manageReqBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                manageReqBtnActionPerformed(evt);
+            }
+        });
 
         manageStaffBtn.setFont(new java.awt.Font("Microsoft JhengHei", 0, 22)); // NOI18N
         manageStaffBtn.setText("Manage Staff");
-
-        manageTnmtBtn.setFont(new java.awt.Font("Microsoft JhengHei", 0, 22)); // NOI18N
-        manageTnmtBtn.setText("Manage Tenement");
-        manageTnmtBtn.addActionListener(new java.awt.event.ActionListener() {
+        manageStaffBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                manageTnmtBtnActionPerformed(evt);
+                manageStaffBtnActionPerformed(evt);
+            }
+        });
+
+        jButton1.setFont(new java.awt.Font("Microsoft JhengHei", 0, 22)); // NOI18N
+        jButton1.setText("Manage Tenement");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
             }
         });
 
@@ -95,28 +114,14 @@ public class AdminBarJPanel extends javax.swing.JPanel {
 
         jSplitPane1.setTopComponent(jPanel1);
 
+        downPanel.setLayout(new java.awt.CardLayout());
+
         jLabel2.setBackground(new java.awt.Color(153, 255, 102));
         jLabel2.setFont(new java.awt.Font("Microsoft JhengHei", 0, 24)); // NOI18N
         jLabel2.setText("Click button to continue");
+        downPanel.add(jLabel2, "card2");
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(281, Short.MAX_VALUE)
-                .addComponent(jLabel2)
-                .addGap(260, 260, 260))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(201, 201, 201)
-                .addComponent(jLabel2)
-                .addContainerGap(206, Short.MAX_VALUE))
-        );
-
-        jSplitPane1.setRightComponent(jPanel2);
+        jSplitPane1.setRightComponent(downPanel);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -126,21 +131,34 @@ public class AdminBarJPanel extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSplitPane1)
+            .addComponent(jSplitPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 517, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void manageTnmtBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageTnmtBtnActionPerformed
+    private void manageStaffBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageStaffBtnActionPerformed
         // TODO add your handling code here:
-        
-    }//GEN-LAST:event_manageTnmtBtnActionPerformed
+        CardLayout layout = (CardLayout) this.rightPanel.getLayout();
+        JPanel panel = new AdminManageStaffJPanel(rightPanel, user);
+        this.rightPanel.add("AdminManageStaffJPanel", panel);
+        layout.next(this.rightPanel);
+    }//GEN-LAST:event_manageStaffBtnActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void manageReqBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageReqBtnActionPerformed
+        // TODO add your handling code here:
+        manTaskPanel();
+    }//GEN-LAST:event_manageReqBtnActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel downPanel;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JButton manageReqBtn;
     private javax.swing.JButton manageStaffBtn;

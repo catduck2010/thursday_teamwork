@@ -18,5 +18,10 @@ public class WorkRequest extends AbstractWorkRequest {
     public WorkRequest() {
         super();
     }
-
+   
+   
+@Override
+public String toString(){
+    return this.getTitle();
+}
 }

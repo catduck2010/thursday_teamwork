@@ -34,14 +34,14 @@ public class CompanyBiz {
         return Dao.getInstance().update(sql, params);
     }
 
-    public static List getApartments() {
+    public static List<Company> getApartments() {
         String sql = "select * from company where type=? and state=1 "
                 + "order by companyname";
         Object[] params = {Company.Type.APARTMENT};
         return Dao.getInstance().query(sql, Company.class, params);
     }
 
-    public static List getCleaningCompanies() {
+    public static List<Company> getCleaningCompanies() {
         String sql = "select * from company where type=? and state=1 "
                 + "order by companyname";
         Object[] params = {Company.Type.CLEANING};

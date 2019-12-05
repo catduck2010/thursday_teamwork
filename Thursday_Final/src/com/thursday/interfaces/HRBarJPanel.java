@@ -6,6 +6,7 @@
 package com.thursday.interfaces;
 
 import com.thursday.business.identities.User;
+import java.awt.CardLayout;
 import javax.swing.JPanel;
 
 /**
@@ -19,13 +20,20 @@ public class HRBarJPanel extends javax.swing.JPanel {
      */
     
     private final User user;
-    
+    private JPanel rightPanel;
     
     public HRBarJPanel(JPanel rightPanel,User u) {
-        initComponents();
         this.user = u;
+        this.rightPanel =rightPanel;
+        initComponents();
+        
     }
-
+private void CleaningAdminJPanel(){
+        CleaningAdminJPanel cleaningAdminJPanel = new CleaningAdminJPanel(downPanel,user);
+        CardLayout layout = (CardLayout) downPanel.getLayout();
+        downPanel.add("CleaningAdminJPanel", cleaningAdminJPanel);
+        layout.next(downPanel);
+}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -41,7 +49,7 @@ public class HRBarJPanel extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         manageReqBtn = new javax.swing.JButton();
         manageStaffBtn = new javax.swing.JButton();
-        jPanel3 = new javax.swing.JPanel();
+        downPanel = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -62,6 +70,11 @@ public class HRBarJPanel extends javax.swing.JPanel {
 
         manageReqBtn.setFont(new java.awt.Font("Microsoft JhengHei", 0, 22)); // NOI18N
         manageReqBtn.setText("Manage Requests");
+        manageReqBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                manageReqBtnActionPerformed(evt);
+            }
+        });
 
         manageStaffBtn.setFont(new java.awt.Font("Microsoft JhengHei", 0, 22)); // NOI18N
         manageStaffBtn.setText("Manage Staff");
@@ -95,28 +108,14 @@ public class HRBarJPanel extends javax.swing.JPanel {
 
         jSplitPane1.setTopComponent(jPanel1);
 
+        downPanel.setLayout(new java.awt.CardLayout());
+
         jLabel2.setBackground(new java.awt.Color(153, 255, 102));
         jLabel2.setFont(new java.awt.Font("Microsoft JhengHei", 0, 24)); // NOI18N
         jLabel2.setText("Click button to continue");
+        downPanel.add(jLabel2, "card2");
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(258, 258, 258)
-                .addComponent(jLabel2)
-                .addContainerGap(283, Short.MAX_VALUE))
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(198, 198, 198)
-                .addComponent(jLabel2)
-                .addContainerGap(206, Short.MAX_VALUE))
-        );
-
-        jSplitPane1.setRightComponent(jPanel3);
+        jSplitPane1.setRightComponent(downPanel);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -126,17 +125,22 @@ public class HRBarJPanel extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSplitPane1)
+            .addComponent(jSplitPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 538, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void manageReqBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageReqBtnActionPerformed
+        // TODO add your handling code here:
+        CleaningAdminJPanel();
+    }//GEN-LAST:event_manageReqBtnActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel downPanel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JButton manageReqBtn;
     private javax.swing.JButton manageStaffBtn;

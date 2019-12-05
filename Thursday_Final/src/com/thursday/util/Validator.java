@@ -20,7 +20,7 @@ public class Validator {
         String regex = "^[a-zA-Z]{1,}$";
         return Match(regex, str);
     }
-    
+
     public static boolean IsChineseChar(String str) {
         String regex = "^[\\u4E00-\\u9FA5]{1,4}$";
         return Match(regex, str);
@@ -63,16 +63,16 @@ public class Validator {
     public static boolean IsNotEmpty(String str) {
         return !(str == null || str.length() <= 0);
     }
-    
-    public static boolean IsNotEmpty(char [] c) {
+
+    public static boolean IsNotEmpty(char[] c) {
         return !(c == null || c.length <= 0);
     }
 
     public static boolean IsEmpty(String str) {
         return !IsNotEmpty(str);
     }
-    
-    public static boolean IsEmpty(char [] c) {
+
+    public static boolean IsEmpty(char[] c) {
         return !IsNotEmpty(c);
     }
 
@@ -85,7 +85,7 @@ public class Validator {
         String regex = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[$*#&])[A-Za-z\\d$*#&]{6,}$";
         return Match(regex, str);
     }
-    
+
     public static boolean IsPassword(char[] c) {
         String regex = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[$*#&])[A-Za-z\\d$*#&]{6,}$";
         return Match(regex, new String(c));
@@ -94,18 +94,18 @@ public class Validator {
     public static boolean IsSamePassword(String str1, String str2) {
         return str1.equals(str2);
     }
-    
-    public static boolean IsSamePassword(char[] pw1, char[] pw2){
-        if(pw1.length!=pw2.length){
+
+    public static boolean IsSamePassword(char[] pw1, char[] pw2) {
+        if (pw1.length != pw2.length) {
             return false;
         }
-        for(int i=0;i<pw1.length;i++){
-            if(pw1[i]!=pw2[i]){
+        for (int i = 0; i < pw1.length; i++) {
+            if (pw1[i] != pw2[i]) {
                 return false;
             }
         }
         return true;
-        
+
     }
 
     public static boolean IsUsername(String str) {
@@ -141,6 +141,10 @@ public class Validator {
             return true;
         }
         return false;
+    }
+
+    public static boolean IsAdminUser(String username) {
+        return username.toLowerCase().contains("admin");
     }
 
     private static boolean Match(String regex, String str) {

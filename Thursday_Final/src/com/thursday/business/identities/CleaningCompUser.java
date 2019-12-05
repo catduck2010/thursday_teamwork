@@ -15,12 +15,16 @@ public class CleaningCompUser extends User {
         super(username, passwd, name, last, role);
     }
 
+    public CleaningCompUser(String company, String username, char[] passwd, String name, String last, String role) {
+        super(company, username, passwd, name, last, role);
+    }
+
     public CleaningCompUser() {
     }
 
     public static class Roles {
 
-        public static final String HR = "ADMIN";
+        public static final String HR = "HUMAN RESOURCES";
         public static final String CLEANER = "CLEANER";
         public static final String SCHEDULER = "SCHEDULE MAKER";
     }
