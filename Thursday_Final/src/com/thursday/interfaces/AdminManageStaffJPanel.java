@@ -27,21 +27,22 @@ public class AdminManageStaffJPanel extends javax.swing.JPanel {
     private JPanel rightPanel;
     private User user;
     private DefaultTableModel dtm;
-    private ApartmentList apartmentList;
+    private final String role;
 
     /**
      * Creates new form AdminManageStaffJPanel
      *
      * @param rightPanel
      * @param u
+     * @param role
      */
-    public AdminManageStaffJPanel(JPanel rightPanel, User u) {
+    public AdminManageStaffJPanel(JPanel rightPanel, User u, String role) {
         initComponents();
         this.rightPanel = rightPanel;
         this.user = u;
         this.dtm = (DefaultTableModel) jTable1.getModel();
-        this.apartmentList = apartmentList;
-        loadTable();
+        this.role = role;
+        loadTable(this.role);
     }
 
     private boolean deleteStaff(int tableIndex) {
@@ -59,13 +60,13 @@ public class AdminManageStaffJPanel extends javax.swing.JPanel {
         return UserDirectory.deleteUser(u);
     }
 
-    private void loadTable() {
+    private void loadTable(String role) {
         List<User> list = UserDirectory.getCompanyStaff(user.getCompanyName());
 
         dtm.setRowCount(0);
 
         for (User u : list) {
-            if (u.getRole().equals(ApartmentUser.Roles.REPAIRPERSON)) {
+            if (u.getRole().equals(role)) {
                 Object[] row = {
                     u.getCompanyName(),
                     u,
@@ -192,7 +193,7 @@ public class AdminManageStaffJPanel extends javax.swing.JPanel {
             }
             if (deleteStaff(index)) {
                 JOptionPane.showMessageDialog(this, "Success", "User Deleted", JOptionPane.INFORMATION_MESSAGE);
-                loadTable();
+                loadTable(role);
             } else {
                 JOptionPane.showMessageDialog(this, "Failed because this user is doing her/his work.",
                         "User Management", JOptionPane.ERROR_MESSAGE);
@@ -205,7 +206,7 @@ public class AdminManageStaffJPanel extends javax.swing.JPanel {
 
     private void updateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateBtnActionPerformed
         // TODO add your handling code here:
-        loadTable();
+        loadTable(role);
     }//GEN-LAST:event_updateBtnActionPerformed
 
     private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
