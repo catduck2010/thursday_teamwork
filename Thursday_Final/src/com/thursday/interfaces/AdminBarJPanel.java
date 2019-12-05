@@ -39,7 +39,7 @@ public class AdminBarJPanel extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         manageReqBtn = new javax.swing.JButton();
         manageStaffBtn = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        manageTnmtBtn = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
 
@@ -54,8 +54,13 @@ public class AdminBarJPanel extends javax.swing.JPanel {
         manageStaffBtn.setFont(new java.awt.Font("Microsoft JhengHei", 0, 22)); // NOI18N
         manageStaffBtn.setText("Manage Staff");
 
-        jButton1.setFont(new java.awt.Font("Microsoft JhengHei", 0, 22)); // NOI18N
-        jButton1.setText("Manage Tenement");
+        manageTnmtBtn.setFont(new java.awt.Font("Microsoft JhengHei", 0, 22)); // NOI18N
+        manageTnmtBtn.setText("Manage Tenement");
+        manageTnmtBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                manageTnmtBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -70,7 +75,7 @@ public class AdminBarJPanel extends javax.swing.JPanel {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(manageReqBtn)
                         .addGap(31, 31, 31)
-                        .addComponent(jButton1)
+                        .addComponent(manageTnmtBtn)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
                         .addComponent(manageStaffBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(55, 55, 55))))
@@ -83,7 +88,7 @@ public class AdminBarJPanel extends javax.swing.JPanel {
                 .addGap(36, 36, 36)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(manageReqBtn)
-                    .addComponent(jButton1)
+                    .addComponent(manageTnmtBtn)
                     .addComponent(manageStaffBtn))
                 .addContainerGap(40, Short.MAX_VALUE))
         );
@@ -125,9 +130,13 @@ public class AdminBarJPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void manageTnmtBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageTnmtBtnActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_manageTnmtBtnActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
@@ -135,5 +144,6 @@ public class AdminBarJPanel extends javax.swing.JPanel {
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JButton manageReqBtn;
     private javax.swing.JButton manageStaffBtn;
+    private javax.swing.JButton manageTnmtBtn;
     // End of variables declaration//GEN-END:variables
 }

@@ -200,11 +200,12 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void signUpBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signUpBtnActionPerformed
         // TODO add your handling code here:
+/*
         CreateJPanel panel = new CreateJPanel(rightPanel, apBiz);
         rightPanel.add("UserCreatePanel", panel);
         CardLayout layout = (CardLayout) rightPanel.getLayout();
-        layout.next(rightPanel);
-        
+        layout.next(rightPanel);   
+ */
     }//GEN-LAST:event_signUpBtnActionPerformed
 
     /**
