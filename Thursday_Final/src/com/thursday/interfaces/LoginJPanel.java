@@ -58,9 +58,8 @@ public class LoginJPanel extends javax.swing.JPanel {
             }
         };
 
-        
         defaultChar = this.passwordField.getEchoChar();
-     //set user "Administrator" default password
+        //set user "Administrator" default password
 
         txtPswdAddListener();
     }
@@ -105,7 +104,7 @@ public class LoginJPanel extends javax.swing.JPanel {
 
     }
 
-    private JPanel swicthPanel(User u){
+    private JPanel swicthPanel(User u) {
         String role = u.getRole();
         switch (role) {
             case ApartmentUser.Roles.ADMIN:
@@ -117,8 +116,8 @@ public class LoginJPanel extends javax.swing.JPanel {
         }
         return null;
     }
-    
-        private JPanel swicth2Panel(User u){
+
+    private JPanel swicth2Panel(User u) {
         String role = u.getRole();
         switch (role) {
             case CleaningCompUser.Roles.HR:
@@ -130,7 +129,6 @@ public class LoginJPanel extends javax.swing.JPanel {
         }
         return null;
     }
-
 
     /**
      * This method is called from within the constructor to initialize the form.

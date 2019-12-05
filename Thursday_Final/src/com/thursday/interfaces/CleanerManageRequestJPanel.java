@@ -16,17 +16,17 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author andy
  */
-public class RepairManManageRequestJPanel extends javax.swing.JPanel {
+public class CleanerManageRequestJPanel extends javax.swing.JPanel {
 
     /**
      * Creates new form RepairManManageRequestJPanel
      */
     private JPanel rightPanel;
-    private User repairMan;
+    private User cleaner;
 
-    public RepairManManageRequestJPanel(JPanel rightPanel, User repairMan) {
+    public CleanerManageRequestJPanel(JPanel rightPanel, User cleaner) {
         this.rightPanel = rightPanel;
-        this.repairMan = repairMan;
+        this.cleaner = cleaner;
         initComponents();
         populateRequestTable();
     }
@@ -36,7 +36,7 @@ public class RepairManManageRequestJPanel extends javax.swing.JPanel {
         DefaultTableModel dtm = (DefaultTableModel) tblRequest.getModel();
         dtm.setRowCount(0);
 
-        for (WorkRequest wr : WorkFlow.getReceivedRequest(repairMan.getUsername())) {
+        for (WorkRequest wr : WorkFlow.getReceivedRequest(cleaner.getUsername())) {
 
             Object row[] = new Object[5];
 
@@ -79,8 +79,7 @@ public class RepairManManageRequestJPanel extends javax.swing.JPanel {
             int selectionButton = JOptionPane.YES_NO_OPTION;
             int selectionResult = JOptionPane.showConfirmDialog(null, "Are you sure you are finished?", "Warning", selectionButton);
             if (selectionResult == JOptionPane.YES_OPTION) {
-                WorkFlow.createRequest(wr.getTaskId(), wr.getTitle(), wr.getMessage(), repairMan.getUsername(), wr.getSender());
-                JOptionPane.showMessageDialog(null, "Set finished successfully");
+                WorkFlow.createRequest(wr.getTaskId(), wr.getTitle(), wr.getMessage(), cleaner.getUsername(), wr.getSender());
                 WorkFlow.withdrawWorkRequest(wr);
                 populateRequestTable();
 
@@ -102,7 +101,7 @@ public class RepairManManageRequestJPanel extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblRequest = new javax.swing.JTable();
         btnRead = new javax.swing.JButton();
-        btnFinished = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         tblRequest.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -132,10 +131,10 @@ public class RepairManManageRequestJPanel extends javax.swing.JPanel {
             }
         });
 
-        btnFinished.setText("Finished Work");
-        btnFinished.addActionListener(new java.awt.event.ActionListener() {
+        jButton1.setText("Finished Work");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnFinishedActionPerformed(evt);
+                jButton1ActionPerformed(evt);
             }
         });
 
@@ -152,7 +151,7 @@ public class RepairManManageRequestJPanel extends javax.swing.JPanel {
                         .addGap(113, 113, 113)
                         .addComponent(btnRead)
                         .addGap(40, 40, 40)
-                        .addComponent(btnFinished)))
+                        .addComponent(jButton1)))
                 .addContainerGap(89, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -163,7 +162,7 @@ public class RepairManManageRequestJPanel extends javax.swing.JPanel {
                 .addGap(50, 50, 50)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnRead)
-                    .addComponent(btnFinished))
+                    .addComponent(jButton1))
                 .addContainerGap(213, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -173,15 +172,15 @@ public class RepairManManageRequestJPanel extends javax.swing.JPanel {
         asRead();
     }//GEN-LAST:event_btnReadActionPerformed
 
-    private void btnFinishedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinishedActionPerformed
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         setFinished();
-    }//GEN-LAST:event_btnFinishedActionPerformed
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnFinished;
     private javax.swing.JButton btnRead;
+    private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblRequest;
     // End of variables declaration//GEN-END:variables
