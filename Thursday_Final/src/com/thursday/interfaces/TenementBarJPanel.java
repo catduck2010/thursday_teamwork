@@ -6,6 +6,7 @@
 package com.thursday.interfaces;
 
 import com.thursday.business.identities.User;
+import java.awt.CardLayout;
 import javax.swing.JPanel;
 
 /**
@@ -18,9 +19,11 @@ public class TenementBarJPanel extends javax.swing.JPanel {
      * Creates new form TenementJPanel
      */
     private final User user;
-    
-    public TenementBarJPanel(JPanel rightPanel,User u) {
+    private final JPanel rightPanel;
+
+    public TenementBarJPanel(JPanel rightPanel, User u) {
         initComponents();
+        this.rightPanel = rightPanel;
         this.user = u;
     }
 
@@ -56,6 +59,11 @@ public class TenementBarJPanel extends javax.swing.JPanel {
 
         manageAccountBtn.setFont(new java.awt.Font("Microsoft JhengHei", 0, 22)); // NOI18N
         manageAccountBtn.setText("Manage Account");
+        manageAccountBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                manageAccountBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -81,7 +89,7 @@ public class TenementBarJPanel extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(manageReqBtn)
                     .addComponent(manageAccountBtn))
-                .addContainerGap(48, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jSplitPane1.setTopComponent(jPanel1);
@@ -103,7 +111,7 @@ public class TenementBarJPanel extends javax.swing.JPanel {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(203, 203, 203)
                 .addComponent(jLabel2)
-                .addContainerGap(204, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jSplitPane1.setRightComponent(jPanel2);
@@ -123,6 +131,13 @@ public class TenementBarJPanel extends javax.swing.JPanel {
     private void manageReqBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageReqBtnActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_manageReqBtnActionPerformed
+
+    private void manageAccountBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageAccountBtnActionPerformed
+        // TODO add your handling code here:
+        CardLayout layout = (CardLayout) this.rightPanel.getLayout();
+        this.rightPanel.add("ManageAccountPanel", new ManageAccountPanel(rightPanel, user));
+        layout.next(rightPanel);
+    }//GEN-LAST:event_manageAccountBtnActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

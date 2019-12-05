@@ -7,7 +7,6 @@ package com.thursday.business;
 
 import com.thursday.business.identities.User;
 import com.thursday.interfaces.MainFrame;
-import javax.swing.JFrame;
 
 /**
  *
@@ -44,14 +43,19 @@ public class EcoSystem extends AbstractEcoSystem {
         currentUser = null;
         loggedIn = false;
         mainFrame.setLoggedIn(loggedIn);
+        mainFrame.logOut();
     }
-    
-    public static boolean isLoggedIn(){
+
+    public static boolean isLoggedIn() {
         return loggedIn;
     }
 
     public static void setMainFrame(MainFrame mf) {
         mainFrame = mf;
+    }
+
+    public static User getCurrentUser() {
+        return currentUser;
     }
 
 }

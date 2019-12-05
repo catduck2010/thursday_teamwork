@@ -39,7 +39,6 @@ public class LoginJPanel extends javax.swing.JPanel {
     //private User user;
     static final String TXTPSWD_HINT = "Password";
     static char defaultChar;
-    private String username;
 
     public LoginJPanel(MainFrame f, UserBiz apBiz) {
         initComponents();
@@ -225,7 +224,6 @@ public class LoginJPanel extends javax.swing.JPanel {
         } else {
             System.out.println("pass");
             grantAccess(u);
-            mFrame.setLoggedUser(u);
         }
     }//GEN-LAST:event_loginBtnActionPerformed
 
