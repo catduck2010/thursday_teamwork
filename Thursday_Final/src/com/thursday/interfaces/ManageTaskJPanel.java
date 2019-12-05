@@ -30,12 +30,17 @@ public class ManageTaskJPanel extends javax.swing.JPanel {
     public ManageTaskJPanel(JPanel rightPanel, User admin) {
         this.rightPanel = rightPanel;
         this.admin = admin;
-        initComponents();
+        initComponents();       
         populateTable();
         populateRequestTable();
         populateSendTable();
     }
-    
+    public void loadComboBox(){
+        comboBoxCc.removeAllItems();
+        //for(:){
+       //     comboBoxCc.addItem();
+      //  }
+    }
     public void populateTable(){
         
         DefaultTableModel dtm = (DefaultTableModel)tblTask.getModel();
@@ -101,8 +106,14 @@ public class ManageTaskJPanel extends javax.swing.JPanel {
         if (selectedRow >= 0) {
             
             Task task = (Task)tblTask.getValueAt(selectedRow, 1);
+            if(task.getTitle().indexOf("Cleaning") == -1){
+                JOptionPane.showMessageDialog(null, "Repair task can change status automatically");
+                return;
+            }
             if(task.getStatus().equals(Task.Status.PENDING)){
-                status = Task.Status.WAIT_FOR_RESPONSE;
+                
+                JOptionPane.showMessageDialog(null, "Please assign this task first");
+                return;
             }
             if(task.getStatus().equals(Task.Status.WAIT_FOR_RESPONSE)){
                 status = Task.Status.WORKING;
@@ -178,8 +189,16 @@ public void assignCleaning(){
             return;
             }
             else{
-             WorkFlow.createRequest(task.getId(), task.getTitle(), task.getMessage(),admin.getUsername(),"clcamdin");
-            JOptionPane.showMessageDialog(null, "Send Cleaning Task Request Successfully!");
+             String status =Task.Status.WAIT_FOR_RESPONSE;  
+             task.setStatus(status);
+             WorkFlow.updateTask(task);
+             populateTable();
+             
+               
+             WorkFlow.createRequest(task.getId(), task.getTitle(), task.getMessage(),admin.getUsername(),"clcadmin");
+             populateSendTable();
+             JOptionPane.showMessageDialog(null, "Send Cleaning Task Request Successfully!");
+             
             }
         }
         else 
@@ -207,6 +226,8 @@ public void assignCleaning(){
         btnAsRead = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         tblRequest = new javax.swing.JTable();
+        comboBoxCc = new javax.swing.JComboBox<>();
+        jLabel1 = new javax.swing.JLabel();
 
         tblTask.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -341,41 +362,53 @@ public void assignCleaning(){
 
         jTabbedPane1.addTab("Receive", receiveBoxJPanel);
 
+        jLabel1.setFont(new java.awt.Font("Lucida Grande", 0, 15)); // NOI18N
+        jLabel1.setText("Cleaning Company:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(29, 29, 29)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(29, 29, 29)
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnAssignRepairTask)
-                            .addComponent(btnSendCleaning)
-                            .addComponent(btnStatus)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(27, 27, 27)
-                        .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 672, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(0, 2, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnSendCleaning)
+                                    .addComponent(comboBoxCc, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(6, 6, 6)
+                                        .addComponent(jLabel1))
+                                    .addComponent(btnAssignRepairTask)
+                                    .addComponent(btnStatus))
+                                .addGap(0, 0, Short.MAX_VALUE))))
+                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 672, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
                         .addComponent(btnAssignRepairTask)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel1)
+                        .addGap(5, 5, 5)
+                        .addComponent(comboBoxCc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnSendCleaning)
-                        .addGap(32, 32, 32)
-                        .addComponent(btnStatus)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(31, Short.MAX_VALUE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(46, 46, 46)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnStatus))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -408,6 +441,8 @@ public void assignCleaning(){
     private javax.swing.JButton btnAssignRepairTask;
     private javax.swing.JButton btnSendCleaning;
     private javax.swing.JButton btnStatus;
+    private javax.swing.JComboBox<String> comboBoxCc;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;

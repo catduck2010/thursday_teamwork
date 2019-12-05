@@ -71,7 +71,7 @@ public void populateSendTable(){
             dtm.addRow(row);
     }
     }
-public void asRead(){
+/*public void asRead(){
     
      int selectedRow = tblRequest.getSelectedRow();
         if (selectedRow >= 0) {
@@ -82,7 +82,7 @@ public void asRead(){
                 return;
             }
             else if (WorkFlow.markAsRead(wr)){
-                JOptionPane.showMessageDialog(null, "Set read successfully. Go to work now!");
+                JOptionPane.showMessageDialog(null, "Set read successfully.");
             }
             populateRequestTable();
         }
@@ -91,19 +91,22 @@ public void asRead(){
             JOptionPane.showMessageDialog(null, "Please select any row");
         }    
 
-    }
+    }*/
 public void SendCleaningRequest(){
      int selectedRow = tblRequest.getSelectedRow();
         if (selectedRow >= 0) {
             WorkRequest wr = (WorkRequest)tblRequest.getValueAt(selectedRow, 2);
-            if (!wr.getIsRead()) {
-                JOptionPane.showMessageDialog(null, "set read first!");
+            
+            if (wr.getIsRead()) {
+                JOptionPane.showMessageDialog(null, "You already assign this task!");
                 return;
             }
             else if(!wr.getSender().equals("aptadmin")){
                 JOptionPane.showMessageDialog(null, "please select request from apartment admin!");
             }
             else{
+            WorkFlow.markAsRead(wr);
+            populateRequestTable();
             AssignCleaningTaskJPanel assignCleaningTaskJPanel = new AssignCleaningTaskJPanel(rightPanel,wr,admin);
             CardLayout layout = (CardLayout) rightPanel.getLayout();
             rightPanel.add("AssignCleaningTaskJPanel", assignCleaningTaskJPanel);
@@ -153,11 +156,10 @@ public void SendBack(){
         jScrollPane4 = new javax.swing.JScrollPane();
         tblSend = new javax.swing.JTable();
         receiveBoxJPanel = new javax.swing.JPanel();
-        btnAsRead = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         tblRequest = new javax.swing.JTable();
         btnSendCleaningRequest = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btnSendback = new javax.swing.JButton();
 
         tblSend.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -199,13 +201,6 @@ public void SendBack(){
 
         jTabbedPane1.addTab("Send ", SendBoxJPanel);
 
-        btnAsRead.setText("Set as Read ");
-        btnAsRead.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAsReadActionPerformed(evt);
-            }
-        });
-
         tblRequest.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
@@ -234,10 +229,10 @@ public void SendBack(){
             }
         });
 
-        jButton3.setText("Send Back to Apartment Admin");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnSendback.setText("Send Back to Apartment Admin");
+        btnSendback.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btnSendbackActionPerformed(evt);
             }
         });
 
@@ -249,13 +244,12 @@ public void SendBack(){
                 .addGap(79, 79, 79)
                 .addGroup(receiveBoxJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(receiveBoxJPanelLayout.createSequentialGroup()
-                        .addComponent(btnAsRead, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(47, 47, 47)
                         .addComponent(btnSendCleaningRequest)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton3))
+                        .addGap(26, 26, 26)
+                        .addComponent(btnSendback))
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 513, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addContainerGap(59, Short.MAX_VALUE))
         );
         receiveBoxJPanelLayout.setVerticalGroup(
             receiveBoxJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -264,9 +258,8 @@ public void SendBack(){
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(receiveBoxJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAsRead)
                     .addComponent(btnSendCleaningRequest)
-                    .addComponent(jButton3))
+                    .addComponent(btnSendback))
                 .addContainerGap(26, Short.MAX_VALUE))
         );
 
@@ -290,27 +283,21 @@ public void SendBack(){
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnAsReadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAsReadActionPerformed
-        // TODO add your handling code here:
-        asRead();
-    }//GEN-LAST:event_btnAsReadActionPerformed
-
     private void btnSendCleaningRequestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSendCleaningRequestActionPerformed
         // TODO add your handling code here:
         SendCleaningRequest();
     }//GEN-LAST:event_btnSendCleaningRequestActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void btnSendbackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSendbackActionPerformed
         // TODO add your handling code here:
         SendBack();
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_btnSendbackActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel SendBoxJPanel;
-    private javax.swing.JButton btnAsRead;
     private javax.swing.JButton btnSendCleaningRequest;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton btnSendback;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTabbedPane jTabbedPane1;

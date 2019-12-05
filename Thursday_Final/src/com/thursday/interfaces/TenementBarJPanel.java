@@ -32,6 +32,12 @@ private void taskPanel(){
         downPanel.add("TenementTaskJPanel", tenementTaskJPanel);
         layout.next(downPanel);
 }
+private void ManageMyTaskPanel(){
+    ManageMyRequestsJPanel manageMyRequestsJPanel = new ManageMyRequestsJPanel(downPanel,user);
+        CardLayout layout = (CardLayout) downPanel.getLayout();
+        downPanel.add("ManageMyRequestsJPanel", manageMyRequestsJPanel);
+        layout.next(downPanel);
+}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -46,6 +52,7 @@ private void taskPanel(){
         jLabel1 = new javax.swing.JLabel();
         manageReqBtn = new javax.swing.JButton();
         manageAccountBtn = new javax.swing.JButton();
+        btnManageMyRequests = new javax.swing.JButton();
         downPanel = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
 
@@ -70,31 +77,42 @@ private void taskPanel(){
             }
         });
 
+        btnManageMyRequests.setFont(new java.awt.Font("Microsoft JhengHei", 0, 22)); // NOI18N
+        btnManageMyRequests.setText("Manage My Requests");
+        btnManageMyRequests.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnManageMyRequestsActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(118, 118, 118)
-                .addComponent(manageReqBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 157, Short.MAX_VALUE)
-                .addComponent(manageAccountBtn)
-                .addGap(126, 126, 126))
-            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(47, 47, 47)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(manageReqBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnManageMyRequests)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(manageAccountBtn))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(manageAccountBtn)
                     .addComponent(manageReqBtn)
-                    .addComponent(manageAccountBtn))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnManageMyRequests))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
         jSplitPane1.setTopComponent(jPanel1);
@@ -111,7 +129,7 @@ private void taskPanel(){
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSplitPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
+            .addComponent(jSplitPane1)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -131,8 +149,14 @@ private void taskPanel(){
         layout.next(rightPanel);
     }//GEN-LAST:event_manageAccountBtnActionPerformed
 
+    private void btnManageMyRequestsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageMyRequestsActionPerformed
+        // TODO add your handling code here:
+        ManageMyTaskPanel();
+    }//GEN-LAST:event_btnManageMyRequestsActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnManageMyRequests;
     private javax.swing.JPanel downPanel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

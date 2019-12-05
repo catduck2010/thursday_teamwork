@@ -7,6 +7,7 @@ package com.thursday.interfaces;
 
 import com.thursday.business.WorkFlow;
 import com.thursday.business.identities.User;
+import com.thursday.business.workflow.Task;
 import com.thursday.business.workflow.WorkRequest;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -61,6 +62,14 @@ public class RepairManManageRequestJPanel extends javax.swing.JPanel {
                 return;
             } else if (WorkFlow.markAsRead(wr)){
                 JOptionPane.showMessageDialog(null, "Set read successfully. Go to work now!");
+                for(Task t : WorkFlow.getAllTasks())
+                {
+                    if(t.getId() == wr.getTaskId()){
+                    String status =Task.Status.WORKING;  
+                    t.setStatus(status);
+                    WorkFlow.updateTask(t);
+                    }
+                }
             }
             populateRequestTable();
         } else {
@@ -80,6 +89,14 @@ public class RepairManManageRequestJPanel extends javax.swing.JPanel {
             int selectionResult = JOptionPane.showConfirmDialog(null, "Are you sure you are finished?", "Warning", selectionButton);
             if (selectionResult == JOptionPane.YES_OPTION) {
                 WorkFlow.createRequest(wr.getTaskId(), wr.getTitle(), wr.getMessage(), repairMan.getUsername(), wr.getSender());
+                for(Task t : WorkFlow.getAllTasks())
+                {
+                    if(t.getId() == wr.getTaskId()){
+                    String status =Task.Status.FINISHED;  
+                    t.setStatus(status);
+                    WorkFlow.updateTask(t);
+                    }
+                }
                 JOptionPane.showMessageDialog(null, "Set finished successfully");
                 WorkFlow.withdrawWorkRequest(wr);
                 populateRequestTable();
