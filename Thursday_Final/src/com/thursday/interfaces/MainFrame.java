@@ -198,7 +198,7 @@ public class MainFrame extends javax.swing.JFrame {
         layout.next(rightPanel);   
  */
 
-        layout.next(rightPanel);
+        //layout.next(rightPanel);
 
 
     }//GEN-LAST:event_signUpBtnActionPerformed
