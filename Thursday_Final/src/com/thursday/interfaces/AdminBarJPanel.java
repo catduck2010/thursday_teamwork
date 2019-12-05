@@ -26,12 +26,14 @@ public class AdminBarJPanel extends javax.swing.JPanel {
         this.user = u;
         this.rightPanel = rightPanel;
     }
-private void manTaskPanel(){
-        ManageTaskJPanel manageTaskJPanel = new ManageTaskJPanel(downPanel,user);
+
+    private void manTaskPanel() {
+        ManageTaskJPanel manageTaskJPanel = new ManageTaskJPanel(downPanel, user);
         CardLayout layout = (CardLayout) downPanel.getLayout();
         downPanel.add("ManageTaskJPanel", manageTaskJPanel);
         layout.next(downPanel);
-}
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -140,7 +142,7 @@ private void manTaskPanel(){
         this.rightPanel.add("AdminManageStaffJPanel", panel);
         layout.next(this.rightPanel);
     }//GEN-LAST:event_manageStaffBtnActionPerformed
-    
+
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
