@@ -88,6 +88,7 @@ public class MainFrame extends javax.swing.JFrame {
         signUpBtn = new javax.swing.JButton();
         exitBtn = new javax.swing.JButton();
         rightPanel = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -144,6 +145,11 @@ public class MainFrame extends javax.swing.JFrame {
         jSplitPane1.setLeftComponent(leftPanel);
 
         rightPanel.setLayout(new java.awt.CardLayout());
+
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Click Buttons on the left to Start");
+        rightPanel.add(jLabel1, "card2");
+
         jSplitPane1.setRightComponent(rightPanel);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -228,6 +234,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton exitBtn;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JPanel leftPanel;
     private javax.swing.JButton loginBtn;

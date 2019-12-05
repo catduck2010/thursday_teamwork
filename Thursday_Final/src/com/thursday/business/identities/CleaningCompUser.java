@@ -24,7 +24,7 @@ public class CleaningCompUser extends User {
 
     public static class Roles {
 
-        public static final String HR = "ADMIN";
+        public static final String HR = "HR";
         public static final String CLEANER = "CLEANER";
         public static final String SCHEDULER = "SCHEDULE MAKER";
     }

@@ -48,6 +48,7 @@ public class ManageAccountPanel extends JPanel {
         setPasswordHint(txtPwOld, OLDPSWD_HINT);
         setPasswordHint(txtPwNew, NEWPSWD_HINT);
         setPasswordHint(txtPwConfirm, RENEWPSWD_HINT);
+        fillTxt();
     }
 
     private void txtPswdAddListener(JPasswordField jpf, String hint) {
@@ -111,6 +112,45 @@ public class ManageAccountPanel extends JPanel {
         return false;
     }
 
+    private void btnEditSaveDoings() {
+        if (this.btnEditSave.getText().equals("Save")) {//Save
+            String uname = txtUsername.getText();
+            String oldname = user.getUsername();
+            if (Validator.IsEmpty(uname) || uname.equals(oldname)) {
+                txtUsername.setText(oldname);
+            } else if (!Validator.IsUsername(uname)) {
+                JOptionPane.showMessageDialog(this, "Username should be in the form of Words and Numbers.", "WARNING", JOptionPane.WARNING_MESSAGE);
+            } else if (UserDirectory.checkUsernameExistance(uname)) {
+                JOptionPane.showMessageDialog(this, "Username used by other people.", "WARNING", JOptionPane.WARNING_MESSAGE);
+            } else {
+
+                user.setUsername(uname);
+                if (UserDirectory.updateUser(user)) {
+                    JOptionPane.showMessageDialog(this, "Username changed.", "INFORMATION", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    user.setUsername(oldname);
+                    JOptionPane.showMessageDialog(this, "Failed to change Username.", "ERROR", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+            fillTxt();
+            this.txtUsername.setEditable(false);
+            this.btnEditSave.setText("Edit");
+        } else {//Edit
+            if (Validator.IsAdminUser(user.getUsername())) {
+                JOptionPane.showMessageDialog(this, "You cannot edit administrators' usernames.", "WARNING", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+            this.txtUsername.setEditable(true);
+            this.btnEditSave.setText("Save");
+        }
+    }
+
+    private void fillTxt() {
+        this.txtUsername.setText(user.getUsername());
+        this.txtFName.setText(user.getFirstName());
+        this.txtLName.setText(user.getLastName());
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -129,14 +169,14 @@ public class ManageAccountPanel extends JPanel {
         jLabel3 = new javax.swing.JLabel();
         txtUsername = new javax.swing.JTextField();
         txtLName = new javax.swing.JTextField();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        btnOkBasic = new javax.swing.JButton();
+        btnEditSave = new javax.swing.JButton();
         txtFName = new javax.swing.JTextField();
         securityPanel = new javax.swing.JPanel();
         txtPwConfirm = new javax.swing.JPasswordField();
         txtPwNew = new javax.swing.JPasswordField();
         txtPwOld = new javax.swing.JPasswordField();
-        jButton2 = new javax.swing.JButton();
+        btnOkPasswd = new javax.swing.JButton();
 
         jTextField3.setText("jTextField3");
 
@@ -151,9 +191,21 @@ public class ManageAccountPanel extends JPanel {
 
         jLabel3.setText("Name");
 
-        jButton3.setText("OK");
+        txtUsername.setEditable(false);
 
-        jButton4.setText("Edit");
+        btnOkBasic.setText("OK");
+        btnOkBasic.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOkBasicActionPerformed(evt);
+            }
+        });
+
+        btnEditSave.setText("Edit");
+        btnEditSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditSaveActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout basicPanelLayout = new javax.swing.GroupLayout(basicPanel);
         basicPanel.setLayout(basicPanelLayout);
@@ -164,21 +216,19 @@ public class ManageAccountPanel extends JPanel {
                 .addGroup(basicPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, basicPanelLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnOkBasic, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(basicPanelLayout.createSequentialGroup()
                         .addGroup(basicPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, basicPanelLayout.createSequentialGroup()
-                                .addComponent(txtUsername, javax.swing.GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(basicPanelLayout.createSequentialGroup()
-                                .addGroup(basicPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2)
-                                    .addGroup(basicPanelLayout.createSequentialGroup()
-                                        .addComponent(jLabel3)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(txtFName)))
-                                .addGap(23, 23, 23)
+                                .addComponent(txtUsername, javax.swing.GroupLayout.DEFAULT_SIZE, 332, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnEditSave, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel2)
+                            .addGroup(basicPanelLayout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtFName)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(txtLName)))
                         .addContainerGap())))
         );
@@ -190,22 +240,22 @@ public class ManageAccountPanel extends JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(basicPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton4))
+                    .addComponent(btnEditSave))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(basicPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(txtFName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtLName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 265, Short.MAX_VALUE)
-                .addComponent(jButton3))
+                .addComponent(btnOkBasic))
         );
 
         jTabbedPane1.addTab("Basic Information", basicPanel);
 
-        jButton2.setText("OK");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnOkPasswd.setText("OK");
+        btnOkPasswd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnOkPasswdActionPerformed(evt);
             }
         });
 
@@ -216,12 +266,12 @@ public class ManageAccountPanel extends JPanel {
             .addGroup(securityPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(securityPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtPwOld, javax.swing.GroupLayout.DEFAULT_SIZE, 406, Short.MAX_VALUE)
+                    .addComponent(txtPwOld, javax.swing.GroupLayout.DEFAULT_SIZE, 428, Short.MAX_VALUE)
                     .addComponent(txtPwNew)
                     .addComponent(txtPwConfirm)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, securityPanelLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnOkPasswd, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         securityPanelLayout.setVerticalGroup(
@@ -234,7 +284,7 @@ public class ManageAccountPanel extends JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txtPwConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 246, Short.MAX_VALUE)
-                .addComponent(jButton2)
+                .addComponent(btnOkPasswd)
                 .addContainerGap())
         );
 
@@ -247,8 +297,7 @@ public class ManageAccountPanel extends JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(btnGoBack, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTabbedPane1)
-                .addContainerGap())
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 461, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -275,7 +324,7 @@ public class ManageAccountPanel extends JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnOkPasswdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkPasswdActionPerformed
         // TODO add your handling code here:
         if (passwordReset(txtPwOld.getPassword(), txtPwNew.getPassword(), txtPwConfirm.getPassword())) {
             EcoSystem.logout();
@@ -287,7 +336,7 @@ public class ManageAccountPanel extends JPanel {
             setPasswordHint(txtPwNew, NEWPSWD_HINT);
             setPasswordHint(txtPwConfirm, RENEWPSWD_HINT);
         }
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnOkPasswdActionPerformed
 
     private void btnGoBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGoBackActionPerformed
         // TODO add your handling code here:
@@ -296,13 +345,23 @@ public class ManageAccountPanel extends JPanel {
         layout.previous(this.rightPanel);
     }//GEN-LAST:event_btnGoBackActionPerformed
 
+    private void btnEditSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditSaveActionPerformed
+        // TODO add your handling code here:
+        btnEditSaveDoings();
+    }//GEN-LAST:event_btnEditSaveActionPerformed
+
+    private void btnOkBasicActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkBasicActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_btnOkBasicActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel basicPanel;
+    private javax.swing.JButton btnEditSave;
     private javax.swing.JButton btnGoBack;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JButton btnOkBasic;
+    private javax.swing.JButton btnOkPasswd;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
