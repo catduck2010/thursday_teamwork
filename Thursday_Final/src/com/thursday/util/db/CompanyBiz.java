@@ -17,8 +17,8 @@ import java.util.List;
 public class CompanyBiz {
 
     public static boolean add(Company c) {
-        String sql = "insert into company(companyname,type) values(?,?)";
-        Object[] params = {c.getCompanyName(), c.getType()};
+        String sql = "insert into company(companyname,type,adminuser) values(?,?,?)";
+        Object[] params = {c.getCompanyName(), c.getType(), c.getAdminUser()};
         return Dao.getInstance().update(sql, params);
     }
 
@@ -29,8 +29,8 @@ public class CompanyBiz {
     }
 
     public static boolean update(Company c) {
-        String sql = "update company set companyname=?, type=? where id=?";
-        Object[] params = {c.getCompanyName(), c.getType(), c.getId()};
+        String sql = "update company set companyname=?, type=?, adminuser=? where id=?";
+        Object[] params = {c.getCompanyName(), c.getType(), c.getAdminUser(), c.getId()};
         return Dao.getInstance().update(sql, params);
     }
 

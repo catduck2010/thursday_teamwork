@@ -6,6 +6,9 @@
 package com.thursday.business;
 
 import com.thursday.business.enterprise.Company;
+import com.thursday.business.identities.ApartmentUser;
+import com.thursday.business.identities.CleaningCompUser;
+import com.thursday.business.identities.User;
 import com.thursday.util.db.CompanyBiz;
 import java.util.List;
 
@@ -15,20 +18,39 @@ import java.util.List;
  */
 public class CompanyDirectory {
 
-    public static boolean createApartment(String name) {
+    //1 addadmin
+    //2 add company
+    //3 set admin's company
+    public static boolean createApartment(String name, String admin, char[] pw) {
         if (getCompany(name) != null) {
             return false;
         }
-        Company c = new Company(name, Company.Type.APARTMENT);
-        return CompanyBiz.add(c);
+        UserDirectory.createApartmentUser(admin, pw, "One", "Administrator", ApartmentUser.Roles.ADMIN);
+        Company c = new Company(name, Company.Type.APARTMENT, admin);
+        if (CompanyBiz.add(c)) {
+            User u = UserDirectory.getUser(admin);
+            if (u != null) {
+                u.setCompanyName(name);
+                return UserDirectory.updateUser(u);
+            }
+        }
+        return false;
     }
 
-    public static boolean createCleaningComp(String name) {
+    public static boolean createCleaningComp(String name, String admin, char[] pw) {
         if (getCompany(name) != null) {
             return false;
         }
-        Company c = new Company(name, Company.Type.CLEANING);
-        return CompanyBiz.add(c);
+        UserDirectory.createCleaningCompUser(admin, pw, "One", "Administrator", CleaningCompUser.Roles.HR);
+        Company c = new Company(name, Company.Type.CLEANING, admin);
+        if (CompanyBiz.add(c)) {
+            User u = UserDirectory.getUser(admin);
+            if (u != null) {
+                u.setCompanyName(name);
+                return UserDirectory.updateUser(u);
+            }
+        }
+        return false;
     }
 
     public static Company getCompany(String name) {

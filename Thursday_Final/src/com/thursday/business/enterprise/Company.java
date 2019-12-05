@@ -14,6 +14,7 @@ public class Company {
     private Integer id;
     private String companyName;
     private String type;
+    private String adminUser;
 
     public class Type {
 
@@ -27,8 +28,23 @@ public class Company {
         this.type = type;
     }
 
+    public Company(String name, String type, String adminUser) {
+        this();
+        this.companyName = name;
+        this.type = type;
+        this.adminUser = adminUser;
+    }
+
     public Company() {
 
+    }
+
+    public String getAdminUser() {
+        return adminUser;
+    }
+
+    public void setAdminUser(String adminUser) {
+        this.adminUser = adminUser;
     }
 
     public Integer getId() {
