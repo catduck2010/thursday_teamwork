@@ -40,15 +40,16 @@ public class AssignRepairTaskJPanel extends javax.swing.JPanel {
         dtm.setRowCount(0);
         
         
-        for( User u : UserDirectory.getUserOf(ApartmentUser.Roles.REPAIRPERSON)){
+        for( User u : UserDirectory.getCompanyStaff(admin.getCompanyName())){
             
             
+            if(u.getRole().equals(ApartmentUser.Roles.REPAIRPERSON)){
             Object row[] = new Object [2];
             row[0] = u;
             row[1] = u.getUsername();
             
             dtm.addRow(row);
-        
+            }
         }
     }
     public void sendRequest(){
