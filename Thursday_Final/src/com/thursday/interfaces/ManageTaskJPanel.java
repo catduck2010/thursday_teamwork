@@ -6,8 +6,10 @@
 package com.thursday.interfaces;
 
 
+import com.thursday.business.CompanyDirectory;
 import javax.swing.table.DefaultTableModel;
 import com.thursday.business.WorkFlow;
+import com.thursday.business.enterprise.Company;
 import com.thursday.business.identities.User;
 
 /**
@@ -30,16 +32,17 @@ public class ManageTaskJPanel extends javax.swing.JPanel {
     public ManageTaskJPanel(JPanel rightPanel, User admin) {
         this.rightPanel = rightPanel;
         this.admin = admin;
-        initComponents();       
+        initComponents(); 
+        loadComboBox();
         populateTable();
         populateRequestTable();
         populateSendTable();
     }
     public void loadComboBox(){
         comboBoxCc.removeAllItems();
-        //for(:){
-       //     comboBoxCc.addItem();
-      //  }
+        for(Company c: CompanyDirectory.getCleaningCompanies()){
+            comboBoxCc.addItem(c);
+        }
     }
     public void populateTable(){
         
@@ -194,8 +197,8 @@ public void assignCleaning(){
              WorkFlow.updateTask(task);
              populateTable();
              
-               
-             WorkFlow.createRequest(task.getId(), task.getTitle(), task.getMessage(),admin.getUsername(),"clcadmin");
+             Company c=(Company) comboBoxCc.getSelectedItem();
+             WorkFlow.createRequest(task.getId(), task.getTitle(), task.getMessage(),admin.getUsername(),c.getAdminUser());
              populateSendTable();
              JOptionPane.showMessageDialog(null, "Send Cleaning Task Request Successfully!");
              
@@ -441,7 +444,7 @@ public void assignCleaning(){
     private javax.swing.JButton btnAssignRepairTask;
     private javax.swing.JButton btnSendCleaning;
     private javax.swing.JButton btnStatus;
-    private javax.swing.JComboBox<String> comboBoxCc;
+    private javax.swing.JComboBox<Object> comboBoxCc;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;

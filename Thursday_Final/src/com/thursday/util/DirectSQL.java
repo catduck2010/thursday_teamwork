@@ -29,6 +29,7 @@ import java.util.List;
 public class DirectSQL {
 
     public static void main(String[] args) {
-        System.out.println(CompanyDirectory.createCleaningComp("Elizabeth's Cleaning", "ecladmin", "admin".toCharArray()));
+//        System.out.println(CompanyDirectory.createCleaningComp("Elizabeth's Cleaning", "ecladmin", "admin".toCharArray()));
+        System.out.println(UserDirectory.createApartmentUser("AMY's Room","amylynn", "amylynn".toCharArray(), "Amy", "Lynn", ApartmentUser.Roles.REPAIRPERSON));
     }
 }
