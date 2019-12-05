@@ -6,6 +6,7 @@
 package com.thursday.util.db;
 
 import com.thursday.business.workflow.Task;
+import com.thursday.business.workflow.ViewTaskCompany;
 import com.thursday.util.db.Dao;
 import java.util.List;
 
@@ -54,5 +55,10 @@ public class TaskBiz {
         String sql="select * from task where creator=? and state=1 order by id desc limit 1";
         Object[] params = {username};
         return (Task)Dao.getInstance().get(sql, Task.class, params);
+    }
+    
+    public static List<ViewTaskCompany> getTaskCompany(){
+        String sql="select * from view_taskcompany";
+        return Dao.getInstance().query(sql, ViewTaskCompany.class);
     }
 }

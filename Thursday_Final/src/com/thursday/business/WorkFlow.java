@@ -7,6 +7,7 @@ package com.thursday.business;
 
 import com.thursday.business.identities.ApartmentUser;
 import com.thursday.business.workflow.Task;
+import com.thursday.business.workflow.ViewTaskCompany;
 import com.thursday.util.db.TaskBiz;
 import com.thursday.business.workflow.WorkRequest;
 import com.thursday.util.db.WorkRequestBiz;
@@ -65,19 +66,24 @@ public class WorkFlow {
     public static List<WorkRequest> getSentRequest(String username) {
         return WorkRequestBiz.getAllSentWorkRequests(username);
     }
-    
-    public static List<Task> getAllTasks(String username){
+
+    public static List<Task> getAllTasks(String username) {
         return TaskBiz.getUserTask(username);
     }
-    
-    public static Task getTask(int taskId){
+
+    public static Task getTask(int taskId) {
         return TaskBiz.getTask(taskId);
     }
-        
-    public static List<Task> getAllTasksOfOneUser(String username){
+
+    public static List<Task> getAllTasksOfOneUser(String username) {
         return TaskBiz.getUserTask(username);
     }
-    public static List<Task> getAllTasks(){
+
+    public static List<Task> getAllTasks() {
         return TaskBiz.getAllTasks();
+    }
+
+    public static List<ViewTaskCompany> getTaskCompany() {
+        return TaskBiz.getTaskCompany();
     }
 }
