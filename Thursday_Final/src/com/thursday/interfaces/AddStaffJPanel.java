@@ -5,8 +5,11 @@
  */
 package com.thursday.interfaces;
 
+import com.thursday.business.UserDirectory;
 import com.thursday.business.identities.User;
+import com.thursday.util.Validator;
 import java.awt.CardLayout;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -17,19 +20,55 @@ public class AddStaffJPanel extends javax.swing.JPanel {
 
     private final javax.swing.JPanel rightPanel;
     private User user;
+    private final String role;
 
     /**
      * Creates new form AddStaffJPanel
      */
-    public AddStaffJPanel(JPanel panel, User user) {
+    public AddStaffJPanel(JPanel panel, User user, String role) {
         initComponents();
         this.rightPanel = panel;
         this.user = user;
+        this.role = role;
+        clearAllFields();
     }
-    
-    private void clearAllFields(){
+
+    private void clearAllFields() {
         this.txtConfirm.setText("");
         this.txtFName.setText("");
+        this.txtLName.setText("");
+        this.txtPw.setText("");
+        this.txtUsername.setText("");
+    }
+
+    private void addStaff() {
+        String fName = txtFName.getText(),
+                lName = txtLName.getText(),
+                username = txtUsername.getText();
+        if (Validator.IsEmpty(username)) {
+
+        } else if (!Validator.IsUsername(username)) {
+
+        } else if (Validator.IsEmpty(lName) || Validator.IsEmpty(fName)) {
+
+        } else if (UserDirectory.checkUsernameExistance(username)) {
+        } else if (Validator.IsEmpty(txtPw.getPassword())) {
+        } else if (!Validator.IsPassword(txtPw.getPassword())) {
+
+        } else if (!Validator.IsSamePassword(txtPw.getPassword(), txtConfirm.getPassword())) {
+
+        } else {
+            boolean result = UserDirectory.isApartmentUser(user)
+                    ? UserDirectory.createApartmentUser(user.getCompanyName(), username, txtPw.getPassword(), fName, lName, role)
+                    : (UserDirectory.isCleaningCompUser(user)
+                    ? UserDirectory.createCleaningCompUser(user.getCompanyName(), username, txtPw.getPassword(), fName, lName, role)
+                    : false);
+            if (result) {
+                JOptionPane.showMessageDialog(this, "User added!", "SUCCESS", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "Failed to add this User!", "FAILURE", JOptionPane.ERROR_MESSAGE);
+            }
+        }
     }
 
     /**
@@ -71,6 +110,11 @@ public class AddStaffJPanel extends javax.swing.JPanel {
         jLabel4.setText("First Name");
 
         btnCreate.setText("Create");
+        btnCreate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCreateActionPerformed(evt);
+            }
+        });
 
         jLabel5.setText("Last Name");
 
@@ -163,6 +207,10 @@ public class AddStaffJPanel extends javax.swing.JPanel {
         this.rightPanel.remove(this);
         layout.previous(this.rightPanel);
     }//GEN-LAST:event_btnGoBackActionPerformed
+
+    private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCreateActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
