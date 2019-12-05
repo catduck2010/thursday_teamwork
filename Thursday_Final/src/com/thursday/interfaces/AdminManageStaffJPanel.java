@@ -211,10 +211,7 @@ public class AdminManageStaffJPanel extends javax.swing.JPanel {
 
     private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
         // TODO add your handling code here:
-        CreateJPanel panel = new CreateJPanel(rightPanel);
-        rightPanel.add("CreateJPanel",panel);
-        CardLayout layout = (CardLayout) rightPanel.getLayout();
-        layout.next(rightPanel);
+        
     }//GEN-LAST:event_addBtnActionPerformed
 
 

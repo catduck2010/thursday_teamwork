@@ -41,6 +41,7 @@ public class MainFrame extends javax.swing.JFrame {
     public MainFrame() {
         initComponents();
         EcoSystem.setMainFrame(this);
+        this.rightPanel.setLayout(new CardLayout());
         //this.apartment = apartment;
     }
 

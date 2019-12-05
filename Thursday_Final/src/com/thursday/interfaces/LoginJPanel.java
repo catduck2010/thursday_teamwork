@@ -45,6 +45,7 @@ public class LoginJPanel extends javax.swing.JPanel {
         this.mFrame = f;
         this.rightPanel = f.getRightPanel();
         this.apBiz = apBiz;
+        
 
         ItemListener il = new ItemListener() {
             @Override
