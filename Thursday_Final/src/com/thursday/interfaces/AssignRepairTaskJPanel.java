@@ -54,7 +54,9 @@ public class AssignRepairTaskJPanel extends javax.swing.JPanel {
     public void sendRequest(){
         int selectedRow = tblRepairman.getSelectedRow();
         if (selectedRow >= 0) {
-            
+            String status =Task.Status.WAIT_FOR_RESPONSE;  
+            task.setStatus(status);
+            WorkFlow.updateTask(task);
             User u = (User)tblRepairman.getValueAt(selectedRow, 0);
             WorkFlow.createRequest(task.getId(), task.getTitle(), task.getMessage(),admin.getUsername(),u.getUsername());
             JOptionPane.showMessageDialog(null, "Send Repair Task Request Successfully!");
