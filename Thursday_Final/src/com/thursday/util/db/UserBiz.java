@@ -70,6 +70,12 @@ public class UserBiz {
     public void addApartment(ApartmentUser a) {
         UserBiz.add(a);
     }
+    
+    public static List<User> getUserOf(String role){
+        String sql = "select * from user where role=? and state=1";
+        Object[] params = {role};
+        return Dao.getInstance().query(sql, User.class, params);
+    }
 
     /*    
     public ApartmentUser addApartment(String uname, String pw,) {

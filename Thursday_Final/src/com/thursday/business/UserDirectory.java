@@ -90,7 +90,6 @@ public class UserDirectory {
     public static User getUser(String username) {
         return UserBiz.getUser(username);
     }
-    
     public static List<User> getUserOf(String role){
         return UserBiz.getUserOf(role);
     }

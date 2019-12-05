@@ -58,6 +58,7 @@ public class LoginJPanel extends javax.swing.JPanel {
         };
 
         defaultChar = this.passwordField.getEchoChar();
+        //set user "Administrator" default password
 
         txtPswdAddListener();
         setPasswordHint();

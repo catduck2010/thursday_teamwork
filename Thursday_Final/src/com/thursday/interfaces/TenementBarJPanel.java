@@ -25,8 +25,14 @@ public class TenementBarJPanel extends javax.swing.JPanel {
         initComponents();
         this.rightPanel = rightPanel;
         this.user = u;
+        this.rightPanel =rightPanel;
     }
-
+private void taskPanel(){
+        TenementTaskJPanel tenementTaskJPanel = new TenementTaskJPanel(rightPanel,user);
+        CardLayout layout = (CardLayout) jPanel2.getLayout();
+        jPanel2.add("TenementTaskJPanel", tenementTaskJPanel);
+        layout.next(jPanel2);
+}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -94,6 +100,8 @@ public class TenementBarJPanel extends javax.swing.JPanel {
 
         jSplitPane1.setTopComponent(jPanel1);
 
+        jPanel2.setLayout(new java.awt.CardLayout());
+
         jLabel2.setFont(new java.awt.Font("Microsoft JhengHei", 0, 24)); // NOI18N
         jLabel2.setText("Click button to continue");
 
@@ -113,6 +121,7 @@ public class TenementBarJPanel extends javax.swing.JPanel {
                 .addComponent(jLabel2)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+        jPanel2.add(jLabel2, "card2");
 
         jSplitPane1.setRightComponent(jPanel2);
 
@@ -124,12 +133,13 @@ public class TenementBarJPanel extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSplitPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 297, Short.MAX_VALUE)
+            .addComponent(jSplitPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 479, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void manageReqBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageReqBtnActionPerformed
         // TODO add your handling code here:
+        taskPanel();
     }//GEN-LAST:event_manageReqBtnActionPerformed
 
     private void manageAccountBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageAccountBtnActionPerformed

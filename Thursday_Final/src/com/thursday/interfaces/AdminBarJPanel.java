@@ -26,7 +26,12 @@ public class AdminBarJPanel extends javax.swing.JPanel {
         this.user = u;
         this.rightPanel = rightPanel;
     }
-
+private void manTaskPanel(){
+        ManageTaskJPanel manageTaskJPanel = new ManageTaskJPanel(rightPanel,user);
+        CardLayout layout = (CardLayout) jPanel2.getLayout();
+        jPanel2.add("ManageTaskJPanel", manageTaskJPanel);
+        layout.next(jPanel2);
+}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -52,6 +57,11 @@ public class AdminBarJPanel extends javax.swing.JPanel {
 
         manageReqBtn.setFont(new java.awt.Font("Microsoft JhengHei", 0, 22)); // NOI18N
         manageReqBtn.setText("Manage Requests");
+        manageReqBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                manageReqBtnActionPerformed(evt);
+            }
+        });
 
         manageStaffBtn.setFont(new java.awt.Font("Microsoft JhengHei", 0, 22)); // NOI18N
         manageStaffBtn.setText("Manage Staff");
@@ -63,6 +73,11 @@ public class AdminBarJPanel extends javax.swing.JPanel {
 
         jButton1.setFont(new java.awt.Font("Microsoft JhengHei", 0, 22)); // NOI18N
         jButton1.setText("Manage Tenement");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -97,26 +112,12 @@ public class AdminBarJPanel extends javax.swing.JPanel {
 
         jSplitPane1.setTopComponent(jPanel1);
 
+        jPanel2.setLayout(new java.awt.CardLayout());
+
         jLabel2.setBackground(new java.awt.Color(153, 255, 102));
         jLabel2.setFont(new java.awt.Font("Microsoft JhengHei", 0, 24)); // NOI18N
         jLabel2.setText("Click button to continue");
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(281, Short.MAX_VALUE)
-                .addComponent(jLabel2)
-                .addGap(260, 260, 260))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(201, 201, 201)
-                .addComponent(jLabel2)
-                .addContainerGap(206, Short.MAX_VALUE))
-        );
+        jPanel2.add(jLabel2, "card2");
 
         jSplitPane1.setRightComponent(jPanel2);
 
@@ -128,7 +129,7 @@ public class AdminBarJPanel extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSplitPane1)
+            .addComponent(jSplitPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 517, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -139,6 +140,15 @@ public class AdminBarJPanel extends javax.swing.JPanel {
         this.rightPanel.add("AdminManageStaffJPanel", panel);
         layout.next(this.rightPanel);
     }//GEN-LAST:event_manageStaffBtnActionPerformed
+    
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void manageReqBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageReqBtnActionPerformed
+        // TODO add your handling code here:
+        manTaskPanel();
+    }//GEN-LAST:event_manageReqBtnActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
