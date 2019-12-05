@@ -5,6 +5,10 @@
  */
 package com.thursday.business;
 
+import com.thursday.business.identities.User;
+import com.thursday.interfaces.MainFrame;
+import javax.swing.JFrame;
+
 /**
  *
  * @author lihang
@@ -12,6 +16,9 @@ package com.thursday.business;
 public class EcoSystem extends AbstractEcoSystem {
 
     private static EcoSystem business;
+    private static User currentUser;
+    private static boolean loggedIn = false;
+    private static MainFrame mainFrame;
 
     private EcoSystem() {
         super();
@@ -22,9 +29,29 @@ public class EcoSystem extends AbstractEcoSystem {
         System.out.println(business);
         return business;
     }
-    
-    public static String getSessionId(){
+
+    public static String getSessionId() {
         return business.sessionId();
+    }
+
+    public static void login(User u) {
+        currentUser = u;
+        loggedIn = true;
+        mainFrame.setLoggedIn(loggedIn);
+    }
+
+    public static void logout() {
+        currentUser = null;
+        loggedIn = false;
+        mainFrame.setLoggedIn(loggedIn);
+    }
+    
+    public static boolean isLoggedIn(){
+        return loggedIn;
+    }
+
+    public static void setMainFrame(MainFrame mf) {
+        mainFrame = mf;
     }
 
 }

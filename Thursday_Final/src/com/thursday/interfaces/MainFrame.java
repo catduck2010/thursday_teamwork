@@ -5,6 +5,7 @@
  */
 package com.thursday.interfaces;
 
+import com.thursday.business.EcoSystem;
 import com.thursday.business.enterprise.Apartment;
 
 import com.thursday.business.enterprise.CleaningCompany;
@@ -40,6 +41,7 @@ public class MainFrame extends javax.swing.JFrame {
        
     public MainFrame() {
         initComponents();
+        EcoSystem.setMainFrame(this);
         //this.apartment = apartment;
     }
     
@@ -78,8 +80,7 @@ public class MainFrame extends javax.swing.JFrame {
     
     public void logOut() {
         clearRightPanel();
-        loggedIn = false;
-        setLoggedIn(loggedIn);
+        EcoSystem.logout();
     }
     
     public void clearRightPanel() {
@@ -184,7 +185,7 @@ public class MainFrame extends javax.swing.JFrame {
     private void loginBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginBtnActionPerformed
         // TODO add your handling code here:
         CardLayout layout = (CardLayout) this.rightPanel.getLayout();
-        if (!loggedIn) {
+        if (!EcoSystem.isLoggedIn()) {
             LoginJPanel panel = new LoginJPanel(
                     this, apBiz);
             this.rightPanel.add("LoginJPanel", panel);
