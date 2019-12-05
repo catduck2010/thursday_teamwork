@@ -97,4 +97,5 @@ public class UserDirectory {
     public static List<User> getCompanyStaff(String company){
         return UserBiz.getUserWithCondition("companyname=?", company);
     }
+    
 }
