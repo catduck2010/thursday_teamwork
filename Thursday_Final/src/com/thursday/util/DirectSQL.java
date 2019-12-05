@@ -16,6 +16,7 @@ import com.thursday.business.workflow.WorkRequest;
 import com.thursday.business.workflow.Task;
 import com.thursday.util.db.TaskBiz;
 import com.thursday.business.workflow.AbstractWorkRequest;
+import com.thursday.util.db.DBInfo;
 import com.thursday.util.db.WorkRequestBiz;
 import java.sql.Timestamp;
 import java.util.Date;
@@ -28,23 +29,7 @@ import java.util.List;
 public class DirectSQL {
 
     public static void main(String[] args) {
-//        User u=new User("admin", "admin".toCharArray(), "Zero", "Administrator", "ADMIN");
-//        System.out.println(u.getUserType());
-//
-//        System.out.println(u.getUserType());
-        //User u=CleaningCompUserBiz.getUser("admin");
-        //CleaningCompUserBiz.add(u);
-
-        //System.out.println(TaskBiz.update(t));
-        //System.out.println(ApartmentUser.Roles.ADMIN);
-//        WorkRequest wr = new WorkRequest(1,"Hello","again","admin","123");
-//        System.out.println(WorkRequestBiz.add(wr));
-//        wr=WorkRequestBiz
-//        System.out.println(wr.getIsRead());
-//        wr.markRead();
-//        System.out.println(WorkRequestBiz.update(wr));
-        CompanyDirectory.createCleaningComp("Carrie Lam 777");
-        List c = CompanyDirectory.getCleaningCompanies();
-        System.out.println(c);
+        User u=UserDirectory.getUser("root");
+        System.out.println(u.authenticate("Thursday689".toCharArray()));
     }
 }

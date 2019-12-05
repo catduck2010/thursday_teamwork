@@ -5,6 +5,7 @@
  */
 package com.thursday.interfaces;
 
+import com.thursday.business.identities.ApartmentUser;
 import com.thursday.business.identities.User;
 import java.awt.CardLayout;
 import javax.swing.JPanel;
@@ -138,7 +139,7 @@ public class AdminBarJPanel extends javax.swing.JPanel {
     private void manageStaffBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageStaffBtnActionPerformed
         // TODO add your handling code here:
         CardLayout layout = (CardLayout) this.rightPanel.getLayout();
-        JPanel panel = new AdminManageStaffJPanel(rightPanel, user);
+        JPanel panel = new AdminManageStaffJPanel(rightPanel, user, ApartmentUser.Roles.REPAIRPERSON);
         this.rightPanel.add("AdminManageStaffJPanel", panel);
         layout.next(this.rightPanel);
     }//GEN-LAST:event_manageStaffBtnActionPerformed
