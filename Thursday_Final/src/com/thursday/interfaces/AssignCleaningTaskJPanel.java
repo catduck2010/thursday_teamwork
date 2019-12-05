@@ -41,15 +41,15 @@ public class AssignCleaningTaskJPanel extends javax.swing.JPanel {
         dtm.setRowCount(0);
         
         
-        for( User u : UserDirectory.getUserOf(CleaningCompUser.Roles.CLEANER)){
+        for( User u : UserDirectory.getCompanyStaff(admin.getCompanyName())){
             
-            
+            if(u.getRole().equals(CleaningCompUser.Roles.CLEANER)){
             Object row[] = new Object [2];
             row[0] = u;
             row[1] = u.getUsername();
             
             dtm.addRow(row);
-        
+            }
         }
     }
     public void sendRequest(){
