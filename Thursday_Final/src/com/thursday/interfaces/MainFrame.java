@@ -55,7 +55,7 @@ public class MainFrame extends javax.swing.JFrame {
         } else {
             this.loginBtn.setText("Login");
         }
-        this.signUpBtn.setEnabled(!b);
+        //this.signUpBtn.setEnabled(!b);
         loggedIn = b;
         if (!b) {
             this.loggedUser = null;
@@ -86,7 +86,6 @@ public class MainFrame extends javax.swing.JFrame {
         jSplitPane1 = new javax.swing.JSplitPane();
         leftPanel = new javax.swing.JPanel();
         loginBtn = new javax.swing.JButton();
-        signUpBtn = new javax.swing.JButton();
         exitBtn = new javax.swing.JButton();
         rightPanel = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -100,16 +99,6 @@ public class MainFrame extends javax.swing.JFrame {
         loginBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 loginBtnActionPerformed(evt);
-            }
-        });
-
-        signUpBtn.setBackground(new java.awt.Color(255, 255, 255));
-        signUpBtn.setFont(new java.awt.Font("Microsoft JhengHei", 0, 24)); // NOI18N
-        signUpBtn.setText("Sign up");
-        signUpBtn.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        signUpBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                signUpBtnActionPerformed(evt);
             }
         });
 
@@ -127,8 +116,7 @@ public class MainFrame extends javax.swing.JFrame {
         leftPanel.setLayout(leftPanelLayout);
         leftPanelLayout.setHorizontalGroup(
             leftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(loginBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(signUpBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+            .addComponent(loginBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
             .addComponent(exitBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         leftPanelLayout.setVerticalGroup(
@@ -136,9 +124,7 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(leftPanelLayout.createSequentialGroup()
                 .addGap(70, 70, 70)
                 .addComponent(loginBtn)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 377, Short.MAX_VALUE)
-                .addComponent(signUpBtn)
-                .addGap(26, 26, 26)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 438, Short.MAX_VALUE)
                 .addComponent(exitBtn)
                 .addGap(29, 29, 29))
         );
@@ -189,21 +175,6 @@ public class MainFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_loginBtnActionPerformed
 
-    private void signUpBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signUpBtnActionPerformed
-        // TODO add your handling code here:
-/*
-        CreateJPanel panel = new CreateJPanel(rightPanel, apBiz);
-        rightPanel.add("UserCreatePanel", panel);
-        CardLayout layout = (CardLayout) rightPanel.getLayout();
-<<<<<<< HEAD
-        layout.next(rightPanel);   
- */
-
-        //layout.next(rightPanel);
-
-
-    }//GEN-LAST:event_signUpBtnActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -246,6 +217,5 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel leftPanel;
     private javax.swing.JButton loginBtn;
     private javax.swing.JPanel rightPanel;
-    private javax.swing.JButton signUpBtn;
     // End of variables declaration//GEN-END:variables
 }
