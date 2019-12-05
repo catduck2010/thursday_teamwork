@@ -48,9 +48,6 @@ public class TaskBiz {
     public static List<Task> getAllTasks() {
         String sql = "select * from task where state=1";
         return Dao.getInstance().query(sql, Task.class);
-
-    public static List<Task> getAllTask() {
-        return getAllTasks();
     }
 
     public static Task getLatestTask(String username) {

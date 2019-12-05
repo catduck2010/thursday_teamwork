@@ -27,10 +27,10 @@ public class AdminBarJPanel extends javax.swing.JPanel {
         this.rightPanel = rightPanel;
     }
 private void manTaskPanel(){
-        ManageTaskJPanel manageTaskJPanel = new ManageTaskJPanel(rightPanel,user);
-        CardLayout layout = (CardLayout) jPanel2.getLayout();
-        jPanel2.add("ManageTaskJPanel", manageTaskJPanel);
-        layout.next(jPanel2);
+        ManageTaskJPanel manageTaskJPanel = new ManageTaskJPanel(downPanel,user);
+        CardLayout layout = (CardLayout) downPanel.getLayout();
+        downPanel.add("ManageTaskJPanel", manageTaskJPanel);
+        layout.next(downPanel);
 }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -47,7 +47,7 @@ private void manTaskPanel(){
         manageReqBtn = new javax.swing.JButton();
         manageStaffBtn = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
-        jPanel2 = new javax.swing.JPanel();
+        downPanel = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
 
         jSplitPane1.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
@@ -112,14 +112,14 @@ private void manTaskPanel(){
 
         jSplitPane1.setTopComponent(jPanel1);
 
-        jPanel2.setLayout(new java.awt.CardLayout());
+        downPanel.setLayout(new java.awt.CardLayout());
 
         jLabel2.setBackground(new java.awt.Color(153, 255, 102));
         jLabel2.setFont(new java.awt.Font("Microsoft JhengHei", 0, 24)); // NOI18N
         jLabel2.setText("Click button to continue");
-        jPanel2.add(jLabel2, "card2");
+        downPanel.add(jLabel2, "card2");
 
-        jSplitPane1.setRightComponent(jPanel2);
+        jSplitPane1.setRightComponent(downPanel);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -152,11 +152,11 @@ private void manTaskPanel(){
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel downPanel;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JButton manageReqBtn;
     private javax.swing.JButton manageStaffBtn;

@@ -29,10 +29,10 @@ public class HRBarJPanel extends javax.swing.JPanel {
         
     }
 private void CleaningAdminJPanel(){
-        CleaningAdminJPanel cleaningAdminJPanel = new CleaningAdminJPanel(rightPanel,user);
-        CardLayout layout = (CardLayout) jPanel3.getLayout();
-        jPanel3.add("CleaningAdminJPanel", cleaningAdminJPanel);
-        layout.next(jPanel3);
+        CleaningAdminJPanel cleaningAdminJPanel = new CleaningAdminJPanel(downPanel,user);
+        CardLayout layout = (CardLayout) downPanel.getLayout();
+        downPanel.add("CleaningAdminJPanel", cleaningAdminJPanel);
+        layout.next(downPanel);
 }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -49,7 +49,7 @@ private void CleaningAdminJPanel(){
         jLabel1 = new javax.swing.JLabel();
         manageReqBtn = new javax.swing.JButton();
         manageStaffBtn = new javax.swing.JButton();
-        jPanel3 = new javax.swing.JPanel();
+        downPanel = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -108,14 +108,14 @@ private void CleaningAdminJPanel(){
 
         jSplitPane1.setTopComponent(jPanel1);
 
-        jPanel3.setLayout(new java.awt.CardLayout());
+        downPanel.setLayout(new java.awt.CardLayout());
 
         jLabel2.setBackground(new java.awt.Color(153, 255, 102));
         jLabel2.setFont(new java.awt.Font("Microsoft JhengHei", 0, 24)); // NOI18N
         jLabel2.setText("Click button to continue");
-        jPanel3.add(jLabel2, "card2");
+        downPanel.add(jLabel2, "card2");
 
-        jSplitPane1.setRightComponent(jPanel3);
+        jSplitPane1.setRightComponent(downPanel);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -136,11 +136,11 @@ private void CleaningAdminJPanel(){
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel downPanel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JButton manageReqBtn;
     private javax.swing.JButton manageStaffBtn;

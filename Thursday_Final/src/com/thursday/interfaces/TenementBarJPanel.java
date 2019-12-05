@@ -25,13 +25,12 @@ public class TenementBarJPanel extends javax.swing.JPanel {
         initComponents();
         this.rightPanel = rightPanel;
         this.user = u;
-        this.rightPanel =rightPanel;
     }
 private void taskPanel(){
-        TenementTaskJPanel tenementTaskJPanel = new TenementTaskJPanel(rightPanel,user);
-        CardLayout layout = (CardLayout) jPanel2.getLayout();
-        jPanel2.add("TenementTaskJPanel", tenementTaskJPanel);
-        layout.next(jPanel2);
+        TenementTaskJPanel tenementTaskJPanel = new TenementTaskJPanel(downPanel,user);
+        CardLayout layout = (CardLayout) downPanel.getLayout();
+        downPanel.add("TenementTaskJPanel", tenementTaskJPanel);
+        layout.next(downPanel);
 }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -47,7 +46,7 @@ private void taskPanel(){
         jLabel1 = new javax.swing.JLabel();
         manageReqBtn = new javax.swing.JButton();
         manageAccountBtn = new javax.swing.JButton();
-        jPanel2 = new javax.swing.JPanel();
+        downPanel = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
 
         jSplitPane1.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
@@ -100,30 +99,13 @@ private void taskPanel(){
 
         jSplitPane1.setTopComponent(jPanel1);
 
-        jPanel2.setLayout(new java.awt.CardLayout());
+        downPanel.setLayout(new java.awt.CardLayout());
 
         jLabel2.setFont(new java.awt.Font("Microsoft JhengHei", 0, 24)); // NOI18N
         jLabel2.setText("Click button to continue");
+        downPanel.add(jLabel2, "card2");
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(252, 252, 252)
-                .addComponent(jLabel2)
-                .addContainerGap(289, Short.MAX_VALUE))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(203, 203, 203)
-                .addComponent(jLabel2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel2.add(jLabel2, "card2");
-
-        jSplitPane1.setRightComponent(jPanel2);
+        jSplitPane1.setRightComponent(downPanel);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -151,10 +133,10 @@ private void taskPanel(){
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel downPanel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JButton manageAccountBtn;
     private javax.swing.JButton manageReqBtn;

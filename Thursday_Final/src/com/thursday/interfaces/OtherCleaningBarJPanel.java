@@ -27,10 +27,10 @@ public class OtherCleaningBarJPanel extends javax.swing.JPanel {
         this.rightPanel = rightPanel;
     }
 private void CleanerManageRequest(){
-        CleanerManageRequestJPanel cleanerManageRequestJPanel = new CleanerManageRequestJPanel(rightPanel,user);
-        CardLayout layout = (CardLayout) jPanel2.getLayout();
-        jPanel2.add("CleanerManageRequestJPanel", cleanerManageRequestJPanel);
-        layout.next(jPanel2);
+        CleanerManageRequestJPanel cleanerManageRequestJPanel = new CleanerManageRequestJPanel(downPanel,user);
+        CardLayout layout = (CardLayout) downPanel.getLayout();
+        downPanel.add("CleanerManageRequestJPanel", cleanerManageRequestJPanel);
+        layout.next(downPanel);
 }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -46,7 +46,7 @@ private void CleanerManageRequest(){
         jLabel1 = new javax.swing.JLabel();
         manageReqBtn = new javax.swing.JButton();
         manageAccountBtn = new javax.swing.JButton();
-        jPanel2 = new javax.swing.JPanel();
+        downPanel = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
 
         jSplitPane1.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
@@ -94,14 +94,14 @@ private void CleanerManageRequest(){
 
         jSplitPane1.setTopComponent(jPanel1);
 
-        jPanel2.setLayout(new java.awt.CardLayout());
+        downPanel.setLayout(new java.awt.CardLayout());
 
         jLabel2.setBackground(new java.awt.Color(153, 255, 102));
         jLabel2.setFont(new java.awt.Font("Microsoft JhengHei", 0, 24)); // NOI18N
         jLabel2.setText("Click button to continue");
-        jPanel2.add(jLabel2, "card2");
+        downPanel.add(jLabel2, "card2");
 
-        jSplitPane1.setRightComponent(jPanel2);
+        jSplitPane1.setRightComponent(downPanel);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -122,10 +122,10 @@ private void CleanerManageRequest(){
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel downPanel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JButton manageAccountBtn;
     private javax.swing.JButton manageReqBtn;
