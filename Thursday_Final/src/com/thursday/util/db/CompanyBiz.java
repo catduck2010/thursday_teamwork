@@ -40,24 +40,18 @@ public class CompanyBiz {
         Object[] params = {Company.Type.APARTMENT};
         return Dao.getInstance().query(sql, Company.class, params);
     }
-    
+
     public static List<Company> getAllCompanies() {
         String sql = "select * from company where state=1 "
                 + "order by companyname";
         return Dao.getInstance().query(sql, Company.class);
     }
-    
+
     public static List<Company> getCleaningCompanies() {
         String sql = "select * from company where type=? and state=1 "
                 + "order by companyname";
         Object[] params = {Company.Type.CLEANING};
         return Dao.getInstance().query(sql, Company.class, params);
-    }
-    
-    public static List<Company> getAllCompanies() {
-        String sql = "select * from company where state=1 "
-                + "order by companyname";
-        return Dao.getInstance().query(sql, Company.class);
     }
 
     public static Company getCompany(String name) {
@@ -65,5 +59,5 @@ public class CompanyBiz {
         Object[] params = {name};
         return (Company) Dao.getInstance().get(sql, Company.class, params);
     }
-    
+
 }
