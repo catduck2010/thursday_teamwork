@@ -156,6 +156,7 @@ public class LoginJPanel extends javax.swing.JPanel {
         jLabel5 = new javax.swing.JLabel();
         usernameTxt = new javax.swing.JTextField();
         passwordField = new javax.swing.JPasswordField();
+        btnGoBack = new javax.swing.JButton();
 
         jLabel3.setFont(new java.awt.Font("Microsoft JhengHei", 0, 24)); // NOI18N
         jLabel3.setText("Password");
@@ -170,6 +171,13 @@ public class LoginJPanel extends javax.swing.JPanel {
 
         jLabel5.setFont(new java.awt.Font("Microsoft JhengHei", 0, 24)); // NOI18N
         jLabel5.setText("Username");
+
+        btnGoBack.setText("←");
+        btnGoBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGoBackActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -188,13 +196,16 @@ public class LoginJPanel extends javax.swing.JPanel {
                             .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(339, 339, 339)
-                        .addComponent(loginBtn)))
+                        .addComponent(loginBtn))
+                    .addComponent(btnGoBack, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(224, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(172, 172, 172)
+                .addContainerGap()
+                .addComponent(btnGoBack)
+                .addGap(137, 137, 137)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(usernameTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -237,8 +248,16 @@ public class LoginJPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_loginBtnActionPerformed
 
+    private void btnGoBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGoBackActionPerformed
+        // TODO add your handling code here:
+        CardLayout layout = (CardLayout) this.rightPanel.getLayout();
+        this.rightPanel.remove(this);
+        layout.previous(this.rightPanel);
+    }//GEN-LAST:event_btnGoBackActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnGoBack;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;

@@ -57,9 +57,9 @@ public class CreateCompJPanel extends javax.swing.JPanel {
         jLabel5 = new javax.swing.JLabel();
         adminNameTxt = new javax.swing.JTextField();
         createBtn = new javax.swing.JButton();
-        backBtn = new javax.swing.JButton();
         apartmentRBtn = new javax.swing.JRadioButton();
         cleaningCompanyRBtn = new javax.swing.JRadioButton();
+        btnGoBack = new javax.swing.JButton();
 
         jLabel1.setFont(new java.awt.Font("Microsoft JhengHei", 0, 24)); // NOI18N
         jLabel1.setText("Comp. Name");
@@ -87,14 +87,6 @@ public class CreateCompJPanel extends javax.swing.JPanel {
             }
         });
 
-        backBtn.setFont(new java.awt.Font("Microsoft JhengHei", 0, 24)); // NOI18N
-        backBtn.setText("< back");
-        backBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                backBtnActionPerformed(evt);
-            }
-        });
-
         buttonGroup1.add(apartmentRBtn);
         apartmentRBtn.setFont(new java.awt.Font("Microsoft JhengHei", 0, 24)); // NOI18N
         apartmentRBtn.setText("Apartment");
@@ -108,15 +100,19 @@ public class CreateCompJPanel extends javax.swing.JPanel {
         cleaningCompanyRBtn.setFont(new java.awt.Font("Microsoft JhengHei", 0, 24)); // NOI18N
         cleaningCompanyRBtn.setText("Cleaning company");
 
+        btnGoBack.setText("←");
+        btnGoBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGoBackActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(38, 38, 38)
-                        .addComponent(backBtn))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(170, 170, 170)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -143,15 +139,16 @@ public class CreateCompJPanel extends javax.swing.JPanel {
                                         .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(360, 360, 360)
-                        .addComponent(createBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(createBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnGoBack, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(251, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(38, 38, 38)
-                .addComponent(backBtn)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addContainerGap()
+                .addComponent(btnGoBack)
+                .addGap(47, 47, 47)
                 .addComponent(apartmentRBtn)
                 .addGap(18, 18, 18)
                 .addComponent(cleaningCompanyRBtn)
@@ -249,20 +246,19 @@ public class CreateCompJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_apartmentRBtnActionPerformed
 
-    private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
+    private void btnGoBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGoBackActionPerformed
         // TODO add your handling code here:
-        RootJPanel panel = new RootJPanel(rightPanel);
-        rightPanel.add("RootJPanel",panel);
-        CardLayout layout = (CardLayout) rightPanel.getLayout();
-        layout.next(rightPanel);
-    }//GEN-LAST:event_backBtnActionPerformed
+        CardLayout layout = (CardLayout) this.rightPanel.getLayout();
+        this.rightPanel.remove(this);
+        layout.previous(this.rightPanel);
+    }//GEN-LAST:event_btnGoBackActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField CompNameTxt;
     private javax.swing.JTextField adminNameTxt;
     private javax.swing.JRadioButton apartmentRBtn;
-    private javax.swing.JButton backBtn;
+    private javax.swing.JButton btnGoBack;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JRadioButton cleaningCompanyRBtn;
     private javax.swing.JButton createBtn;

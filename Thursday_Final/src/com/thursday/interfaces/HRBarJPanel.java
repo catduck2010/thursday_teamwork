@@ -125,6 +125,7 @@ public class HRBarJPanel extends javax.swing.JPanel {
 
         jLabel2.setBackground(new java.awt.Color(153, 255, 102));
         jLabel2.setFont(new java.awt.Font("Microsoft JhengHei", 0, 24)); // NOI18N
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Click button to continue");
         downPanel.add(jLabel2, "card2");
 

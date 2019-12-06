@@ -12,6 +12,7 @@ import com.thursday.business.identities.CleaningCompUser;
 import com.thursday.business.identities.User;
 import com.thursday.business.workflow.Task;
 import com.thursday.business.workflow.WorkRequest;
+import java.awt.CardLayout;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
@@ -28,6 +29,7 @@ public class AssignCleaningTaskJPanel extends javax.swing.JPanel {
     private WorkRequest wr;
     private JPanel rightPanel;
     private User admin;
+
     public AssignCleaningTaskJPanel(JPanel rightPanel, WorkRequest wr, User admin) {
         this.wr = wr;
         this.rightPanel = rightPanel;
@@ -35,36 +37,42 @@ public class AssignCleaningTaskJPanel extends javax.swing.JPanel {
         initComponents();
         populateCleaningTable();
     }
-    public void populateCleaningTable(){
-        
-        DefaultTableModel dtm = (DefaultTableModel)tblCleaningman.getModel();
+
+    public void populateCleaningTable() {
+
+        DefaultTableModel dtm = (DefaultTableModel) tblCleaningman.getModel();
         dtm.setRowCount(0);
-        
-        
-        for( User u : UserDirectory.getCompanyStaff(admin.getCompanyName())){
-            
-            if(u.getRole().equals(CleaningCompUser.Roles.CLEANER)){
-            Object row[] = new Object [2];
-            row[0] = u;
-            row[1] = u.getUsername();
-            
-            dtm.addRow(row);
+
+        for (User u : UserDirectory.getCompanyStaff(admin.getCompanyName())) {
+
+            if (u.getRole().equals(CleaningCompUser.Roles.CLEANER)) {
+                Object row[] = new Object[2];
+                row[0] = u;
+                row[1] = u.getUsername();
+
+                dtm.addRow(row);
             }
         }
     }
-    public void sendRequest(){
+
+    public void sendRequest() {
         int selectedRow = tblCleaningman.getSelectedRow();
         if (selectedRow >= 0) {
-            
-            User u = (User)tblCleaningman.getValueAt(selectedRow, 0);
-            WorkFlow.createRequest(wr.getTaskId(), wr.getTitle(), wr.getMessage(),admin.getUsername(),u.getUsername());
+
+            User u = (User) tblCleaningman.getValueAt(selectedRow, 0);
+            WorkFlow.createRequest(wr.getTaskId(), wr.getTitle(), wr.getMessage(), admin.getUsername(), u.getUsername());
             JOptionPane.showMessageDialog(null, "Send Cleaning Task Request Successfully!");
-            }
-        
-        else {
+        } else {
             JOptionPane.showMessageDialog(null, "Please select any row");
         }
-    } 
+    }
+
+    private void goBack() {
+        CardLayout layout = (CardLayout) this.rightPanel.getLayout();
+        this.rightPanel.remove(this);
+        layout.previous(this.rightPanel);
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -77,6 +85,7 @@ public class AssignCleaningTaskJPanel extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblCleaningman = new javax.swing.JTable();
         btnSend = new javax.swing.JButton();
+        btnGoBack = new javax.swing.JButton();
 
         tblCleaningman.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -106,28 +115,36 @@ public class AssignCleaningTaskJPanel extends javax.swing.JPanel {
             }
         });
 
+        btnGoBack.setText("←");
+        btnGoBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGoBackActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnSend)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(75, 75, 75)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 488, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(113, 113, 113)
-                        .addComponent(btnSend)))
-                .addContainerGap(133, Short.MAX_VALUE))
+                        .addComponent(btnGoBack, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 488, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(152, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28)
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnGoBack)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnSend)
-                .addContainerGap(224, Short.MAX_VALUE))
+                .addContainerGap(264, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -136,8 +153,14 @@ public class AssignCleaningTaskJPanel extends javax.swing.JPanel {
         sendRequest();
     }//GEN-LAST:event_btnSendActionPerformed
 
+    private void btnGoBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGoBackActionPerformed
+        // TODO add your handling code here:
+        goBack();
+    }//GEN-LAST:event_btnGoBackActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnGoBack;
     private javax.swing.JButton btnSend;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblCleaningman;

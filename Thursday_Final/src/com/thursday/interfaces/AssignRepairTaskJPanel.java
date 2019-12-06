@@ -11,6 +11,7 @@ import com.thursday.business.identities.ApartmentUser;
 import com.thursday.business.identities.User;
 import com.thursday.business.workflow.Task;
 import com.thursday.business.workflow.WorkRequest;
+import java.awt.CardLayout;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
@@ -27,6 +28,7 @@ public class AssignRepairTaskJPanel extends javax.swing.JPanel {
     private Task task;
     private JPanel rightPanel;
     private User admin;
+
     public AssignRepairTaskJPanel(JPanel rightPanel, Task task, User admin) {
         this.task = task;
         this.rightPanel = rightPanel;
@@ -34,39 +36,44 @@ public class AssignRepairTaskJPanel extends javax.swing.JPanel {
         initComponents();
         populateRepairTable();
     }
-    public void populateRepairTable(){
-        
-        DefaultTableModel dtm = (DefaultTableModel)tblRepairman.getModel();
+
+    public void populateRepairTable() {
+
+        DefaultTableModel dtm = (DefaultTableModel) tblRepairman.getModel();
         dtm.setRowCount(0);
-        
-        
-        for( User u : UserDirectory.getCompanyStaff(admin.getCompanyName())){
-            
-            
-            if(u.getRole().equals(ApartmentUser.Roles.REPAIRPERSON)){
-            Object row[] = new Object [2];
-            row[0] = u;
-            row[1] = u.getUsername();
-            
-            dtm.addRow(row);
+
+        for (User u : UserDirectory.getCompanyStaff(admin.getCompanyName())) {
+
+            if (u.getRole().equals(ApartmentUser.Roles.REPAIRPERSON)) {
+                Object row[] = new Object[2];
+                row[0] = u;
+                row[1] = u.getUsername();
+
+                dtm.addRow(row);
             }
         }
     }
-    public void sendRequest(){
+
+    private void goBack() {
+        CardLayout layout = (CardLayout) this.rightPanel.getLayout();
+        this.rightPanel.remove(this);
+        layout.previous(this.rightPanel);
+    }
+
+    public void sendRequest() {
         int selectedRow = tblRepairman.getSelectedRow();
         if (selectedRow >= 0) {
-            String status =Task.Status.WAIT_FOR_RESPONSE;  
+            String status = Task.Status.WAIT_FOR_RESPONSE;
             task.setStatus(status);
             WorkFlow.updateTask(task);
-            User u = (User)tblRepairman.getValueAt(selectedRow, 0);
-            WorkFlow.createRequest(task.getId(), task.getTitle(), task.getMessage(),admin.getUsername(),u.getUsername());
+            User u = (User) tblRepairman.getValueAt(selectedRow, 0);
+            WorkFlow.createRequest(task.getId(), task.getTitle(), task.getMessage(), admin.getUsername(), u.getUsername());
             JOptionPane.showMessageDialog(null, "Send Repair Task Request Successfully!");
-            }
-        
-        else {
+        } else {
             JOptionPane.showMessageDialog(null, "Please select any row");
         }
-    } 
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -76,9 +83,11 @@ public class AssignRepairTaskJPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblRepairman = new javax.swing.JTable();
         btnSend = new javax.swing.JButton();
+        btnGoBack = new javax.swing.JButton();
 
         tblRepairman.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -108,28 +117,53 @@ public class AssignRepairTaskJPanel extends javax.swing.JPanel {
             }
         });
 
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnSend)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 464, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnSend)
+                .addContainerGap(105, Short.MAX_VALUE))
+        );
+
+        btnGoBack.setText("←");
+        btnGoBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGoBackActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(75, 75, 75)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 488, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(113, 113, 113)
-                        .addComponent(btnSend)))
-                .addContainerGap(133, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addComponent(btnGoBack, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28)
-                .addComponent(btnSend)
-                .addContainerGap(224, Short.MAX_VALUE))
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnGoBack)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -138,9 +172,16 @@ public class AssignRepairTaskJPanel extends javax.swing.JPanel {
         sendRequest();
     }//GEN-LAST:event_btnSendActionPerformed
 
+    private void btnGoBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGoBackActionPerformed
+        // TODO add your handling code here:
+        goBack();
+    }//GEN-LAST:event_btnGoBackActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnGoBack;
     private javax.swing.JButton btnSend;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblRepairman;
     // End of variables declaration//GEN-END:variables
