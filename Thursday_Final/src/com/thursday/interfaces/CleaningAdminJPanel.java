@@ -120,7 +120,7 @@ public void SendCleaningRequest(){
                 JOptionPane.showMessageDialog(null, "please select request from apartment admin!");
             }
             else{
-            WorkFlow.markAsRead(wr);
+            
             populateRequestTable();
             AssignCleaningTaskJPanel assignCleaningTaskJPanel = new AssignCleaningTaskJPanel(rightPanel,wr,admin);
             CardLayout layout = (CardLayout) rightPanel.getLayout();
@@ -144,11 +144,7 @@ public void SendBack(){
               break;
             }
         }
-            if (!wr.getIsRead()) {
-                JOptionPane.showMessageDialog(null, "send task first!");
-                return;
-            }
-            else if(validation == false){
+             if(validation == false){
                 JOptionPane.showMessageDialog(null, "please select request from cleaner!");
             }
             else{
@@ -174,7 +170,7 @@ public void SendBack(){
                         break;
                     }
                 }
-                
+                WorkFlow.markAsRead(wr);
                 WorkFlow.createRequest(wr.getTaskId(), wr.getTitle(), wr.getMessage(), admin.getUsername(), adminusername);
                 JOptionPane.showMessageDialog(null, "Send Back Successfully!");
                 populateRequestTable();

@@ -58,9 +58,10 @@ public class AssignCleaningTaskJPanel extends javax.swing.JPanel {
     public void sendRequest() {
         int selectedRow = tblCleaningman.getSelectedRow();
         if (selectedRow >= 0) {
-
-            User u = (User) tblCleaningman.getValueAt(selectedRow, 0);
-            WorkFlow.createRequest(wr.getTaskId(), wr.getTitle(), wr.getMessage(), admin.getUsername(), u.getUsername());
+            
+            User u = (User)tblCleaningman.getValueAt(selectedRow, 0);
+            WorkFlow.createRequest(wr.getTaskId(), wr.getTitle(), wr.getMessage(),admin.getUsername(),u.getUsername());
+            WorkFlow.markAsRead(wr);
             JOptionPane.showMessageDialog(null, "Send Cleaning Task Request Successfully!");
         } else {
             JOptionPane.showMessageDialog(null, "Please select any row");
