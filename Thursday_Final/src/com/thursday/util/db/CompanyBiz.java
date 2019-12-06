@@ -47,6 +47,12 @@ public class CompanyBiz {
         Object[] params = {Company.Type.CLEANING};
         return Dao.getInstance().query(sql, Company.class, params);
     }
+    
+    public static List<Company> getAllCompanies() {
+        String sql = "select * from company where state=1 "
+                + "order by companyname";
+        return Dao.getInstance().query(sql, Company.class);
+    }
 
     public static Company getCompany(String name) {
         String sql = "select * from company where companyname=? and state=1";
