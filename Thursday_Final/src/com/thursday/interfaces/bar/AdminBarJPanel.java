@@ -8,6 +8,7 @@ package com.thursday.interfaces.bar;
 import com.thursday.business.identities.ApartmentUser;
 import com.thursday.business.identities.User;
 import com.thursday.interfaces.AdminManageStaffJPanel;
+import com.thursday.interfaces.ManageAccountPanel;
 import com.thursday.interfaces.apartment.ManageTaskJPanel;
 import java.awt.CardLayout;
 import javax.swing.JPanel;
@@ -51,6 +52,7 @@ public class AdminBarJPanel extends javax.swing.JPanel {
         btnManageReq = new javax.swing.JButton();
         btnManageStaff = new javax.swing.JButton();
         btnManageTnmt = new javax.swing.JButton();
+        manageAccountBtn = new javax.swing.JButton();
         downPanel = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
 
@@ -81,18 +83,31 @@ public class AdminBarJPanel extends javax.swing.JPanel {
             }
         });
 
+        manageAccountBtn.setFont(new java.awt.Font("Microsoft JhengHei", 0, 22)); // NOI18N
+        manageAccountBtn.setText("Manage Account");
+        manageAccountBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                manageAccountBtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(45, 45, 45)
-                .addComponent(btnManageReq)
-                .addGap(31, 31, 31)
-                .addComponent(btnManageTnmt)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
-                .addComponent(btnManageStaff, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(55, 55, 55))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(manageAccountBtn)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(btnManageReq)
+                        .addGap(31, 31, 31)
+                        .addComponent(btnManageTnmt)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
+                        .addComponent(btnManageStaff, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(55, 55, 55))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -102,7 +117,9 @@ public class AdminBarJPanel extends javax.swing.JPanel {
                     .addComponent(btnManageReq)
                     .addComponent(btnManageTnmt)
                     .addComponent(btnManageStaff))
-                .addContainerGap(40, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(manageAccountBtn)
+                .addContainerGap())
         );
 
         jSplitPane1.setTopComponent(jPanel1);
@@ -149,6 +166,13 @@ public class AdminBarJPanel extends javax.swing.JPanel {
         manTaskPanel();
     }//GEN-LAST:event_btnManageReqActionPerformed
 
+    private void manageAccountBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageAccountBtnActionPerformed
+        // TODO add your handling code here:
+        CardLayout layout = (CardLayout) this.downPanel.getLayout();
+        this.downPanel.add("ManageAccountPanel", new ManageAccountPanel(downPanel, user));
+        layout.next(downPanel);
+    }//GEN-LAST:event_manageAccountBtnActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnManageReq;
@@ -158,5 +182,6 @@ public class AdminBarJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSplitPane jSplitPane1;
+    private javax.swing.JButton manageAccountBtn;
     // End of variables declaration//GEN-END:variables
 }

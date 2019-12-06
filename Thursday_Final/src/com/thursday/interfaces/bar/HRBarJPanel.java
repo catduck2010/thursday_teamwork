@@ -8,6 +8,7 @@ package com.thursday.interfaces.bar;
 import com.thursday.business.identities.CleaningCompUser;
 import com.thursday.business.identities.User;
 import com.thursday.interfaces.AdminManageStaffJPanel;
+import com.thursday.interfaces.ManageAccountPanel;
 import com.thursday.interfaces.cleaningcomp.CleaningAdminJPanel;
 import java.awt.CardLayout;
 import javax.swing.JPanel;
@@ -58,6 +59,7 @@ public class HRBarJPanel extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         manageReqBtn = new javax.swing.JButton();
         manageStaffBtn = new javax.swing.JButton();
+        manageAccountBtn = new javax.swing.JButton();
         downPanel = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
 
@@ -91,6 +93,14 @@ public class HRBarJPanel extends javax.swing.JPanel {
             }
         });
 
+        manageAccountBtn.setFont(new java.awt.Font("Microsoft JhengHei", 0, 22)); // NOI18N
+        manageAccountBtn.setText("Manage Account");
+        manageAccountBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                manageAccountBtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -98,9 +108,11 @@ public class HRBarJPanel extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(119, 119, 119)
                 .addComponent(manageReqBtn)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 132, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
                 .addComponent(manageStaffBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(138, 138, 138))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(manageAccountBtn)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -108,7 +120,8 @@ public class HRBarJPanel extends javax.swing.JPanel {
                 .addGap(63, 63, 63)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(manageReqBtn)
-                    .addComponent(manageStaffBtn))
+                    .addComponent(manageStaffBtn)
+                    .addComponent(manageAccountBtn))
                 .addContainerGap(49, Short.MAX_VALUE))
         );
 
@@ -146,6 +159,13 @@ public class HRBarJPanel extends javax.swing.JPanel {
         manageStaffJPanel();
     }//GEN-LAST:event_manageStaffBtnActionPerformed
 
+    private void manageAccountBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageAccountBtnActionPerformed
+        // TODO add your handling code here:
+        CardLayout layout = (CardLayout) this.downPanel.getLayout();
+        this.downPanel.add("ManageAccountPanel", new ManageAccountPanel(downPanel, user));
+        layout.next(downPanel);
+    }//GEN-LAST:event_manageAccountBtnActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel downPanel;
@@ -153,6 +173,7 @@ public class HRBarJPanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JSplitPane jSplitPane1;
+    private javax.swing.JButton manageAccountBtn;
     private javax.swing.JButton manageReqBtn;
     private javax.swing.JButton manageStaffBtn;
     // End of variables declaration//GEN-END:variables

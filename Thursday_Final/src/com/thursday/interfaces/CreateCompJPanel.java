@@ -60,6 +60,7 @@ public class CreateCompJPanel extends javax.swing.JPanel {
         apartmentRBtn = new javax.swing.JRadioButton();
         cleaningCompanyRBtn = new javax.swing.JRadioButton();
         btnGoBack = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
 
         jLabel1.setFont(new java.awt.Font("Microsoft JhengHei", 0, 24)); // NOI18N
         jLabel1.setText("Comp. Name");
@@ -113,6 +114,8 @@ public class CreateCompJPanel extends javax.swing.JPanel {
             }
         });
 
+        jLabel2.setText("Add Company");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -146,14 +149,19 @@ public class CreateCompJPanel extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(360, 360, 360)
                         .addComponent(createBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btnGoBack, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnGoBack, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel2)))
                 .addContainerGap(251, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnGoBack)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnGoBack)
+                    .addComponent(jLabel2))
                 .addGap(47, 47, 47)
                 .addComponent(apartmentRBtn)
                 .addGap(18, 18, 18)
@@ -278,6 +286,7 @@ public class CreateCompJPanel extends javax.swing.JPanel {
     private javax.swing.JRadioButton cleaningCompanyRBtn;
     private javax.swing.JButton createBtn;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;

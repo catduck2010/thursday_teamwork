@@ -3,11 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.thursday.interfaces.apartment;
+package com.thursday.interfaces.bar;
 
 import com.thursday.interfaces.apartment.TenementTaskJPanel;
 import com.thursday.business.identities.User;
 import com.thursday.interfaces.ManageAccountPanel;
+import com.thursday.interfaces.apartment.ManageMyRequestsJPanel;
+import com.thursday.interfaces.apartment.TenementTaskJPanel;
 import java.awt.CardLayout;
 import javax.swing.JPanel;
 
@@ -51,17 +53,14 @@ private void ManageMyTaskPanel(){
 
         jSplitPane1 = new javax.swing.JSplitPane();
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         manageReqBtn = new javax.swing.JButton();
         manageAccountBtn = new javax.swing.JButton();
         btnManageMyRequests = new javax.swing.JButton();
         downPanel = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
 
+        jSplitPane1.setBorder(null);
         jSplitPane1.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
-
-        jLabel1.setFont(new java.awt.Font("Microsoft JhengHei", 0, 22)); // NOI18N
-        jLabel1.setText("Hi, ");
 
         manageReqBtn.setFont(new java.awt.Font("Microsoft JhengHei", 0, 22)); // NOI18N
         manageReqBtn.setText("Make Requests");
@@ -92,24 +91,18 @@ private void ManageMyTaskPanel(){
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(47, 47, 47)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(manageReqBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnManageMyRequests)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(manageAccountBtn))
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(36, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(manageReqBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnManageMyRequests)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(manageAccountBtn)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(58, 58, 58)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(manageAccountBtn)
                     .addComponent(manageReqBtn)
@@ -122,6 +115,7 @@ private void ManageMyTaskPanel(){
         downPanel.setLayout(new java.awt.CardLayout());
 
         jLabel2.setFont(new java.awt.Font("Microsoft JhengHei", 0, 24)); // NOI18N
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Click button to continue");
         downPanel.add(jLabel2, "card2");
 
@@ -146,9 +140,9 @@ private void ManageMyTaskPanel(){
 
     private void manageAccountBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageAccountBtnActionPerformed
         // TODO add your handling code here:
-        CardLayout layout = (CardLayout) this.rightPanel.getLayout();
-        this.rightPanel.add("ManageAccountPanel", new ManageAccountPanel(rightPanel, user));
-        layout.next(rightPanel);
+        CardLayout layout = (CardLayout) this.downPanel.getLayout();
+        this.downPanel.add("ManageAccountPanel", new ManageAccountPanel(downPanel, user));
+        layout.next(downPanel);
     }//GEN-LAST:event_manageAccountBtnActionPerformed
 
     private void btnManageMyRequestsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageMyRequestsActionPerformed
@@ -160,7 +154,6 @@ private void ManageMyTaskPanel(){
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnManageMyRequests;
     private javax.swing.JPanel downPanel;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSplitPane jSplitPane1;

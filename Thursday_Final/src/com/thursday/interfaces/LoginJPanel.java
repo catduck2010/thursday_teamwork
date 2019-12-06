@@ -5,7 +5,7 @@
  */
 package com.thursday.interfaces;
 
-import com.thursday.interfaces.apartment.TenementBarJPanel;
+import com.thursday.interfaces.bar.TenementBarJPanel;
 import com.thursday.interfaces.bar.RepairBarJPanel;
 import com.thursday.interfaces.bar.CleanerBarJPanel;
 import com.thursday.interfaces.bar.AdminBarJPanel;

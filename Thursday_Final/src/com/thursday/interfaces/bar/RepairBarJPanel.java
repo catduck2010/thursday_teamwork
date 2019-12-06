@@ -30,9 +30,9 @@ public class RepairBarJPanel extends javax.swing.JPanel {
     }
 private void RepairmanManReqJPanel(){
         RepairManManageRequestJPanel repairManManageRequestJPanel = new RepairManManageRequestJPanel(rightPanel,user);
-        CardLayout layout = (CardLayout) jPanel2.getLayout();
-        jPanel2.add("RepairManManageRequestJPanel", repairManManageRequestJPanel);
-        layout.next(jPanel2);
+        CardLayout layout = (CardLayout) downPanel.getLayout();
+        downPanel.add("RepairManManageRequestJPanel", repairManManageRequestJPanel);
+        layout.next(downPanel);
 }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -48,7 +48,7 @@ private void RepairmanManReqJPanel(){
         jPanel1 = new javax.swing.JPanel();
         manageReqBtn = new javax.swing.JButton();
         manageAccountBtn = new javax.swing.JButton();
-        jPanel2 = new javax.swing.JPanel();
+        downPanel = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
 
         jSplitPane1.setBorder(null);
@@ -84,7 +84,7 @@ private void RepairmanManReqJPanel(){
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(69, 69, 69)
+                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(manageReqBtn)
                     .addComponent(manageAccountBtn))
@@ -93,14 +93,14 @@ private void RepairmanManReqJPanel(){
 
         jSplitPane1.setTopComponent(jPanel1);
 
-        jPanel2.setLayout(new java.awt.CardLayout());
+        downPanel.setLayout(new java.awt.CardLayout());
 
         jLabel2.setFont(new java.awt.Font("Microsoft JhengHei", 0, 24)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Click button to continue");
-        jPanel2.add(jLabel2, "card2");
+        downPanel.add(jLabel2, "card2");
 
-        jSplitPane1.setRightComponent(jPanel2);
+        jSplitPane1.setRightComponent(downPanel);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -116,9 +116,9 @@ private void RepairmanManReqJPanel(){
 
     private void manageAccountBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageAccountBtnActionPerformed
         // TODO add your handling code here:
-        CardLayout layout = (CardLayout) this.rightPanel.getLayout();
-        this.rightPanel.add("ManageAccountPanel", new ManageAccountPanel(rightPanel, user));
-        layout.next(rightPanel);
+        CardLayout layout = (CardLayout) this.downPanel.getLayout();
+        this.downPanel.add("ManageAccountPanel", new ManageAccountPanel(downPanel, user));
+        layout.next(downPanel);
     }//GEN-LAST:event_manageAccountBtnActionPerformed
     
     private void manageReqBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageReqBtnActionPerformed
@@ -128,9 +128,9 @@ private void RepairmanManReqJPanel(){
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel downPanel;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JButton manageAccountBtn;
     private javax.swing.JButton manageReqBtn;
