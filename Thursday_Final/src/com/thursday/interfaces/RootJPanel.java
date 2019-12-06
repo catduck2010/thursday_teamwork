@@ -5,8 +5,12 @@
  */
 package com.thursday.interfaces;
 
+import com.thursday.business.CompanyDirectory;
+import com.thursday.business.enterprise.Company;
 import java.awt.CardLayout;
+import java.util.ArrayList;
 import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -19,13 +23,28 @@ public class RootJPanel extends javax.swing.JPanel {
      */
     
     private JPanel rightPanel;
+ 
     
    
     public RootJPanel(JPanel rightPanel) {
         initComponents();
         this.rightPanel = rightPanel;
+        populateTable();
     }
-
+    
+    private void populateTable(){
+        DefaultTableModel dtm = (DefaultTableModel) compListTbl.getModel();
+        dtm.setRowCount(0);
+        for(Company comp: CompanyDirectory.getAllCompanies()){
+            Object[] row = new Object[2];
+            
+            row[0] = comp.getCompanyName();
+            row[1] = comp.getAdminUser();
+            
+            dtm.addRow(row);
+        }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -38,7 +57,8 @@ public class RootJPanel extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         addBtn = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        compListTbl = new javax.swing.JTable();
+        refreshBtn = new javax.swing.JButton();
 
         jLabel1.setFont(new java.awt.Font("Microsoft JhengHei", 0, 24)); // NOI18N
         jLabel1.setText("Company List");
@@ -51,9 +71,9 @@ public class RootJPanel extends javax.swing.JPanel {
             }
         });
 
-        jTable1.setBackground(new java.awt.Color(153, 153, 255));
-        jTable1.setFont(new java.awt.Font("Microsoft JhengHei", 0, 18)); // NOI18N
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        compListTbl.setBackground(new java.awt.Color(153, 153, 255));
+        compListTbl.setFont(new java.awt.Font("Microsoft JhengHei", 0, 18)); // NOI18N
+        compListTbl.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -69,7 +89,14 @@ public class RootJPanel extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(compListTbl);
+
+        refreshBtn.setText("Refresh");
+        refreshBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                refreshBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -86,6 +113,10 @@ public class RootJPanel extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(addBtn)
                         .addGap(36, 36, 36))))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(338, 338, 338)
+                .addComponent(refreshBtn)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -96,7 +127,9 @@ public class RootJPanel extends javax.swing.JPanel {
                     .addComponent(addBtn))
                 .addGap(25, 25, 25)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(85, Short.MAX_VALUE))
+                .addGap(27, 27, 27)
+                .addComponent(refreshBtn)
+                .addContainerGap(29, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -108,11 +141,17 @@ public class RootJPanel extends javax.swing.JPanel {
         layout.next(rightPanel);
     }//GEN-LAST:event_addBtnActionPerformed
 
+    private void refreshBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshBtnActionPerformed
+        // TODO add your handling code here:
+        populateTable();
+    }//GEN-LAST:event_refreshBtnActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addBtn;
+    private javax.swing.JTable compListTbl;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JButton refreshBtn;
     // End of variables declaration//GEN-END:variables
 }

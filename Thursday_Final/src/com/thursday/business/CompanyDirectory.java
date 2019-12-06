@@ -64,4 +64,10 @@ public class CompanyDirectory {
     public static List<Company> getCleaningCompanies() {
         return CompanyBiz.getCleaningCompanies();
     }
+    
+    public static List<Company> getAllCompanies(){
+        return CompanyBiz.getAllCompanies();
+    }
+    
+    
 }

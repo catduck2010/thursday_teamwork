@@ -8,6 +8,7 @@ package com.thursday.interfaces;
 import com.thursday.business.CompanyDirectory;
 import com.thursday.business.UserDirectory;
 import com.thursday.util.Validator;
+import java.awt.CardLayout;
 import java.awt.Color;
 import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
@@ -46,6 +47,7 @@ public class CreateCompJPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jLabel1 = new javax.swing.JLabel();
         CompNameTxt = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
@@ -87,7 +89,13 @@ public class CreateCompJPanel extends javax.swing.JPanel {
 
         backBtn.setFont(new java.awt.Font("Microsoft JhengHei", 0, 24)); // NOI18N
         backBtn.setText("< back");
+        backBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backBtnActionPerformed(evt);
+            }
+        });
 
+        buttonGroup1.add(apartmentRBtn);
         apartmentRBtn.setFont(new java.awt.Font("Microsoft JhengHei", 0, 24)); // NOI18N
         apartmentRBtn.setText("Apartment");
         apartmentRBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -96,6 +104,7 @@ public class CreateCompJPanel extends javax.swing.JPanel {
             }
         });
 
+        buttonGroup1.add(cleaningCompanyRBtn);
         cleaningCompanyRBtn.setFont(new java.awt.Font("Microsoft JhengHei", 0, 24)); // NOI18N
         cleaningCompanyRBtn.setText("Cleaning company");
 
@@ -240,12 +249,21 @@ public class CreateCompJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_apartmentRBtnActionPerformed
 
+    private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
+        // TODO add your handling code here:
+        RootJPanel panel = new RootJPanel(rightPanel);
+        rightPanel.add("RootJPanel",panel);
+        CardLayout layout = (CardLayout) rightPanel.getLayout();
+        layout.next(rightPanel);
+    }//GEN-LAST:event_backBtnActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField CompNameTxt;
     private javax.swing.JTextField adminNameTxt;
     private javax.swing.JRadioButton apartmentRBtn;
     private javax.swing.JButton backBtn;
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JRadioButton cleaningCompanyRBtn;
     private javax.swing.JButton createBtn;
     private javax.swing.JLabel jLabel1;
