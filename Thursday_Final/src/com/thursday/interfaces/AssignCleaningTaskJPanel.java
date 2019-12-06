@@ -58,6 +58,7 @@ public class AssignCleaningTaskJPanel extends javax.swing.JPanel {
             
             User u = (User)tblCleaningman.getValueAt(selectedRow, 0);
             WorkFlow.createRequest(wr.getTaskId(), wr.getTitle(), wr.getMessage(),admin.getUsername(),u.getUsername());
+            WorkFlow.markAsRead(wr);
             JOptionPane.showMessageDialog(null, "Send Cleaning Task Request Successfully!");
             }
         
