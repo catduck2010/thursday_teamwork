@@ -6,17 +6,11 @@
 package com.thursday.interfaces;
 
 import com.thursday.business.EcoSystem;
-import com.thursday.business.enterprise.Apartment;
-
-import com.thursday.business.enterprise.CleaningCompany;
 
 import com.thursday.util.db.UserBiz;
 import com.thursday.business.identities.CleaningCompUser;
 import com.thursday.business.identities.User;
-import com.thursday.util.PasswordUtil;
-import java.util.*;
 import java.awt.CardLayout;
-import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 

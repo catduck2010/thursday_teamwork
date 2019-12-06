@@ -52,9 +52,9 @@
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="manageReqBtn" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
-                              <Component id="manageTnmtBtn" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="32" max="32767" attributes="0"/>
+                              <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
+                              <Component id="btnManageTnmt" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace pref="38" max="32767" attributes="0"/>
                               <Component id="manageStaffBtn" min="-2" pref="206" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
                           </Group>
@@ -70,6 +70,7 @@
                       <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="manageReqBtn" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnManageTnmt" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="manageStaffBtn" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="manageTnmtBtn" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
@@ -109,7 +110,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="manageStaffBtnActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="manageTnmtBtn">
+            <Component class="javax.swing.JButton" name="btnManageTnmt">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Microsoft JhengHei" size="22" style="0"/>
@@ -117,7 +118,7 @@
                 <Property name="text" type="java.lang.String" value="Manage Tenements"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="manageTnmtBtnActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnManageTnmtActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>

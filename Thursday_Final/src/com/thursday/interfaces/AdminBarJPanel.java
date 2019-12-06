@@ -49,7 +49,7 @@ public class AdminBarJPanel extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         manageReqBtn = new javax.swing.JButton();
         manageStaffBtn = new javax.swing.JButton();
-        manageTnmtBtn = new javax.swing.JButton();
+        btnManageTnmt = new javax.swing.JButton();
         downPanel = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
 
@@ -74,11 +74,11 @@ public class AdminBarJPanel extends javax.swing.JPanel {
             }
         });
 
-        manageTnmtBtn.setFont(new java.awt.Font("Microsoft JhengHei", 0, 22)); // NOI18N
-        manageTnmtBtn.setText("Manage Tenements");
-        manageTnmtBtn.addActionListener(new java.awt.event.ActionListener() {
+        btnManageTnmt.setFont(new java.awt.Font("Microsoft JhengHei", 0, 22)); // NOI18N
+        btnManageTnmt.setText("Manage Tenement");
+        btnManageTnmt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                manageTnmtBtnActionPerformed(evt);
+                btnManageTnmtActionPerformed(evt);
             }
         });
 
@@ -94,9 +94,9 @@ public class AdminBarJPanel extends javax.swing.JPanel {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(manageReqBtn)
-                        .addGap(26, 26, 26)
-                        .addComponent(manageTnmtBtn)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                        .addGap(31, 31, 31)
+                        .addComponent(btnManageTnmt)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
                         .addComponent(manageStaffBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(55, 55, 55))))
         );
@@ -108,8 +108,8 @@ public class AdminBarJPanel extends javax.swing.JPanel {
                 .addGap(36, 36, 36)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(manageReqBtn)
-                    .addComponent(manageStaffBtn)
-                    .addComponent(manageTnmtBtn))
+                    .addComponent(btnManageTnmt)
+                    .addComponent(manageStaffBtn))
                 .addContainerGap(40, Short.MAX_VALUE))
         );
 
@@ -139,11 +139,18 @@ public class AdminBarJPanel extends javax.swing.JPanel {
 
     private void manageStaffBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageStaffBtnActionPerformed
         // TODO add your handling code here:
-        CardLayout layout = (CardLayout) this.rightPanel.getLayout();
-        JPanel panel = new AdminManageStaffJPanel(rightPanel, user, ApartmentUser.Roles.REPAIRPERSON);
-        this.rightPanel.add("AdminManageStaffJPanel", panel);
-        layout.next(this.rightPanel);
+        CardLayout layout = (CardLayout) this.downPanel.getLayout();
+        JPanel panel = new AdminManageStaffJPanel(downPanel, user, ApartmentUser.Roles.REPAIRPERSON);
+        this.downPanel.add("AdminManageStaffJPanel", panel);
+        layout.next(this.downPanel);
     }//GEN-LAST:event_manageStaffBtnActionPerformed
+
+    private void btnManageTnmtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageTnmtActionPerformed
+        // TODO add your handling code here:
+        CardLayout layout = (CardLayout) this.downPanel.getLayout();
+        this.downPanel.add("AdminManageResidentJPanel",new AdminManageStaffJPanel(downPanel, user, ApartmentUser.Roles.RESIDENT));
+        layout.next(this.downPanel);
+    }//GEN-LAST:event_btnManageTnmtActionPerformed
 
     private void manageReqBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageReqBtnActionPerformed
         // TODO add your handling code here:
@@ -156,6 +163,7 @@ public class AdminBarJPanel extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnManageTnmt;
     private javax.swing.JPanel downPanel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

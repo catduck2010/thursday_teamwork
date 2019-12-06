@@ -123,6 +123,7 @@ public class CreateJPanel extends javax.swing.JPanel {
 
         buttonGroup1.add(cleaningCompanyRBtn);
         cleaningCompanyRBtn.setFont(new java.awt.Font("Microsoft JhengHei", 0, 24)); // NOI18N
+        cleaningCompanyRBtn.setSelected(true);
         cleaningCompanyRBtn.setText("Cleaning company");
 
         createBtn.setFont(new java.awt.Font("Microsoft JhengHei", 0, 24)); // NOI18N

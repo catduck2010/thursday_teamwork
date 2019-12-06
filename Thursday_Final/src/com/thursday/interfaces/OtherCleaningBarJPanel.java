@@ -18,20 +18,22 @@ public class OtherCleaningBarJPanel extends javax.swing.JPanel {
     /**
      * Creates new form OtherCleaningJPanel
      */
-    
     private final User user;
     private JPanel rightPanel;
-    public OtherCleaningBarJPanel(JPanel rightPanel,User u) {
+
+    public OtherCleaningBarJPanel(JPanel rightPanel, User u) {
         initComponents();
         this.user = u;
         this.rightPanel = rightPanel;
     }
-private void CleanerManageRequest(){
-        CleanerManageRequestJPanel cleanerManageRequestJPanel = new CleanerManageRequestJPanel(downPanel,user);
+
+    private void CleanerManageRequest() {
+        CleanerManageRequestJPanel cleanerManageRequestJPanel = new CleanerManageRequestJPanel(downPanel, user);
         CardLayout layout = (CardLayout) downPanel.getLayout();
         downPanel.add("CleanerManageRequestJPanel", cleanerManageRequestJPanel);
         layout.next(downPanel);
-}
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -64,6 +66,11 @@ private void CleanerManageRequest(){
 
         manageAccountBtn.setFont(new java.awt.Font("Microsoft JhengHei", 0, 22)); // NOI18N
         manageAccountBtn.setText("Manage Account");
+        manageAccountBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                manageAccountBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -117,8 +124,12 @@ private void CleanerManageRequest(){
 
     private void manageReqBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageReqBtnActionPerformed
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_manageReqBtnActionPerformed
+
+    private void manageAccountBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageAccountBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_manageAccountBtnActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

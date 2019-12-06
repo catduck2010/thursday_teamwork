@@ -5,6 +5,7 @@
  */
 package com.thursday.interfaces;
 
+import com.thursday.business.identities.CleaningCompUser;
 import com.thursday.business.identities.User;
 import java.awt.CardLayout;
 import javax.swing.JPanel;
@@ -18,22 +19,29 @@ public class HRBarJPanel extends javax.swing.JPanel {
     /**
      * Creates new form HRJPanel
      */
-    
     private final User user;
     private JPanel rightPanel;
-    
-    public HRBarJPanel(JPanel rightPanel,User u) {
+
+    public HRBarJPanel(JPanel rightPanel, User u) {
         this.user = u;
-        this.rightPanel =rightPanel;
+        this.rightPanel = rightPanel;
         initComponents();
-        
+
     }
-private void CleaningAdminJPanel(){
-        CleaningAdminJPanel cleaningAdminJPanel = new CleaningAdminJPanel(downPanel,user);
+
+    private void CleaningAdminJPanel() {
+        CleaningAdminJPanel cleaningAdminJPanel = new CleaningAdminJPanel(downPanel, user);
         CardLayout layout = (CardLayout) downPanel.getLayout();
         downPanel.add("CleaningAdminJPanel", cleaningAdminJPanel);
         layout.next(downPanel);
-}
+    }
+
+    private void manageStaffJPanel() {
+        CardLayout layout = (CardLayout) downPanel.getLayout();
+        downPanel.add("AdminManageStaffJPanel", new AdminManageStaffJPanel(downPanel, user, CleaningCompUser.Roles.CLEANER));
+        layout.next(downPanel);
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -78,6 +86,11 @@ private void CleaningAdminJPanel(){
 
         manageStaffBtn.setFont(new java.awt.Font("Microsoft JhengHei", 0, 22)); // NOI18N
         manageStaffBtn.setText("Manage Staff");
+        manageStaffBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                manageStaffBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -133,6 +146,11 @@ private void CleaningAdminJPanel(){
         // TODO add your handling code here:
         CleaningAdminJPanel();
     }//GEN-LAST:event_manageReqBtnActionPerformed
+
+    private void manageStaffBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageStaffBtnActionPerformed
+        // TODO add your handling code here:
+        manageStaffJPanel();
+    }//GEN-LAST:event_manageStaffBtnActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
