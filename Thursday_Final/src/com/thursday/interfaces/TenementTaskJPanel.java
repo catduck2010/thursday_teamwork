@@ -10,6 +10,7 @@ import com.thursday.business.WorkFlow;
 import com.thursday.business.workflow.Task;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+
 /**
  *
  * @author CHEN JIEYING
@@ -21,21 +22,24 @@ public class TenementTaskJPanel extends javax.swing.JPanel {
      */
     private final User user;
     private JPanel rightPanel;
-    public TenementTaskJPanel(JPanel rightPanel,User u) {
+
+    public TenementTaskJPanel(JPanel rightPanel, User u) {
         initComponents();
         this.user = u;
-        this.rightPanel =rightPanel;
-        
+        this.rightPanel = rightPanel;
+
     }
-private void createTask(){
-    String aptNo = aptTxt.getText();
-    String taskType = (String)taskComboBox1.getSelectedItem();
-    String title = "Apt"+ aptNo + " " + taskType;
-    String message = remarkTxt.getText();
-    String creator = user.getUsername();
-    Task t =WorkFlow.createTask(creator, title, message);
-    JOptionPane.showMessageDialog(null, "Create Task successfully!");
-}
+
+    private void createTask() {
+        String aptNo = aptTxt.getText();
+        String taskType = (String) taskComboBox1.getSelectedItem();
+        String title = "Apt" + aptNo + " " + taskType;
+        String message = remarkTxt.getText();
+        String creator = user.getUsername();
+        Task t = WorkFlow.createTask(creator, title, message);
+        JOptionPane.showMessageDialog(null, "Create Task successfully!");
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

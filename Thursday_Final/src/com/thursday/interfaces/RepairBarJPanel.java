@@ -103,6 +103,7 @@ private void RepairmanManReqJPanel(){
         jPanel2.setLayout(new java.awt.CardLayout());
 
         jLabel2.setFont(new java.awt.Font("Microsoft JhengHei", 0, 24)); // NOI18N
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Click button to continue");
         jPanel2.add(jLabel2, "card2");
 

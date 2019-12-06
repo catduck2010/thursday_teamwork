@@ -45,7 +45,6 @@ public class LoginJPanel extends javax.swing.JPanel {
         this.mFrame = f;
         this.rightPanel = f.getRightPanel();
         this.apBiz = apBiz;
-        
 
         ItemListener il = new ItemListener() {
             @Override
@@ -135,9 +134,9 @@ public class LoginJPanel extends javax.swing.JPanel {
             case CleaningCompUser.Roles.HR:
                 return new HRBarJPanel(rightPanel, u);
             case CleaningCompUser.Roles.CLEANER:
-                return new OtherCleaningBarJPanel(rightPanel, u);
+                return new CleanerBarJPanel(rightPanel, u);
             case CleaningCompUser.Roles.SCHEDULER:
-                return new OtherCleaningBarJPanel(rightPanel, u);
+                return new CleanerBarJPanel(rightPanel, u);
         }
         return null;
     }
@@ -212,26 +211,29 @@ public class LoginJPanel extends javax.swing.JPanel {
     private void loginBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginBtnActionPerformed
         // TODO add your handling code here:
         char[] pswd = passwordField.getPassword();
-        String uname = new String(usernameTxt.getText()).trim();
+        String uname = usernameTxt.getText();
         //User u = UserBiz.getUser(uname);
 
         if (Validator.IsEmpty(pswd)) {
             JOptionPane.showMessageDialog(this, "Please Enter Password", "WARNING", JOptionPane.WARNING_MESSAGE);
         } else if (Validator.IsEmpty(uname)) {
             JOptionPane.showMessageDialog(this, "Please Enter Username", "WARNING", JOptionPane.WARNING_MESSAGE);
-        }
-        User u = UserDirectory.authenticateUser(usernameTxt.getText(), passwordField.getPassword());
-        if (u == null) {
-            JOptionPane.showMessageDialog(this, "Incorrect Username or Password", "WARNING", JOptionPane.WARNING_MESSAGE);
-        } else if (u.getRole().equals("SUPERUSER") && u.getUsername().equals("root")) {
-            RootJPanel panel = new RootJPanel(rightPanel);
-            rightPanel.add("RootJPanel", panel);
-            CardLayout layout = (CardLayout) this.rightPanel.getLayout();
-            layout.next(rightPanel);
-
         } else {
-            System.out.println("pass");
-            grantAccess(u);
+            User u = UserDirectory.authenticateUser(usernameTxt.getText(), passwordField.getPassword());
+            if (u == null) {
+                JOptionPane.showMessageDialog(this, "Incorrect Username or Password", "WARNING", JOptionPane.WARNING_MESSAGE);
+            } else if (u.getRole().equals("SUPERUSER") && u.getUsername().equals("root")) {
+                RootJPanel panel = new RootJPanel(rightPanel);
+                rightPanel.add("RootJPanel", panel);
+                CardLayout layout = (CardLayout) this.rightPanel.getLayout();
+                layout.next(rightPanel);
+                EcoSystem.login(u);
+                this.passwordField.setText("");
+                this.usernameTxt.setText("");
+            } else {
+                System.out.println("pass");
+                grantAccess(u);
+            }
         }
     }//GEN-LAST:event_loginBtnActionPerformed
 

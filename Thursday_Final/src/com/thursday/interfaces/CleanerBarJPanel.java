@@ -13,7 +13,7 @@ import javax.swing.JPanel;
  *
  * @author CHEN JIEYING
  */
-public class OtherCleaningBarJPanel extends javax.swing.JPanel {
+public class CleanerBarJPanel extends javax.swing.JPanel {
 
     /**
      * Creates new form OtherCleaningJPanel
@@ -21,7 +21,7 @@ public class OtherCleaningBarJPanel extends javax.swing.JPanel {
     private final User user;
     private JPanel rightPanel;
 
-    public OtherCleaningBarJPanel(JPanel rightPanel, User u) {
+    public CleanerBarJPanel(JPanel rightPanel, User u) {
         initComponents();
         this.user = u;
         this.rightPanel = rightPanel;
@@ -31,6 +31,12 @@ public class OtherCleaningBarJPanel extends javax.swing.JPanel {
         CleanerManageRequestJPanel cleanerManageRequestJPanel = new CleanerManageRequestJPanel(downPanel, user);
         CardLayout layout = (CardLayout) downPanel.getLayout();
         downPanel.add("CleanerManageRequestJPanel", cleanerManageRequestJPanel);
+        layout.next(downPanel);
+    }
+
+    private void manageAccountPanel() {
+        downPanel.add("ManageAccountPanel", new ManageAccountPanel(downPanel, user));
+        CardLayout layout = (CardLayout) downPanel.getLayout();
         layout.next(downPanel);
     }
 
@@ -124,11 +130,12 @@ public class OtherCleaningBarJPanel extends javax.swing.JPanel {
 
     private void manageReqBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageReqBtnActionPerformed
         // TODO add your handling code here:
-
+        CleanerManageRequest();
     }//GEN-LAST:event_manageReqBtnActionPerformed
 
     private void manageAccountBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageAccountBtnActionPerformed
         // TODO add your handling code here:
+        manageAccountPanel();
     }//GEN-LAST:event_manageAccountBtnActionPerformed
 
 

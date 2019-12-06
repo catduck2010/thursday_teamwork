@@ -56,13 +56,13 @@ public class WorkRequestBiz {
     }
 
     public static List<WorkRequest> getAllReceivedWorkRequests(String receiver) {
-        String sql = "select * from workrequest where receiver=? and state=1";
+        String sql = "select * from workrequest where receiver=? and state=1 order by id desc";
         Object[] params = {receiver};
         return Dao.getInstance().query(sql, WorkRequest.class, params);
     }
     
     public static List<WorkRequest> getAllSentWorkRequests(String sender) {
-        String sql = "select * from workrequest where sender=? and state=1";
+        String sql = "select * from workrequest where sender=? and state=1 order by id desc";
         Object[] params = {sender};
         return Dao.getInstance().query(sql, WorkRequest.class, params);
     }

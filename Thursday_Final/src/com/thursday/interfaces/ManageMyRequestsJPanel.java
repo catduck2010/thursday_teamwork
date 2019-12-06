@@ -24,21 +24,21 @@ public class ManageMyRequestsJPanel extends javax.swing.JPanel {
      */
     private JPanel rightPanel;
     private User u;
+
     public ManageMyRequestsJPanel(JPanel rightPanel, User u) {
         this.rightPanel = rightPanel;
         this.u = u;
         initComponents();
         populateMyTasksTable();
     }
-    public void populateMyTasksTable(){
-        DefaultTableModel dtm = (DefaultTableModel)tblMyTask.getModel();
+
+    public void populateMyTasksTable() {
+        DefaultTableModel dtm = (DefaultTableModel) tblMyTask.getModel();
         dtm.setRowCount(0);
-        
-        
-        for( Task t : WorkFlow.getAllTasksOfOneUser(u.getUsername())){
-            
-            
-            Object row[] = new Object [6];
+
+        for (Task t : WorkFlow.getAllTasksOfOneUser(u.getUsername())) {
+
+            Object row[] = new Object[6];
             row[0] = t.getId();
             row[1] = t;
             row[2] = t.getMessage();
@@ -46,35 +46,33 @@ public class ManageMyRequestsJPanel extends javax.swing.JPanel {
             row[4] = t.getCreateTime();
             row[5] = t.getStatus();
             dtm.addRow(row);
-        
+
         }
     }
-public void deleteTask(){
-    int selectedRow = tblMyTask.getSelectedRow();
-        if (selectedRow >= 0) {
-            Task task = (Task)tblMyTask.getValueAt(selectedRow, 1);
-            if(!task.getStatus().equals(Task.Status.PENDING))
-                JOptionPane.showMessageDialog(null, "You only can delete the pending task");
-            else
-            {
-             int selectionButton = JOptionPane.YES_NO_OPTION;
-            int selectionResult = JOptionPane.showConfirmDialog(null, "Are you sure you want to change task status?","Warning",selectionButton);
-            if(selectionResult == JOptionPane.YES_OPTION){
-                WorkFlow.deleteTask(task);
-                populateMyTasksTable();
-                JOptionPane.showMessageDialog(null, "Delete task successfully!");
-               
-                
-            }  
-                
-            }
-        }
-        else {
-            JOptionPane.showMessageDialog(null, "Please select any row");
-        }    
 
-    
-}
+    public void deleteTask() {
+        int selectedRow = tblMyTask.getSelectedRow();
+        if (selectedRow >= 0) {
+            Task task = (Task) tblMyTask.getValueAt(selectedRow, 1);
+            if (!task.getStatus().equals(Task.Status.PENDING)) {
+                JOptionPane.showMessageDialog(null, "You only can withdraw the pending task");
+            } else {
+                int selectionButton = JOptionPane.YES_NO_OPTION;
+                int selectionResult = JOptionPane.showConfirmDialog(null, "Are you sure you want to change task status?", "Warning", selectionButton);
+                if (selectionResult == JOptionPane.YES_OPTION) {
+                    WorkFlow.deleteTask(task);
+                    populateMyTasksTable();
+                    JOptionPane.showMessageDialog(null, "Withdraw task successfully!");
+
+                }
+
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Please select any row");
+        }
+
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -114,7 +112,7 @@ public void deleteTask(){
             }
         });
 
-        btnDelete.setText("Delete");
+        btnDelete.setText("Withdraw");
         btnDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDeleteActionPerformed(evt);

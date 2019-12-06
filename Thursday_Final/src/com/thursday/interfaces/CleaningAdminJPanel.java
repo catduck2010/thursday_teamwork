@@ -126,7 +126,7 @@ public void SendBack(){
         if (selectedRow >= 0) {
             WorkRequest wr = (WorkRequest) tblRequest.getValueAt(selectedRow, 2);
             if (!wr.getIsRead()) {
-                JOptionPane.showMessageDialog(null, "set read and go to work first!");
+                JOptionPane.showMessageDialog(null, "set task first!");
                 return;
             }
             else if(wr.getSender().equals("aptadmin")){

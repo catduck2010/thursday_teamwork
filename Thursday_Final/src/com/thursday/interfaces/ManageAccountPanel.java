@@ -197,6 +197,7 @@ public class ManageAccountPanel extends JPanel {
                 ((AdminManageStaffJPanel) comp).refreshTable();
                 return;
             }
+
         }
     }
 

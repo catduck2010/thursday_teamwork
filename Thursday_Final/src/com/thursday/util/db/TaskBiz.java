@@ -41,13 +41,13 @@ public class TaskBiz {
     }
 
     public static List<Task> getUserTask(String username) {
-        String sql = "select * from task where creator=? and state=1";
+        String sql = "select * from task where creator=? and state=1 order by id desc";
         Object[] params = {username};
         return Dao.getInstance().query(sql, Task.class, params);
     }
     
     public static List<Task> getAllTasks() {
-        String sql = "select * from task where state=1";
+        String sql = "select * from task where state=1 order by id desc";
         return Dao.getInstance().query(sql, Task.class);
     }
 
@@ -58,7 +58,7 @@ public class TaskBiz {
     }
     
     public static List<ViewTaskCompany> getTaskCompany(){
-        String sql="select * from view_taskcompany";
+        String sql="select * from view_taskcompany order by taskid desc";
         return Dao.getInstance().query(sql, ViewTaskCompany.class);
     }
 }
