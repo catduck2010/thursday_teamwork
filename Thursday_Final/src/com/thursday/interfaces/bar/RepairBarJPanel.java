@@ -7,7 +7,7 @@ package com.thursday.interfaces.bar;
 
 import com.thursday.business.identities.User;
 import com.thursday.interfaces.ManageAccountPanel;
-import com.thursday.interfaces.RepairManManageRequestJPanel;
+import com.thursday.interfaces.apartment.RepairManManageRequestJPanel;
 import java.awt.CardLayout;
 import javax.swing.JPanel;
 
@@ -46,16 +46,13 @@ private void RepairmanManReqJPanel(){
 
         jSplitPane1 = new javax.swing.JSplitPane();
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         manageReqBtn = new javax.swing.JButton();
         manageAccountBtn = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
 
+        jSplitPane1.setBorder(null);
         jSplitPane1.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
-
-        jLabel1.setFont(new java.awt.Font("Microsoft JhengHei", 0, 22)); // NOI18N
-        jLabel1.setText("Hi, ");
 
         manageReqBtn.setFont(new java.awt.Font("Microsoft JhengHei", 0, 22)); // NOI18N
         manageReqBtn.setText("Manage Requests");
@@ -78,22 +75,16 @@ private void RepairmanManReqJPanel(){
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(49, 49, 49)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(111, 111, 111)
                 .addComponent(manageReqBtn)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 160, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 164, Short.MAX_VALUE)
                 .addComponent(manageAccountBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(114, 114, 114))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addComponent(jLabel1)
-                .addGap(18, 18, 18)
+                .addGap(69, 69, 69)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(manageReqBtn)
                     .addComponent(manageAccountBtn))
@@ -137,7 +128,6 @@ private void RepairmanManReqJPanel(){
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

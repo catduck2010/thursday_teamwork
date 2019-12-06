@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.thursday.interfaces;
+package com.thursday.interfaces.apartment;
 
 import com.thursday.business.CompanyDirectory;
 import com.thursday.business.UserDirectory;
@@ -125,9 +125,8 @@ private void createTask(){
                         .addGap(113, 113, 113)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(remarkTxt)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(aptTxt)
-                                .addComponent(taskComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(aptTxt)
+                            .addComponent(taskComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(312, 312, 312)
                         .addComponent(comfirmBtn)))

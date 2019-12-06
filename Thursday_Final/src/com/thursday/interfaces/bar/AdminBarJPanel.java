@@ -8,7 +8,7 @@ package com.thursday.interfaces.bar;
 import com.thursday.business.identities.ApartmentUser;
 import com.thursday.business.identities.User;
 import com.thursday.interfaces.AdminManageStaffJPanel;
-import com.thursday.interfaces.ManageTaskJPanel;
+import com.thursday.interfaces.apartment.ManageTaskJPanel;
 import java.awt.CardLayout;
 import javax.swing.JPanel;
 
@@ -48,17 +48,14 @@ public class AdminBarJPanel extends javax.swing.JPanel {
 
         jSplitPane1 = new javax.swing.JSplitPane();
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         btnManageReq = new javax.swing.JButton();
         btnManageStaff = new javax.swing.JButton();
         btnManageTnmt = new javax.swing.JButton();
         downPanel = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
 
+        jSplitPane1.setBorder(null);
         jSplitPane1.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
-
-        jLabel1.setFont(new java.awt.Font("Microsoft JhengHei", 0, 22)); // NOI18N
-        jLabel1.setText("Hi, ");
 
         btnManageReq.setFont(new java.awt.Font("Microsoft JhengHei", 0, 22)); // NOI18N
         btnManageReq.setText("Manage Requests");
@@ -90,24 +87,17 @@ public class AdminBarJPanel extends javax.swing.JPanel {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(45, 45, 45)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnManageReq)
-                        .addGap(31, 31, 31)
-                        .addComponent(btnManageTnmt)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
-                        .addComponent(btnManageStaff, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(55, 55, 55))))
+                .addComponent(btnManageReq)
+                .addGap(31, 31, 31)
+                .addComponent(btnManageTnmt)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
+                .addComponent(btnManageStaff, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(55, 55, 55))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addGap(36, 36, 36)
+                .addGap(69, 69, 69)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnManageReq)
                     .addComponent(btnManageTnmt)
@@ -165,7 +155,6 @@ public class AdminBarJPanel extends javax.swing.JPanel {
     private javax.swing.JButton btnManageStaff;
     private javax.swing.JButton btnManageTnmt;
     private javax.swing.JPanel downPanel;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSplitPane jSplitPane1;

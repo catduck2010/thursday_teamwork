@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.thursday.interfaces;
+package com.thursday.interfaces.cleaningcomp;
 
 import com.thursday.business.CompanyDirectory;
 import com.thursday.business.UserDirectory;

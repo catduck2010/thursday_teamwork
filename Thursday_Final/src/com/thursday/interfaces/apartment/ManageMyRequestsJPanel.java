@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.thursday.interfaces;
+package com.thursday.interfaces.apartment;
 
 import com.thursday.business.WorkFlow;
 import com.thursday.business.identities.User;

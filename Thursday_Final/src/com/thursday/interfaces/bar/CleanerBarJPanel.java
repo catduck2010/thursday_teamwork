@@ -6,7 +6,7 @@
 package com.thursday.interfaces.bar;
 
 import com.thursday.business.identities.User;
-import com.thursday.interfaces.CleanerManageRequestJPanel;
+import com.thursday.interfaces.cleaningcomp.CleanerManageRequestJPanel;
 import com.thursday.interfaces.ManageAccountPanel;
 import java.awt.CardLayout;
 import javax.swing.JPanel;
@@ -53,16 +53,13 @@ public class CleanerBarJPanel extends javax.swing.JPanel {
 
         jSplitPane1 = new javax.swing.JSplitPane();
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         manageReqBtn = new javax.swing.JButton();
         manageAccountBtn = new javax.swing.JButton();
         downPanel = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
 
+        jSplitPane1.setBorder(null);
         jSplitPane1.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
-
-        jLabel1.setFont(new java.awt.Font("Microsoft JhengHei", 0, 22)); // NOI18N
-        jLabel1.setText("Hi, ");
 
         manageReqBtn.setFont(new java.awt.Font("Microsoft JhengHei", 0, 22)); // NOI18N
         manageReqBtn.setText("Manage Requests");
@@ -85,22 +82,16 @@ public class CleanerBarJPanel extends javax.swing.JPanel {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(100, Short.MAX_VALUE)
+                .addContainerGap(87, Short.MAX_VALUE)
                 .addComponent(manageReqBtn)
                 .addGap(78, 78, 78)
                 .addComponent(manageAccountBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(102, 102, 102))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(55, 55, 55)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addGap(30, 30, 30)
+                .addGap(63, 63, 63)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(manageReqBtn)
                     .addComponent(manageAccountBtn))
@@ -123,7 +114,7 @@ public class CleanerBarJPanel extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSplitPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 712, Short.MAX_VALUE)
+            .addComponent(jSplitPane1)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -144,7 +135,6 @@ public class CleanerBarJPanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel downPanel;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSplitPane jSplitPane1;

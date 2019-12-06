@@ -3,10 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.thursday.interfaces;
+package com.thursday.interfaces.apartment;
 
 import com.thursday.business.WorkFlow;
 import com.thursday.business.identities.User;
+import com.thursday.business.workflow.Task;
 import com.thursday.business.workflow.WorkRequest;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -16,17 +17,17 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author andy
  */
-public class CleanerManageRequestJPanel extends javax.swing.JPanel {
+public class RepairManManageRequestJPanel extends javax.swing.JPanel {
 
     /**
      * Creates new form RepairManManageRequestJPanel
      */
     private JPanel rightPanel;
-    private User cleaner;
+    private User repairMan;
 
-    public CleanerManageRequestJPanel(JPanel rightPanel, User cleaner) {
+    public RepairManManageRequestJPanel(JPanel rightPanel, User repairMan) {
         this.rightPanel = rightPanel;
-        this.cleaner = cleaner;
+        this.repairMan = repairMan;
         initComponents();
         populateRequestTable();
     }
@@ -36,7 +37,7 @@ public class CleanerManageRequestJPanel extends javax.swing.JPanel {
         DefaultTableModel dtm = (DefaultTableModel) tblRequest.getModel();
         dtm.setRowCount(0);
 
-        for (WorkRequest wr : WorkFlow.getReceivedRequest(cleaner.getUsername())) {
+        for (WorkRequest wr : WorkFlow.getReceivedRequest(repairMan.getUsername())) {
 
             Object row[] = new Object[5];
 
@@ -61,6 +62,14 @@ public class CleanerManageRequestJPanel extends javax.swing.JPanel {
                 return;
             } else if (WorkFlow.markAsRead(wr)){
                 JOptionPane.showMessageDialog(null, "Set read successfully. Go to work now!");
+                for(Task t : WorkFlow.getAllTasks())
+                {
+                    if(t.getId() == wr.getTaskId()){
+                    String status =Task.Status.WORKING;  
+                    t.setStatus(status);
+                    WorkFlow.updateTask(t);
+                    }
+                }
             }
             populateRequestTable();
         } else {
@@ -79,7 +88,16 @@ public class CleanerManageRequestJPanel extends javax.swing.JPanel {
             int selectionButton = JOptionPane.YES_NO_OPTION;
             int selectionResult = JOptionPane.showConfirmDialog(null, "Are you sure you are finished?", "Warning", selectionButton);
             if (selectionResult == JOptionPane.YES_OPTION) {
-                WorkFlow.createRequest(wr.getTaskId(), wr.getTitle(), wr.getMessage(), cleaner.getUsername(), wr.getSender());
+                WorkFlow.createRequest(wr.getTaskId(), wr.getTitle(), wr.getMessage(), repairMan.getUsername(), wr.getSender());
+                for(Task t : WorkFlow.getAllTasks())
+                {
+                    if(t.getId() == wr.getTaskId()){
+                    String status =Task.Status.FINISHED;  
+                    t.setStatus(status);
+                    WorkFlow.updateTask(t);
+                    }
+                }
+                JOptionPane.showMessageDialog(null, "Set finished successfully");
                 WorkFlow.withdrawWorkRequest(wr);
                 populateRequestTable();
 
@@ -101,7 +119,7 @@ public class CleanerManageRequestJPanel extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblRequest = new javax.swing.JTable();
         btnRead = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btnFinished = new javax.swing.JButton();
 
         tblRequest.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -131,10 +149,10 @@ public class CleanerManageRequestJPanel extends javax.swing.JPanel {
             }
         });
 
-        jButton1.setText("Finished Work");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnFinished.setText("Finished Work");
+        btnFinished.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnFinishedActionPerformed(evt);
             }
         });
 
@@ -151,7 +169,7 @@ public class CleanerManageRequestJPanel extends javax.swing.JPanel {
                         .addGap(113, 113, 113)
                         .addComponent(btnRead)
                         .addGap(40, 40, 40)
-                        .addComponent(jButton1)))
+                        .addComponent(btnFinished)))
                 .addContainerGap(89, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -162,7 +180,7 @@ public class CleanerManageRequestJPanel extends javax.swing.JPanel {
                 .addGap(50, 50, 50)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnRead)
-                    .addComponent(jButton1))
+                    .addComponent(btnFinished))
                 .addContainerGap(213, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -172,15 +190,15 @@ public class CleanerManageRequestJPanel extends javax.swing.JPanel {
         asRead();
     }//GEN-LAST:event_btnReadActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnFinishedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinishedActionPerformed
         // TODO add your handling code here:
         setFinished();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnFinishedActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnFinished;
     private javax.swing.JButton btnRead;
-    private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblRequest;
     // End of variables declaration//GEN-END:variables

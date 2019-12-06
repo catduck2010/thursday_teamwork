@@ -8,7 +8,7 @@ package com.thursday.interfaces.bar;
 import com.thursday.business.identities.CleaningCompUser;
 import com.thursday.business.identities.User;
 import com.thursday.interfaces.AdminManageStaffJPanel;
-import com.thursday.interfaces.CleaningAdminJPanel;
+import com.thursday.interfaces.cleaningcomp.CleaningAdminJPanel;
 import java.awt.CardLayout;
 import javax.swing.JPanel;
 
@@ -56,7 +56,6 @@ public class HRBarJPanel extends javax.swing.JPanel {
         jPanel2 = new javax.swing.JPanel();
         jSplitPane1 = new javax.swing.JSplitPane();
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         manageReqBtn = new javax.swing.JButton();
         manageStaffBtn = new javax.swing.JButton();
         downPanel = new javax.swing.JPanel();
@@ -73,10 +72,8 @@ public class HRBarJPanel extends javax.swing.JPanel {
             .addGap(0, 100, Short.MAX_VALUE)
         );
 
+        jSplitPane1.setBorder(null);
         jSplitPane1.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
-
-        jLabel1.setFont(new java.awt.Font("Microsoft JhengHei", 0, 22)); // NOI18N
-        jLabel1.setText("Hi, ");
 
         manageReqBtn.setFont(new java.awt.Font("Microsoft JhengHei", 0, 22)); // NOI18N
         manageReqBtn.setText("Manage Requests");
@@ -101,20 +98,14 @@ public class HRBarJPanel extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(119, 119, 119)
                 .addComponent(manageReqBtn)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 128, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 132, Short.MAX_VALUE)
                 .addComponent(manageStaffBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(138, 138, 138))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(55, 55, 55)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addGap(30, 30, 30)
+                .addGap(63, 63, 63)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(manageReqBtn)
                     .addComponent(manageStaffBtn))
@@ -158,7 +149,6 @@ public class HRBarJPanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel downPanel;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
