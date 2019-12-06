@@ -170,7 +170,7 @@ public void SendBack(){
                         break;
                     }
                 }
-                
+                WorkFlow.markAsRead(wr);
                 WorkFlow.createRequest(wr.getTaskId(), wr.getTitle(), wr.getMessage(), admin.getUsername(), adminusername);
                 JOptionPane.showMessageDialog(null, "Send Back Successfully!");
                 populateRequestTable();
