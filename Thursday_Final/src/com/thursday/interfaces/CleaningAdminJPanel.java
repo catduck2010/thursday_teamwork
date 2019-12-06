@@ -203,7 +203,6 @@ public void SendBack(){
         tblRequest = new javax.swing.JTable();
         btnSendCleaningRequest = new javax.swing.JButton();
         btnSendback = new javax.swing.JButton();
-        btnGoBack = new javax.swing.JButton();
 
         tblSend.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -309,15 +308,12 @@ public void SendBack(){
 
         jTabbedPane1.addTab("Receive", receiveBoxJPanel);
 
-        btnGoBack.setText("←");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(btnGoBack, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addContainerGap()
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 693, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -325,13 +321,8 @@ public void SendBack(){
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnGoBack)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(28, 206, Short.MAX_VALUE))))
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(206, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -348,7 +339,6 @@ public void SendBack(){
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel SendBoxJPanel;
-    private javax.swing.JButton btnGoBack;
     private javax.swing.JButton btnSendCleaningRequest;
     private javax.swing.JButton btnSendback;
     private javax.swing.JScrollPane jScrollPane3;

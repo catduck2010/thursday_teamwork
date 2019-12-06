@@ -3,10 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.thursday.interfaces;
+package com.thursday.interfaces.bar;
 
 import com.thursday.business.identities.ApartmentUser;
 import com.thursday.business.identities.User;
+import com.thursday.interfaces.AdminManageStaffJPanel;
+import com.thursday.interfaces.ManageTaskJPanel;
 import java.awt.CardLayout;
 import javax.swing.JPanel;
 

@@ -5,6 +5,10 @@
  */
 package com.thursday.interfaces;
 
+import com.thursday.interfaces.bar.RepairBarJPanel;
+import com.thursday.interfaces.bar.CleanerBarJPanel;
+import com.thursday.interfaces.bar.AdminBarJPanel;
+import com.thursday.interfaces.bar.HRBarJPanel;
 import com.thursday.business.EcoSystem;
 import com.thursday.business.identities.AbstractUser;
 import com.thursday.util.db.UserBiz;
