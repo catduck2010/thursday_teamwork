@@ -47,8 +47,8 @@ public class AdminBarJPanel extends javax.swing.JPanel {
         jSplitPane1 = new javax.swing.JSplitPane();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        manageReqBtn = new javax.swing.JButton();
-        manageStaffBtn = new javax.swing.JButton();
+        btnManageReq = new javax.swing.JButton();
+        btnManageStaff = new javax.swing.JButton();
         btnManageTnmt = new javax.swing.JButton();
         downPanel = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -58,24 +58,24 @@ public class AdminBarJPanel extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("Microsoft JhengHei", 0, 22)); // NOI18N
         jLabel1.setText("Hi, ");
 
-        manageReqBtn.setFont(new java.awt.Font("Microsoft JhengHei", 0, 22)); // NOI18N
-        manageReqBtn.setText("Manage Requests");
-        manageReqBtn.addActionListener(new java.awt.event.ActionListener() {
+        btnManageReq.setFont(new java.awt.Font("Microsoft JhengHei", 0, 22)); // NOI18N
+        btnManageReq.setText("Manage Requests");
+        btnManageReq.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                manageReqBtnActionPerformed(evt);
+                btnManageReqActionPerformed(evt);
             }
         });
 
-        manageStaffBtn.setFont(new java.awt.Font("Microsoft JhengHei", 0, 22)); // NOI18N
-        manageStaffBtn.setText("Manage Staff");
-        manageStaffBtn.addActionListener(new java.awt.event.ActionListener() {
+        btnManageStaff.setFont(new java.awt.Font("Microsoft JhengHei", 0, 22)); // NOI18N
+        btnManageStaff.setText("Manage Staff");
+        btnManageStaff.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                manageStaffBtnActionPerformed(evt);
+                btnManageStaffActionPerformed(evt);
             }
         });
 
         btnManageTnmt.setFont(new java.awt.Font("Microsoft JhengHei", 0, 22)); // NOI18N
-        btnManageTnmt.setText("Manage Tenement");
+        btnManageTnmt.setText("Manage Tenements");
         btnManageTnmt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnManageTnmtActionPerformed(evt);
@@ -93,11 +93,11 @@ public class AdminBarJPanel extends javax.swing.JPanel {
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(manageReqBtn)
+                        .addComponent(btnManageReq)
                         .addGap(31, 31, 31)
                         .addComponent(btnManageTnmt)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
-                        .addComponent(manageStaffBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnManageStaff, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(55, 55, 55))))
         );
         jPanel1Layout.setVerticalGroup(
@@ -107,9 +107,9 @@ public class AdminBarJPanel extends javax.swing.JPanel {
                 .addComponent(jLabel1)
                 .addGap(36, 36, 36)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(manageReqBtn)
+                    .addComponent(btnManageReq)
                     .addComponent(btnManageTnmt)
-                    .addComponent(manageStaffBtn))
+                    .addComponent(btnManageStaff))
                 .addContainerGap(40, Short.MAX_VALUE))
         );
 
@@ -137,13 +137,13 @@ public class AdminBarJPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void manageStaffBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageStaffBtnActionPerformed
+    private void btnManageStaffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageStaffActionPerformed
         // TODO add your handling code here:
         CardLayout layout = (CardLayout) this.downPanel.getLayout();
         JPanel panel = new AdminManageStaffJPanel(downPanel, user, ApartmentUser.Roles.REPAIRPERSON);
         this.downPanel.add("AdminManageStaffJPanel", panel);
         layout.next(this.downPanel);
-    }//GEN-LAST:event_manageStaffBtnActionPerformed
+    }//GEN-LAST:event_btnManageStaffActionPerformed
 
     private void btnManageTnmtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageTnmtActionPerformed
         // TODO add your handling code here:
@@ -152,25 +152,20 @@ public class AdminBarJPanel extends javax.swing.JPanel {
         layout.next(this.downPanel);
     }//GEN-LAST:event_btnManageTnmtActionPerformed
 
-    private void manageReqBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageReqBtnActionPerformed
+    private void btnManageReqActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageReqActionPerformed
         // TODO add your handling code here:
         manTaskPanel();
-    }//GEN-LAST:event_manageReqBtnActionPerformed
-
-    private void manageTnmtBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageTnmtBtnActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_manageTnmtBtnActionPerformed
+    }//GEN-LAST:event_btnManageReqActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnManageReq;
+    private javax.swing.JButton btnManageStaff;
     private javax.swing.JButton btnManageTnmt;
     private javax.swing.JPanel downPanel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSplitPane jSplitPane1;
-    private javax.swing.JButton manageReqBtn;
-    private javax.swing.JButton manageStaffBtn;
-    private javax.swing.JButton manageTnmtBtn;
     // End of variables declaration//GEN-END:variables
 }

@@ -51,11 +51,11 @@
                               <EmptySpace max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="manageReqBtn" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnManageReq" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
                               <Component id="btnManageTnmt" min="-2" max="-2" attributes="0"/>
                               <EmptySpace pref="38" max="32767" attributes="0"/>
-                              <Component id="manageStaffBtn" min="-2" pref="206" max="-2" attributes="0"/>
+                              <Component id="btnManageStaff" min="-2" pref="206" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -69,10 +69,9 @@
                       <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="manageReqBtn" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnManageReq" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="btnManageTnmt" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="manageStaffBtn" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="manageTnmtBtn" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnManageStaff" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace pref="40" max="32767" attributes="0"/>
                   </Group>
@@ -88,7 +87,7 @@
                 <Property name="text" type="java.lang.String" value="Hi, "/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="manageReqBtn">
+            <Component class="javax.swing.JButton" name="btnManageReq">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Microsoft JhengHei" size="22" style="0"/>
@@ -96,10 +95,10 @@
                 <Property name="text" type="java.lang.String" value="Manage Requests"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="manageReqBtnActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnManageReqActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="manageStaffBtn">
+            <Component class="javax.swing.JButton" name="btnManageStaff">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Microsoft JhengHei" size="22" style="0"/>
@@ -107,7 +106,7 @@
                 <Property name="text" type="java.lang.String" value="Manage Staff"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="manageStaffBtnActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnManageStaffActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btnManageTnmt">
