@@ -7,6 +7,7 @@ package com.thursday.interfaces;
 
 import com.thursday.business.UserDirectory;
 import com.thursday.business.WorkFlow;
+import com.thursday.business.enterprise.ApartmentList;
 import com.thursday.business.identities.ApartmentUser;
 import com.thursday.business.identities.User;
 import com.thursday.business.workflow.Task;

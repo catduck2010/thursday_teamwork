@@ -152,4 +152,8 @@ public class Validator {
         Matcher matcher = pattern.matcher(str);
         return matcher.matches();
     }
+    
+    public boolean IncludeAdmin(String username){
+        return username.contains("admin");
+    }
 }

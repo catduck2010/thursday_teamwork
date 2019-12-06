@@ -32,10 +32,10 @@ public class CreateJPanel extends javax.swing.JPanel {
     private UserBiz uBiz;
  
     
-    public CreateJPanel(JPanel rightPanel, UserBiz apBiz) {
+    public CreateJPanel(JPanel rightPanel) {
         initComponents();
         this.rightPanel = rightPanel;
-        this.uBiz = apBiz;
+        
         
                 
         ItemListener il = new ItemListener() {
@@ -115,6 +115,11 @@ public class CreateJPanel extends javax.swing.JPanel {
         buttonGroup1.add(apartmentRBtn);
         apartmentRBtn.setFont(new java.awt.Font("Microsoft JhengHei", 0, 24)); // NOI18N
         apartmentRBtn.setText("Apartment");
+        apartmentRBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                apartmentRBtnActionPerformed(evt);
+            }
+        });
 
         buttonGroup1.add(cleaningCompanyRBtn);
         cleaningCompanyRBtn.setFont(new java.awt.Font("Microsoft JhengHei", 0, 24)); // NOI18N
@@ -291,6 +296,10 @@ public class CreateJPanel extends javax.swing.JPanel {
         }
 
     }//GEN-LAST:event_createBtnActionPerformed
+
+    private void apartmentRBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_apartmentRBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_apartmentRBtnActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

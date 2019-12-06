@@ -45,6 +45,7 @@ public class LoginJPanel extends javax.swing.JPanel {
         this.mFrame = f;
         this.rightPanel = f.getRightPanel();
         this.apBiz = apBiz;
+        
 
         ItemListener il = new ItemListener() {
             @Override
@@ -222,6 +223,12 @@ public class LoginJPanel extends javax.swing.JPanel {
         User u = UserDirectory.authenticateUser(usernameTxt.getText(), passwordField.getPassword());
         if (u == null) {
             JOptionPane.showMessageDialog(this, "Incorrect Username or Password", "WARNING", JOptionPane.WARNING_MESSAGE);
+        } else if (u.getRole().equals("SUPERUSER") && u.getUsername().equals("root")) {
+            RootJPanel panel = new RootJPanel(rightPanel);
+            rightPanel.add("RootJPanel", panel);
+            CardLayout layout = (CardLayout) this.rightPanel.getLayout();
+            layout.next(rightPanel);
+
         } else {
             System.out.println("pass");
             grantAccess(u);

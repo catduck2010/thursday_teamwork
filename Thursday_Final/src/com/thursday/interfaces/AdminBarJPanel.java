@@ -157,6 +157,10 @@ public class AdminBarJPanel extends javax.swing.JPanel {
         manTaskPanel();
     }//GEN-LAST:event_manageReqBtnActionPerformed
 
+    private void manageTnmtBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageTnmtBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_manageTnmtBtnActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnManageTnmt;
@@ -167,5 +171,6 @@ public class AdminBarJPanel extends javax.swing.JPanel {
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JButton manageReqBtn;
     private javax.swing.JButton manageStaffBtn;
+    private javax.swing.JButton manageTnmtBtn;
     // End of variables declaration//GEN-END:variables
 }
