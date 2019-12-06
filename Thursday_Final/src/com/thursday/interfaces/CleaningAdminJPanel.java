@@ -6,8 +6,10 @@
 package com.thursday.interfaces;
 
 import com.thursday.business.CompanyDirectory;
+import com.thursday.business.UserDirectory;
 import com.thursday.business.WorkFlow;
 import com.thursday.business.enterprise.Company;
+import com.thursday.business.identities.CleaningCompUser;
 import com.thursday.business.identities.User;
 import com.thursday.business.workflow.Task;
 import com.thursday.business.workflow.ViewTaskCompany;
@@ -97,15 +99,24 @@ public void populateSendTable(){
 
     }*/
 public void SendCleaningRequest(){
+     boolean validation = true;
      int selectedRow = tblRequest.getSelectedRow();
         if (selectedRow >= 0) {
             WorkRequest wr = (WorkRequest)tblRequest.getValueAt(selectedRow, 2);
+            
+            for( User u : UserDirectory.getCompanyStaff(admin.getCompanyName())){
+            
+            if(u.getRole().equals(CleaningCompUser.Roles.CLEANER) && wr.getSender().equals(u.getUsername())){
+              validation =false;
+              break;
+            }
+        }
             
             if (wr.getIsRead()) {
                 JOptionPane.showMessageDialog(null, "You already assign this task!");
                 return;
             }
-            else if(!wr.getSender().equals("aptadmin")){
+            else if(validation == false){
                 JOptionPane.showMessageDialog(null, "please select request from apartment admin!");
             }
             else{
@@ -121,15 +132,23 @@ public void SendCleaningRequest(){
             JOptionPane.showMessageDialog(null, "Please select any row");
 }
 public void SendBack(){
-    
+     
+        boolean validation = false;
         int selectedRow = tblRequest.getSelectedRow();
         if (selectedRow >= 0) {
             WorkRequest wr = (WorkRequest) tblRequest.getValueAt(selectedRow, 2);
+            for( User u : UserDirectory.getCompanyStaff(admin.getCompanyName())){
+            
+            if(u.getRole().equals(CleaningCompUser.Roles.CLEANER) && wr.getSender().equals(u.getUsername())){
+              validation =true;
+              break;
+            }
+        }
             if (!wr.getIsRead()) {
-                JOptionPane.showMessageDialog(null, "set task first!");
+                JOptionPane.showMessageDialog(null, "send task first!");
                 return;
             }
-            else if(wr.getSender().equals("aptadmin")){
+            else if(validation == false){
                 JOptionPane.showMessageDialog(null, "please select request from cleaner!");
             }
             else{
