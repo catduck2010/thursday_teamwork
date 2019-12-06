@@ -8,9 +8,11 @@ package com.thursday.interfaces;
 import com.thursday.business.EcoSystem;
 import com.thursday.business.UserDirectory;
 import com.thursday.business.identities.User;
+import com.thursday.util.PasswordUtil;
 import com.thursday.util.Validator;
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import javax.swing.JOptionPane;
@@ -25,6 +27,7 @@ public class ManageAccountPanel extends JPanel {
 
     private final JPanel rightPanel;
     private final User user;
+    private boolean adminEditMode = false;
     static final String OLDPSWD_HINT = "Old Password";
     static final String NEWPSWD_HINT = "New Password";
     static final String RENEWPSWD_HINT = "Confirm New Password";
@@ -49,6 +52,12 @@ public class ManageAccountPanel extends JPanel {
         setPasswordHint(txtPwNew, NEWPSWD_HINT);
         setPasswordHint(txtPwConfirm, RENEWPSWD_HINT);
         fillTxt();
+    }
+
+    public ManageAccountPanel(User user, JPanel rightPanel) {
+        this(rightPanel, user);
+        this.txtPwOld.setEnabled(false);
+        this.adminEditMode = true;
     }
 
     private void txtPswdAddListener(JPasswordField jpf, String hint) {
@@ -84,6 +93,26 @@ public class ManageAccountPanel extends JPanel {
         }
     }
 
+    private boolean adminPasswordReset(char[] newpw, char[] renewpw) {
+        if (!Validator.IsSamePassword(newpw, renewpw)) {
+            JOptionPane.showMessageDialog(this, "New Password and Confirm Password is not the same!", "WARNING", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+        if (!Validator.IsPassword(newpw)) {
+            JOptionPane.showMessageDialog(this, "Password should be in the form of at least 6 letters and \nincluding numbers, Lowercase and Uppercase.", "WARNING", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+        user.setPasswd(PasswordUtil.hash(newpw));
+        if (!UserDirectory.updateUser(user)) {
+            JOptionPane.showMessageDialog(this, "Reset failed", "WARNING", JOptionPane.ERROR_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this, "New password set for this user.",
+                    "RESET PASSWORD", JOptionPane.INFORMATION_MESSAGE);
+            return true;
+        }
+        return false;
+    }
+
     private boolean passwordReset(char[] old, char[] newpw, char[] renewpw) {
         if (user.authenticate(old)) {
             if (old.length == 0 || newpw.length == 0 || renewpw.length == 0) {
@@ -101,9 +130,14 @@ public class ManageAccountPanel extends JPanel {
             if (!(user.resetPasswd(old, newpw) ? UserDirectory.updateUser(user) : false)) {
                 JOptionPane.showMessageDialog(this, "Reset failed", "WARNING", JOptionPane.ERROR_MESSAGE);
             } else {
-                JOptionPane.showMessageDialog(this, "New password set, you have to "
-                        + "log out due to safety reasons.",
-                        "RESET PASSWORD", JOptionPane.INFORMATION_MESSAGE);
+                if (this.adminEditMode) {
+                    JOptionPane.showMessageDialog(this, "New password set for this user.",
+                            "RESET PASSWORD", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(this, "New password set, you have to "
+                            + "log out due to safety reasons.",
+                            "RESET PASSWORD", JOptionPane.INFORMATION_MESSAGE);
+                }
                 return true;
             }
         } else {
@@ -149,6 +183,21 @@ public class ManageAccountPanel extends JPanel {
         this.txtUsername.setText(user.getUsername());
         this.txtFName.setText(user.getFirstName());
         this.txtLName.setText(user.getLastName());
+    }
+
+    private void goBack() {
+        CardLayout layout = (CardLayout) this.rightPanel.getLayout();
+        this.rightPanel.remove(this);
+        layout.previous(this.rightPanel);
+    }
+
+    private void refreshLast() {
+        for (Component comp : rightPanel.getComponents()) {
+            if (comp instanceof AdminManageStaffJPanel) {
+                ((AdminManageStaffJPanel) comp).refreshTable();
+                return;
+            }
+        }
     }
 
     /**
@@ -325,23 +374,28 @@ public class ManageAccountPanel extends JPanel {
 
     private void btnOkPasswdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkPasswdActionPerformed
         // TODO add your handling code here:
-        if (passwordReset(txtPwOld.getPassword(), txtPwNew.getPassword(), txtPwConfirm.getPassword())) {
-            EcoSystem.logout();
-        } else {
-            txtPwOld.setText("");
-            txtPwNew.setText("");
-            txtPwConfirm.setText("");
-            setPasswordHint(txtPwOld, OLDPSWD_HINT);
-            setPasswordHint(txtPwNew, NEWPSWD_HINT);
-            setPasswordHint(txtPwConfirm, RENEWPSWD_HINT);
+        if (this.adminEditMode
+                ? adminPasswordReset(txtPwNew.getPassword(), txtPwConfirm.getPassword())
+                : passwordReset(txtPwOld.getPassword(), txtPwNew.getPassword(), txtPwConfirm.getPassword())) {
+            if (!this.adminEditMode) {
+                EcoSystem.logout();
+                return;
+            }
         }
+        txtPwOld.setText("");
+        txtPwNew.setText("");
+        txtPwConfirm.setText("");
+        setPasswordHint(txtPwOld, OLDPSWD_HINT);
+        setPasswordHint(txtPwNew, NEWPSWD_HINT);
+        setPasswordHint(txtPwConfirm, RENEWPSWD_HINT);
+
     }//GEN-LAST:event_btnOkPasswdActionPerformed
 
     private void btnGoBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGoBackActionPerformed
         // TODO add your handling code here:
-        CardLayout layout = (CardLayout) this.rightPanel.getLayout();
-        this.rightPanel.remove(this);
-        layout.previous(this.rightPanel);
+        goBack();
+        if (this.adminEditMode)
+            refreshLast();
     }//GEN-LAST:event_btnGoBackActionPerformed
 
     private void btnEditSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditSaveActionPerformed
@@ -351,7 +405,19 @@ public class ManageAccountPanel extends JPanel {
 
     private void btnOkBasicActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkBasicActionPerformed
         // TODO add your handling code here:
-        
+        String fName = txtFName.getText(),
+                lName = txtLName.getText();
+        if (Validator.IsEmpty(lName) || Validator.IsEmpty(fName)) {
+            JOptionPane.showMessageDialog(this, "Either one of the names cannot be empty!", "Add Staff", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            user.setFirstName(fName);
+            user.setLastName(lName);
+            if (UserDirectory.updateUser(user)) {
+                JOptionPane.showMessageDialog(this, "Information changed.", "INFORMATION", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "Failed to change information.", "ERROR", JOptionPane.ERROR_MESSAGE);
+            }
+        }
     }//GEN-LAST:event_btnOkBasicActionPerformed
 
 

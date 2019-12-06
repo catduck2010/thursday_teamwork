@@ -11,6 +11,7 @@ import com.thursday.business.identities.ApartmentUser;
 import com.thursday.business.identities.User;
 import com.thursday.business.workflow.Task;
 import com.thursday.business.workflow.WorkRequest;
+import java.awt.CardLayout;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -40,7 +41,8 @@ public class AdminManageStaffJPanel extends javax.swing.JPanel {
         this.user = u;
         this.dtm = (DefaultTableModel) jTable1.getModel();
         this.role = role;
-        loadTable(this.role);
+        this.jLabel1.setText("MANAGE " + role + "S");
+        loadTable();
     }
 
     private boolean deleteStaff(int tableIndex) {
@@ -76,6 +78,26 @@ public class AdminManageStaffJPanel extends javax.swing.JPanel {
         }
     }
 
+    private void loadTable() {
+        loadTable(this.role);
+    }
+
+    public void refreshTable() {
+        loadTable();
+    }
+
+    private void addStaffPanel() {
+        CardLayout layout = (CardLayout) this.rightPanel.getLayout();
+        this.rightPanel.add("AddStaffJPanel", new AddStaffJPanel(rightPanel, user, role));
+        layout.next(this.rightPanel);
+    }
+
+    private void editStaffPanel(int index) {
+        CardLayout layout = (CardLayout) this.rightPanel.getLayout();
+        this.rightPanel.add("EditStaffPanel", new ManageAccountPanel((User) dtm.getValueAt(index, 1), rightPanel));
+        layout.next(this.rightPanel);
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -91,6 +113,7 @@ public class AdminManageStaffJPanel extends javax.swing.JPanel {
         addBtn = new javax.swing.JButton();
         deleteBtn = new javax.swing.JButton();
         updateBtn = new javax.swing.JButton();
+        refreshBtn = new javax.swing.JButton();
 
         jLabel1.setFont(new java.awt.Font("Microsoft JhengHei", 0, 24)); // NOI18N
         jLabel1.setText("Staff List");
@@ -125,6 +148,11 @@ public class AdminManageStaffJPanel extends javax.swing.JPanel {
 
         addBtn.setFont(new java.awt.Font("Microsoft JhengHei", 0, 20)); // NOI18N
         addBtn.setText("+Add");
+        addBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addBtnActionPerformed(evt);
+            }
+        });
 
         deleteBtn.setFont(new java.awt.Font("Microsoft JhengHei", 0, 20)); // NOI18N
         deleteBtn.setText("-Delete");
@@ -142,6 +170,14 @@ public class AdminManageStaffJPanel extends javax.swing.JPanel {
             }
         });
 
+        refreshBtn.setFont(new java.awt.Font("Microsoft JhengHei", 0, 20)); // NOI18N
+        refreshBtn.setText("Refresh");
+        refreshBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                refreshBtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -150,14 +186,16 @@ public class AdminManageStaffJPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 254, Short.MAX_VALUE)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(addBtn)
-                        .addGap(59, 59, 59)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(deleteBtn)
-                        .addGap(56, 56, 56)
-                        .addComponent(updateBtn))
-                    .addComponent(jScrollPane1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(updateBtn)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(refreshBtn))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 826, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -168,7 +206,8 @@ public class AdminManageStaffJPanel extends javax.swing.JPanel {
                     .addComponent(updateBtn)
                     .addComponent(deleteBtn)
                     .addComponent(addBtn)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(refreshBtn))
                 .addGap(27, 27, 27)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(61, 61, 61))
@@ -199,8 +238,24 @@ public class AdminManageStaffJPanel extends javax.swing.JPanel {
 
     private void updateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateBtnActionPerformed
         // TODO add your handling code here:
-        loadTable(role);
+        int index = jTable1.getSelectedRow();
+        if (index != -1) {
+            editStaffPanel(index);
+        } else {
+            JOptionPane.showMessageDialog(this, "Please select a row",
+                    "User Management", JOptionPane.WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_updateBtnActionPerformed
+
+    private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
+        // TODO add your handling code here:
+        addStaffPanel();
+    }//GEN-LAST:event_addBtnActionPerformed
+
+    private void refreshBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshBtnActionPerformed
+        // TODO add your handling code here:
+        loadTable();
+    }//GEN-LAST:event_refreshBtnActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -209,6 +264,7 @@ public class AdminManageStaffJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JButton refreshBtn;
     private javax.swing.JButton updateBtn;
     // End of variables declaration//GEN-END:variables
 }

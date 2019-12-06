@@ -139,14 +139,17 @@ public class AdminBarJPanel extends javax.swing.JPanel {
 
     private void manageStaffBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageStaffBtnActionPerformed
         // TODO add your handling code here:
-        CardLayout layout = (CardLayout) this.rightPanel.getLayout();
-        JPanel panel = new AdminManageStaffJPanel(rightPanel, user, ApartmentUser.Roles.REPAIRPERSON);
-        this.rightPanel.add("AdminManageStaffJPanel", panel);
-        layout.next(this.rightPanel);
+        CardLayout layout = (CardLayout) this.downPanel.getLayout();
+        JPanel panel = new AdminManageStaffJPanel(downPanel, user, ApartmentUser.Roles.REPAIRPERSON);
+        this.downPanel.add("AdminManageStaffJPanel", panel);
+        layout.next(this.downPanel);
     }//GEN-LAST:event_manageStaffBtnActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        CardLayout layout = (CardLayout) this.downPanel.getLayout();
+        this.downPanel.add("AdminManageResidentJPanel",new AdminManageStaffJPanel(downPanel, user, ApartmentUser.Roles.RESIDENT));
+        layout.next(this.downPanel);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void manageReqBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageReqBtnActionPerformed
