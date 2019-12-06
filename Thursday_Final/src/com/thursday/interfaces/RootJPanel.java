@@ -36,6 +36,10 @@ public class RootJPanel extends javax.swing.JPanel {
         DefaultTableModel dtm = (DefaultTableModel) compListTbl.getModel();
         dtm.setRowCount(0);
         for(Company comp: CompanyDirectory.getAllCompanies()){
+            if(comp.getAdminUser().equals("root")){       
+                    continue;
+            }
+            
             Object[] row = new Object[2];
             
             row[0] = comp.getCompanyName();
@@ -58,7 +62,6 @@ public class RootJPanel extends javax.swing.JPanel {
         addBtn = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         compListTbl = new javax.swing.JTable();
-        refreshBtn = new javax.swing.JButton();
 
         jLabel1.setFont(new java.awt.Font("Microsoft JhengHei", 0, 24)); // NOI18N
         jLabel1.setText("Company List");
@@ -91,13 +94,6 @@ public class RootJPanel extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(compListTbl);
 
-        refreshBtn.setText("Refresh");
-        refreshBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                refreshBtnActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -113,10 +109,6 @@ public class RootJPanel extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(addBtn)
                         .addGap(36, 36, 36))))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(338, 338, 338)
-                .addComponent(refreshBtn)
-                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -127,9 +119,7 @@ public class RootJPanel extends javax.swing.JPanel {
                     .addComponent(addBtn))
                 .addGap(25, 25, 25)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
-                .addComponent(refreshBtn)
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addContainerGap(85, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -141,17 +131,11 @@ public class RootJPanel extends javax.swing.JPanel {
         layout.next(rightPanel);
     }//GEN-LAST:event_addBtnActionPerformed
 
-    private void refreshBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshBtnActionPerformed
-        // TODO add your handling code here:
-        populateTable();
-    }//GEN-LAST:event_refreshBtnActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addBtn;
     private javax.swing.JTable compListTbl;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JButton refreshBtn;
     // End of variables declaration//GEN-END:variables
 }
