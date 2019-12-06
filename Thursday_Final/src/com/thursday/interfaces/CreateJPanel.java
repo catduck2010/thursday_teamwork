@@ -235,53 +235,53 @@ public class CreateJPanel extends javax.swing.JPanel {
         String role = (String)roleComboBox.getSelectedItem();
 
         if (Validator.IsEmpty(username)) {
-            usernameTxt.setBorder(BorderFactory.createLineBorder(Color.RED));
+            //usernameTxt.setBorder(BorderFactory.createLineBorder(Color.RED));
             JOptionPane.showMessageDialog(null, "Username can't be empty");
             return;
         }
         if (!Validator.IsUsername(username)) {
             JOptionPane.showMessageDialog(null, "Username should be in the form of Words and Number");
-            usernameTxt.setBorder(BorderFactory.createLineBorder(Color.RED));
+            //usernameTxt.setBorder(BorderFactory.createLineBorder(Color.RED));
             return;
         }
 
         if (Validator.IsEmpty(lastname)) {
-            lnameTxt.setBorder(BorderFactory.createLineBorder(Color.RED));
+            //lnameTxt.setBorder(BorderFactory.createLineBorder(Color.RED));
             JOptionPane.showMessageDialog(null, "Last Name can't be empty");
             return;
         }
         
         if (Validator.IsEmpty(firstname)) {
-            fnameTxt.setBorder(BorderFactory.createLineBorder(Color.RED));
+            //fnameTxt.setBorder(BorderFactory.createLineBorder(Color.RED));
             JOptionPane.showMessageDialog(null, "First Name can't be empty");
             return;
         }
 
         if (Validator.IsEmpty(password)) {
-            passwordField.setBorder(BorderFactory.createLineBorder(Color.RED));
+            //passwordField.setBorder(BorderFactory.createLineBorder(Color.RED));
             JOptionPane.showMessageDialog(null, "Password can't be empty");
             return;
         }
         if (!Validator.IsPassword(password)) {
             JOptionPane.showMessageDialog(null, "Password should be in the form of at least 6 letters and including numbers, Lowercase and Uppercase ");
-            passwordField.setBorder(BorderFactory.createLineBorder(Color.RED));
+            //passwordField.setBorder(BorderFactory.createLineBorder(Color.RED));
             return;
         }
 
         if (Validator.IsEmpty(repassword)) {
-            repasswordField.setBorder(BorderFactory.createLineBorder(Color.RED));
+            //repasswordField.setBorder(BorderFactory.createLineBorder(Color.RED));
             JOptionPane.showMessageDialog(null, "Re-enter password can't be empty");
             return;
         }
         if (!Validator.IsSamePassword(password, repassword)) {
             JOptionPane.showMessageDialog(null, "Re-enter password is not as same as previous password");
-            repasswordField.setBorder(BorderFactory.createLineBorder(Color.RED));
+            //repasswordField.setBorder(BorderFactory.createLineBorder(Color.RED));
             return;
         }
         if (UserDirectory.checkUsernameExistance(username)) {
             JOptionPane.showMessageDialog(this, "Username exists!",
                     "WARNING", JOptionPane.WARNING_MESSAGE);
-            usernameTxt.setBorder(BorderFactory.createLineBorder(Color.RED));
+            //usernameTxt.setBorder(BorderFactory.createLineBorder(Color.RED));
         } else if (apartmentRBtn.isSelected()) {
             UserDirectory.createApartmentUser(username, password, firstname, lastname, role);
             JOptionPane.showMessageDialog(null, "Account created Successfully");

@@ -5,9 +5,14 @@
  */
 package com.thursday.interfaces;
 
+import com.thursday.business.CompanyDirectory;
+import com.thursday.business.UserDirectory;
 import com.thursday.business.identities.User;
 import com.thursday.business.WorkFlow;
 import com.thursday.business.workflow.Task;
+import com.thursday.util.Validator;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -29,17 +34,39 @@ public class TenementTaskJPanel extends javax.swing.JPanel {
         this.rightPanel = rightPanel;
 
     }
-
-    private void createTask() {
-        String aptNo = aptTxt.getText();
-        String taskType = (String) taskComboBox1.getSelectedItem();
-        String title = "Apt" + aptNo + " " + taskType;
-        String message = remarkTxt.getText();
-        String creator = user.getUsername();
-        Task t = WorkFlow.createTask(creator, title, message);
-        JOptionPane.showMessageDialog(null, "Create Task successfully!");
+    
+    private void clearAllFields() {
+        this.aptTxt.setText("");
+        this.remarkTxt.setText("");
     }
-
+    
+private void createTask(){
+    String aptNo = aptTxt.getText().trim();
+    String taskType = (String)taskComboBox1.getSelectedItem();
+    String title = "Apt"+ aptNo + " " + taskType;
+    String message = remarkTxt.getText().trim();
+    String creator = user.getUsername();
+    
+      if (Validator.IsEmpty(aptNo)) {
+            //CompNameTxt.setBorder(BorderFactory.createLineBorder(Color.RED));
+            JOptionPane.showMessageDialog(null, "Apartment No. can't be empty");
+            return;      
+        }else if(!IsUserName(aptNo)){
+            JOptionPane.showMessageDialog(null, "Please enter valid apartment No. ");
+            return;
+        }else if (Validator.IsEmpty(message)) {
+            //adminNameTxt.setBorder(BorderFactory.createLineBorder(Color.RED));
+            JOptionPane.showMessageDialog(null, "Remark message can't be empty");
+            return;
+        }else{
+             Task t =WorkFlow.createTask(creator, title, message);
+            JOptionPane.showMessageDialog(null, "Request is created successfully");
+            clearAllFields();
+        }
+  
+        
+        
+}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -59,6 +86,12 @@ public class TenementTaskJPanel extends javax.swing.JPanel {
 
         jLabel1.setFont(new java.awt.Font("Microsoft JhengHei", 0, 24)); // NOI18N
         jLabel1.setText("APT NO.");
+
+        aptTxt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                aptTxtActionPerformed(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Microsoft JhengHei", 0, 24)); // NOI18N
         jLabel4.setText("Task Type:");
@@ -91,11 +124,12 @@ public class TenementTaskJPanel extends javax.swing.JPanel {
                             .addComponent(jLabel5))
                         .addGap(113, 113, 113)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(aptTxt)
-                            .addComponent(taskComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(remarkTxt)))
+                            .addComponent(remarkTxt)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(aptTxt)
+                                .addComponent(taskComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(327, 327, 327)
+                        .addGap(312, 312, 312)
                         .addComponent(comfirmBtn)))
                 .addContainerGap(246, Short.MAX_VALUE))
         );
@@ -104,21 +138,23 @@ public class TenementTaskJPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(139, 139, 139)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(aptTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(31, 31, 31)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(144, 144, 144)
-                        .addComponent(jLabel4)
-                        .addGap(29, 29, 29)
-                        .addComponent(jLabel5))
+                        .addGap(2, 2, 2)
+                        .addComponent(jLabel4))
+                    .addComponent(taskComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(26, 26, 26)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel5)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(aptTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(148, 148, 148)
-                        .addComponent(taskComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(35, 35, 35)
+                        .addGap(10, 10, 10)
                         .addComponent(remarkTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(59, 59, 59)
+                .addGap(64, 64, 64)
                 .addComponent(comfirmBtn)
-                .addContainerGap(90, Short.MAX_VALUE))
+                .addContainerGap(195, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -127,6 +163,23 @@ public class TenementTaskJPanel extends javax.swing.JPanel {
         createTask();
     }//GEN-LAST:event_comfirmBtnActionPerformed
 
+    private void aptTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aptTxtActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_aptTxtActionPerformed
+
+    
+
+    
+    public static boolean IsUserName(String str) {
+        String regex = "^[a-zA-Z0-9]+$";
+        return Match(regex, str);
+    }
+    
+    private static boolean Match(String regex, String str) {
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(str);
+        return matcher.matches();
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField aptTxt;
@@ -138,3 +191,4 @@ public class TenementTaskJPanel extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> taskComboBox1;
     // End of variables declaration//GEN-END:variables
 }
+
