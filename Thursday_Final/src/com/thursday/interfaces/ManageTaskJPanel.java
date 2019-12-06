@@ -17,6 +17,7 @@ import com.thursday.business.identities.User;
  * @author andy
  */
 import com.thursday.business.workflow.Task;
+import com.thursday.business.workflow.ViewTaskCompany;
 import com.thursday.business.workflow.WorkRequest;
 import java.awt.CardLayout;
 import java.util.List;
@@ -50,17 +51,23 @@ public class ManageTaskJPanel extends javax.swing.JPanel {
         dtm.setRowCount(0);
         
         
-        for( Task t : WorkFlow.getAllTasks()){
+        for( ViewTaskCompany vtc : WorkFlow.getTaskCompany()){
             
+            if(vtc.getCompany().equals(admin.getCompanyName())){
+                for(Task t : WorkFlow.getAllTasks()){
+                    if(t.getId() == vtc.getTaskId()){
+                    Object row[] = new Object [6];
+                    row[0] = t.getId();
+                    row[1] = t;
+                    row[2] = t.getMessage();
+                    row[3] = t.getCreator();
+                    row[4] = t.getCreateTime();
+                    row[5] = t.getStatus();
+                    dtm.addRow(row);
+                    }
+                }
+            }
             
-            Object row[] = new Object [6];
-            row[0] = t.getId();
-            row[1] = t;
-            row[2] = t.getMessage();
-            row[3] = t.getCreator();
-            row[4] = t.getCreateTime();
-            row[5] = t.getStatus();
-            dtm.addRow(row);
         
         }
         
