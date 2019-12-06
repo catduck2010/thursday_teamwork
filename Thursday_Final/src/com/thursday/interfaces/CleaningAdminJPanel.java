@@ -5,8 +5,12 @@
  */
 package com.thursday.interfaces;
 
+import com.thursday.business.CompanyDirectory;
 import com.thursday.business.WorkFlow;
+import com.thursday.business.enterprise.Company;
 import com.thursday.business.identities.User;
+import com.thursday.business.workflow.Task;
+import com.thursday.business.workflow.ViewTaskCompany;
 
 import com.thursday.business.workflow.WorkRequest;
 import java.awt.CardLayout;
@@ -130,9 +134,29 @@ public void SendBack(){
             }
             else{
             int selectionButton = JOptionPane.YES_NO_OPTION;
-            int selectionResult = JOptionPane.showConfirmDialog(null, "Are you sure you want to send back?", "Warning", selectionButton);
+            int selectionResult = JOptionPane.showConfirmDialog(null, "Are you sure you want to send the feedback?", "Warning", selectionButton);
             if (selectionResult == JOptionPane.YES_OPTION) {
-                WorkFlow.createRequest(wr.getTaskId(), wr.getTitle(), wr.getMessage(), admin.getUsername(), "aptadmin");
+                String companyName = new String();
+                String adminusername = new String();
+                for(Task t : WorkFlow.getAllTasks()){
+                    if(t.getId() == wr.getTaskId()){
+                        for(ViewTaskCompany vtc : WorkFlow.getTaskCompany())
+                        {
+                            if(vtc.getTaskId() == t.getId()){
+                                companyName = vtc.getCompany(); 
+                            }
+                            
+                        }
+                    }
+                }
+                for(Company c : CompanyDirectory.getApartments()){
+                    if(c.getCompanyName().equals(companyName)){
+                        adminusername = c.getAdminUser();
+                        break;
+                    }
+                }
+                
+                WorkFlow.createRequest(wr.getTaskId(), wr.getTitle(), wr.getMessage(), admin.getUsername(), adminusername);
                 JOptionPane.showMessageDialog(null, "Send Back Successfully!");
                 populateRequestTable();
             }
