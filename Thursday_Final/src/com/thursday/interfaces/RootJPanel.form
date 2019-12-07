@@ -23,6 +23,10 @@
                   <Group type="102" attributes="0">
                       <Component id="jLabel1" min="-2" pref="189" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
+                      <Component id="updatBtn" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="dltBtn" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="addBtn" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -37,6 +41,8 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="addBtn" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="dltBtn" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="updatBtn" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" max="-2" attributes="0"/>
               <Component id="jScrollPane1" pref="376" max="32767" attributes="0"/>
@@ -101,5 +107,18 @@
         </Component>
       </SubComponents>
     </Container>
+    <Component class="javax.swing.JButton" name="dltBtn">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="-Delete"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="updatBtn">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Update"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="updatBtnActionPerformed"/>
+      </Events>
+    </Component>
   </SubComponents>
 </Form>
