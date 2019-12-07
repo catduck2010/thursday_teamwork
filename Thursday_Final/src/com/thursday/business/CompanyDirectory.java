@@ -73,7 +73,7 @@ public class CompanyDirectory {
     public static List<Company> getAllCompanies() {
         return CompanyBiz.getAllCompanies();
     }
-
+    
     public static boolean checkCompanyExistance(String name) {
         return getCompany(name) != null;
     }

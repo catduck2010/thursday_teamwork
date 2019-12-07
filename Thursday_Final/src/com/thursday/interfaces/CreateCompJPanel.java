@@ -204,51 +204,56 @@ public class CreateCompJPanel extends javax.swing.JPanel {
             //CompNameTxt.setBorder(BorderFactory.createLineBorder(Color.RED));
             JOptionPane.showMessageDialog(null, "Company Name can't be empty");
             return;
-        } else if (UserDirectory.checkUsernameExistance(compName)) {
-            JOptionPane.showMessageDialog(this, "Company Name exists!",
-                    "WARNING", JOptionPane.WARNING_MESSAGE);
-            return;
-            //CompNameTxt.setBorder(BorderFactory.createLineBorder(Color.RED));
-        } else if (Validator.IsEmpty(adminName)) {
+        }else if (Validator.IsEmpty(adminName)) {
             //adminNameTxt.setBorder(BorderFactory.createLineBorder(Color.RED));
             JOptionPane.showMessageDialog(null, "Admin Name can't be empty");
-            return;
-        } else if (UserDirectory.checkUsernameExistance(adminName)) {
-            JOptionPane.showMessageDialog(this, "Admin Name exists!",
-                    "WARNING", JOptionPane.WARNING_MESSAGE);
-            return;
-            //adminNameTxt.setBorder(BorderFactory.createLineBorder(Color.RED));
-            //toMainScreen();
-        } else if (!adminNameTxt.getText().toLowerCase().contains("admin")) {
-            JOptionPane.showMessageDialog(this, "Admin's username should include words admin!",
-                    "WARNING", JOptionPane.WARNING_MESSAGE);
-            return;
-            //CompNameTxt.setBorder(BorderFactory.createLineBorder(Color.RED));
+            return;      
         } else if (Validator.IsEmpty(password)) {
             //passwordField.setBorder(BorderFactory.createLineBorder(Color.RED));
             JOptionPane.showMessageDialog(null, "Password can't be empty");
+            return;
+        } else if (Validator.IsEmpty(repassword)) {
+            //repasswordField.setBorder(BorderFactory.createLineBorder(Color.RED));
+            JOptionPane.showMessageDialog(null, "Re-enter password can't be empty");
+            return;    
+        } else if (!Validator.IsSamePassword(password, repassword)) {
+            JOptionPane.showMessageDialog(null, "Re-enter password is not as same as previous password");
+            //repasswordField.setBorder(BorderFactory.createLineBorder(Color.RED));
             return;
         } else if (!Validator.IsPassword(password)) {
             JOptionPane.showMessageDialog(null, "Password should be in the form of at least 6 letters and including numbers, Lowercase and Uppercase ");
             //passwordField.setBorder(BorderFactory.createLineBorder(Color.RED));
             return;
-        } else if (Validator.IsEmpty(repassword)) {
-            //repasswordField.setBorder(BorderFactory.createLineBorder(Color.RED));
-            JOptionPane.showMessageDialog(null, "Re-enter password can't be empty");
+        } else if (CompanyDirectory.checkCompanyExistance(compName)){
+            JOptionPane.showMessageDialog(this, "Company Name exists!",
+                    "WARNING", JOptionPane.WARNING_MESSAGE);
+            return;                  
+        } else if (!adminNameTxt.getText().toLowerCase().contains("admin")) {
+            JOptionPane.showMessageDialog(this, "Admin's username should include words admin!",
+                    "WARNING", JOptionPane.WARNING_MESSAGE);
             return;
-        } else if (!Validator.IsSamePassword(password, repassword)) {
-            JOptionPane.showMessageDialog(null, "Re-enter password is not as same as previous password");
-            //repasswordField.setBorder(BorderFactory.createLineBorder(Color.RED));
+            //CompNameTxt.setBorder(BorderFactory.createLineBorder(Color.RED));  
+        } else if (UserDirectory.checkUsernameExistance(adminName)) {
+            JOptionPane.showMessageDialog(this, "Admin Name exists!",
+                    "WARNING", JOptionPane.WARNING_MESSAGE);
             return;
+            //adminNameTxt.setBorder(BorderFactory.createLineBorder(Color.RED));
+            //toMainScreen();   
         } else if (apartmentRBtn.isSelected()) {
-            CompanyDirectory.createApartment(compName, adminName, password);
-            JOptionPane.showMessageDialog(null, "New apartment created Successfully");
-            clearAllFields();
-            //toMainScreen();
+            if(CompanyDirectory.createApartment(compName, adminName, password)){
+                JOptionPane.showMessageDialog(null, "New apartment created Successfully");
+                clearAllFields();
+            }else{
+                JOptionPane.showMessageDialog(null, "New apartment created failed");
+            }
+           //toMainScreen();
         } else if (cleaningCompanyRBtn.isSelected()) {
-            CompanyDirectory.createCleaningComp(compName, adminName, password);
-            JOptionPane.showMessageDialog(null, "New cleaning company created Successfully");
-            clearAllFields();
+            if(CompanyDirectory.createCleaningComp(compName, adminName, password)){
+                JOptionPane.showMessageDialog(null, "New cleaning company created Successfully");
+                clearAllFields();
+            }else{
+                JOptionPane.showMessageDialog(null, "New apartment created failed");
+            }        
         } else {
             JOptionPane.showMessageDialog(null, "Please select company type");
         }
