@@ -17,6 +17,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
@@ -27,8 +28,8 @@ import javax.swing.JPasswordField;
  */
 public class ManageAccountPanel extends JPanel {
 
-    private final JPanel rightPanel;
-    private final User user;
+    private JPanel rightPanel;
+    private User user;
     private boolean adminEditMode = false;
     private boolean rootEditMode = false;
     private String companyOldName = "";
@@ -37,16 +38,8 @@ public class ManageAccountPanel extends JPanel {
     static final String RENEWPSWD_HINT = "Confirm New Password";
     static char defaultChar;
 
-    /**
-     * Creates new form ManageAccountPanel
-     *
-     * @param rightPanel
-     * @param user
-     */
-    public ManageAccountPanel(JPanel rightPanel, User user) {
+    private ManageAccountPanel() {
         initComponents();
-        this.rightPanel = rightPanel;
-        this.user = user;
         defaultChar = txtPwOld.getEchoChar();
         txtPswdAddListener(txtPwOld, OLDPSWD_HINT);
         txtPswdAddListener(txtPwNew, NEWPSWD_HINT);
@@ -55,27 +48,45 @@ public class ManageAccountPanel extends JPanel {
         setPasswordHint(txtPwOld, OLDPSWD_HINT);
         setPasswordHint(txtPwNew, NEWPSWD_HINT);
         setPasswordHint(txtPwConfirm, RENEWPSWD_HINT);
+    }
+
+    /**
+     * Creates new form ManageAccountPanel
+     *
+     * @param rightPanel
+     * @param user
+     */
+    public ManageAccountPanel(JPanel rightPanel, User user) {
+        this();
+        this.rightPanel = rightPanel;
+        this.user = user;
         this.btnGoBack.setEnabled(false);
         this.tabPane.remove(0);
         fillTxt();
     }
 
     public ManageAccountPanel(User user, JPanel rightPanel) {
-        this(rightPanel, user);
+        this();
+        this.rightPanel = rightPanel;
+        this.user = user;
         this.txtPwOld.setEnabled(false);
         this.adminEditMode = true;
         this.btnGoBack.setEnabled(true);
         this.tabPane.remove(0);
+        fillTxt();
     }
 
     public ManageAccountPanel(JPanel rightPanel, String company, User user) {
-        this(rightPanel, user);
+        this();
+        this.rightPanel = rightPanel;
+        this.user = user;
         this.lblTitle.setText("Manage Company");
         this.txtCompany.setText(company);
         this.txtPwOld.setEnabled(false);
         this.adminEditMode = true;
         this.rootEditMode = true;
         this.btnGoBack.setEnabled(true);
+        fillTxt();
     }
 
     private void txtPswdAddListener(JPasswordField jpf, String hint) {
@@ -121,12 +132,16 @@ public class ManageAccountPanel extends JPanel {
             return false;
         }
         user.setPasswd(PasswordUtil.hash(newpw));
-        if (!UserDirectory.updateUser(user)) {
-            JOptionPane.showMessageDialog(this, "Reset failed", "WARNING", JOptionPane.ERROR_MESSAGE);
-        } else {
-            JOptionPane.showMessageDialog(this, "New password set for this user.",
-                    "RESET PASSWORD", JOptionPane.INFORMATION_MESSAGE);
-            return true;
+        try {
+            if (!UserDirectory.updateUser(user)) {
+                JOptionPane.showMessageDialog(this, "Reset failed", "WARNING", JOptionPane.ERROR_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "New password set for this user.",
+                        "RESET PASSWORD", JOptionPane.INFORMATION_MESSAGE);
+                return true;
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Error on SQL actions: \n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
         }
         return false;
     }
@@ -145,18 +160,22 @@ public class ManageAccountPanel extends JPanel {
                 JOptionPane.showMessageDialog(this, "Password should be in the form of at least 6 letters and \nincluding numbers, Lowercase and Uppercase.", "WARNING", JOptionPane.WARNING_MESSAGE);
                 return false;
             }
-            if (!(user.resetPasswd(old, newpw) ? UserDirectory.updateUser(user) : false)) {
-                JOptionPane.showMessageDialog(this, "Reset failed", "WARNING", JOptionPane.ERROR_MESSAGE);
-            } else {
-                if (this.adminEditMode) {
-                    JOptionPane.showMessageDialog(this, "New password set for this user.",
-                            "RESET PASSWORD", JOptionPane.INFORMATION_MESSAGE);
+            try {
+                if (!(user.resetPasswd(old, newpw) ? UserDirectory.updateUser(user) : false)) {
+                    JOptionPane.showMessageDialog(this, "Reset failed", "WARNING", JOptionPane.ERROR_MESSAGE);
                 } else {
-                    JOptionPane.showMessageDialog(this, "New password set, you have to "
-                            + "log out due to safety reasons.",
-                            "RESET PASSWORD", JOptionPane.INFORMATION_MESSAGE);
+                    if (this.adminEditMode) {
+                        JOptionPane.showMessageDialog(this, "New password set for this user.",
+                                "RESET PASSWORD", JOptionPane.INFORMATION_MESSAGE);
+                    } else {
+                        JOptionPane.showMessageDialog(this, "New password set, you have to "
+                                + "log out due to safety reasons.",
+                                "RESET PASSWORD", JOptionPane.INFORMATION_MESSAGE);
+                    }
+                    return true;
                 }
-                return true;
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(this, "Error on SQL actions: \n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
             }
         } else {
             JOptionPane.showMessageDialog(this, "Wrong old password", "Security", JOptionPane.ERROR_MESSAGE);
@@ -168,27 +187,32 @@ public class ManageAccountPanel extends JPanel {
         if (this.btnEditSave.getText().equals("Save")) {//Save
             String uname = txtUsername.getText();
             String oldname = user.getUsername();
-            if (Validator.IsEmpty(uname) || uname.equals(oldname)) {
-                txtUsername.setText(oldname);
-            } else if (!Validator.IsUsername(uname)) {
-                JOptionPane.showMessageDialog(this, "Username should be in the form of Words and Numbers.", "WARNING", JOptionPane.WARNING_MESSAGE);
-            } else if (UserDirectory.checkUsernameExistance(uname)) {
-                JOptionPane.showMessageDialog(this, "Username used by other people.", "WARNING", JOptionPane.WARNING_MESSAGE);
-            } else if (rootEditMode && !uname.toLowerCase().contains("admin")) {
-                JOptionPane.showMessageDialog(this, "Administrators' username should contain string \"admin\".", "WARNING", JOptionPane.WARNING_MESSAGE);
-            } else {
-
-                user.setUsername(uname);
-                if (UserDirectory.updateUser(user)) {
-                    JOptionPane.showMessageDialog(this, "Username changed.", "INFORMATION", JOptionPane.INFORMATION_MESSAGE);
+            try {
+                if (Validator.IsEmpty(uname) || uname.equals(oldname)) {
+                    txtUsername.setText(oldname);
+                } else if (!Validator.IsUsername(uname)) {
+                    JOptionPane.showMessageDialog(this, "Username should be in the form of Words and Numbers.", "WARNING", JOptionPane.WARNING_MESSAGE);
+                } else if (UserDirectory.checkUsernameExistance(uname)) {
+                    JOptionPane.showMessageDialog(this, "Username used by other people.", "WARNING", JOptionPane.WARNING_MESSAGE);
+                } else if (rootEditMode && !uname.toLowerCase().contains("admin")) {
+                    JOptionPane.showMessageDialog(this, "Administrators' username should contain string \"admin\".", "WARNING", JOptionPane.WARNING_MESSAGE);
                 } else {
-                    user.setUsername(oldname);
-                    JOptionPane.showMessageDialog(this, "Failed to change Username.", "ERROR", JOptionPane.ERROR_MESSAGE);
+
+                    user.setUsername(uname);
+                    if (UserDirectory.updateUser(user)) {
+                        JOptionPane.showMessageDialog(this, "Username changed.", "INFORMATION", JOptionPane.INFORMATION_MESSAGE);
+                    } else {
+                        user.setUsername(oldname);
+                        JOptionPane.showMessageDialog(this, "Failed to change Username.", "ERROR", JOptionPane.ERROR_MESSAGE);
+                    }
                 }
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(this, "Error on SQL actions: \n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
+            } finally {
+                fillTxt();
+                this.txtUsername.setEditable(false);
+                this.btnEditSave.setText("Edit");
             }
-            fillTxt();
-            this.txtUsername.setEditable(false);
-            this.btnEditSave.setText("Edit");
         } else {//Edit
             if (Validator.IsAdminUser(user.getUsername()) && !rootEditMode) {
                 JOptionPane.showMessageDialog(this, "You cannot edit administrators' usernames.", "WARNING", JOptionPane.WARNING_MESSAGE);
@@ -521,10 +545,14 @@ public class ManageAccountPanel extends JPanel {
         } else {
             user.setFirstName(fName);
             user.setLastName(lName);
-            if (UserDirectory.updateUser(user)) {
-                JOptionPane.showMessageDialog(this, "Information changed.", "INFORMATION", JOptionPane.INFORMATION_MESSAGE);
-            } else {
-                JOptionPane.showMessageDialog(this, "Failed to change information.", "ERROR", JOptionPane.ERROR_MESSAGE);
+            try {
+                if (UserDirectory.updateUser(user)) {
+                    JOptionPane.showMessageDialog(this, "Information changed.", "INFORMATION", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Failed to change information.", "ERROR", JOptionPane.ERROR_MESSAGE);
+                }
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(this, "Error on SQL actions: \n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
             }
         }
     }//GEN-LAST:event_btnOkBasicActionPerformed
@@ -537,29 +565,43 @@ public class ManageAccountPanel extends JPanel {
             this.txtCompany.setEditable(true);
             this.btnCompanySave.setText("Save");
         } else {//save
-            String newname = this.txtCompany.getText();
-            if (Validator.IsEmpty(newname)) {
-                JOptionPane.showMessageDialog(this, "Company name should not be empty!", "WARNING", JOptionPane.WARNING_MESSAGE);
-            } else if (CompanyDirectory.checkCompanyExistance(newname)) {
-                JOptionPane.showMessageDialog(this, "Company name should not be empty!", "WARNING", JOptionPane.WARNING_MESSAGE);
-            } else {
-                Company c = CompanyDirectory.getCompany(this.companyOldName);
-                if (c != null) {
-                    c.setCompanyName(newname);
-                    if (CompanyDirectory.updateCompany(c)) {
-                        JOptionPane.showMessageDialog(this, "Name Changed.", "INFORMATION", JOptionPane.INFORMATION_MESSAGE);
-                        companyOldName = newname;
-                    } else {
-                        JOptionPane.showMessageDialog(this, "Failed to change this company's!", "ERROR", JOptionPane.ERROR_MESSAGE);
-                    }
+            try {
+                String newname = this.txtCompany.getText();
+                if (Validator.IsEmpty(newname)) {
+                    JOptionPane.showMessageDialog(this, "Company name should not be empty!", "WARNING", JOptionPane.WARNING_MESSAGE);
+                } else if (CompanyDirectory.checkCompanyExistance(newname)) {
+                    JOptionPane.showMessageDialog(this, "This Company name is Used!", "WARNING", JOptionPane.WARNING_MESSAGE);
                 } else {
-                    JOptionPane.showMessageDialog(this, "Failed to get this company's information!", "ERROR", JOptionPane.ERROR_MESSAGE);
+                    Company c = CompanyDirectory.getCompany(this.companyOldName);
+                    if (c != null) {
+                        c.setCompanyName(newname);
+                        if (CompanyDirectory.updateCompany(c)) {
+                            companyOldName = newname;
+                            JOptionPane.showMessageDialog(this, "Company Name Changed.", "INFORMATION", JOptionPane.INFORMATION_MESSAGE);
+                            User updatedUser = UserDirectory.getUser(user.getUsername());
+                            if (updatedUser != null) {
+                                this.user = updatedUser;
+                                fillTxt();
+                            } else {
+                                goBack();
+                                refreshLast();
+                                return;
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(this, "Failed to change this company's!", "ERROR", JOptionPane.ERROR_MESSAGE);
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Failed to get this company's information!", "ERROR", JOptionPane.ERROR_MESSAGE);
+                    }
                 }
-            }
+            } catch (SQLException e) {
 
-            this.txtCompany.setText(companyOldName);
-            this.txtCompany.setEditable(true);
-            this.btnCompanySave.setText("Edit");
+            } finally {
+
+                this.txtCompany.setText(companyOldName);
+                this.txtCompany.setEditable(false);
+                this.btnCompanySave.setText("Edit");
+            }
         }
     }//GEN-LAST:event_btnCompanySaveActionPerformed
 

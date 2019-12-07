@@ -10,6 +10,7 @@ import com.thursday.business.Company;
 import com.thursday.business.UserDirectory;
 import com.thursday.business.identities.User;
 import java.awt.CardLayout;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -35,19 +36,24 @@ public class RootJPanel extends javax.swing.JPanel {
     private void populateTable() {
         DefaultTableModel dtm = (DefaultTableModel) compListTbl.getModel();
         dtm.setRowCount(0);
-        for (Company comp : CompanyDirectory.getAllCompanies()) {
-            if (comp.getAdminUser().equals("root")) {
-                continue;
+        try {
+            for (Company comp : CompanyDirectory.getAllCompanies()) {
+                if (comp.getAdminUser().equals("root")) {
+                    continue;
+                }
+
+                Object[] row = new Object[3];
+
+                row[0] = comp;
+                row[1] = comp.getAdminUser();
+                row[2] = comp.getType();
+
+                dtm.addRow(row);
             }
-
-            Object[] row = new Object[3];
-
-            row[0] = comp;
-            row[1] = comp.getAdminUser();
-            row[2] = comp.getType();
-
-            dtm.addRow(row);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Error on SQL actions: \n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
         }
+
     }
 
     public void refreshTable() {
@@ -98,6 +104,11 @@ public class RootJPanel extends javax.swing.JPanel {
         jScrollPane1.setViewportView(compListTbl);
 
         dltBtn.setText("-Delete");
+        dltBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dltBtnActionPerformed(evt);
+            }
+        });
 
         updatBtn.setText("Update");
         updatBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -154,17 +165,50 @@ public class RootJPanel extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Please select a row from table first", "Warning", JOptionPane.WARNING_MESSAGE);
         } else {
             Company comp = (Company) compListTbl.getValueAt(selectedRow, 0);
-            User input = UserDirectory.getUser(comp.getAdminUser());
-            if (input != null) {
-                JPanel panel = new ManageAccountPanel(rightPanel, comp.getCompanyName(), input);
-                rightPanel.add("ManageAccountPanel", panel);
-                CardLayout layout = (CardLayout) rightPanel.getLayout();
-                layout.next(rightPanel);
-            } else {
-                JOptionPane.showMessageDialog(null, "Failed to load information!", "Error", JOptionPane.ERROR_MESSAGE);
+            try {
+                User input = UserDirectory.getUser(comp.getAdminUser());
+                if (input != null) {
+                    JPanel panel = new ManageAccountPanel(rightPanel, comp.getCompanyName(), input);
+                    rightPanel.add("ManageAccountPanel", panel);
+                    CardLayout layout = (CardLayout) rightPanel.getLayout();
+                    layout.next(rightPanel);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Failed to load information!", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(this, "Error on SQL actions: \n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
             }
         }
     }//GEN-LAST:event_updatBtnActionPerformed
+
+    private void dltBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dltBtnActionPerformed
+        // TODO add your handling code here:
+        int index = compListTbl.getSelectedRow();
+        if (index != -1) {
+            if (JOptionPane.showConfirmDialog(this, "Are you sure to delete this user?",
+                    "Company Management",
+                    JOptionPane.YES_NO_OPTION) == JOptionPane.NO_OPTION) {
+                return;
+            }
+            Company comp = (Company) compListTbl.getValueAt(index, 0);
+            try {
+                if (CompanyDirectory.deleteCompany(comp)) {
+                    JOptionPane.showMessageDialog(this, "Delete succeed!",
+                            "Company Management", JOptionPane.INFORMATION_MESSAGE);
+
+                } else {
+                    JOptionPane.showMessageDialog(this, "Failed to delete!",
+                            "Company Management", JOptionPane.ERROR_MESSAGE);
+                }
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(this, "Error on SQL actions: \n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
+            }
+            this.populateTable();
+        } else {
+            JOptionPane.showMessageDialog(this, "Please select a row",
+                    "Company Management", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_dltBtnActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

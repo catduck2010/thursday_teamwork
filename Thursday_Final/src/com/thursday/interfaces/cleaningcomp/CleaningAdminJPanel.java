@@ -16,6 +16,7 @@ import com.thursday.business.workflow.ViewTaskCompany;
 
 import com.thursday.business.workflow.WorkRequest;
 import java.awt.CardLayout;
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
@@ -31,53 +32,60 @@ public class CleaningAdminJPanel extends javax.swing.JPanel {
      */
     private JPanel rightPanel;
     private User admin;
+
     public CleaningAdminJPanel(JPanel rightPanel, User admin) {
         this.rightPanel = rightPanel;
         this.admin = admin;
         initComponents();
         populateRequestTable();
         populateSendTable();
-        
+
     }
-public void populateRequestTable(){
-        DefaultTableModel dtm = (DefaultTableModel)tblRequest.getModel();
+
+    public void populateRequestTable() {
+        DefaultTableModel dtm = (DefaultTableModel) tblRequest.getModel();
         dtm.setRowCount(0);
-        
-        
-        for( WorkRequest wr : WorkFlow.getReceivedRequest(admin.getUsername())){
-            
-            
-            Object row[] = new Object [5];
-            
-            row[0] = wr.getIsRead()? (char)8730:" ";
-            row[1] = wr.getTaskId();
-            row[2] = wr;
-            row[3] = wr.getMessage();
-            row[4] = wr.getSender();
-            
-            
-            dtm.addRow(row);
+
+        try {
+            for (WorkRequest wr : WorkFlow.getReceivedRequest(admin.getUsername())) {
+
+                Object row[] = new Object[5];
+
+                row[0] = wr.getIsRead() ? (char) 8730 : " ";
+                row[1] = wr.getTaskId();
+                row[2] = wr;
+                row[3] = wr.getMessage();
+                row[4] = wr.getSender();
+
+                dtm.addRow(row);
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Error on SQL actions: \n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
     }
-    }
-public void populateSendTable(){
-        DefaultTableModel dtm = (DefaultTableModel)tblSend.getModel();
+
+    public void populateSendTable() {
+        DefaultTableModel dtm = (DefaultTableModel) tblSend.getModel();
         dtm.setRowCount(0);
-        
-        for( WorkRequest wr : WorkFlow.getSentRequest(admin.getUsername())){
-            
-            Object row[] = new Object [5];
-            
-            row[0] = wr.getIsRead()? (char)8730:" ";
-            row[1] = wr.getTaskId();
-            row[2] = wr;
-            row[3] = wr.getMessage();
-            row[4] = wr.getReceiver();
-            
-            
-            dtm.addRow(row);
+        try {
+            for (WorkRequest wr : WorkFlow.getSentRequest(admin.getUsername())) {
+
+                Object row[] = new Object[5];
+
+                row[0] = wr.getIsRead() ? (char) 8730 : " ";
+                row[1] = wr.getTaskId();
+                row[2] = wr;
+                row[3] = wr.getMessage();
+                row[4] = wr.getReceiver();
+
+                dtm.addRow(row);
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Error on SQL actions: \n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
     }
-    }
-/*public void asRead(){
+
+    /*public void asRead(){
     
      int selectedRow = tblRequest.getSelectedRow();
         if (selectedRow >= 0) {
@@ -98,89 +106,104 @@ public void populateSendTable(){
         }    
 
     }*/
-public void SendCleaningRequest(){
-     boolean validation = true;
-     int selectedRow = tblRequest.getSelectedRow();
-        if (selectedRow >= 0) {
-            WorkRequest wr = (WorkRequest)tblRequest.getValueAt(selectedRow, 2);
-            
-            for( User u : UserDirectory.getCompanyStaff(admin.getCompanyName())){
-            
-            if(u.getRole().equals(CleaningCompUser.Roles.CLEANER) && wr.getSender().equals(u.getUsername())){
-              validation =false;
-              break;
-            }
-        }
-            
-            if (wr.getIsRead()) {
-                JOptionPane.showMessageDialog(null, "You already assign this task!");
-                return;
-            }
-            else if(validation == false){
-                JOptionPane.showMessageDialog(null, "please select request from apartment admin!");
-            }
-            else{
-            
-            populateRequestTable();
-            AssignCleaningTaskJPanel assignCleaningTaskJPanel = new AssignCleaningTaskJPanel(rightPanel,wr,admin);
-            CardLayout layout = (CardLayout) rightPanel.getLayout();
-            rightPanel.add("AssignCleaningTaskJPanel", assignCleaningTaskJPanel);
-            layout.next(rightPanel);
-            }
-        }
-        else 
-            JOptionPane.showMessageDialog(null, "Please select any row");
-}
-public void SendBack(){
-     
-        boolean validation = false;
+    public void SendCleaningRequest() {
+        boolean validation = true;
         int selectedRow = tblRequest.getSelectedRow();
         if (selectedRow >= 0) {
             WorkRequest wr = (WorkRequest) tblRequest.getValueAt(selectedRow, 2);
-            for( User u : UserDirectory.getCompanyStaff(admin.getCompanyName())){
-            
-            if(u.getRole().equals(CleaningCompUser.Roles.CLEANER) && wr.getSender().equals(u.getUsername())){
-              validation =true;
-              break;
-            }
-        }
-             if(validation == false){
-                JOptionPane.showMessageDialog(null, "please select request from cleaner!");
-            }
-            else{
-            int selectionButton = JOptionPane.YES_NO_OPTION;
-            int selectionResult = JOptionPane.showConfirmDialog(null, "Are you sure you want to send the feedback?", "Warning", selectionButton);
-            if (selectionResult == JOptionPane.YES_OPTION) {
-                String companyName = new String();
-                String adminusername = new String();
-                for(Task t : WorkFlow.getAllTasks()){
-                    if(t.getId() == wr.getTaskId()){
-                        for(ViewTaskCompany vtc : WorkFlow.getTaskCompany())
-                        {
-                            if(vtc.getTaskId() == t.getId()){
-                                companyName = vtc.getCompany(); 
-                            }
-                            
-                        }
-                    }
-                }
-                for(Company c : CompanyDirectory.getApartments()){
-                    if(c.getCompanyName().equals(companyName)){
-                        adminusername = c.getAdminUser();
+            try {
+                for (User u : UserDirectory.getCompanyStaff(admin.getCompanyName())) {
+
+                    if (u.getRole().equals(CleaningCompUser.Roles.CLEANER) && wr.getSender().equals(u.getUsername())) {
+                        validation = false;
                         break;
                     }
                 }
-                WorkFlow.markAsRead(wr);
-                WorkFlow.createRequest(wr.getTaskId(), wr.getTitle(), wr.getMessage(), admin.getUsername(), adminusername);
-                JOptionPane.showMessageDialog(null, "Send Back Successfully!");
-                populateRequestTable();
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(this, "Error on SQL actions: \n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
             }
+
+            if (wr.getIsRead()) {
+                JOptionPane.showMessageDialog(null, "You already assign this task!");
+                return;
+            } else if (validation == false) {
+                JOptionPane.showMessageDialog(null, "please select request from apartment admin!");
+            } else {
+
+                populateRequestTable();
+                AssignCleaningTaskJPanel assignCleaningTaskJPanel = new AssignCleaningTaskJPanel(rightPanel, wr, admin);
+                CardLayout layout = (CardLayout) rightPanel.getLayout();
+                rightPanel.add("AssignCleaningTaskJPanel", assignCleaningTaskJPanel);
+                layout.next(rightPanel);
             }
         } else {
             JOptionPane.showMessageDialog(null, "Please select any row");
         }
-    
-}
+    }
+
+    public void SendBack() {
+
+        boolean validation = false;
+        int selectedRow = tblRequest.getSelectedRow();
+        if (selectedRow >= 0) {
+            WorkRequest wr = (WorkRequest) tblRequest.getValueAt(selectedRow, 2);
+            if(wr.getIsRead()){
+                JOptionPane.showMessageDialog(null, "You already sent this task back!");
+                return;
+            }
+            try {
+                for (User u : UserDirectory.getCompanyStaff(admin.getCompanyName())) {
+
+                    if (u.getRole().equals(CleaningCompUser.Roles.CLEANER) && wr.getSender().equals(u.getUsername())) {
+                        validation = true;
+                        break;
+                    }
+                }
+
+                if (validation == false) {
+                    JOptionPane.showMessageDialog(null, "please select request from cleaner!");
+                } else {
+                    int selectionButton = JOptionPane.YES_NO_OPTION;
+                    int selectionResult = JOptionPane.showConfirmDialog(null, "Are you sure you want to send the feedback?", "Warning", selectionButton);
+                    if (selectionResult == JOptionPane.YES_OPTION) {
+                        String companyName = new String();
+                        String adminusername = new String();
+                        for (Task t : WorkFlow.getAllTasks()) {
+                            if (t.getId() == wr.getTaskId()) {
+                                for (ViewTaskCompany vtc : WorkFlow.getTaskCompany()) {
+                                    if (vtc.getTaskId() == t.getId()) {
+                                        companyName = vtc.getCompany();
+                                    }
+
+                                }
+                            }
+                        }
+                        for (Company c : CompanyDirectory.getApartments()) {
+                            if (c.getCompanyName().equals(companyName)) {
+                                adminusername = c.getAdminUser();
+                                break;
+                            }
+                        }
+                        WorkFlow.markAsRead(wr);
+                        if(WorkFlow.createRequest(wr.getTaskId(), wr.getTitle(), wr.getMessage(), admin.getUsername(), adminusername)){
+                            JOptionPane.showMessageDialog(null, "Send Back Successfully!");
+                        }else{
+                            JOptionPane.showMessageDialog(null, "Send Back Failed!");
+                        }
+
+                        
+                        populateRequestTable();
+                    }
+                }
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(this, "Error on SQL actions: \n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Please select any row");
+        }
+
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

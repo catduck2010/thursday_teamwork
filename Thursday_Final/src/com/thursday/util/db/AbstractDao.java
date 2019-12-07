@@ -31,12 +31,12 @@ public abstract class AbstractDao {
      *
      * @return
      */
-    public Connection getConnection() {
+    public Connection getConnection() throws SQLException{
         conn = connect(db);
         return conn;
     }
 
-    private Connection connect() {
+    private Connection connect() throws SQLException{
         Connection conn = null;
         String jdbcURL = "jdbc:mysql://" + DBInfo.IP + ":" + DBInfo.PORT + "/"
                 + DBInfo.DBNAME + "?useUnicode=true&characterEncoding=UTF8";
@@ -47,12 +47,12 @@ public abstract class AbstractDao {
             conn = DriverManager.getConnection(jdbcURL,
                     DBInfo.USER, DBInfo.PASSWD);
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw e;
         }
         return conn;
     }
 
-    private Connection connect(String db) {
+    private Connection connect(String db) throws SQLException{
         Connection conn = null;
         String jdbcURL = "jdbc:mysql://" + DBInfo.IP + ":" + DBInfo.PORT + "/"
                 + db + "?useUnicode=true&characterEncoding=UTF8&useSSL=false";
@@ -63,7 +63,7 @@ public abstract class AbstractDao {
             conn = DriverManager.getConnection(jdbcURL,
                     DBInfo.USER, DBInfo.PASSWD);
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw e;
         }
         return conn;
     }
@@ -77,8 +77,9 @@ public abstract class AbstractDao {
      *
      * @param sql
      * @return
+     * @throws java.sql.SQLException
      */
-    public boolean update(String sql, Object[] params) {
+    public boolean update(String sql, Object[] params) throws SQLException {
         boolean flag = false;
         try {
             conn = getConnection();
@@ -88,14 +89,14 @@ public abstract class AbstractDao {
                 flag = true;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw e;
         } finally {
             DbUtils.closeQuietly(conn);
         }
         return flag;
     }
 
-    public boolean commit(String sqls[], Object[][] params) {
+    public boolean commit(String sqls[], Object[][] params) throws SQLException {
         boolean flag = false;
         try {
             conn = getConnection();
@@ -108,8 +109,8 @@ public abstract class AbstractDao {
             DbUtils.commitAndCloseQuietly(conn);
             flag = true;
         } catch (SQLException e) {
-            e.printStackTrace();
             DbUtils.rollbackAndCloseQuietly(conn);
+            throw e;
         }
         return flag;
     }
@@ -121,7 +122,7 @@ public abstract class AbstractDao {
      * @param theClass
      * @return
      */
-    public List query(String sql, Class theClass) {
+    public List query(String sql, Class theClass) throws SQLException {
         List beans = null;
         try {
             conn = getConnection();
@@ -132,7 +133,7 @@ public abstract class AbstractDao {
             //BeanListHandler处理了从ResultSet中获取数据，封装对象并存入List集合
             //源码同样需要用到ResultSet
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw e;
         } finally {
             DbUtils.closeQuietly(conn);
         }
@@ -146,7 +147,7 @@ public abstract class AbstractDao {
      * @param theClass
      * @return
      */
-    public List query(String sql, Class theClass, Object[] params) {
+    public List query(String sql, Class theClass, Object[] params) throws SQLException {
         List beans = null;
         try {
             conn = getConnection();
@@ -156,7 +157,7 @@ public abstract class AbstractDao {
             //BeanListHandler处理了从ResultSet中获取数据，封装对象并存入List集合
             //源码同样需要用到ResultSet
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw e;
         } finally {
             DbUtils.closeQuietly(conn);
         }
@@ -170,7 +171,7 @@ public abstract class AbstractDao {
      * @param theClass
      * @return
      */
-    public Object get(String sql, Class theClass) {
+    public Object get(String sql, Class theClass) throws SQLException {
         Object obj = null;
 
         try {
@@ -180,7 +181,7 @@ public abstract class AbstractDao {
                     sql,
                     new BeanHandler(theClass));
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw e;
         } finally {
             DbUtils.closeQuietly(conn);
         }
@@ -194,7 +195,7 @@ public abstract class AbstractDao {
      * @param theClass
      * @return
      */
-    public Object get(String sql, Class theClass, Object[] params) {
+    public Object get(String sql, Class theClass, Object[] params) throws SQLException {
         Object obj = null;
         try {
             conn = getConnection();
@@ -203,7 +204,7 @@ public abstract class AbstractDao {
                     sql,
                     new BeanHandler(theClass), params);
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw e;
         } finally {
             DbUtils.closeQuietly(conn);
         }

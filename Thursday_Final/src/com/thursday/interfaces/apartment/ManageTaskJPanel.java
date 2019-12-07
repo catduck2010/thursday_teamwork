@@ -5,7 +5,6 @@
  */
 package com.thursday.interfaces.apartment;
 
-
 import com.thursday.business.CompanyDirectory;
 import javax.swing.table.DefaultTableModel;
 import com.thursday.business.WorkFlow;
@@ -20,9 +19,11 @@ import com.thursday.business.workflow.Task;
 import com.thursday.business.workflow.ViewTaskCompany;
 import com.thursday.business.workflow.WorkRequest;
 import java.awt.CardLayout;
+import java.sql.SQLException;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+
 public class ManageTaskJPanel extends javax.swing.JPanel {
 
     /**
@@ -30,190 +31,211 @@ public class ManageTaskJPanel extends javax.swing.JPanel {
      */
     private JPanel rightPanel;
     private User admin;
+
     public ManageTaskJPanel(JPanel rightPanel, User admin) {
         this.rightPanel = rightPanel;
         this.admin = admin;
-        initComponents(); 
+        initComponents();
         loadComboBox();
         populateTable();
         populateRequestTable();
         populateSendTable();
     }
-    public void loadComboBox(){
+
+    public void loadComboBox() {
         comboBoxCc.removeAllItems();
-        for(Company c: CompanyDirectory.getCleaningCompanies()){
-            comboBoxCc.addItem(c);
+        try {
+            for (Company c : CompanyDirectory.getCleaningCompanies()) {
+                comboBoxCc.addItem(c);
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Error on SQL actions: \n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
         }
     }
-    public void populateTable(){
-        
-        DefaultTableModel dtm = (DefaultTableModel)tblTask.getModel();
+
+    public void populateTable() {
+
+        DefaultTableModel dtm = (DefaultTableModel) tblTask.getModel();
         dtm.setRowCount(0);
-        
-        
-        for( ViewTaskCompany vtc : WorkFlow.getTaskCompany()){
-            
-            if(vtc.getCompany().equals(admin.getCompanyName())){
-                for(Task t : WorkFlow.getAllTasks()){
-                    if(t.getId() == vtc.getTaskId()){
-                    Object row[] = new Object [6];
-                    row[0] = t.getId();
-                    row[1] = t;
-                    row[2] = t.getMessage();
-                    row[3] = t.getCreator();
-                    row[4] = t.getCreateTime();
-                    row[5] = t.getStatus();
-                    dtm.addRow(row);
+
+        try {
+            for (ViewTaskCompany vtc : WorkFlow.getTaskCompany()) {
+                if (vtc.getCompany().equals(admin.getCompanyName())) {
+                    for (Task t : WorkFlow.getAllTasks()) {
+                        if (t.getId() == vtc.getTaskId()) {
+                            Object row[] = new Object[6];
+                            row[0] = t.getId();
+                            row[1] = t;
+                            row[2] = t.getMessage();
+                            row[3] = t.getCreator();
+                            row[4] = t.getCreateTime();
+                            row[5] = t.getStatus();
+                            dtm.addRow(row);
+                        }
                     }
                 }
+
             }
-            
-        
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Error on SQL actions: \n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
         }
-        
+
     }
-    public void populateRequestTable(){
-        DefaultTableModel dtm = (DefaultTableModel)tblRequest.getModel();
+
+    public void populateRequestTable() {
+        DefaultTableModel dtm = (DefaultTableModel) tblRequest.getModel();
         dtm.setRowCount(0);
-        
-        
-        for( WorkRequest wr : WorkFlow.getReceivedRequest(admin.getUsername())){
-            
-            
-            Object row[] = new Object [5];
-            
-            row[0] = wr.getIsRead()? (char)8730:" ";
-            row[1] = wr.getTaskId();
-            row[2] = wr;
-            row[3] = wr.getMessage();
-            row[4] = wr.getSender();
-            
-            
-            dtm.addRow(row);
+        try {
+            for (WorkRequest wr : WorkFlow.getReceivedRequest(admin.getUsername())) {
+
+                Object row[] = new Object[5];
+
+                row[0] = wr.getIsRead() ? (char) 8730 : " ";
+                row[1] = wr.getTaskId();
+                row[2] = wr;
+                row[3] = wr.getMessage();
+                row[4] = wr.getSender();
+
+                dtm.addRow(row);
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Error on SQL actions: \n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
     }
-    }
-    public void populateSendTable(){
-        DefaultTableModel dtm = (DefaultTableModel)tblSend.getModel();
+
+    public void populateSendTable() {
+        DefaultTableModel dtm = (DefaultTableModel) tblSend.getModel();
         dtm.setRowCount(0);
-        
-        for( WorkRequest wr : WorkFlow.getSentRequest(admin.getUsername())){
-            
-            Object row[] = new Object [5];
-            
-            row[0] = wr.getIsRead()? (char)8730:" ";
-            row[1] = wr.getTaskId();
-            row[2] = wr;
-            row[3] = wr.getMessage();
-            row[4] = wr.getReceiver();
-            
-            
-            dtm.addRow(row);
+        try {
+            for (WorkRequest wr : WorkFlow.getSentRequest(admin.getUsername())) {
+
+                Object row[] = new Object[5];
+
+                row[0] = wr.getIsRead() ? (char) 8730 : " ";
+                row[1] = wr.getTaskId();
+                row[2] = wr;
+                row[3] = wr.getMessage();
+                row[4] = wr.getReceiver();
+
+                dtm.addRow(row);
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Error on SQL actions: \n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
     }
-    }
-    public void setStatus(){
+
+    public void setStatus() {
         int selectedRow = tblTask.getSelectedRow();
-        String status =Task.Status.PENDING;
+        String status = Task.Status.PENDING;
         if (selectedRow >= 0) {
-            
-            Task task = (Task)tblTask.getValueAt(selectedRow, 1);
-            if(task.getTitle().indexOf("Cleaning") == -1){
+
+            Task task = (Task) tblTask.getValueAt(selectedRow, 1);
+            if (task.getTitle().indexOf("Cleaning") == -1) {
                 JOptionPane.showMessageDialog(null, "Repair task can change status automatically");
                 return;
             }
-            if(task.getStatus().equals(Task.Status.PENDING)){
-                
+            if (task.getStatus().equals(Task.Status.PENDING)) {
+
                 JOptionPane.showMessageDialog(null, "Please assign this task first");
                 return;
             }
-            if(task.getStatus().equals(Task.Status.WAIT_FOR_RESPONSE)){
+            if (task.getStatus().equals(Task.Status.WAIT_FOR_RESPONSE)) {
                 status = Task.Status.WORKING;
             }
-            if(task.getStatus().equals(Task.Status.WORKING)){
+            if (task.getStatus().equals(Task.Status.WORKING)) {
                 status = Task.Status.FINISHED;
             }
-            if(task.getStatus().equals(Task.Status.FINISHED)){
-                 JOptionPane.showMessageDialog(null, "The task already finished!");
-                 return;
-            }
-            int selectionButton = JOptionPane.YES_NO_OPTION;
-            int selectionResult = JOptionPane.showConfirmDialog(null, "Are you sure you want to change task status?","Warning",selectionButton);
-            if(selectionResult == JOptionPane.YES_OPTION){
-            task.setStatus(status);
-            WorkFlow.updateTask(task);
-            populateTable();
-                
-            }  
-            
-            }
-        
-        else {
-            JOptionPane.showMessageDialog(null, "Please select any row");
-        }
-        
-    }
-    public void asRead(){
-    
-     int selectedRow = tblRequest.getSelectedRow();
-        if (selectedRow >= 0) {
-            WorkRequest wr = (WorkRequest)tblRequest.getValueAt(selectedRow, 2);
-            if(wr.getIsRead())
-            {
-                JOptionPane.showMessageDialog(null, "Already read!");
+            if (task.getStatus().equals(Task.Status.FINISHED)) {
+                JOptionPane.showMessageDialog(null, "The task already finished!");
                 return;
             }
-            else if (WorkFlow.markAsRead(wr)){
-                JOptionPane.showMessageDialog(null, "Set read successfully.");
+            int selectionButton = JOptionPane.YES_NO_OPTION;
+            int selectionResult = JOptionPane.showConfirmDialog(null, "Are you sure you want to change task status?", "Warning", selectionButton);
+            if (selectionResult == JOptionPane.YES_OPTION) {
+                try {
+                    task.setStatus(status);
+                    WorkFlow.updateTask(task);
+                } catch (SQLException e) {
+                    JOptionPane.showMessageDialog(this, "Error on SQL actions: \n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
+                } finally {
+                    populateTable();
+                }
             }
-            populateRequestTable();
-        }
-        
-        else {
+
+        } else {
             JOptionPane.showMessageDialog(null, "Please select any row");
-        }    
+        }
 
     }
-    public void assignRepair(){
+
+    public void asRead() {
+
+        int selectedRow = tblRequest.getSelectedRow();
+        if (selectedRow >= 0) {
+            try {
+                WorkRequest wr = (WorkRequest) tblRequest.getValueAt(selectedRow, 2);
+                if (wr.getIsRead()) {
+                    JOptionPane.showMessageDialog(null, "Already read!");
+                    return;
+                } else if (WorkFlow.markAsRead(wr)) {
+                    JOptionPane.showMessageDialog(null, "Set read successfully.");
+                }
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(this, "Error on SQL actions: \n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
+            } finally {
+                populateRequestTable();
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Please select any row");
+        }
+
+    }
+
+    public void assignRepair() {
         int selectedRow = tblTask.getSelectedRow();
         if (selectedRow >= 0) {
-            Task task = (Task)tblTask.getValueAt(selectedRow, 1);
-            if(!task.getStatus().equals(Task.Status.PENDING) || task.getTitle().indexOf("Repair") == -1){
-            JOptionPane.showMessageDialog(null, "Please select valid task");
-            return;
+            Task task = (Task) tblTask.getValueAt(selectedRow, 1);
+            if (!task.getStatus().equals(Task.Status.PENDING) || task.getTitle().indexOf("Repair") == -1) {
+                JOptionPane.showMessageDialog(null, "Please select valid task");
+                return;
+            } else {
+                AssignRepairTaskJPanel assignRepairTaskJPanel = new AssignRepairTaskJPanel(rightPanel, task, admin);
+                CardLayout layout = (CardLayout) rightPanel.getLayout();
+                rightPanel.add("AssignRepairTaskJPanel", assignRepairTaskJPanel);
+                layout.next(rightPanel);
             }
-            else{
-            AssignRepairTaskJPanel assignRepairTaskJPanel = new AssignRepairTaskJPanel(rightPanel,task,admin);
-            CardLayout layout = (CardLayout) rightPanel.getLayout();
-            rightPanel.add("AssignRepairTaskJPanel", assignRepairTaskJPanel);
-            layout.next(rightPanel);
-            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Please select any row");
         }
-        else 
-            JOptionPane.showMessageDialog(null, "Please select any row");   
     }
-public void assignCleaning(){
+
+    public void assignCleaning() {
         int selectedRow = tblTask.getSelectedRow();
         if (selectedRow >= 0) {
-            Task task = (Task)tblTask.getValueAt(selectedRow, 1);
-            if(!task.getStatus().equals(Task.Status.PENDING) || task.getTitle().indexOf("Cleaning") == -1){
-            JOptionPane.showMessageDialog(null, "Please select valid task");
-            return;
+            Task task = (Task) tblTask.getValueAt(selectedRow, 1);
+            if (!task.getStatus().equals(Task.Status.PENDING) || task.getTitle().indexOf("Cleaning") == -1) {
+                JOptionPane.showMessageDialog(null, "Please select valid task");
+                return;
+            } else {
+                try {
+                    String status = Task.Status.WAIT_FOR_RESPONSE;
+                    task.setStatus(status);
+                    WorkFlow.updateTask(task);
+                    populateTable();
+
+                    Company c = (Company) comboBoxCc.getSelectedItem();
+                    WorkFlow.createRequest(task.getId(), task.getTitle(), task.getMessage(), admin.getUsername(), c.getAdminUser());
+                    populateSendTable();
+                    JOptionPane.showMessageDialog(null, "Send Cleaning Task Request Successfully!");
+                } catch (SQLException e) {
+                    JOptionPane.showMessageDialog(this, "Error on SQL actions: \n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
+                }
             }
-            else{
-             String status =Task.Status.WAIT_FOR_RESPONSE;  
-             task.setStatus(status);
-             WorkFlow.updateTask(task);
-             populateTable();
-             
-             Company c=(Company) comboBoxCc.getSelectedItem();
-             WorkFlow.createRequest(task.getId(), task.getTitle(), task.getMessage(),admin.getUsername(),c.getAdminUser());
-             populateSendTable();
-             JOptionPane.showMessageDialog(null, "Send Cleaning Task Request Successfully!");
-             
-            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Please select any row");
         }
-        else 
-            JOptionPane.showMessageDialog(null, "Please select any row");   
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

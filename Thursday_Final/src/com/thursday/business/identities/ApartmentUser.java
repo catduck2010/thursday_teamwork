@@ -6,6 +6,7 @@
 package com.thursday.business.identities;
 
 import com.thursday.util.db.UserBiz;
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -30,7 +31,7 @@ public class ApartmentUser extends User {
 
     }
 
-    public static boolean existUsername(String uname) {
+    public static boolean existUsername(String uname) throws SQLException{
         return UserBiz.getUser(uname) != null;
     }
     
