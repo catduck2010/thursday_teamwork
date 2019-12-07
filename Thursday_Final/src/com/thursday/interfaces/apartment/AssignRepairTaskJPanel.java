@@ -69,7 +69,14 @@ public class AssignRepairTaskJPanel extends javax.swing.JPanel {
             User u = (User) tblRepairman.getValueAt(selectedRow, 0);
             WorkFlow.createRequest(task.getId(), task.getTitle(), task.getMessage(), admin.getUsername(), u.getUsername());
             JOptionPane.showMessageDialog(null, "Send Repair Task Request Successfully!");
-        } else {
+            
+            
+            CardLayout layout =(CardLayout)this.rightPanel.getLayout();
+            this.rightPanel.remove(this);
+            layout.previous(this.rightPanel);
+            }
+        
+        else {
             JOptionPane.showMessageDialog(null, "Please select any row");
         }
     }

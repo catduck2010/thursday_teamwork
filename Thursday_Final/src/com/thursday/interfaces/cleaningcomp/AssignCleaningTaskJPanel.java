@@ -63,7 +63,13 @@ public class AssignCleaningTaskJPanel extends javax.swing.JPanel {
             WorkFlow.createRequest(wr.getTaskId(), wr.getTitle(), wr.getMessage(),admin.getUsername(),u.getUsername());
             WorkFlow.markAsRead(wr);
             JOptionPane.showMessageDialog(null, "Send Cleaning Task Request Successfully!");
-        } else {
+            
+            CardLayout layout =(CardLayout)this.rightPanel.getLayout();
+            this.rightPanel.remove(this);
+            layout.previous(this.rightPanel);
+            }
+        
+        else {
             JOptionPane.showMessageDialog(null, "Please select any row");
         }
     }
