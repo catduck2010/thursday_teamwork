@@ -31,6 +31,7 @@ public class MainFrame extends javax.swing.JFrame {
     private CleaningCompUser ccBiz;
     private User loggedUser = null;
     private boolean loggedIn = false;
+    private int loginPressTime = 0;
 
     public MainFrame() {
         initComponents();
@@ -46,6 +47,7 @@ public class MainFrame extends javax.swing.JFrame {
     public void setLoggedIn(boolean b) {
         if (b) {
             this.loginBtn.setText("Logout");
+            this.loginPressTime = 0;
         } else {
             this.loginBtn.setText("Login");
         }
@@ -66,6 +68,10 @@ public class MainFrame extends javax.swing.JFrame {
             rightPanel.remove(i);
         }
         layout.first(rightPanel);
+    }
+    
+    public void resetPressTime(){
+        this.loginPressTime=0;
     }
 
     /**
@@ -154,12 +160,16 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void loginBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginBtnActionPerformed
         // TODO add your handling code here:
+        if (loginPressTime > 0) {
+            return;
+        }
         CardLayout layout = (CardLayout) this.rightPanel.getLayout();
         if (!EcoSystem.isLoggedIn()) {
             LoginJPanel panel = new LoginJPanel(
                     this, apBiz);
             this.rightPanel.add("LoginJPanel", panel);
             layout.next(rightPanel);
+            this.loginPressTime++;
             //loggedIn=true;
         } else {
             if (JOptionPane.showConfirmDialog(this, "Are you sure to \nlog out?", "WARNING",

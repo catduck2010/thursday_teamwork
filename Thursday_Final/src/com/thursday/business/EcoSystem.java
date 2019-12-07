@@ -53,6 +53,10 @@ public class EcoSystem extends AbstractEcoSystem {
     public static void setMainFrame(MainFrame mf) {
         mainFrame = mf;
     }
+    
+    public static void resetPressTime(){
+        mainFrame.resetPressTime();
+    }
 
     public static User getCurrentUser() {
         return currentUser;

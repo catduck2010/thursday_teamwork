@@ -266,6 +266,7 @@ public class LoginJPanel extends javax.swing.JPanel {
         CardLayout layout = (CardLayout) this.rightPanel.getLayout();
         this.rightPanel.remove(this);
         layout.previous(this.rightPanel);
+        EcoSystem.resetPressTime();
     }//GEN-LAST:event_btnGoBackActionPerformed
 
 
