@@ -7,6 +7,8 @@ package com.thursday.interfaces;
 
 import com.thursday.business.CompanyDirectory;
 import com.thursday.business.Company;
+import com.thursday.business.UserDirectory;
+import com.thursday.business.identities.User;
 import java.awt.CardLayout;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -22,39 +24,36 @@ public class RootJPanel extends javax.swing.JPanel {
     /**
      * Creates new form RootJPanel
      */
-    
     private JPanel rightPanel;
- 
-    
-   
+
     public RootJPanel(JPanel rightPanel) {
         initComponents();
         this.rightPanel = rightPanel;
         populateTable();
     }
-    
-    private void populateTable(){
+
+    private void populateTable() {
         DefaultTableModel dtm = (DefaultTableModel) compListTbl.getModel();
         dtm.setRowCount(0);
-        for(Company comp: CompanyDirectory.getAllCompanies()){
-            if(comp.getAdminUser().equals("root")){       
-                    continue;
+        for (Company comp : CompanyDirectory.getAllCompanies()) {
+            if (comp.getAdminUser().equals("root")) {
+                continue;
             }
-            
+
             Object[] row = new Object[3];
-            
+
             row[0] = comp;
             row[1] = comp.getAdminUser();
             row[2] = comp.getType();
-            
+
             dtm.addRow(row);
         }
     }
-    
-    public void refreshTable(){
+
+    public void refreshTable() {
         populateTable();
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -118,11 +117,11 @@ public class RootJPanel extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(updatBtn)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(addBtn)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(dltBtn)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(addBtn)))
+                        .addGap(3, 3, 3)
+                        .addComponent(updatBtn)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -143,7 +142,7 @@ public class RootJPanel extends javax.swing.JPanel {
     private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
         // TODO add your handling code here:
         CreateCompJPanel panel = new CreateCompJPanel(rightPanel);
-        rightPanel.add("CreateCompJPanel",panel);
+        rightPanel.add("CreateCompJPanel", panel);
         CardLayout layout = (CardLayout) rightPanel.getLayout();
         layout.next(rightPanel);
     }//GEN-LAST:event_addBtnActionPerformed
@@ -151,15 +150,19 @@ public class RootJPanel extends javax.swing.JPanel {
     private void updatBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updatBtnActionPerformed
         // TODO add your handling code here:
         int selectedRow = compListTbl.getSelectedRow();
-        if(selectedRow < 0){
-            JOptionPane.showMessageDialog(null,"Please select a row from table first","Warning",JOptionPane.WARNING_MESSAGE);
-        }
-        else{
+        if (selectedRow < 0) {
+            JOptionPane.showMessageDialog(null, "Please select a row from table first", "Warning", JOptionPane.WARNING_MESSAGE);
+        } else {
             Company comp = (Company) compListTbl.getValueAt(selectedRow, 0);
-            UpdateJPanel panel = new UpdateJPanel(rightPanel,comp);
-            rightPanel.add("UpdateJPanel",panel);
-            CardLayout layout = (CardLayout) rightPanel.getLayout();
-            layout.next(rightPanel);
+            User input = UserDirectory.getUser(comp.getAdminUser());
+            if (input != null) {
+                JPanel panel = new ManageAccountPanel(rightPanel, comp.getCompanyName(), input);
+                rightPanel.add("ManageAccountPanel", panel);
+                CardLayout layout = (CardLayout) rightPanel.getLayout();
+                layout.next(rightPanel);
+            } else {
+                JOptionPane.showMessageDialog(null, "Failed to load information!", "Error", JOptionPane.ERROR_MESSAGE);
+            }
         }
     }//GEN-LAST:event_updatBtnActionPerformed
 

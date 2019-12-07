@@ -5,6 +5,8 @@
  */
 package com.thursday.interfaces;
 
+import com.thursday.business.Company;
+import com.thursday.business.CompanyDirectory;
 import com.thursday.business.EcoSystem;
 import com.thursday.business.UserDirectory;
 import com.thursday.business.identities.User;
@@ -28,6 +30,8 @@ public class ManageAccountPanel extends JPanel {
     private final JPanel rightPanel;
     private final User user;
     private boolean adminEditMode = false;
+    private boolean rootEditMode = false;
+    private String companyOldName = "";
     static final String OLDPSWD_HINT = "Old Password";
     static final String NEWPSWD_HINT = "New Password";
     static final String RENEWPSWD_HINT = "Confirm New Password";
@@ -52,6 +56,7 @@ public class ManageAccountPanel extends JPanel {
         setPasswordHint(txtPwNew, NEWPSWD_HINT);
         setPasswordHint(txtPwConfirm, RENEWPSWD_HINT);
         this.btnGoBack.setEnabled(false);
+        this.tabPane.remove(0);
         fillTxt();
     }
 
@@ -59,6 +64,17 @@ public class ManageAccountPanel extends JPanel {
         this(rightPanel, user);
         this.txtPwOld.setEnabled(false);
         this.adminEditMode = true;
+        this.btnGoBack.setEnabled(true);
+        this.tabPane.remove(0);
+    }
+
+    public ManageAccountPanel(JPanel rightPanel, String company, User user) {
+        this(rightPanel, user);
+        this.lblTitle.setText("Manage Company");
+        this.txtCompany.setText(company);
+        this.txtPwOld.setEnabled(false);
+        this.adminEditMode = true;
+        this.rootEditMode = true;
         this.btnGoBack.setEnabled(true);
     }
 
@@ -158,6 +174,8 @@ public class ManageAccountPanel extends JPanel {
                 JOptionPane.showMessageDialog(this, "Username should be in the form of Words and Numbers.", "WARNING", JOptionPane.WARNING_MESSAGE);
             } else if (UserDirectory.checkUsernameExistance(uname)) {
                 JOptionPane.showMessageDialog(this, "Username used by other people.", "WARNING", JOptionPane.WARNING_MESSAGE);
+            } else if (rootEditMode && !uname.toLowerCase().contains("admin")) {
+                JOptionPane.showMessageDialog(this, "Administrators' username should contain string \"admin\".", "WARNING", JOptionPane.WARNING_MESSAGE);
             } else {
 
                 user.setUsername(uname);
@@ -172,7 +190,7 @@ public class ManageAccountPanel extends JPanel {
             this.txtUsername.setEditable(false);
             this.btnEditSave.setText("Edit");
         } else {//Edit
-            if (Validator.IsAdminUser(user.getUsername())) {
+            if (Validator.IsAdminUser(user.getUsername()) && !rootEditMode) {
                 JOptionPane.showMessageDialog(this, "You cannot edit administrators' usernames.", "WARNING", JOptionPane.WARNING_MESSAGE);
                 return;
             }
@@ -199,7 +217,10 @@ public class ManageAccountPanel extends JPanel {
                 ((AdminManageStaffJPanel) comp).refreshTable();
                 return;
             }
-
+            if (comp instanceof RootJPanel) {
+                ((RootJPanel) comp).refreshTable();
+                return;
+            }
         }
     }
 
@@ -215,7 +236,12 @@ public class ManageAccountPanel extends JPanel {
         jTextField3 = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         btnGoBack = new javax.swing.JButton();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
+        tabPane = new javax.swing.JTabbedPane();
+        companyPanel = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        txtCompany = new javax.swing.JTextField();
+        btnCompanySave = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
         basicPanel = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -230,7 +256,7 @@ public class ManageAccountPanel extends JPanel {
         txtPwNew = new javax.swing.JPasswordField();
         txtPwOld = new javax.swing.JPasswordField();
         btnOkPasswd = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
+        lblTitle = new javax.swing.JLabel();
 
         jTextField3.setText("jTextField3");
 
@@ -240,6 +266,62 @@ public class ManageAccountPanel extends JPanel {
                 btnGoBackActionPerformed(evt);
             }
         });
+
+        btnCompanySave.setText("Edit");
+        btnCompanySave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCompanySaveActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setText("Company Name");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(txtCompany, javax.swing.GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnCompanySave))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtCompany, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCompanySave))
+                .addContainerGap(53, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout companyPanelLayout = new javax.swing.GroupLayout(companyPanel);
+        companyPanel.setLayout(companyPanelLayout);
+        companyPanelLayout.setHorizontalGroup(
+            companyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, companyPanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        companyPanelLayout.setVerticalGroup(
+            companyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(companyPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(246, Short.MAX_VALUE))
+        );
+
+        tabPane.addTab("Company Info", companyPanel);
 
         jLabel2.setText("Username");
 
@@ -316,10 +398,10 @@ public class ManageAccountPanel extends JPanel {
                     .addGroup(basicPanelLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(userIconPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(243, Short.MAX_VALUE))
+                .addContainerGap(256, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Basic Information", basicPanel);
+        tabPane.addTab("Basic Information", basicPanel);
 
         btnOkPasswd.setText("OK");
         btnOkPasswd.addActionListener(new java.awt.event.ActionListener() {
@@ -354,12 +436,12 @@ public class ManageAccountPanel extends JPanel {
                 .addComponent(txtPwConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnOkPasswd)
-                .addContainerGap(206, Short.MAX_VALUE))
+                .addContainerGap(219, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Reset Password", securityPanel);
+        tabPane.addTab("Reset Password", securityPanel);
 
-        jLabel1.setText("Manage Account");
+        lblTitle.setText("Manage Account");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -368,11 +450,11 @@ public class ManageAccountPanel extends JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(btnGoBack, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel1)
+                .addComponent(lblTitle)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1))
+                .addComponent(tabPane))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -380,16 +462,16 @@ public class ManageAccountPanel extends JPanel {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnGoBack)
-                    .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 395, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblTitle))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tabPane))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -447,20 +529,59 @@ public class ManageAccountPanel extends JPanel {
         }
     }//GEN-LAST:event_btnOkBasicActionPerformed
 
+    private void btnCompanySaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCompanySaveActionPerformed
+        // TODO add your handling code here:
+        String s = btnCompanySave.getText();
+        if (s.equals("Edit")) {
+            this.companyOldName = this.txtCompany.getText();
+            this.txtCompany.setEditable(true);
+            this.btnCompanySave.setText("Save");
+        } else {//save
+            String newname = this.txtCompany.getText();
+            if (Validator.IsEmpty(newname)) {
+                JOptionPane.showMessageDialog(this, "Company name should not be empty!", "WARNING", JOptionPane.WARNING_MESSAGE);
+            } else if (CompanyDirectory.checkCompanyExistance(newname)) {
+                JOptionPane.showMessageDialog(this, "Company name should not be empty!", "WARNING", JOptionPane.WARNING_MESSAGE);
+            } else {
+                Company c = CompanyDirectory.getCompany(this.companyOldName);
+                if (c != null) {
+                    c.setCompanyName(newname);
+                    if (CompanyDirectory.updateCompany(c)) {
+                        JOptionPane.showMessageDialog(this, "Name Changed.", "INFORMATION", JOptionPane.INFORMATION_MESSAGE);
+                        companyOldName = newname;
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Failed to change this company's!", "ERROR", JOptionPane.ERROR_MESSAGE);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(this, "Failed to get this company's information!", "ERROR", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+
+            this.txtCompany.setText(companyOldName);
+            this.txtCompany.setEditable(true);
+            this.btnCompanySave.setText("Edit");
+        }
+    }//GEN-LAST:event_btnCompanySaveActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel basicPanel;
+    private javax.swing.JButton btnCompanySave;
     private javax.swing.JButton btnEditSave;
     private javax.swing.JButton btnGoBack;
     private javax.swing.JButton btnOkBasic;
     private javax.swing.JButton btnOkPasswd;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel companyPanel;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField jTextField3;
+    private javax.swing.JLabel lblTitle;
     private javax.swing.JPanel securityPanel;
+    private javax.swing.JTabbedPane tabPane;
+    private javax.swing.JTextField txtCompany;
     private javax.swing.JTextField txtFName;
     private javax.swing.JTextField txtLName;
     private javax.swing.JPasswordField txtPwConfirm;
