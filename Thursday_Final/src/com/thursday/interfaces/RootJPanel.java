@@ -40,10 +40,11 @@ public class RootJPanel extends javax.swing.JPanel {
                     continue;
             }
             
-            Object[] row = new Object[2];
+            Object[] row = new Object[3];
             
             row[0] = comp.getCompanyName();
             row[1] = comp.getAdminUser();
+            row[2] = comp.getType();
             
             dtm.addRow(row);
         }
@@ -81,11 +82,11 @@ public class RootJPanel extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Comp. Name", "Admin Name"
+                "Comp. Name", "Admin Name", "Comp. Type"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false
+                false, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
