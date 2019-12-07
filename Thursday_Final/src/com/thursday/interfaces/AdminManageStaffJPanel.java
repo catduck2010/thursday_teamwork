@@ -126,11 +126,11 @@ public class AdminManageStaffJPanel extends javax.swing.JPanel {
 
             },
             new String [] {
-                "ID", "Last Name", "First Name", "Identity", "Entry Date", "Departure Date"
+                "Company", "Username", "First Name", "Last Name", "Role"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -138,14 +138,6 @@ public class AdminManageStaffJPanel extends javax.swing.JPanel {
             }
         });
         jScrollPane1.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setResizable(false);
-            jTable1.getColumnModel().getColumn(1).setResizable(false);
-            jTable1.getColumnModel().getColumn(2).setResizable(false);
-            jTable1.getColumnModel().getColumn(3).setResizable(false);
-            jTable1.getColumnModel().getColumn(4).setResizable(false);
-            jTable1.getColumnModel().getColumn(5).setResizable(false);
-        }
 
         addBtn.setFont(new java.awt.Font("Microsoft JhengHei", 0, 20)); // NOI18N
         addBtn.setText("+Add");
