@@ -24,13 +24,16 @@ public class CompanyDirectory {
         if (getCompany(name) != null) {
             return false;
         }
-        UserDirectory.createApartmentUser(admin, pw, "One", "Administrator", ApartmentUser.Roles.ADMIN);
-        Company c = new Company(name, Company.Type.APARTMENT, admin);
-        if (CompanyBiz.add(c)) {
+        if (UserDirectory.createApartmentUser(admin, pw, "One", "Administrator", ApartmentUser.Roles.ADMIN)) {
+            Company c = new Company(name, Company.Type.APARTMENT, admin);
             User u = UserDirectory.getUser(admin);
-            if (u != null) {
-                u.setCompanyName(name);
-                return UserDirectory.updateUser(u);
+            if (CompanyBiz.add(c)) {
+                if (u != null) {
+                    u.setCompanyName(name);
+                    return UserDirectory.updateUser(u);
+                }
+            } else {
+                UserDirectory.deleteUser(u);
             }
         }
         return false;
@@ -40,13 +43,16 @@ public class CompanyDirectory {
         if (getCompany(name) != null) {
             return false;
         }
-        UserDirectory.createCleaningCompUser(admin, pw, "One", "Administrator", CleaningCompUser.Roles.HR);
-        Company c = new Company(name, Company.Type.CLEANING, admin);
-        if (CompanyBiz.add(c)) {
+        if (UserDirectory.createCleaningCompUser(admin, pw, "One", "Administrator", CleaningCompUser.Roles.HR)) {
+            Company c = new Company(name, Company.Type.CLEANING, admin);
             User u = UserDirectory.getUser(admin);
-            if (u != null) {
-                u.setCompanyName(name);
-                return UserDirectory.updateUser(u);
+            if (CompanyBiz.add(c)) {
+                if (u != null) {
+                    u.setCompanyName(name);
+                    return UserDirectory.updateUser(u);
+                }
+            } else {
+                UserDirectory.deleteUser(u);
             }
         }
         return false;
@@ -66,5 +72,9 @@ public class CompanyDirectory {
 
     public static List<Company> getAllCompanies() {
         return CompanyBiz.getAllCompanies();
+    }
+
+    public static boolean checkCompanyExistance(String name) {
+        return getCompany(name) != null;
     }
 }

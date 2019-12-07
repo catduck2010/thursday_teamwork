@@ -49,8 +49,8 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace pref="145" max="32767" attributes="0"/>
                       <Component id="manageReqBtn" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="127" max="32767" attributes="0"/>
-                      <Component id="manageAccountBtn" min="-2" pref="215" max="-2" attributes="0"/>
+                      <EmptySpace pref="182" max="32767" attributes="0"/>
+                      <Component id="manageAccountBtn" min="-2" pref="160" max="-2" attributes="0"/>
                       <EmptySpace pref="145" max="32767" attributes="0"/>
                   </Group>
               </Group>

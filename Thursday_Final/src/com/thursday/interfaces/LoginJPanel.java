@@ -38,19 +38,15 @@ public class LoginJPanel extends javax.swing.JPanel {
     /**
      * Creates new form LoginJPanel
      */
-    private UserBiz apBiz;
 
-    private final MainFrame mFrame;
     private final JPanel rightPanel;
     //private User user;
     static final String TXTPSWD_HINT = "Password";
     static char defaultChar;
 
-    public LoginJPanel(MainFrame f, UserBiz apBiz) {
+    public LoginJPanel(MainFrame f) {
         initComponents();
-        this.mFrame = f;
         this.rightPanel = f.getRightPanel();
-        this.apBiz = apBiz;
 
         ItemListener il = new ItemListener() {
             @Override

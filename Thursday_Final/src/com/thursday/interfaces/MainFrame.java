@@ -30,15 +30,12 @@ public class MainFrame extends javax.swing.JFrame {
     //private CleaningCompanyList cc;
     private UserBiz apBiz;
     private CleaningCompUser ccBiz;
-    private User loggedUser = null;
-    private boolean loggedIn = false;
     private int loginPressTime = 0;
 
     public MainFrame() {
         EcoSystem.setUIFont();
-        initComponents();
         EcoSystem.setMainFrame(this);
-        
+        initComponents();
         System.out.println(System.getProperty("os.name"));
         this.rightPanel.setLayout(new CardLayout());
         //this.apartment = apartment;
@@ -54,11 +51,6 @@ public class MainFrame extends javax.swing.JFrame {
             this.loginPressTime = 0;
         } else {
             this.loginBtn.setText("Login");
-        }
-        //this.signUpBtn.setEnabled(!b);
-        loggedIn = b;
-        if (!b) {
-            this.loggedUser = null;
         }
     }
 
@@ -168,8 +160,7 @@ public class MainFrame extends javax.swing.JFrame {
         }
         CardLayout layout = (CardLayout) this.rightPanel.getLayout();
         if (!EcoSystem.isLoggedIn()) {
-            LoginJPanel panel = new LoginJPanel(
-                    this, apBiz);
+            LoginJPanel panel = new LoginJPanel(this);
             this.rightPanel.add("LoginJPanel", panel);
             layout.next(rightPanel);
             this.loginPressTime++;
