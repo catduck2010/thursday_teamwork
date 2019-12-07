@@ -11,7 +11,10 @@ import com.thursday.business.identities.User;
 import com.thursday.business.workflow.Task;
 import com.thursday.business.workflow.WorkRequest;
 import java.awt.CardLayout;
+import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
@@ -57,35 +60,44 @@ public class AdminManageStaffJPanel extends javax.swing.JPanel {
     }
 
     private boolean deleteStaff(int tableIndex) {
-        if (tableIndex < 0) {
-            return false;
-        }
-
-        User u = (User) dtm.getValueAt(tableIndex, 1);
-        List<WorkRequest> list = WorkFlow.getReceivedRequest(u.getUsername());
-        for (WorkRequest wr : list) {
-            if (!WorkFlow.getTask(wr.getTaskId()).getStatus().equals(Task.Status.FINISHED)) {
+        try {
+            if (tableIndex < 0) {
                 return false;
             }
+            
+            User u = (User) dtm.getValueAt(tableIndex, 1);
+            List<WorkRequest> list = WorkFlow.getReceivedRequest(u.getUsername());
+            for (WorkRequest wr : list) {
+                if (!WorkFlow.getTask(wr.getTaskId()).getStatus().equals(Task.Status.FINISHED)) {
+                    return false;
+                }
+            }
+            return UserDirectory.deleteUser(u);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Error on SQL actions: \n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
         }
-        return UserDirectory.deleteUser(u);
+        return false;
     }
 
     private void loadTable(String role) {
-        List<User> list = UserDirectory.getCompanyStaff(user.getCompanyName());
-
-        dtm.setRowCount(0);
-
-        for (User u : list) {
-            if (u.getRole().equals(role)) {
-                Object[] row = {
-                    u.getCompanyName(),
-                    u,
-                    u.getFirstName(),
-                    u.getLastName(),
-                    u.getRole()};
-                dtm.addRow(row);
+        try {
+            List<User> list = UserDirectory.getCompanyStaff(user.getCompanyName());
+            
+            dtm.setRowCount(0);
+            
+            for (User u : list) {
+                if (u.getRole().equals(role)) {
+                    Object[] row = {
+                        u.getCompanyName(),
+                        u,
+                        u.getFirstName(),
+                        u.getLastName(),
+                        u.getRole()};
+                    dtm.addRow(row);
+                }
             }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Error on SQL actions: \n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
         }
     }
 

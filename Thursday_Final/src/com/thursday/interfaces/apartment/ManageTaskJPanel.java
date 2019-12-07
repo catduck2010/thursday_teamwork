@@ -41,6 +41,13 @@ public class ManageTaskJPanel extends javax.swing.JPanel {
         populateRequestTable();
         populateSendTable();
     }
+    
+    public void refreshPanel(){
+        loadComboBox();
+        populateTable();
+        populateRequestTable();
+        populateSendTable();
+    }
 
     public void loadComboBox() {
         comboBoxCc.removeAllItems();

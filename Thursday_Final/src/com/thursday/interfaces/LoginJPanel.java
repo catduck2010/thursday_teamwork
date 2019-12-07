@@ -24,7 +24,10 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -38,7 +41,6 @@ public class LoginJPanel extends javax.swing.JPanel {
     /**
      * Creates new form LoginJPanel
      */
-
     private final JPanel rightPanel;
     //private User user;
     static final String TXTPSWD_HINT = "Password";
@@ -287,10 +289,15 @@ public class LoginJPanel extends javax.swing.JPanel {
 
         if (Validator.IsEmpty(pswd)) {
             JOptionPane.showMessageDialog(this, "Please Enter Password", "WARNING", JOptionPane.WARNING_MESSAGE);
-        } else if (usernameTxt.getForeground().equals(Color.LIGHT_GRAY)||Validator.IsEmpty(uname)) {
+        } else if (usernameTxt.getForeground().equals(Color.LIGHT_GRAY) || Validator.IsEmpty(uname)) {
             JOptionPane.showMessageDialog(this, "Please Enter Username", "WARNING", JOptionPane.WARNING_MESSAGE);
         } else {
-            User u = UserDirectory.authenticateUser(usernameTxt.getText(), passwordField.getPassword());
+            User u = null;
+            try {
+                u = UserDirectory.authenticateUser(usernameTxt.getText(), passwordField.getPassword());
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(this, "Error on SQL actions: \n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
+            }
             if (u == null) {
                 JOptionPane.showMessageDialog(this, "Incorrect Username or Password", "WARNING", JOptionPane.WARNING_MESSAGE);
             } else if (u.getRole().equals("SUPERUSER") && u.getUsername().equals("root")) {

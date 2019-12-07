@@ -41,7 +41,10 @@ public class CleaningAdminJPanel extends javax.swing.JPanel {
         populateSendTable();
 
     }
-
+public void refreshPanel(){
+    populateRequestTable();
+        populateSendTable();
+}
     public void populateRequestTable() {
         DefaultTableModel dtm = (DefaultTableModel) tblRequest.getModel();
         dtm.setRowCount(0);
@@ -147,7 +150,7 @@ public class CleaningAdminJPanel extends javax.swing.JPanel {
         int selectedRow = tblRequest.getSelectedRow();
         if (selectedRow >= 0) {
             WorkRequest wr = (WorkRequest) tblRequest.getValueAt(selectedRow, 2);
-            if(wr.getIsRead()){
+            if (wr.getIsRead()) {
                 JOptionPane.showMessageDialog(null, "You already sent this task back!");
                 return;
             }
@@ -185,13 +188,12 @@ public class CleaningAdminJPanel extends javax.swing.JPanel {
                             }
                         }
                         WorkFlow.markAsRead(wr);
-                        if(WorkFlow.createRequest(wr.getTaskId(), wr.getTitle(), wr.getMessage(), admin.getUsername(), adminusername)){
+                        if (WorkFlow.createRequest(wr.getTaskId(), wr.getTitle(), wr.getMessage(), admin.getUsername(), adminusername)) {
                             JOptionPane.showMessageDialog(null, "Send Back Successfully!");
-                        }else{
+                        } else {
                             JOptionPane.showMessageDialog(null, "Send Back Failed!");
                         }
 
-                        
                         populateRequestTable();
                     }
                 }

@@ -11,6 +11,7 @@ import com.thursday.business.identities.User;
 import com.thursday.business.WorkFlow;
 import com.thursday.business.workflow.Task;
 import com.thursday.util.Validator;
+import java.sql.SQLException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
@@ -59,8 +60,12 @@ private void createTask(){
             JOptionPane.showMessageDialog(null, "Remark message can't be empty");
             return;
         }else{
+            try{
              Task t =WorkFlow.createTask(creator, title, message);
             JOptionPane.showMessageDialog(null, "Request is created successfully");
+            }catch (SQLException e){
+                
+            }
             clearAllFields();
         }
   

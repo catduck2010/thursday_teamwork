@@ -9,6 +9,9 @@ import com.thursday.business.WorkFlow;
 import com.thursday.business.identities.User;
 import com.thursday.business.workflow.Task;
 import com.thursday.business.workflow.WorkRequest;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
@@ -36,44 +39,63 @@ public class RepairManManageRequestJPanel extends javax.swing.JPanel {
 
         DefaultTableModel dtm = (DefaultTableModel) tblRequest.getModel();
         dtm.setRowCount(0);
+        try {
+            for (WorkRequest wr : WorkFlow.getReceivedRequest(repairMan.getUsername())) {
 
-        for (WorkRequest wr : WorkFlow.getReceivedRequest(repairMan.getUsername())) {
+                Object row[] = new Object[5];
 
-            Object row[] = new Object[5];
+                row[0] = wr.getIsRead() ? (char) 8730 : " ";
+                row[1] = wr.getTaskId();
+                row[2] = wr;
+                row[3] = wr.getMessage();
+                row[4] = wr.getSender();
 
-            row[0] = wr.getIsRead() ? (char) 8730 : " ";
-            row[1] = wr.getTaskId();
-            row[2] = wr;
-            row[3] = wr.getMessage();
-            row[4] = wr.getSender();
+                dtm.addRow(row);
 
-            dtm.addRow(row);
-
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Error on SQL actions: \n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
         }
     }
 
     public void asRead() {
-
-        int selectedRow = tblRequest.getSelectedRow();
-        if (selectedRow >= 0) {
-            WorkRequest wr = (WorkRequest) tblRequest.getValueAt(selectedRow, 2);
-            if (wr.getIsRead()) {
-                JOptionPane.showMessageDialog(null, "Already read!");
-                return;
-            } else if (WorkFlow.markAsRead(wr)){
-                JOptionPane.showMessageDialog(null, "Set read successfully. Go to work now!");
-                for(Task t : WorkFlow.getAllTasks())
-                {
-                    if(t.getId() == wr.getTaskId()){
-                    String status =Task.Status.WORKING;  
-                    t.setStatus(status);
-                    WorkFlow.updateTask(t);
-                    }
+        try {
+            int count =0;
+            for(WorkRequest wr : WorkFlow.getReceivedRequest(repairMan.getUsername())){
+                if(wr.getIsRead()){
+                    count = count +1;
                 }
             }
-            populateRequestTable();
-        } else {
-            JOptionPane.showMessageDialog(null, "Please select any row");
+            if(count>0){
+                JOptionPane.showMessageDialog(null, "Finished your current task first!");
+                return;
+            }
+            int selectedRow = tblRequest.getSelectedRow();
+            if (selectedRow >= 0) {
+                WorkRequest wr = (WorkRequest) tblRequest.getValueAt(selectedRow, 2);
+                try {
+                    if (wr.getIsRead()) {
+                        JOptionPane.showMessageDialog(null, "Already read!");
+                        return;
+                    } else if (WorkFlow.markAsRead(wr)) {
+                        JOptionPane.showMessageDialog(null, "Set read successfully. Go to work now!");
+                        for (Task t : WorkFlow.getAllTasks()) {
+                            if (t.getId() == wr.getTaskId()) {
+                                String status = Task.Status.WORKING;
+                                t.setStatus(status);
+                                WorkFlow.updateTask(t);
+                            }
+                        }
+                    }
+                } catch (SQLException e) {
+                    JOptionPane.showMessageDialog(this, "Error on SQL actions: \n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
+                }
+                populateRequestTable();
+            } else {
+                JOptionPane.showMessageDialog(null, "Please select any row");
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Error on SQL actions: \n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -87,19 +109,23 @@ public class RepairManManageRequestJPanel extends javax.swing.JPanel {
             }
             int selectionButton = JOptionPane.YES_NO_OPTION;
             int selectionResult = JOptionPane.showConfirmDialog(null, "Are you sure you are finished?", "Warning", selectionButton);
+
             if (selectionResult == JOptionPane.YES_OPTION) {
-                WorkFlow.createRequest(wr.getTaskId(), wr.getTitle(), wr.getMessage(), repairMan.getUsername(), wr.getSender());
-                for(Task t : WorkFlow.getAllTasks())
-                {
-                    if(t.getId() == wr.getTaskId()){
-                    String status =Task.Status.FINISHED;  
-                    t.setStatus(status);
-                    WorkFlow.updateTask(t);
+                try {
+                    WorkFlow.createRequest(wr.getTaskId(), wr.getTitle(), wr.getMessage(), repairMan.getUsername(), wr.getSender());
+                    for (Task t : WorkFlow.getAllTasks()) {
+                        if (t.getId() == wr.getTaskId()) {
+                            String status = Task.Status.FINISHED;
+                            t.setStatus(status);
+                            WorkFlow.updateTask(t);
+                        }
                     }
+                    JOptionPane.showMessageDialog(null, "Set finished successfully");
+                    WorkFlow.withdrawWorkRequest(wr);
+                    populateRequestTable();
+                } catch (SQLException e) {
+                    JOptionPane.showMessageDialog(this, "Error on SQL actions: \n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
                 }
-                JOptionPane.showMessageDialog(null, "Set finished successfully");
-                WorkFlow.withdrawWorkRequest(wr);
-                populateRequestTable();
 
             }
         } else {

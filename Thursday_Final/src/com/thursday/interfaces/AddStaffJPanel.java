@@ -10,6 +10,9 @@ import com.thursday.business.identities.User;
 import com.thursday.util.Validator;
 import java.awt.CardLayout;
 import java.awt.Component;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -62,41 +65,45 @@ public class AddStaffJPanel extends javax.swing.JPanel {
         for (Component comp : rightPanel.getComponents()) {
             if (comp instanceof AdminManageStaffJPanel) {
                 ((AdminManageStaffJPanel) comp).refreshTable();
-                return;
+                break;
             }
         }
     }
 
     private void addStaff() {
-        String fName = txtFName.getText(),
-                lName = txtLName.getText(),
-                username = txtUsername.getText();
-        if (Validator.IsEmpty(username)) {
-            JOptionPane.showMessageDialog(this, "Username cannot be empty!", "Add Staff", JOptionPane.INFORMATION_MESSAGE);
-        } else if (!Validator.IsUsername(username)) {
-            JOptionPane.showMessageDialog(this, "Username should be in the form of letters and numbers!", "Add Staff", JOptionPane.INFORMATION_MESSAGE);
-        } else if (Validator.IsEmpty(lName) || Validator.IsEmpty(fName)) {
-            JOptionPane.showMessageDialog(this, "Either one of the names cannot be empty!", "Add Staff", JOptionPane.INFORMATION_MESSAGE);
-        } else if (UserDirectory.checkUsernameExistance(username)) {
-            JOptionPane.showMessageDialog(this, "Username is used by other people!", "Add Staff", JOptionPane.INFORMATION_MESSAGE);
-        } else if (Validator.IsEmpty(txtPw.getPassword())) {
-            JOptionPane.showMessageDialog(this, "Password cannot be empty!", "Add Staff", JOptionPane.INFORMATION_MESSAGE);
-        } else if (!Validator.IsPassword(txtPw.getPassword())) {
-            JOptionPane.showMessageDialog(this, "Password should be in the form of at least 6 characters, including numbers, special symbols and lowercase and UPPERCASE letters!", "Add Staff", JOptionPane.INFORMATION_MESSAGE);
-        } else if (!Validator.IsSamePassword(txtPw.getPassword(), txtConfirm.getPassword())) {
-            JOptionPane.showMessageDialog(this, "Passwords are not the same!", "Add Staff", JOptionPane.INFORMATION_MESSAGE);
-        } else {
-            boolean result = UserDirectory.isApartmentUser(user)
-                    ? UserDirectory.createApartmentUser(user.getCompanyName(), username, txtPw.getPassword(), fName, lName, role)
-                    : (UserDirectory.isCleaningCompUser(user)
-                    ? UserDirectory.createCleaningCompUser(user.getCompanyName(), username, txtPw.getPassword(), fName, lName, role)
-                    : false);
-            if (result) {
-                JOptionPane.showMessageDialog(this, "User added!", "SUCCESS", JOptionPane.INFORMATION_MESSAGE);
-                clearAllFields();
+        try {
+            String fName = txtFName.getText(),
+                    lName = txtLName.getText(),
+                    username = txtUsername.getText();
+            if (Validator.IsEmpty(username)) {
+                JOptionPane.showMessageDialog(this, "Username cannot be empty!", "Add Staff", JOptionPane.INFORMATION_MESSAGE);
+            } else if (!Validator.IsUsername(username)) {
+                JOptionPane.showMessageDialog(this, "Username should be in the form of letters and numbers!", "Add Staff", JOptionPane.INFORMATION_MESSAGE);
+            } else if (Validator.IsEmpty(lName) || Validator.IsEmpty(fName)) {
+                JOptionPane.showMessageDialog(this, "Either one of the names cannot be empty!", "Add Staff", JOptionPane.INFORMATION_MESSAGE);
+            } else if (UserDirectory.checkUsernameExistance(username)) {
+                JOptionPane.showMessageDialog(this, "Username is used by other people!", "Add Staff", JOptionPane.INFORMATION_MESSAGE);
+            } else if (Validator.IsEmpty(txtPw.getPassword())) {
+                JOptionPane.showMessageDialog(this, "Password cannot be empty!", "Add Staff", JOptionPane.INFORMATION_MESSAGE);
+            } else if (!Validator.IsPassword(txtPw.getPassword())) {
+                JOptionPane.showMessageDialog(this, "Password should be in the form of at least 6 characters, including numbers, special symbols and lowercase and UPPERCASE letters!", "Add Staff", JOptionPane.INFORMATION_MESSAGE);
+            } else if (!Validator.IsSamePassword(txtPw.getPassword(), txtConfirm.getPassword())) {
+                JOptionPane.showMessageDialog(this, "Passwords are not the same!", "Add Staff", JOptionPane.INFORMATION_MESSAGE);
             } else {
-                JOptionPane.showMessageDialog(this, "Failed to add this User!", "FAILURE", JOptionPane.ERROR_MESSAGE);
+                boolean result = UserDirectory.isApartmentUser(user)
+                        ? UserDirectory.createApartmentUser(user.getCompanyName(), username, txtPw.getPassword(), fName, lName, role)
+                        : (UserDirectory.isCleaningCompUser(user)
+                        ? UserDirectory.createCleaningCompUser(user.getCompanyName(), username, txtPw.getPassword(), fName, lName, role)
+                        : false);
+                if (result) {
+                    JOptionPane.showMessageDialog(this, "User added!", "SUCCESS", JOptionPane.INFORMATION_MESSAGE);
+                    clearAllFields();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Failed to add this User!", "FAILURE", JOptionPane.ERROR_MESSAGE);
+                }
             }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Error on SQL actions: \n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
         }
     }
 

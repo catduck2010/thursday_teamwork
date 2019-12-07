@@ -9,6 +9,9 @@ import com.thursday.business.WorkFlow;
 import com.thursday.business.identities.User;
 import com.thursday.business.workflow.Task;
 import com.thursday.business.workflow.WorkRequest;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
@@ -33,20 +36,24 @@ public class ManageMyRequestsJPanel extends javax.swing.JPanel {
     }
 
     public void populateMyTasksTable() {
-        DefaultTableModel dtm = (DefaultTableModel) tblMyTask.getModel();
-        dtm.setRowCount(0);
+        try {
+            DefaultTableModel dtm = (DefaultTableModel) tblMyTask.getModel();
+            dtm.setRowCount(0);
 
-        for (Task t : WorkFlow.getAllTasksOfOneUser(u.getUsername())) {
+            for (Task t : WorkFlow.getAllTasksOfOneUser(u.getUsername())) {
 
-            Object row[] = new Object[6];
-            row[0] = t.getId();
-            row[1] = t;
-            row[2] = t.getMessage();
-            row[3] = t.getCreator();
-            row[4] = t.getCreateTime();
-            row[5] = t.getStatus();
-            dtm.addRow(row);
+                Object row[] = new Object[6];
+                row[0] = t.getId();
+                row[1] = t;
+                row[2] = t.getMessage();
+                row[3] = t.getCreator();
+                row[4] = t.getCreateTime();
+                row[5] = t.getStatus();
+                dtm.addRow(row);
 
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Error on SQL actions: \n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -60,9 +67,13 @@ public class ManageMyRequestsJPanel extends javax.swing.JPanel {
                 int selectionButton = JOptionPane.YES_NO_OPTION;
                 int selectionResult = JOptionPane.showConfirmDialog(null, "Are you sure you want to change task status?", "Warning", selectionButton);
                 if (selectionResult == JOptionPane.YES_OPTION) {
-                    WorkFlow.deleteTask(task);
-                    populateMyTasksTable();
-                    JOptionPane.showMessageDialog(null, "Withdraw task successfully!");
+                    try {
+                        WorkFlow.deleteTask(task);
+                        populateMyTasksTable();
+                        JOptionPane.showMessageDialog(null, "Withdraw task successfully!");
+                    } catch (SQLException e) {
+                        JOptionPane.showMessageDialog(this, "Error on SQL actions: \n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
+                    }
 
                 }
 

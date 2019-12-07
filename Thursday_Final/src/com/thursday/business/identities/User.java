@@ -9,6 +9,7 @@ import com.thursday.business.WorkFlow;
 import com.thursday.business.workflow.Task;
 import com.thursday.util.db.TaskBiz;
 import com.thursday.util.db.WorkRequestBiz;
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -74,11 +75,11 @@ public class User extends AbstractUser {
     }
 
     //database related actions
-    public boolean sendRequest(String toUser, String title, String message, Integer taskId) {
+    public boolean sendRequest(String toUser, String title, String message, Integer taskId) throws SQLException {
         return WorkFlow.createRequest(taskId, title, message, this.getUsername(), toUser);
     }
 
-    public boolean createTask(String toAdmin, String title, String message) {
+    public boolean createTask(String toAdmin, String title, String message) throws SQLException {
         if (!role.equals(ApartmentUser.Roles.RESIDENT)) {
             return false;
             //only residents can create tasks
@@ -87,11 +88,11 @@ public class User extends AbstractUser {
         return (t != null) ? sendRequest(toAdmin, title, message, t.getId()) : false;
     }
 
-    public List getReceivedRequests() {
+    public List getReceivedRequests() throws SQLException {
         return WorkFlow.getReceivedRequest(this.getUsername());
     }
 
-    public List getSentRequests() {
+    public List getSentRequests() throws SQLException {
         return WorkFlow.getSentRequest(this.getUsername());
     }
 

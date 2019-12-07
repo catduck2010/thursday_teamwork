@@ -13,6 +13,10 @@ import com.thursday.business.identities.User;
 import com.thursday.business.workflow.Task;
 import com.thursday.business.workflow.WorkRequest;
 import java.awt.CardLayout;
+import java.awt.Component;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
@@ -40,36 +44,40 @@ public class AssignCleaningTaskJPanel extends javax.swing.JPanel {
 
     public void populateCleaningTable() {
 
-        DefaultTableModel dtm = (DefaultTableModel) tblCleaningman.getModel();
-        dtm.setRowCount(0);
+        try {
+            DefaultTableModel dtm = (DefaultTableModel) tblCleaningman.getModel();
+            dtm.setRowCount(0);
 
-        for (User u : UserDirectory.getCompanyStaff(admin.getCompanyName())) {
+            for (User u : UserDirectory.getCompanyStaff(admin.getCompanyName())) {
 
-            if (u.getRole().equals(CleaningCompUser.Roles.CLEANER)) {
-                Object row[] = new Object[2];
-                row[0] = u;
-                row[1] = u.getUsername();
+                if (u.getRole().equals(CleaningCompUser.Roles.CLEANER)) {
+                    Object row[] = new Object[2];
+                    row[0] = u;
+                    row[1] = u.getUsername();
 
-                dtm.addRow(row);
+                    dtm.addRow(row);
+                }
             }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Error on SQL actions: \n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
         }
     }
 
     public void sendRequest() {
         int selectedRow = tblCleaningman.getSelectedRow();
         if (selectedRow >= 0) {
-            
-            User u = (User)tblCleaningman.getValueAt(selectedRow, 0);
-            WorkFlow.createRequest(wr.getTaskId(), wr.getTitle(), wr.getMessage(),admin.getUsername(),u.getUsername());
-            WorkFlow.markAsRead(wr);
-            JOptionPane.showMessageDialog(null, "Send Cleaning Task Request Successfully!");
-            
-            CardLayout layout =(CardLayout)this.rightPanel.getLayout();
-            this.rightPanel.remove(this);
-            layout.previous(this.rightPanel);
+
+            try {
+                User u = (User) tblCleaningman.getValueAt(selectedRow, 0);
+                WorkFlow.createRequest(wr.getTaskId(), wr.getTitle(), wr.getMessage(), admin.getUsername(), u.getUsername());
+                WorkFlow.markAsRead(wr);
+                JOptionPane.showMessageDialog(null, "Send Cleaning Task Request Successfully!");
+
+                goBack();
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(this, "Error on SQL actions: \n" + e, "ERROR", JOptionPane.ERROR_MESSAGE);
             }
-        
-        else {
+        } else {
             JOptionPane.showMessageDialog(null, "Please select any row");
         }
     }
@@ -78,6 +86,12 @@ public class AssignCleaningTaskJPanel extends javax.swing.JPanel {
         CardLayout layout = (CardLayout) this.rightPanel.getLayout();
         this.rightPanel.remove(this);
         layout.previous(this.rightPanel);
+        for (Component comp : this.rightPanel.getComponents()) {
+            if (comp instanceof CleaningAdminJPanel) {
+                ((CleaningAdminJPanel) comp).refreshPanel();
+                break;
+            }
+        }
     }
 
     /**
