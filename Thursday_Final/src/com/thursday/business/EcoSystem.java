@@ -20,12 +20,12 @@ public class EcoSystem extends AbstractEcoSystem {
     private static User currentUser;
     private static boolean loggedIn = false;
     private static MainFrame mainFrame;
-    private static javax.swing.plaf.FontUIResource macFontUIResource
+    private final static javax.swing.plaf.FontUIResource macFontUIResource
             = new javax.swing.plaf.FontUIResource(
                     ".AppleSystemUIFont",
                     Font.PLAIN,
                     13);
-    private static javax.swing.plaf.FontUIResource winFontUIResource
+    private final static javax.swing.plaf.FontUIResource winFontUIResource
             = new javax.swing.plaf.FontUIResource(
                     "Microsoft Yahei UI",
                     Font.PLAIN,

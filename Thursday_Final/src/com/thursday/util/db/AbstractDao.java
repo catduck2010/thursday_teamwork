@@ -4,6 +4,8 @@ import java.util.List;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Connection;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.apache.commons.dbutils.DbUtils;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanHandler;
@@ -89,6 +91,25 @@ public abstract class AbstractDao {
             e.printStackTrace();
         } finally {
             DbUtils.closeQuietly(conn);
+        }
+        return flag;
+    }
+
+    public boolean commit(String sqls[], Object[][] params) {
+        boolean flag = false;
+        try {
+            conn = getConnection();
+            conn.setAutoCommit(false);
+            QueryRunner qRunner = new QueryRunner();
+            int i = 0;
+            for (String sql : sqls) {
+                qRunner.update(conn, sql, params[i++]);
+            }
+            DbUtils.commitAndCloseQuietly(conn);
+            flag = true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            DbUtils.rollbackAndCloseQuietly(conn);
         }
         return flag;
     }
@@ -188,11 +209,5 @@ public abstract class AbstractDao {
         }
         return obj;
     }
+
 }
-
-
-
-
-
-
-

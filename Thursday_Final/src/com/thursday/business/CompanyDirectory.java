@@ -62,6 +62,15 @@ public class CompanyDirectory {
         return CompanyBiz.getCompany(name);
     }
 
+    public static boolean deleteCompany(String name) {
+        Company c = CompanyBiz.getCompany(name);
+        return c == null ? false : CompanyBiz.hardDelete(c);
+    }
+
+    public static boolean updateCompany(Company c) {
+        return CompanyBiz.update(c);
+    }
+
     public static List<Company> getApartments() {
         return CompanyBiz.getApartments();
     }
@@ -73,7 +82,7 @@ public class CompanyDirectory {
     public static List<Company> getAllCompanies() {
         return CompanyBiz.getAllCompanies();
     }
-    
+
     public static boolean checkCompanyExistance(String name) {
         return getCompany(name) != null;
     }
