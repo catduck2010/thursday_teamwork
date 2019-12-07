@@ -22,7 +22,7 @@ public class EcoSystem extends AbstractEcoSystem {
     private static MainFrame mainFrame;
     private static javax.swing.plaf.FontUIResource macFontUIResource
             = new javax.swing.plaf.FontUIResource(
-                    "SF Pro Text",
+                    ".AppleSystemUIFont",
                     Font.PLAIN,
                     13);
     private static javax.swing.plaf.FontUIResource winFontUIResource
