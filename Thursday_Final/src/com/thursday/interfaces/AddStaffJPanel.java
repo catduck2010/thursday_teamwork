@@ -48,10 +48,11 @@ public class AddStaffJPanel extends javax.swing.JPanel {
         this.txtUsername.setText("");
     }
 
-    private void loadUserInfo(){
-        
+    private void loadUserInfo() {
+
     }
-            private void goBack() {
+
+    private void goBack() {
         CardLayout layout = (CardLayout) this.rightPanel.getLayout();
         this.rightPanel.remove(this);
         layout.previous(this.rightPanel);

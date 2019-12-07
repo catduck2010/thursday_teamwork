@@ -11,6 +11,7 @@ import com.thursday.util.db.UserBiz;
 import com.thursday.business.identities.CleaningCompUser;
 import com.thursday.business.identities.User;
 import java.awt.CardLayout;
+import java.awt.Font;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -34,8 +35,11 @@ public class MainFrame extends javax.swing.JFrame {
     private int loginPressTime = 0;
 
     public MainFrame() {
+        EcoSystem.setUIFont();
         initComponents();
         EcoSystem.setMainFrame(this);
+        
+        System.out.println(System.getProperty("os.name"));
         this.rightPanel.setLayout(new CardLayout());
         //this.apartment = apartment;
     }
@@ -69,9 +73,9 @@ public class MainFrame extends javax.swing.JFrame {
         }
         layout.first(rightPanel);
     }
-    
-    public void resetPressTime(){
-        this.loginPressTime=0;
+
+    public void resetPressTime() {
+        this.loginPressTime = 0;
     }
 
     /**
@@ -92,10 +96,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        loginBtn.setBackground(new java.awt.Color(255, 255, 255));
-        loginBtn.setFont(new java.awt.Font("Microsoft JhengHei", 0, 24)); // NOI18N
         loginBtn.setText("Login");
-        loginBtn.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         loginBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 loginBtnActionPerformed(evt);
@@ -103,9 +104,7 @@ public class MainFrame extends javax.swing.JFrame {
         });
 
         exitBtn.setBackground(new java.awt.Color(255, 255, 255));
-        exitBtn.setFont(new java.awt.Font("Microsoft JhengHei", 0, 24)); // NOI18N
         exitBtn.setText("Exit");
-        exitBtn.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         exitBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 exitBtnActionPerformed(evt);
@@ -116,17 +115,21 @@ public class MainFrame extends javax.swing.JFrame {
         leftPanel.setLayout(leftPanelLayout);
         leftPanelLayout.setHorizontalGroup(
             leftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(loginBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-            .addComponent(exitBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(leftPanelLayout.createSequentialGroup()
+                .addContainerGap(30, Short.MAX_VALUE)
+                .addGroup(leftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(exitBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(loginBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
         leftPanelLayout.setVerticalGroup(
             leftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(leftPanelLayout.createSequentialGroup()
-                .addGap(70, 70, 70)
+                .addContainerGap()
                 .addComponent(loginBtn)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 496, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 589, Short.MAX_VALUE)
                 .addComponent(exitBtn)
-                .addGap(29, 29, 29))
+                .addContainerGap())
         );
 
         jSplitPane1.setLeftComponent(leftPanel);

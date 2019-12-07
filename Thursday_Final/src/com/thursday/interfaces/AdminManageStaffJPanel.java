@@ -40,16 +40,20 @@ public class AdminManageStaffJPanel extends javax.swing.JPanel {
         this.user = u;
         this.dtm = (DefaultTableModel) jTable1.getModel();
         this.role = role;
-        this.lblTitle.setText("Manage "+capitalizeFirstChar(role.toLowerCase())
-                +" Users");
+        this.lblTitle.setText("Manage " + capitalizeFirstChar(role.toLowerCase())
+                + " Users");
         loadTable();
     }
 
     private String capitalizeFirstChar(String str) {
-        // 进行字母的ascii编码前移，效率要高于截取字符串进行转换的操作
+        str = " " + str;
         char[] cs = str.toCharArray();
-        cs[0] -= 32;
-        return String.valueOf(cs);
+        for (int i = 1; i < cs.length; i++) {
+            if(cs[i-1]==' '&&cs[i]!=' '){
+                cs[i] -= 32;
+            }
+        }
+        return String.valueOf(cs).trim();
     }
 
     private boolean deleteStaff(int tableIndex) {
@@ -123,8 +127,6 @@ public class AdminManageStaffJPanel extends javax.swing.JPanel {
         btnGoBack = new javax.swing.JButton();
         lblTitle = new javax.swing.JLabel();
 
-        jTable1.setBackground(new java.awt.Color(153, 153, 255));
-        jTable1.setFont(new java.awt.Font("Microsoft JhengHei", 0, 18)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -143,7 +145,7 @@ public class AdminManageStaffJPanel extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(jTable1);
 
-        addBtn.setFont(new java.awt.Font("Microsoft JhengHei", 0, 20)); // NOI18N
+        addBtn.setFont(addBtn.getFont());
         addBtn.setText("+Add");
         addBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -151,7 +153,7 @@ public class AdminManageStaffJPanel extends javax.swing.JPanel {
             }
         });
 
-        deleteBtn.setFont(new java.awt.Font("Microsoft JhengHei", 0, 20)); // NOI18N
+        deleteBtn.setFont(deleteBtn.getFont());
         deleteBtn.setText("-Delete");
         deleteBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -159,7 +161,7 @@ public class AdminManageStaffJPanel extends javax.swing.JPanel {
             }
         });
 
-        updateBtn.setFont(new java.awt.Font("Microsoft JhengHei", 0, 20)); // NOI18N
+        updateBtn.setFont(updateBtn.getFont());
         updateBtn.setText("Update");
         updateBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -167,7 +169,7 @@ public class AdminManageStaffJPanel extends javax.swing.JPanel {
             }
         });
 
-        refreshBtn.setFont(new java.awt.Font("Microsoft JhengHei", 0, 20)); // NOI18N
+        refreshBtn.setFont(refreshBtn.getFont());
         refreshBtn.setText("Refresh");
         refreshBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -222,7 +224,7 @@ public class AdminManageStaffJPanel extends javax.swing.JPanel {
                         .addComponent(btnGoBack)
                         .addComponent(lblTitle)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 444, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 448, Short.MAX_VALUE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
