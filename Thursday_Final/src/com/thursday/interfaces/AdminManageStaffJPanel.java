@@ -7,8 +7,6 @@ package com.thursday.interfaces;
 
 import com.thursday.business.UserDirectory;
 import com.thursday.business.WorkFlow;
-import com.thursday.business.enterprise.ApartmentList;
-import com.thursday.business.identities.ApartmentUser;
 import com.thursday.business.identities.User;
 import com.thursday.business.workflow.Task;
 import com.thursday.business.workflow.WorkRequest;
@@ -42,8 +40,16 @@ public class AdminManageStaffJPanel extends javax.swing.JPanel {
         this.user = u;
         this.dtm = (DefaultTableModel) jTable1.getModel();
         this.role = role;
-        this.jLabel1.setText("MANAGE " + role + "S");
+        this.lblTitle.setText("Manage "+capitalizeFirstChar(role.toLowerCase())
+                +" Users");
         loadTable();
+    }
+
+    private String capitalizeFirstChar(String str) {
+        // 进行字母的ascii编码前移，效率要高于截取字符串进行转换的操作
+        char[] cs = str.toCharArray();
+        cs[0] -= 32;
+        return String.valueOf(cs);
     }
 
     private boolean deleteStaff(int tableIndex) {
@@ -108,16 +114,14 @@ public class AdminManageStaffJPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         addBtn = new javax.swing.JButton();
         deleteBtn = new javax.swing.JButton();
         updateBtn = new javax.swing.JButton();
         refreshBtn = new javax.swing.JButton();
-
-        jLabel1.setFont(new java.awt.Font("Microsoft JhengHei", 0, 24)); // NOI18N
-        jLabel1.setText("Staff List");
+        btnGoBack = new javax.swing.JButton();
+        lblTitle = new javax.swing.JLabel();
 
         jTable1.setBackground(new java.awt.Color(153, 153, 255));
         jTable1.setFont(new java.awt.Font("Microsoft JhengHei", 0, 18)); // NOI18N
@@ -171,38 +175,54 @@ public class AdminManageStaffJPanel extends javax.swing.JPanel {
             }
         });
 
+        btnGoBack.setText("←");
+        btnGoBack.setEnabled(false);
+        btnGoBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGoBackActionPerformed(evt);
+            }
+        });
+
+        lblTitle.setText("Manage Users");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addContainerGap()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 826, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnGoBack, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblTitle)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(addBtn)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(deleteBtn)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(updateBtn)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(refreshBtn))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 826, Short.MAX_VALUE))
+                        .addComponent(refreshBtn)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(updateBtn)
-                    .addComponent(deleteBtn)
-                    .addComponent(addBtn)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(refreshBtn))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(updateBtn)
+                        .addComponent(deleteBtn)
+                        .addComponent(addBtn)
+                        .addComponent(refreshBtn))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnGoBack)
+                        .addComponent(lblTitle)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 444, Short.MAX_VALUE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -250,13 +270,21 @@ public class AdminManageStaffJPanel extends javax.swing.JPanel {
         loadTable();
     }//GEN-LAST:event_refreshBtnActionPerformed
 
+    private void btnGoBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGoBackActionPerformed
+        // TODO add your handling code here:
+        CardLayout layout = (CardLayout) this.rightPanel.getLayout();
+        this.rightPanel.remove(this);
+        layout.previous(this.rightPanel);
+    }//GEN-LAST:event_btnGoBackActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addBtn;
+    private javax.swing.JButton btnGoBack;
     private javax.swing.JButton deleteBtn;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JLabel lblTitle;
     private javax.swing.JButton refreshBtn;
     private javax.swing.JButton updateBtn;
     // End of variables declaration//GEN-END:variables

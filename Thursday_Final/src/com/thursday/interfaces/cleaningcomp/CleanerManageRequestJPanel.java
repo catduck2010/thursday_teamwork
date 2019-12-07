@@ -8,6 +8,7 @@ package com.thursday.interfaces.cleaningcomp;
 import com.thursday.business.WorkFlow;
 import com.thursday.business.identities.User;
 import com.thursday.business.workflow.WorkRequest;
+import java.awt.CardLayout;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
@@ -59,7 +60,7 @@ public class CleanerManageRequestJPanel extends javax.swing.JPanel {
             if (wr.getIsRead()) {
                 JOptionPane.showMessageDialog(null, "Already read!");
                 return;
-            } else if (WorkFlow.markAsRead(wr)){
+            } else if (WorkFlow.markAsRead(wr)) {
                 JOptionPane.showMessageDialog(null, "Set read successfully. Go to work now!");
             }
             populateRequestTable();
@@ -103,6 +104,8 @@ public class CleanerManageRequestJPanel extends javax.swing.JPanel {
         btnRead = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         btnRefresh = new javax.swing.JButton();
+        btnGoBack = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         tblRequest.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -146,34 +149,51 @@ public class CleanerManageRequestJPanel extends javax.swing.JPanel {
             }
         });
 
+        btnGoBack.setText("←");
+        btnGoBack.setEnabled(false);
+        btnGoBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGoBackActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("Manage Requests");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(68, 68, 68)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 513, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(89, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(113, 113, 113)
-                .addComponent(btnRead)
-                .addGap(40, 40, 40)
-                .addComponent(jButton1)
+                .addComponent(btnGoBack, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnRefresh)
-                .addGap(52, 52, 52))
+                .addComponent(btnRefresh))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 658, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(btnRead)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton1))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(50, 50, 50)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnRead)
-                    .addComponent(jButton1)
+                    .addComponent(btnGoBack)
+                    .addComponent(jLabel1)
                     .addComponent(btnRefresh))
-                .addContainerGap(213, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(btnRead))
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -192,11 +212,20 @@ public class CleanerManageRequestJPanel extends javax.swing.JPanel {
         populateRequestTable();
     }//GEN-LAST:event_btnRefreshActionPerformed
 
+    private void btnGoBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGoBackActionPerformed
+        // TODO add your handling code here:
+        CardLayout layout = (CardLayout) this.rightPanel.getLayout();
+        this.rightPanel.remove(this);
+        layout.previous(this.rightPanel);
+    }//GEN-LAST:event_btnGoBackActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnGoBack;
     private javax.swing.JButton btnRead;
     private javax.swing.JButton btnRefresh;
     private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblRequest;
     // End of variables declaration//GEN-END:variables

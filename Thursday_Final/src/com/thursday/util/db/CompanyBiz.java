@@ -5,8 +5,8 @@
  */
 package com.thursday.util.db;
 
-import com.thursday.business.enterprise.Company;
-import com.thursday.business.enterprise.Company;
+import com.thursday.business.Company;
+import com.thursday.business.Company;
 import com.thursday.util.db.Dao;
 import java.util.List;
 

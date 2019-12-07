@@ -5,7 +5,6 @@
  */
 package com.thursday.business;
 
-import com.thursday.business.enterprise.Company;
 import com.thursday.business.identities.ApartmentUser;
 import com.thursday.business.identities.CleaningCompUser;
 import com.thursday.business.identities.User;

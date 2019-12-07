@@ -6,7 +6,7 @@
 package com.thursday.interfaces;
 
 import com.thursday.business.CompanyDirectory;
-import com.thursday.business.enterprise.Company;
+import com.thursday.business.Company;
 import java.awt.CardLayout;
 import java.util.ArrayList;
 import javax.swing.JPanel;
