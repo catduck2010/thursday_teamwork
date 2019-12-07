@@ -11,6 +11,7 @@ import com.thursday.business.identities.ApartmentUser;
 import com.thursday.business.identities.User;
 import com.thursday.business.workflow.Task;
 import com.thursday.business.workflow.WorkRequest;
+import java.awt.CardLayout;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
@@ -61,6 +62,11 @@ public class AssignRepairTaskJPanel extends javax.swing.JPanel {
             User u = (User)tblRepairman.getValueAt(selectedRow, 0);
             WorkFlow.createRequest(task.getId(), task.getTitle(), task.getMessage(),admin.getUsername(),u.getUsername());
             JOptionPane.showMessageDialog(null, "Send Repair Task Request Successfully!");
+            
+            
+            CardLayout layout =(CardLayout)this.rightPanel.getLayout();
+            this.rightPanel.remove(this);
+            layout.previous(this.rightPanel);
             }
         
         else {

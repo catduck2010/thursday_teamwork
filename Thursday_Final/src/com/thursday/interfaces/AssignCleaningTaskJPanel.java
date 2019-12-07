@@ -12,6 +12,7 @@ import com.thursday.business.identities.CleaningCompUser;
 import com.thursday.business.identities.User;
 import com.thursday.business.workflow.Task;
 import com.thursday.business.workflow.WorkRequest;
+import java.awt.CardLayout;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
@@ -60,6 +61,10 @@ public class AssignCleaningTaskJPanel extends javax.swing.JPanel {
             WorkFlow.createRequest(wr.getTaskId(), wr.getTitle(), wr.getMessage(),admin.getUsername(),u.getUsername());
             WorkFlow.markAsRead(wr);
             JOptionPane.showMessageDialog(null, "Send Cleaning Task Request Successfully!");
+            
+            CardLayout layout =(CardLayout)this.rightPanel.getLayout();
+            this.rightPanel.remove(this);
+            layout.previous(this.rightPanel);
             }
         
         else {
