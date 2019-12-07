@@ -103,7 +103,7 @@ public class CreateCompJPanel extends javax.swing.JPanel {
             }
         });
 
-        createBtn.setText("Create");
+        createBtn.setText("Confirm");
         createBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 createBtnActionPerformed(evt);
