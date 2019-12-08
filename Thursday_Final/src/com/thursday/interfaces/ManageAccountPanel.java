@@ -239,11 +239,9 @@ public class ManageAccountPanel extends JPanel {
         for (Component comp : rightPanel.getComponents()) {
             if (comp instanceof AdminManageStaffJPanel) {
                 ((AdminManageStaffJPanel) comp).refreshTable();
-                return;
             }
             if (comp instanceof RootJPanel) {
                 ((RootJPanel) comp).refreshTable();
-                return;
             }
         }
     }

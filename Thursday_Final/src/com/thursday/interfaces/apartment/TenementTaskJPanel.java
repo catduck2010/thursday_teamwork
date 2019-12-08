@@ -114,7 +114,7 @@ private void createTask(){
         jLabel4.setText("Task Type:");
 
         taskComboBox1.setFont(taskComboBox1.getFont());
-        taskComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Repair", "Cleaning", "" }));
+        taskComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Repair", "Cleaning" }));
 
         jLabel5.setText("Remark");
 

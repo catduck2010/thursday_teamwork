@@ -97,6 +97,7 @@ public class CreateCompJPanel extends javax.swing.JPanel {
         cleaningCompanyRBtn.setText("Cleaning company");
 
         buttonGroup1.add(apartmentRBtn);
+        apartmentRBtn.setSelected(true);
         apartmentRBtn.setText("Apartment");
         apartmentRBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

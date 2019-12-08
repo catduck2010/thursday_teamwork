@@ -41,10 +41,12 @@ public class CleaningAdminJPanel extends javax.swing.JPanel {
         populateSendTable();
 
     }
-public void refreshPanel(){
-    populateRequestTable();
+
+    public void refreshPanel() {
+        populateRequestTable();
         populateSendTable();
-}
+    }
+
     public void populateRequestTable() {
         DefaultTableModel dtm = (DefaultTableModel) tblRequest.getModel();
         dtm.setRowCount(0);
@@ -150,10 +152,7 @@ public void refreshPanel(){
         int selectedRow = tblRequest.getSelectedRow();
         if (selectedRow >= 0) {
             WorkRequest wr = (WorkRequest) tblRequest.getValueAt(selectedRow, 2);
-            if (wr.getIsRead()) {
-                JOptionPane.showMessageDialog(null, "You already sent this task back!");
-                return;
-            }
+
             try {
                 for (User u : UserDirectory.getCompanyStaff(admin.getCompanyName())) {
 
@@ -165,6 +164,11 @@ public void refreshPanel(){
 
                 if (validation == false) {
                     JOptionPane.showMessageDialog(null, "please select request from cleaner!");
+                    return;
+                }
+                if (wr.getIsRead()) {
+                    JOptionPane.showMessageDialog(null, "You already sent this task back!");
+                    return;
                 } else {
                     int selectionButton = JOptionPane.YES_NO_OPTION;
                     int selectionResult = JOptionPane.showConfirmDialog(null, "Are you sure you want to send the feedback?", "Warning", selectionButton);
@@ -217,14 +221,14 @@ public void refreshPanel(){
 
         btnRefresh = new javax.swing.JButton();
         jTabbedPane1 = new javax.swing.JTabbedPane();
-        SendBoxJPanel = new javax.swing.JPanel();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        tblSend = new javax.swing.JTable();
         receiveBoxJPanel = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         tblRequest = new javax.swing.JTable();
         btnSendCleaningRequest = new javax.swing.JButton();
         btnSendback = new javax.swing.JButton();
+        SendBoxJPanel = new javax.swing.JPanel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        tblSend = new javax.swing.JTable();
         btnGoBack = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
@@ -234,46 +238,6 @@ public void refreshPanel(){
                 btnRefreshActionPerformed(evt);
             }
         });
-
-        tblSend.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
-            },
-            new String [] {
-                "Read Status", "Task Id", "Task Title", "Task Message", "Receiver"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane4.setViewportView(tblSend);
-
-        javax.swing.GroupLayout SendBoxJPanelLayout = new javax.swing.GroupLayout(SendBoxJPanel);
-        SendBoxJPanel.setLayout(SendBoxJPanelLayout);
-        SendBoxJPanelLayout.setHorizontalGroup(
-            SendBoxJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(SendBoxJPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 660, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        SendBoxJPanelLayout.setVerticalGroup(
-            SendBoxJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(SendBoxJPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 264, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
-        jTabbedPane1.addTab("Sent ", SendBoxJPanel);
 
         tblRequest.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -338,6 +302,46 @@ public void refreshPanel(){
         );
 
         jTabbedPane1.addTab("Inbox", receiveBoxJPanel);
+
+        tblSend.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Read Status", "Task Id", "Task Title", "Task Message", "Receiver"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane4.setViewportView(tblSend);
+
+        javax.swing.GroupLayout SendBoxJPanelLayout = new javax.swing.GroupLayout(SendBoxJPanel);
+        SendBoxJPanel.setLayout(SendBoxJPanelLayout);
+        SendBoxJPanelLayout.setHorizontalGroup(
+            SendBoxJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(SendBoxJPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 660, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        SendBoxJPanelLayout.setVerticalGroup(
+            SendBoxJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(SendBoxJPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 264, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        jTabbedPane1.addTab("Sent ", SendBoxJPanel);
 
         btnGoBack.setText("←");
         btnGoBack.setEnabled(false);
